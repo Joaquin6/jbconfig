@@ -1,0 +1,382 @@
+handleAddPath () {
+	# My check to make sure the new node path is added to the PATH variable
+	if [[ "$PATH" != *"$1"* ]]; then
+	    export PATH="$1:$PATH"
+	fi
+}
+
+#   CONFIGURATION VARIABLES
+#   -------------------------------
+
+PYTHON_VERSION="2.7.14"
+RUBY_VERSION="2.3.1p112"
+
+USER_BIN=/usr/bin
+USER_LOCAL=/usr/local
+USER_LOCAL_BIN=$USER_LOCAL/bin
+USER_LOCAL_LIB=$USER_LOCAL/lib
+USER_LOCAL_OPT=$USER_LOCAL/opt
+USER_BIN_PATH=/bin:/sbin:/usr/sbin:$USER_BIN:$USER_LOCAL_BIN
+# XDG_CONFIG_HOME=$HOME_LIB_PATH/Python/$PYTHON_VERSION/lib/python/site-packages/powerline
+
+export MONO_GAC_PREFIX=$USER_LOCAL
+export NVM_DIR=$HOME/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# If you come from bash you might have to change your $PATH.
+handleAddPath /bin
+handleAddPath /usr/lib/x86_64-linux-gnu
+handleAddPath /usr/local/bin
+handleAddPath /usr/local/opt/gettext/bin
+handleAddPath /usr/local/opt/llvm/bin
+handleAddPath /usr/local/opt/apr/bin
+handleAddPath /usr/local/opt/apr-util/bin
+handleAddPath /usr/local/opt/icu4c/bin
+handleAddPath /usr/local/opt/icu4c/sbin
+handleAddPath /usr/local/opt/libpq/bin
+handleAddPath /usr/local/opt/coreutils/libexec/gnubin
+handleAddPath /usr/local/opt/sqlite/bin
+
+handleAddPath /home/linuxbrew/.linuxbrew/bin
+handleAddPath $HOME/.config/sublime-text-3/Packages/User/linters
+handleAddPath $HOME/.config/sublime-text-3/Packages/User/SublimeLinter/lint
+handleAddPath "/opt/yarn-$(yarn --version)/bin"
+handleAddPath $(yarn global bin)
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+else if [[ "$OSTYPE" == linux-gnu ]]; then
+  export BROWSER='xdg-open'
+fi
+
+export XDG_DATA_DIRS=/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+export ZSHA_BASE=$HOME/.antigen
+export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
+export WORKON_HOME=$HOME/.virtualenvs
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+export ADOTDIR=$ZSHA_BASE
+export LDFLAGS=(-L/usr/local/opt/{gettext,llvm,icu4c,libpq,sqlite}/lib)
+export CPPFLAGS=(-I/usr/local/opt/{gettext,llvm,icu4c,libpq,sqlite}/include)
+export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
+export PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=/usr/local/opt/libpq/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=/usr/local/opt/sqlite/lib/pkgconfig:$PKG_CONFIG_PATH
+export SSH_KEY_PATH=$HOME/.ssh/id_rsa
+export BROWSER=xdg-open
+
+export GOPATH=$HOME/projects/go
+handleAddPath $(go env GOPATH)/bin
+handleAddPath /usr/local/opt/go/libexec/bin
+
+# Editors
+export EDITOR='/usr/bin/subl -w'
+export VISUAL='nano'
+export PAGER='less'
+
+# Language
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi
+
+# Paths
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+# Set the list of directories that cd searches.
+cdpath=(
+  $cdpath
+)
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  $path
+)
+
+fpath=(
+	$HOME/.config/completion
+	/usr/local/etc/bash_completion.d
+	/usr/local/share/zsh-completions
+	/usr/local/share/zsh/site-functions
+	$fpath
+)
+
+#  rm -f ~/.zcompdump; compinit
+#  chmod go-w '/usr/local/share'
+
+# Less
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-g -i -M -R -S -w -z-4'
+# export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+	if [[ "$OSTYPE" == darwin* ]]; then
+		# echo "------- DARWIN SYSTEM --------"
+		export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+	else
+		# echo "------- NON-DARWIN SYSTEM --------"
+		export LESSOPEN="|/usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+	fi
+fi
+
+export ZSH=$HOME/.oh-my-zsh 						# Path to your oh-my-zsh installation.
+export ZSH_CUSTOM=$ZSH/custom
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
+
+ZSH_THEME="spaceship"
+
+# Time
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+# POWERLEVEL9K_MODE="awesome-fontconfig"
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+# for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
+
+source $HOME/.local/share/fonts/*.sh
+source $HOME/antigen/antigen.zsh
+source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="spaceship"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
+antigen bundles <<EOBUNDLES
+	aws
+	autoenv
+	archlinux
+	battery
+	command-not-found
+	dotenv
+	history
+	history-substring-search
+	iterm2
+	extract
+	git
+	git-prompt
+	profile
+	brew
+	zsh-brew-services
+	ssh-agent
+	ruby
+	gem
+	rbenv
+	rsync
+	sublime
+	terminalapp
+	tmux
+	node
+	npm
+	npx
+	nvm
+	go
+	golang
+	jira
+	jsontools
+	postgres
+	profiles
+	sudo
+	yarn
+	yum
+	man
+	nanoc
+	xcode
+	z
+	zsh_reload
+	zsh-navigation-tools
+
+	# Python Plugins
+	pip
+	python
+	pyenv
+	pylint
+	virtualenv
+	postgres
+
+	# OS specific plugins
+	cygwin
+	debian
+	ubuntu
+	gnu-utils
+	compleat
+	osx
+
+	archlinux
+	systemadmin
+	systemd
+EOBUNDLES
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting 		# https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search 	# https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
+antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
+antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
+# antigen bundle bhilburn/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
+
+# Suuply the theme
+antigen theme spaceship
+# Tell antigen that you're done.
+antigen apply
+
+# User configuration
+# Specify which highlighters should be active
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+# Customise autosuggestion color
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+
+# User configuration
+
+handleAddPath "$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH"
+export MANPATH=/usr/local/man:$MANPATH
+export MANPATH="$(brew --prefix)/share/man:$MANPATH"
+export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
+
+autoload -Uz compinit && compinit -i
+
+# if docker is present, configure it for use
+if which docker &> /dev/null; then
+	# enable shims and auto-completion
+	if [ -d $HOME/.config/completion ]; then
+		if [ ! -f $HOME/.config/completion/_docker ]; then
+			curl -fLo $HOME/.config/completion/_docker "https://raw.github.com/felixr/docker-zsh-completion/master/_docker"
+		fi
+	fi
+fi
+
+# if docker-compose is present, configure it for use
+if which docker-compose &> /dev/null; then
+	# enable shims and auto-completion
+	if [ -d $HOME/.config/completion ]; then
+		if [ ! -f $HOME/.config/completion/_docker-compose ]; then
+			curl -fLo $HOME/.config/completion/_docker-compose "https://raw.githubusercontent.com/sdurrheimer/docker-compose-zsh-completion/master/_docker-compose"
+		fi
+	fi
+fi
+
+# if rbenv is present, configure it for use
+if which rbenv &> /dev/null; then
+	# enable shims and auto-completion
+	if [ -d $HOME/.rbenv ]; then
+		# Put the rbenv entry at the front of the line
+	  	export PATH=$HOME/.rbenv/bin:$PATH
+		eval "$(rbenv init -)"
+	fi
+fi
+
+# If phpbrew is installed include the source
+if [ -d $HOME/.phpbrew ]; then
+  source $HOME/.phpbrew/bashrc
+fi
+
+if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
+  source $USER_LOCAL_BIN/virtualenvwrapper.sh
+  export WORKON_HOME=$HOME/Code/VirtualEnvs
+fi
+
+if [ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]; then
+  source $USER_LOCAL_BIN/aws_zsh_completer.sh
+fi
+
+if [ -f /usr/local/etc/bash_completion.d ]; then
+	. /usr/local/etc/bash_completion.d
+fi
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+export ARCHFLAGS="-arch x86_64"
+
+source $HOME/.zsh_aliases
+source $HOME/.zsh_functions
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+
+  handleAddPath "$NVM_DIR/versions/node/$(nvm version)/bin"
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
