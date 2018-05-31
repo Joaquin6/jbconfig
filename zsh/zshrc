@@ -52,7 +52,7 @@ else
 fi
 
 export JB_CONFIG_PATH=$HOME/.jbconfig
-export BOOKMARKS_FILE=$JB_CONFIG_PATH/zsh/.bookmarks
+export BOOKMARKS_FILE=$JB_CONFIG_PATH/zsh/bookmarks
 export XDG_DATA_DIRS=/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export ZSHA_BASE=$HOME/.antigen
@@ -372,8 +372,8 @@ fi
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
-source $HOME/.zsh_aliases
-source $HOME/.zsh_functions
+source $JB_CONFIG_PATH/zsh/zsh_aliases
+source $JB_CONFIG_PATH/zsh/zsh_functions
 
 # place this after nvm initialization!
 autoload -U add-zsh-hook
