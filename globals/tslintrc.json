@@ -1,0 +1,31 @@
+{
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "interface-over-type-literal": false,
+        "no-bitwise": false,
+        "jsx-wrap-multiline": false, // this seemed to conflict with jsx-no-multiline-js
+        "no-submodule-imports": false, // required for importing submodule css
+        "jsx-no-multiline-js": false, // couldn't understand the issue
+        "prefer-for-of": false, // regular for loops are faster...
+        "quotemark": [
+            true,
+            "single",
+            "jsx-double"
+        ],
+        "no-var-requires": false,
+        "object-literal-key-quotes": [
+            true,
+            "as-needed"
+        ],
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "no-console": false,
+        "no-empty": false,
+        "no-implicit-dependencies": false, // Allow to import from dev dependencies
+        "member-access": false
+    }
+
+}
