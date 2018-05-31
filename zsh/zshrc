@@ -64,7 +64,8 @@ export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
 export PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH=/usr/local/opt/libpq/lib/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH=/usr/local/opt/sqlite/lib/pkgconfig:$PKG_CONFIG_PATH
-export SSH_KEY_PATH=$HOME/.ssh/id_rsa
+export SSH_KEY_PATH=$HOME/.ssh
+export SSH_ENV=$SSH_KEY_PATH/environment
 
 export GOPATH=$HOME/projects/go
 handleAddPath $(go env GOPATH)/bin
@@ -337,6 +338,26 @@ fi
 
 if [ -f /usr/local/etc/bash_completion.d ]; then
 	. /usr/local/etc/bash_completion.d
+fi
+
+# start the ssh-agent
+function start_agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add
+}
+
+if [ -f "${SSH_ENV}" ]; then
+     . "${SSH_ENV}" > /dev/null
+     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
 fi
 
 # You may need to manually set your language environment

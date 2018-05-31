@@ -1,35 +1,17 @@
 {
+    "bashBeautify.tabSize": 4,
     "dateTime.showAMPM": true,
     "dateTime.showDayOfMonth": true,
     "dateTime.showDayOfWeek": true,
     "dateTime.showMonth": true,
     "dateTime.use24HourClock": false,
-
-    "workbench.colorTheme": "One Dark Rain Coat Bright",
-    "workbench.iconTheme": "vscode-great-icons",
-
-    "beautify.config": "/Users/joaquinb/.jsbeautifyrc",
-    "beautify.ignore": ["*/**.test.*", "*/**.spec.*", "**/test/**/*"],
-
-    "bashBeautify.tabSize": 4,
-
-    "npm.runInTerminal": true,
-    "npm.packageManager": "yarn",
-
-    "gitlens.historyExplorer.enabled": true,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": false,
-        "suppressShowKeyBindingsNotice": true
-    },
-
-    "sublimeImporter.hasPromptedOnStartup": true,
-
+    "docker-compose.showExplorer": false,
+    "docker-explorer.showDockerContainers": false,
+    "docker-explorer.showDockerImages": false,
+    "docker-explorer.showAzureRegistries": false,
+    "docker-explorer.showDockerHubTreeView": false,
+    "docker-explorer.showSuggestedDockerImages": false,
+    "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.snippetSuggestions": "top",
     "editor.formatOnPaste": false,
@@ -40,73 +22,24 @@
     "editor.showFoldingControls": "mouseover",
     "editor.fontSize": 10,
     "editor.scrollBeyondLastLine": true,
-
-    "terminal.external.linuxExec": "xterm",
-    "terminal.external.osxExec": "iTerm.app",
-    "terminal.integrated.env.linux": {},
-    "terminal.integrated.env.osx": {},
-    "terminal.integrated.scrollback": 5000,
-    "terminal.integrated.setLocaleVariables": true,
-    "terminal.integrated.shell.linux": "/bin/zsh",
-    "terminal.integrated.shell.osx": "/bin/zsh",
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.rightClickBehavior": "copyPaste",
-    "terminal.integrated.fontSize": 12,
-
-    "yarn.runInTerminal": true,
-
     "eslint.autoFixOnSave": true,
     "eslint.packageManager": "yarn",
-    "eslint.run": "onType",
+    "eslint.run": "onSave",
     "eslint.provideLintTask": true,
-
-    "previewjsdoc.port": 4002,
-
-    "jshint.packageManager": "yarn",
-    "jshint.options": {
-        "eqnull": true,
-        "esversion": 6,
-        "funcscope": true,
-        "futurehostile": true,
-        "loopfunc": false,
-        "maxerr": 50,
-        "node": true,
-        "shadow": true,
-        "unused": true
-    },
-
-    "window.restoreFullscreen": true,
-    "window.restoreWindows": "all",
-
-    "files.autoSave": "onFocusChange",
-    "files.trimTrailingWhitespace": true,
-    "editor.minimap.enabled": false,
-
-    "quicktask.useYarn": false,
-
-    "vsnotes.defaultNotePath": "/Users/joaquinb/vsnotes",
-    "vsnotes.ignorePatterns": [],
-
-    "openInGitHub.gitHubDomain": "https://bitbucket.org/cattlebruisers",
-    "openInGitHub.providerType": "bitbucket",
-
-    // Slack avatar url
-    "slack.avatarUrl": "https://avatars3.githubusercontent.com/u/7432155?s=460&v=4",
-
-    // Team token
-    "slack.teamToken": "inexacloud.slack.com",
-
-    // Slack username
-    "slack.username": "joaquinb",
-
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "json",
+            "autoFix": true
+        }
+    ],
+    "explorer.confirmDelete": false,
     "extension-manager.extensions": [
-        "alefragnani.Bookmarks",
-        "axetroy.vscode-gpm",
+        "alefragnani.bookmarks",
         "DSKWRK.vscode-generate-getter-setter",
         "DavidAnson.vscode-markdownlint",
         "EditorConfig.editorconfig",
-        "GregorBiswanger.json2ts",
         "HookyQR.beautify",
         "HookyQR.jsdoctagcomplete",
         "Orta.vscode-jest",
@@ -117,7 +50,6 @@
         "cdsama.shell-snippets",
         "christian-kohler.npm-intellisense",
         "christian-kohler.path-intellisense",
-        "dbaeumer.jshint",
         "dbaeumer.vscode-eslint",
         "donjayamanne.githistory",
         "eamodio.gitlens",
@@ -125,7 +57,6 @@
         "eg2.vscode-npm-script",
         "emmanuelbeziat.vscode-great-icons",
         "fabiospampinato.vscode-install-vsix",
-        "faustinoaq.javac-linter",
         "felipecaputo.git-project-manager",
         "felipe-mendes.slack-theme",
         "formulahendry.code-runner",
@@ -139,18 +70,17 @@
         "igordvlpr.pack-vsix",
         "infeng.vscode-react-typescript",
         "jasonnutter.search-node-modules",
-        "joelday.docthis",
         "joshpeng.sublime-babel-vscode",
         "JuanCasanova.awesometypescriptproblemmatcher",
+        "kdcro101.favorites",
         "leizongmin.node-module-intellisense",
-        "lixquid.calculator",
         "lkytal.quicktask",
         "ludorival.preview-jsdoc",
         "marquesmps.dockerfile-validator",
         "mgmcdermott.vscode-language-babel",
+        "micnil.vscode-checkpoints",
         "mikestead.dotenv",
         "mohsen1.react-javascript-to-typescript-transform-vscode",
-        "mrcrowl.hg",
         "ms-devlabs.extension-manifest-editor",
         "ms-vscode.sublime-keybindings",
         "msjsdiag.debugger-for-chrome",
@@ -165,7 +95,6 @@
         "samverschueren.yo",
         "seanmcbreen.mdtools",
         "shakram02.bash-beautify",
-        "sozercan.slack",
         "spoonscen.es6-mocha-snippets",
         "stevencl.adddoccomments",
         "stringham.move-ts",
@@ -175,21 +104,108 @@
         "webstp.extension-manager",
         "wix.vscode-import-cost",
         "xabikos.javascriptsnippets",
-        "yaozheng.vscode-java-copilot",
         "yzhang.markdown-all-in-one",
         "zhuangtongfa.material-theme",
         "ziyasal.vscode-open-in-github"
     ],
-
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.babelrc*": false,
+        "**/.eslintrc*": false,
+        "**/.git": false,
+        "**/.jshintrc*": false,
+        "**/.jbconfig": false,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
     "files.associations": {
+        "*.code-workspace": "json",
         ".bash*": "bat",
+        ".eslintrc.js": "javascript",
         ".gpmrc": "json",
+        ".nycrc": "json",
         ".zshrc": "shellscript",
         ".zsh_aliases": "shellscript",
         ".zsh_functions": "shellscript",
+        "gitto*": "javascript",
         "zshrc": "shellscript",
         "zsh_aliases": "shellscript",
         "zsh_functions": "shellscript"
     },
-    "explorer.confirmDelete": false
+    "gitlens.historyExplorer.enabled": true,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "jest.autoEnable": false,
+    "jest.showCoverageOnLoad": false,
+    "json.format.enable": true,
+    "json.schemas": [{
+            "fileMatch": [
+                "/.babelrc"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquinbriceno/.jbconfig/vscode/settings/json/schemas/babelrc.json"
+            }
+        },
+        {
+            "fileMatch": [
+                "/tsconfig.json"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquinbriceno/.jbconfig/vscode/settings/json/schemas/tsconfig.json"
+            }
+        },
+        {
+            "fileMatch": [
+                "/package.json"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquinbriceno/.jbconfig/vscode/settings/json/schemas/package.json"
+            }
+        }
+    ],
+    "json.trace.server": "off",
+    "markdownlint.run": "onSave",
+    "npm.registry": "https://registry.npmjs.org",
+    "npm.runInTerminal": true,
+    "npm.packageManager": "yarn",
+    "npm.enableScriptExplorer": true,
+    "npm-intellisense.importES6": true,
+    "npm-intellisense.importQuotes": "'",
+    "npm-intellisense.importLinebreak": ";\r\n",
+    "npm-intellisense.importDeclarationType": "const",
+    "npm-intellisense.recursivePackageJsonLookup": true,
+    "npm-intellisense.packageSubfoldersIntellisense": true,
+    "previewjsdoc.port": 4002,
+    "quicktask.useYarn": false,
+    "sublimeImporter.hasPromptedOnStartup": true,
+    "terminal.external.linuxExec": "xterm",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.env.linux": {},
+    "terminal.integrated.env.osx": {},
+    "terminal.integrated.scrollback": 5000,
+    "terminal.integrated.setLocaleVariables": true,
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.rightClickBehavior": "copyPaste",
+    "terminal.integrated.fontSize": 9,
+    "vsnotes.defaultNotePath": "/Users/joaquinb/vsnotes",
+    "vsnotes.ignorePatterns": [],
+    "window.restoreFullscreen": true,
+    "window.restoreWindows": "all",
+    "workbench.colorTheme": "One Dark Rain Coat Bright",
+    "workbench.iconTheme": "vscode-great-icons",
+    "yarn.runInTerminal": true
 }
