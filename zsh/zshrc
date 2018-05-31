@@ -51,6 +51,8 @@ else
   fi
 fi
 
+export JB_CONFIG_PATH=$HOME/.jbconfig
+export BOOKMARKS_FILE=$JB_CONFIG_PATH/zsh/.bookmarks
 export XDG_DATA_DIRS=/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export ZSHA_BASE=$HOME/.antigen
@@ -72,7 +74,7 @@ handleAddPath $(go env GOPATH)/bin
 handleAddPath /usr/local/opt/go/libexec/bin
 
 # Editors
-export EDITOR='/usr/bin/subl -w'
+export EDITOR='code'
 export VISUAL='nano'
 export PAGER='less'
 
@@ -359,9 +361,6 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then

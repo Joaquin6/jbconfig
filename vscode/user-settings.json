@@ -188,6 +188,7 @@
     "npm-intellisense.packageSubfoldersIntellisense": true,
     "previewjsdoc.port": 4002,
     "quicktask.useYarn": false,
+    "shellformat.path": "$(which shfmt)",
     "sublimeImporter.hasPromptedOnStartup": true,
     "terminal.external.linuxExec": "xterm",
     "terminal.external.osxExec": "iTerm.app",
