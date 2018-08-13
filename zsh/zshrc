@@ -1,111 +1,226 @@
-handleAddPath () {
-	# My check to make sure the new node path is added to the PATH variable
-	if [[ "$PATH" != *"$1"* ]]; then
-	    export PATH="$1:$PATH"
-	fi
-}
+#	-------------------------------
+#	JB ZSH DOCUMENTATION
+#	-------------------------------
 
-#   CONFIGURATION VARIABLES
-#   -------------------------------
+#		autoload
+#			The `autoload` feature is not available in bash, but it is in `ksh` (korn shell) and `zsh`.
+#			On `zsh` see `man zshbuiltins`.
+#
+#			Functions are called in the same way as any other command.
+#			There can be a name conflict between a program and a function.
+#			What autoload does is to mark that name as being a function rather than an external program.
+#			The function has to be in a file on its own, with the filename the same as the function name.
+#
+#			For Example: `autoload -Uz vcs_info`
+#
+#			The `-U` means mark the function `vcs_info` for autoloading and suppress alias expansion.
+#			The `-z` means use `zsh` (rather than `ksh`) style. See also the `functions` command.
+#
+#			References
+#				http://zsh.sourceforge.net/Doc/Release/Files.html
+#				http://linux.die.net/man/1/zshbuiltins
+#				http://zsh.sourceforge.net/Doc/Release/Functions.html
+#				https://stackoverflow.com/questions/12570749/zsh-completion-difference
+#				http://bewatermyfriend.org/p/2012/003/
+#				https://unix.stackexchange.com/questions/121802/zsh-how-to-check-if-an-option-is-enabled
+#				https://www-s.acm.illinois.edu/workshops/zsh/parameters/expansion.html
 
-PYTHON_VERSION="2.7.14"
-RUBY_VERSION="2.3.1p112"
 
+#	-------------------------------
+# CONFIGURATION VARIABLES
+# -------------------------------
+
+SYS_LIB_PATH=/System/Library
+SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 USER_BIN=/usr/bin
 USER_LOCAL=/usr/local
+USER_LOCAL_GO=$USER_LOCAL/go
 USER_LOCAL_BIN=$USER_LOCAL/bin
 USER_LOCAL_LIB=$USER_LOCAL/lib
 USER_LOCAL_OPT=$USER_LOCAL/opt
+USER_LOCAL_MAN=$USER_LOCAL/man
+USER_LOCAL_SHARE=$USER_LOCAL/share
+USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
 USER_BIN_PATH=/bin:/sbin:/usr/sbin:$USER_BIN:$USER_LOCAL_BIN
-# XDG_CONFIG_HOME=$HOME_LIB_PATH/Python/$PYTHON_VERSION/lib/python/site-packages/powerline
+XDG_CONFIG_HOME=$HOME/.config
+# XDG_CONFIG_HOME=$HOME/.config/fontconfig/fonts.conf
 
-export MONO_GAC_PREFIX=$USER_LOCAL
-export NVM_DIR=$HOME/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export PYTHON_VERSION="2.7"
+export RUBY_VERSION="2.5.1"
+export RBENV_VERSION="1.1.1"
 
-# If you come from bash you might have to change your $PATH.
-handleAddPath /bin
-handleAddPath /usr/lib/x86_64-linux-gnu
-handleAddPath /usr/local/bin
-handleAddPath /usr/local/opt/gettext/bin
-handleAddPath /usr/local/opt/llvm/bin
-handleAddPath /usr/local/opt/apr/bin
-handleAddPath /usr/local/opt/apr-util/bin
-handleAddPath /usr/local/opt/icu4c/bin
-handleAddPath /usr/local/opt/icu4c/sbin
-handleAddPath /usr/local/opt/libpq/bin
-handleAddPath /usr/local/opt/coreutils/libexec/gnubin
-handleAddPath /usr/local/opt/sqlite/bin
+export PAGER='less'
+export EDITOR='code'
+export VISUAL='nano'
 
-handleAddPath /home/linuxbrew/.linuxbrew/bin
-handleAddPath $HOME/.config/sublime-text-3/Packages/User/linters
-handleAddPath $HOME/.config/sublime-text-3/Packages/User/SublimeLinter/lint
-handleAddPath "/opt/yarn-$(yarn --version)/bin"
-handleAddPath $(yarn global bin)
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-else
-  if [[ "$OSTYPE" == linux-gnu ]]; then
-  	export BROWSER='xdg-open'
-  fi
-fi
-
-export JB_CONFIG_PATH=$HOME/.jbconfig
-export BOOKMARKS_FILE=$JB_CONFIG_PATH/zsh/bookmarks
-export XDG_DATA_DIRS=/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
+export LANG='en_US.UTF-8'
+export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
+export NPM_TOKEN="QPASt_5h44AzSHrg4gNv"
+export JB_ZSH_BASE=$HOME/.jbconfig
 export ZSHA_BASE=$HOME/.antigen
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 export WORKON_HOME=$HOME/.virtualenvs
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 export ADOTDIR=$ZSHA_BASE
-export LDFLAGS=(-L/usr/local/opt/{gettext,llvm,icu4c,libpq,sqlite}/lib)
-export CPPFLAGS=(-I/usr/local/opt/{gettext,llvm,icu4c,libpq,sqlite}/include)
-export PKG_CONFIG_PATH=/usr/local/opt/libffi/lib/pkgconfig
-export PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH
-export PKG_CONFIG_PATH=/usr/local/opt/libpq/lib/pkgconfig:$PKG_CONFIG_PATH
-export PKG_CONFIG_PATH=/usr/local/opt/sqlite/lib/pkgconfig:$PKG_CONFIG_PATH
-export SSH_KEY_PATH=$HOME/.ssh
-export SSH_ENV=$SSH_KEY_PATH/environment
+export XDG_DATA_DIRS=$USER_LOCAL_SHARE
+export PERL_LOCAL_LIB_ROOT=$HOME/perl5
+export PERL5LIB=$PERL_LOCAL_LIB_ROOT/lib/perl5
+export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/include)
 
+export BROWSER=open
+export SSH_PATH=$HOME/.ssh
+export SSH_ENV=$SSH_PATH/environment
+export SSH_PRIVATE_KEY=$SSH_PATH/id_rsa
+export SSH_KEY_PATH=$SSH_PRIVATE_KEY
+export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
+
+export KRAKEN_REMOTE_DEV=dev.kraken.com
+export KRAKEN_REMOTE_DEV_HOME=/home/$USER
+
+export ZSH_THEME="spaceship"
+export ZSH=$HOME/.oh-my-zsh
+export ZSH_CUSTOM=$ZSH/custom
+export ARCHFLAGS="-arch x86_64"
 export GOPATH=$HOME/projects/go
-handleAddPath $(go env GOPATH)/bin
-handleAddPath /usr/local/opt/go/libexec/bin
+export MONO_GAC_PREFIX=$USER_LOCAL
+export NVM_DIR=$HOME/.nvm
+export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
+export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
+export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
+export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 
-# Editors
-export EDITOR='code'
-export VISUAL='nano'
-export PAGER='less'
+export AUTOENV_DEBUG=0
+export JB_ZSH_DEBUG=1
 
-# Language
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
+# Set debug level. If enabled (> 0) it will print information to stderr.
+# 	0: no debug messages (Default)
+# 	1: generic debug logging
+# 	2: more verbose messages
+# 		messages about adding/removing files on the internal stack
+# 	3: everything
+# 		sets xtrace option (set -x) while sourcing env files
+_jb_zsh_debug() {
+  local level=${2:-1}
+  if (( JB_ZSH_DEBUG < level )); then
+    return
+  fi
+  local msg="$1"  # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
+  # Load zsh color support.
+  if [[ -z $color ]]; then
+    autoload colors
+    colors
+  fi
+  # Build $indent prefix.
+  local indent=
+  if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
+    for i in {1..${_jb_zsh_debug_indent}}; do
+      indent="  $indent"
+    done
+  fi
 
-# Paths
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-# Set the list of directories that cd searches.
-cdpath=(
-  $cdpath
-)
-# Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
+  # Split $msg by \n (not newline).
+  lines=(${(ps:\\n:)msg})
+  for line in $lines; do
+    echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
+    echo ${indent}${line} >&2
+  done
+}
 
-fpath=(
-	$HOME/.config/completion
-	/usr/local/etc/bash_completion.d
-	/usr/local/share/zsh-completions
-	/usr/local/share/zsh/site-functions
-	$fpath
-)
+_handle-add-path() {
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new node path is added to the PATH variable
+		if [[ "$PATH" != *"$incoming_path"* ]]; then
+			# Check if $PATH is set
+			if [ -z ${PATH+x} ]; then
+				# Control will enter here if $PATH is not set.
+				export PATH="$incoming_path"
+			else
+				# Control will enter here if $PATH is set.
+				export PATH="$incoming_path:$PATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		_jb_zsh_debug "[PATH DEBUG]: 	$incoming_path doesn't exist. Not adding to PATH"
+	fi
+}
 
-#  rm -f ~/.zcompdump; compinit
-#  chmod go-w '/usr/local/share'
+_handle-add-manpath() {
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the MANPATH variable
+		if [[ "$MANPATH" != *"$incoming_path"* ]]; then
+			# Check if $MANPATH is set
+			if [ -z ${MANPATH+x} ]; then
+				# Control will enter here if $MANPATH is not set.
+				export MANPATH="$incoming_path"
+			else
+				# Control will enter here if $MANPATH is set.
+				export MANPATH="$incoming_path:$MANPATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		_jb_zsh_debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH"
+	fi
+}
+
+_handle-add-pkgconfigpath() {
+	local incoming_path=/usr/local/opt/$1/lib/pkgconfig
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the PKG_CONFIG_PATH variable
+		if [[ "$PKG_CONFIG_PATH" != *"$incoming_path"* ]]; then
+			# Check if $PKG_CONFIG_PATH is set
+			if [ -z ${PKG_CONFIG_PATH+x} ]; then
+				# Control will enter here if $PKG_CONFIG_PATH is not set.
+				export PKG_CONFIG_PATH="$incoming_path"
+			else
+				# Control will enter here if $PKG_CONFIG_PATH is set.
+				export PKG_CONFIG_PATH="$incoming_path:$PKG_CONFIG_PATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		_jb_zsh_debug "[PKG_CONFIG_PATH DEBUG]: 	$incoming_path doesn't exist."
+		# Check if brew is a command. If so, suggest installing with brew
+		if which brew &> /dev/null; then
+			_jb_zsh_debug "[PKG_CONFIG_PATH DEBUG]: 	Suggestion => \"brew install $1\"" 2
+		fi
+	fi
+}
+
+_load-nvmrc() {
+	local node_version="$(nvm version)"
+	local nvmrc_path="$(nvm_find_nvmrc)"
+
+	if [ -n "$nvmrc_path" ]; then
+		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+		if [ "$nvmrc_node_version" = "N/A" ]; then
+			nvm install
+		elif [ "$nvmrc_node_version" != "$node_version" ]; then
+			nvm use --delete-prefix
+		fi
+	elif [ "$node_version" != "$(nvm version default)" ]; then
+		echo "Reverting to nvm default version"
+		nvm use --delete-prefix default
+	fi
+
+	_handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
+}
 
 # Less
 # Set the default Less options.
@@ -122,74 +237,83 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
 		export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 	else
 		# echo "------- NON-DARWIN SYSTEM --------"
-		export LESSOPEN="|/usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+		export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 	fi
 fi
 
-export ZSH=$HOME/.oh-my-zsh 						# Path to your oh-my-zsh installation.
-export ZSH_CUSTOM=$ZSH/custom
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
+# If you come from bash you might have to change your $PATH.
+# _handle-add-path $SYS_FRWKS_PATH/Python.framework/Versions/$PYTHON_VERSION/bin
+_handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/$PYTHON_VERSION/bin
+_handle-add-path $USER_LOCAL_OPT/gettext/bin
+_handle-add-path $USER_LOCAL_OPT/llvm/bin
+_handle-add-path $USER_LOCAL_OPT/apr/bin
+_handle-add-path $USER_LOCAL_OPT/apr-util/bin
+_handle-add-path $USER_LOCAL_OPT/icu4c/bin
+_handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+_handle-add-path $USER_LOCAL_OPT/libpq/bin
+_handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+_handle-add-path $USER_LOCAL_OPT/sqlite/bin
+_handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+_handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+_handle-add-path $USER_LOCAL_OPT/libarchive/bin
+_handle-add-path $USER_LOCAL_OPT/openssl/bin
+_handle-add-path $(yarn global bin)
+_handle-add-path $(go env GOPATH)/bin
+_handle-add-path $USER_LOCAL_GO/bin
+_handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+_handle-add-path $PERL_LOCAL_LIB_ROOT/bin
 
-ZSH_THEME="spaceship"
+_handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+_handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
-# Time
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
+_handle-add-pkgconfigpath libffi
+_handle-add-pkgconfigpath icu4c
+_handle-add-pkgconfigpath libpq
+_handle-add-pkgconfigpath sqlite
+_handle-add-pkgconfigpath libarchive
+_handle-add-pkgconfigpath openssl
 
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
-# POWERLEVEL9K_MODE="awesome-fontconfig"
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-# for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
 
+if [ ! -d $ZSH_CUSTOM/themes/powerlevel9k ]; then
+	mkdir -p $ZSH_CUSTOM/themes/powerlevel9k
+	git clone https://github.com/bhilburn/powerlevel9k $ZSH_CUSTOM/themes/powerlevel9k
+fi
+
+if [ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ]; then
+	mkdir -p $ZSH_CUSTOM/themes/spaceship-prompt
+	git clone https://github.com/denysdovhan/spaceship-prompt $ZSH_CUSTOM/themes/spaceship-prompt
+fi
+
+# Paths
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+# Set the list of directories that cd searches.
+cdpath=(
+	$cdpath
+)
+# Set the list of directories that Zsh searches for programs.
+path=(
+	/usr/local/{bin,sbin}
+	$path
+)
+
+fpath=(
+	$HOME/.config/completion
+	$USER_LOCAL_ETC/bash_completion.d
+	$USER_LOCAL_SHARE/zsh-completions
+	$USER_LOCAL_SHARE/zsh/site-functions
+	$fpath
+)
+
+#  rm -f ~/.zcompdump; compinit
+#  chmod go-w '$USER_LOCAL_SHARE'
+
+source $JB_ZSH_BASE/zsh/plugins/nvm.plugin.zsh
+source $JB_ZSH_BASE/zsh/plugins/npx.plugin.zsh
+source $HOME/.gvm/scripts/gvm
 source $HOME/.local/share/fonts/*.sh
 source $HOME/antigen/antigen.zsh
-source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="spaceship"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+source $POWERLEVEL9K_INSTALLATION_PATH/spaceship-prompt/spaceship.zsh-theme
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -197,18 +321,23 @@ antigen use oh-my-zsh
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 antigen bundles <<EOBUNDLES
-	aws
 	autoenv
 	archlinux
 	battery
 	command-not-found
 	dotenv
+	encode64
 	history
 	history-substring-search
 	iterm2
+	iwhois
 	extract
 	git
+	git-extras
 	git-prompt
+	git-remote-branch
+	github
+	gpg-agent
 	profile
 	brew
 	zsh-brew-services
@@ -217,24 +346,17 @@ antigen bundles <<EOBUNDLES
 	gem
 	rbenv
 	rsync
-	sublime
-	terminalapp
-	tmux
-	node
-	npm
-	npx
-	nvm
 	go
 	golang
-	jira
 	jsontools
-	postgres
+	perl
+	# postgres
 	profiles
 	sudo
 	yarn
-	yum
 	man
 	nanoc
+	vscode
 	xcode
 	z
 	zsh_reload
@@ -243,161 +365,123 @@ antigen bundles <<EOBUNDLES
 	# Python Plugins
 	pip
 	python
-	pyenv
-	pylint
 	virtualenv
-	postgres
 
 	# OS specific plugins
 	cygwin
 	debian
-	ubuntu
+	# ubuntu
 	gnu-utils
-	compleat
 	osx
 
-	archlinux
+	# archlinux
 	systemadmin
 	systemd
 EOBUNDLES
 
 # Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting 		# https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search 	# https://github.com/zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
-antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
-antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-# antigen bundle bhilburn/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
+antigen bundle zsh-users/zsh-history-substring-search 			# https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions          			# https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions										# https://github.com/zsh-users/zsh-completions
+# antigen bundle psprint/zsh-navigation-tools 		  					# https://github.com/psprint/zsh-navigation-tools
+antigen bundle djui/alias-tips        											# https://github.com/djui/alias-tips
+antigen bundle jocelynmallon/zshmarks 											# https://github.com/jocelynmallon/zshmarks
+antigen bundle Joaquin6/git-aliases   											# https://github.com/Joaquin6/git-aliases
+antigen bundle Tarrasch/zsh-autoenv   											# https://github.com/Tarrasch/zsh-autoenv
+# antigen bundle gko/ssh-connect															# https://github.com/gko/ssh-connect
+# antigen bundle zpm-zsh/ssh																	# https://github.com/zpm-zsh/ssh
+antigen bundle bobsoppe/zsh-ssh-agent												# https://github.com/bobsoppe/zsh-ssh-agent
+antigen bundle zsh-users/zsh-syntax-highlighting      			# https://github.com/zsh-users/zsh-syntax-highlighting
+# antigen bundle bhilburn/powerlevel9k 											# https://github.com/bhilburn/powerlevel9k
 
-# Suuply the theme
+# Suuply the theme - https://denysdovhan.com/spaceship-prompt/
 antigen theme spaceship
+																														# https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions
+																														# https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/API.md
+# antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 # Tell antigen that you're done.
 antigen apply
 
 # User configuration
-# Specify which highlighters should be active
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
-ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
-ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
-# Customise autosuggestion color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
-# User configuration
+source $HOME/.zsh_aliases
+source $HOME/.zsh_functions
 
-handleAddPath "$(brew --prefix)/bin:$(brew --prefix)/sbin:$PATH"
-export MANPATH=/usr/local/man:$MANPATH
-export MANPATH="$(brew --prefix)/share/man:$MANPATH"
-export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
+# All options must be overridden in your .zshrc file after the theme.
+export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+export ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+export ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
-autoload -Uz compinit && compinit -i
+# Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
+export SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  golang        # Go section
+  php           # PHP section
+  docker        # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  pyenv         # Pyenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+	battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
 
-# if docker is present, configure it for use
-if which docker &> /dev/null; then
-	# enable shims and auto-completion
-	if [ -d $HOME/.config/completion ]; then
-		if [ ! -f $HOME/.config/completion/_docker ]; then
-			curl -fLo $HOME/.config/completion/_docker "https://raw.github.com/felixr/docker-zsh-completion/master/_docker"
-		fi
+export SPACESHIP_RPROMPT_ORDER=(
+	time          # Time stampts section
+)
+
+export SPACESHIP_TIME_SHOW=true
+export SPACESHIP_TIME_12HR=true
+
+if which brew &> /dev/null; then
+	BREW_PREFIX="$(brew --prefix)"
+	_handle-add-manpath "$BREW_PREFIX/bin"
+	_handle-add-manpath "$BREW_PREFIX/sbin"
+	_handle-add-manpath "$BREW_PREFIX/share/man"
+	if [ -z ${INFOPATH+x} ]; then
+		export INFOPATH="$BREW_PREFIX/share/info"
+	else
+		export INFOPATH="$BREW_PREFIX/share/info:$INFOPATH"
+	fi
+	if [ -f $BREW_PREFIX/etc/bash_completion ]; then
+		. $BREW_PREFIX/etc/bash_completion
 	fi
 fi
 
-# if docker-compose is present, configure it for use
-if which docker-compose &> /dev/null; then
-	# enable shims and auto-completion
-	if [ -d $HOME/.config/completion ]; then
-		if [ ! -f $HOME/.config/completion/_docker-compose ]; then
-			curl -fLo $HOME/.config/completion/_docker-compose "https://raw.githubusercontent.com/sdurrheimer/docker-compose-zsh-completion/master/_docker-compose"
-		fi
-	fi
-fi
-
-# if rbenv is present, configure it for use
-if which rbenv &> /dev/null; then
-	# enable shims and auto-completion
-	if [ -d $HOME/.rbenv ]; then
-		# Put the rbenv entry at the front of the line
-	  	export PATH=$HOME/.rbenv/bin:$PATH
-		eval "$(rbenv init -)"
-	fi
-fi
-
-# If phpbrew is installed include the source
-if [ -d $HOME/.phpbrew ]; then
-  source $HOME/.phpbrew/bashrc
+if [ ! -d $PERL_LOCAL_LIB_ROOT ]; then
+	export PERL_MM_OPT="INSTALL_BASE=$PERL_LOCAL_LIB_ROOT" cpan local::lib
+	export PERL_MB_OPT="--install_base \"$PERL_LOCAL_LIB_ROOT\""
+	eval "$(perl -I$PERL5LIB -Mlocal::lib=$PERL_LOCAL_LIB_ROOT)"
 fi
 
 if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
-  source $USER_LOCAL_BIN/virtualenvwrapper.sh
-  export WORKON_HOME=$HOME/Code/VirtualEnvs
+	source $USER_LOCAL_BIN/virtualenvwrapper.sh
+	export WORKON_HOME=$HOME/Code/VirtualEnvs
 fi
 
-if [ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]; then
-  source $USER_LOCAL_BIN/aws_zsh_completer.sh
+if [ -f $HOME/.iterm2_shell_integration.zsh ]; then
+	source $HOME/.iterm2_shell_integration.zsh
 fi
 
-if [ -f /usr/local/etc/bash_completion.d ]; then
-	. /usr/local/etc/bash_completion.d
-fi
-
-# start the ssh-agent
-function start_agent {
-    echo "Initializing new SSH agent..."
-    # spawn ssh-agent
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add
-}
-
-if [ -f "${SSH_ENV}" ]; then
-     . "${SSH_ENV}" > /dev/null
-     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
-
-source $JB_CONFIG_PATH/zsh/zsh_aliases
-source $JB_CONFIG_PATH/zsh/zsh_functions
-
-# place this after nvm initialization!
+autoload -U compinit && compinit -i
+autoload -U promptinit && promptinit -i
 autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-
-  handleAddPath "$NVM_DIR/versions/node/$(nvm version)/bin"
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+add-zsh-hook chpwd _load-nvmrc
+_load-nvmrc
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
+prompt spaceship
