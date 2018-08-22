@@ -1,3 +1,24 @@
+# Paths
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+# Set the list of directories that cd searches.
+export cdpath=(
+	$cdpath
+)
+# Set the list of directories that Zsh searches for programs.
+export path=(
+	/usr/local/{bin,sbin}
+	$path
+)
+
+export fpath=(
+	$HOME/.config/completion
+	$USER_LOCAL_ETC/bash_completion.d
+	$USER_LOCAL_SHARE/zsh-completions
+	$USER_LOCAL_SHARE/zsh/site-functions
+	$fpath
+)
+
 if [ ! -d $HOME/antigen ]; then
 	mkdir -p $HOME/antigen
 	git clone https://github.com/zsh-users/antigen.git $HOME/antigen
@@ -8,12 +29,7 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 fi
 
-source $JB_ZSH_BASE/zsh/plugins/git.plugin.zsh
-source $JB_ZSH_BASE/zsh/plugins/nvm.plugin.zsh
-source $JB_ZSH_BASE/zsh/plugins/npx.plugin.zsh
-source $JB_ZSH_BASE/zsh/plugins/sudo.plugin.zsh
-source $JB_ZSH_BASE/zsh/plugins/yarn.plugin.zsh
-source $JB_ZSH_BASE/zsh/plugins/iterm2-shell-intergration.plugin.zsh
+test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
 
 -load-syntax-highlighting
 
@@ -21,6 +37,8 @@ source $HOME/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
+
+
 
 # Which plugins would you like to load? (plugins can be found in $HOME/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
@@ -31,15 +49,20 @@ antigen bundles <<EOBUNDLES
 	dotenv
 	history
 	history-substring-search
-	iwhois
+	sudo
 	gpg-agent
 	ssh-agent
 	jsontools
 	profiles
-	jump
-	man
-	nanoc
-	vscode
+	git
+	node
+	nvm
+	npm
+	npx
+	yarn
+	gnu-utils
+	cygwin
+	debian
 	systemd
 	systemadmin
 EOBUNDLES
@@ -51,17 +74,15 @@ if [[ $CURRENT_OS == 'OS X' || $OSTYPE == darwin* ]]; then
 	antigen bundle osx
 	antigen bundle brew
 	antigen bundle cask
+	if [[ $DISTRO == 'CentOS' || $CURRENT_OS == 'CentOS' || $OSTYPE == centos* ]]; then
+		antigen bundle centos
+	fi
 elif [[ $CURRENT_OS == 'Linux' || $OSTYPE == linux* ]]; then
 	antigen bundle brew
 	antigen bundle cask
-	antigen bundle gnu-utils
-	if [[ $DISTRO == 'CentOS' || $OSTYPE == centos* ]]; then
+	if [[ $DISTRO == 'CentOS' || $CURRENT_OS == 'CentOS' || $OSTYPE == centos* ]]; then
 		antigen bundle centos
 	fi
-elif [[ $CURRENT_OS == 'Cygwin' || $OSTYPE == cygwin* ]]; then
-  antigen bundle cygwin
-elif [[ $CURRENT_OS == 'Debian' || $OSTYPE == debian* ]]; then
-  antigen bundle debian
 fi
 
 antigen bundle zsh-users/zsh-syntax-highlighting      			# https://github.com/zsh-users/zsh-syntax-highlighting
@@ -79,9 +100,7 @@ antigen bundle denysdovhan/spaceship-prompt 								# https://github.com/denysdo
 # 	ln -s $DOCKER_ETC_CONTENTS/docker-machine.zsh-completion $USER_LOCAL_SHARE/zsh/site-functions/_docker-machine
 # 	ln -s $DOCKER_ETC_CONTENTS/docker-compose.zsh-completion $USER_LOCAL_SHARE/zsh/site-functions/_docker-compose
 # fi
-
 -load-url-highlighter
-
 # antigen theme powerlevel9k
 # Suuply the theme - https://denysdovhan.com/spaceship-prompt/
 antigen theme spaceship

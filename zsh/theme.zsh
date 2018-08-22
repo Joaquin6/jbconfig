@@ -1,5 +1,5 @@
 # Theme configuration
-
+typeset -gA ZSH_HIGHLIGHT_STYLES
 # All options must be overridden in your .zshrc file after the theme.
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
 export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4

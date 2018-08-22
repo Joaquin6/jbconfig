@@ -132,7 +132,6 @@ function -load-nvmrc() {
 		echo "Reverting to nvm default version"
 		nvm use --delete-prefix default
 	fi
-
 	-handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
 }
 function -load-user-specifics() {
@@ -166,7 +165,7 @@ function -load-user-specifics() {
 }
 function -load-syntax-highlighting() {
 	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen}/bundles/zsh-users/zsh-syntax-highlighting
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
 	local highlighter_repo=git@github.com:zsh-users/zsh-syntax-highlighting.git
 
 	if [ ! -d $plugins/zsh-syntax-highlighting ]; then
@@ -181,7 +180,7 @@ function -load-syntax-highlighting() {
 }
 function -load-url-highlighter() {
 	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen}/bundles/zsh-users/zsh-syntax-highlighting
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
 	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
 
 	if [ ! -d $plugins/zsh-url-highlighter ]; then
@@ -194,15 +193,26 @@ function -load-url-highlighter() {
 		-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
 	fi
 
-	if [ ! -d $syntax_highlighting/highlighters/url ]; then
-		-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $syntax_highlighting/highlighters/url"
-		mkdir -p $syntax_highlighting/highlighters/url
-		-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$syntax_highlighting/highlighters/url created."
+	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+	ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+}
+function -load-mgdm-theme() {
+	local themes=$JB_ZSH_BASE/zsh/themes
+	local mgdm_theme=$themes/mgdm.zsh-theme
+	local destination=$ZSH_CUSTOM/themes
+
+	if [ ! -d $destination ]; then
+		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	creating $destination" 2
+		mkdir -p $destination
+		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	$destination created." 2
 	fi
 
-	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
-	ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters/url
-	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+	if [ ! -f $destination/mgdm.zsh-theme ]; then
+		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copying $mgdm_theme to $destination/mgdm.zsh-theme" 2
+		cp $mgdm_theme $destination/mgdm.zsh-theme
+		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copied $mgdm_theme to $destination/mgdm.zsh-theme successfully" 2
+	fi
 }
 
 
@@ -242,6 +252,171 @@ function docker-vm() {
 }
 
 
+
+
+############################################# battery ##############################################
+if [[ "$OSTYPE" = darwin* ]] ; then
+
+  function battery_pct() {
+    local smart_battery_status="$(ioreg -rc "AppleSmartBattery")"
+    typeset -F maxcapacity=$(echo $smart_battery_status | grep '^.*"MaxCapacity"\ =\ ' | sed -e 's/^.*"MaxCapacity"\ =\ //')
+    typeset -F currentcapacity=$(echo $smart_battery_status | grep '^.*"CurrentCapacity"\ =\ ' | sed -e 's/^.*CurrentCapacity"\ =\ //')
+    integer i=$(((currentcapacity/maxcapacity) * 100))
+    echo $i
+  }
+
+  function plugged_in() {
+    [ $(ioreg -rc AppleSmartBattery | grep -c '^.*"ExternalConnected"\ =\ Yes') -eq 1 ]
+  }
+
+  function battery_pct_remaining() {
+    if plugged_in ; then
+      echo "External Power"
+    else
+      battery_pct
+    fi
+  }
+
+  function battery_time_remaining() {
+    local smart_battery_status="$(ioreg -rc "AppleSmartBattery")"
+    if [[ $(echo $smart_battery_status | grep -c '^.*"ExternalConnected"\ =\ No') -eq 1 ]] ; then
+      timeremaining=$(echo $smart_battery_status | grep '^.*"AvgTimeToEmpty"\ =\ ' | sed -e 's/^.*"AvgTimeToEmpty"\ =\ //')
+      if [ $timeremaining -gt 720 ] ; then
+        echo "::"
+      else
+        echo "~$((timeremaining / 60)):$((timeremaining % 60))"
+      fi
+    else
+      echo "∞"
+    fi
+  }
+
+  function battery_pct_prompt () {
+    if [[ $(ioreg -rc AppleSmartBattery | grep -c '^.*"ExternalConnected"\ =\ No') -eq 1 ]] ; then
+      b=$(battery_pct_remaining)
+      if [ $b -gt 50 ] ; then
+        color='green'
+      elif [ $b -gt 20 ] ; then
+        color='yellow'
+      else
+        color='red'
+      fi
+      echo "%{$fg[$color]%}[$(battery_pct_remaining)%%]%{$reset_color%}"
+    else
+      echo "∞"
+    fi
+  }
+
+  function battery_is_charging() {
+    [[ $(ioreg -rc "AppleSmartBattery"| grep '^.*"IsCharging"\ =\ ' | sed -e 's/^.*"IsCharging"\ =\ //') == "Yes" ]]
+  }
+
+elif [[ "$OSTYPE" = linux*  ]] ; then
+
+  function battery_is_charging() {
+    ! [[ $(acpi 2>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]]
+  }
+
+  function battery_pct() {
+    if (( $+commands[acpi] )) ; then
+      echo "$(acpi 2>/dev/null | cut -f2 -d ',' | tr -cd '[:digit:]')"
+    fi
+  }
+
+  function battery_pct_remaining() {
+    if [ ! $(battery_is_charging) ] ; then
+      battery_pct
+    else
+      echo "External Power"
+    fi
+  }
+
+  function battery_time_remaining() {
+    if [[ $(acpi 2>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
+      echo $(acpi 2>/dev/null | cut -f3 -d ',')
+    fi
+  }
+
+  function battery_pct_prompt() {
+    b=$(battery_pct_remaining)
+    if [[ $(acpi 2>/dev/null | grep -c '^Battery.*Discharging') -gt 0 ]] ; then
+      if [ $b -gt 50 ] ; then
+        color='green'
+      elif [ $b -gt 20 ] ; then
+        color='yellow'
+      else
+        color='red'
+      fi
+      echo "%{$fg[$color]%}$(battery_pct_remaining)%%%{$reset_color%}"
+    else
+      echo "∞"
+    fi
+  }
+
+else
+  # Empty functions so we don't cause errors in prompts
+  function battery_pct_remaining() {
+  }
+
+  function battery_time_remaining() {
+  }
+
+  function battery_pct_prompt() {
+  }
+fi
+
+function battery_level_gauge() {
+  local gauge_slots=${BATTERY_GAUGE_SLOTS:-10};
+  local green_threshold=${BATTERY_GREEN_THRESHOLD:-6};
+  local yellow_threshold=${BATTERY_YELLOW_THRESHOLD:-4};
+  local color_green=${BATTERY_COLOR_GREEN:-%F{green}};
+  local color_yellow=${BATTERY_COLOR_YELLOW:-%F{yellow}};
+  local color_red=${BATTERY_COLOR_RED:-%F{red}};
+  local color_reset=${BATTERY_COLOR_RESET:-%{%f%k%b%}};
+  local battery_prefix=${BATTERY_GAUGE_PREFIX:-'['};
+  local battery_suffix=${BATTERY_GAUGE_SUFFIX:-']'};
+  local filled_symbol=${BATTERY_GAUGE_FILLED_SYMBOL:-'▶'};
+  local empty_symbol=${BATTERY_GAUGE_EMPTY_SYMBOL:-'▷'};
+  local charging_color=${BATTERY_CHARGING_COLOR:-$color_yellow};
+  local charging_symbol=${BATTERY_CHARGING_SYMBOL:-'⚡'};
+
+  local battery_remaining_percentage=$(battery_pct);
+
+  if [[ $battery_remaining_percentage =~ [0-9]+ ]]; then
+    local filled=$(((( $battery_remaining_percentage + $gauge_slots - 1) / $gauge_slots)));
+    local empty=$(($gauge_slots - $filled));
+
+    if [[ $filled -gt $green_threshold ]]; then local gauge_color=$color_green;
+    elif [[ $filled -gt $yellow_threshold ]]; then local gauge_color=$color_yellow;
+    else local gauge_color=$color_red;
+    fi
+  else
+    local filled=$gauge_slots;
+    local empty=0;
+    filled_symbol=${BATTERY_UNKNOWN_SYMBOL:-'.'};
+  fi
+
+  local charging=' ' && battery_is_charging && charging=$charging_symbol;
+
+  printf ${charging_color//\%/\%\%}$charging${color_reset//\%/\%\%}${battery_prefix//\%/\%\%}${gauge_color//\%/\%\%}
+  printf ${filled_symbol//\%/\%\%}'%.0s' {1..$filled}
+  [[ $filled -lt $gauge_slots ]] && printf ${empty_symbol//\%/\%\%}'%.0s' {1..$empty}
+  printf ${color_reset//\%/\%\%}${battery_suffix//\%/\%\%}${color_reset//\%/\%\%}
+}
+
+
+
+############################################# iwhois ###############################################
+# provide a whois command with a more accurate and up to date list of whois
+# servers using CNAMES via whois.geek.nz
+function iwhois() {
+    resolver="whois.geek.nz"
+    tld=`echo ${@: -1} | awk -F "." '{print $NF}'`
+    whois -h ${tld}.${resolver} "$@" ;
+}
+
+
+
 function reload () { exec $SHELL -l ; }
 
 #   nyg: shortcut to globally install pkgs with npm AND yarn
@@ -257,7 +432,7 @@ function nygAll () {
 function upgrade-jb-zsh () {
 	emulate -L zsh
 	upgrade_oh_my_zsh
-	eval antigen selfupdate
+	eval antigen selfupdate && eval antigen update
 }
 
 function unzip-from-link() {
@@ -281,7 +456,7 @@ function yarn_reinstall_latest_exact_dev () { sudo yarn remove "$1" && sudo yarn
 
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
-function showa () { /usr/bin/grep --color=always -i -a1 "$@" $HOME/.jbconfig/zsh/aliases.zsh | grep -v '^\s*$' | less -FSRXc ; }
+function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/aliases.zsh | grep -v '^\s*$' | less -FSRXc ; }
 
 function dockerKrakenLogin () { cat "$1" | docker login reg-kakarot.chorse.space -u joaquinb --password-stdin }
 

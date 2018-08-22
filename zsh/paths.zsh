@@ -1,5 +1,7 @@
 
 # If you come from bash you might have to change your $PATH.
+-handle-add-path $USER_BIN
+-handle-add-path $HOME/antigen
 # -handle-add-path $SYS_FRWKS_PATH/Python.framework/Versions/$PYTHON_VERSION/bin
 -handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/$PYTHON_VERSION/bin
 -handle-add-path $USER_LOCAL_OPT/gettext/bin
@@ -30,3 +32,4 @@
 -handle-add-pkgconfigpath sqlite
 -handle-add-pkgconfigpath libarchive
 -handle-add-pkgconfigpath openssl
+

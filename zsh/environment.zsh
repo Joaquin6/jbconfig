@@ -14,8 +14,8 @@ export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
 export USER_BIN_PATH=/bin:/sbin:/usr/sbin:$USER_BIN:$USER_LOCAL_BIN
-# XDG_CONFIG_HOME=$HOME/.config
-export XDG_CONFIG_HOME=$HOME/.config/fontconfig/fonts.conf
+export XDG_CONFIG_HOME=$HOME/.config
+# export XDG_CONFIG_HOME=$HOME/.config/fontconfig/fonts.conf
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
 
 export PYTHON_VERSION=Current
@@ -29,7 +29,7 @@ export EDITOR='nano'
 export LANG=en_US.UTF-8
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export NPM_TOKEN=QPASt_5h44AzSHrg4gNv
-export ANTIGEN_BUNDLES=$HOME/.antigen
+export ANTIGEN_BUNDLES=$HOME/.antigen/bundles
 export JB_ZSH_BASE=$HOME/.jbconfig
 export WORKON_HOME=$HOME/.virtualenvs
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
@@ -70,24 +70,3 @@ export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 
 export AUTOENV_DEBUG=0
 export JB_ZSH_DEBUG=1
-
-# Paths
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-# Set the list of directories that cd searches.
-export cdpath=(
-	$cdpath
-)
-# Set the list of directories that Zsh searches for programs.
-export path=(
-	/usr/local/{bin,sbin}
-	$path
-)
-
-export fpath=(
-	$HOME/.config/completion
-	$USER_LOCAL_ETC/bash_completion.d
-	$USER_LOCAL_SHARE/zsh-completions
-	$USER_LOCAL_SHARE/zsh/site-functions
-	$fpath
-)
