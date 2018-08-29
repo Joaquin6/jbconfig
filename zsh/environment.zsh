@@ -47,7 +47,7 @@ export SSH_KEY_PATH=$SSH_PRIVATE_KEY
 export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
 export KRAKEN_REMOTE_DEV=dev.kraken.com
-export KRAKEN_REMOTE_DEV_HOME=/home/$USER
+export KRAKEN_REMOTE_DEV_HOME=/home/jbriceno
 
 export ARCHFLAGS="-arch x86_64"
 export GOPATH=$HOME/projects/go
