@@ -1,0 +1,23 @@
+{
+  "gitbook": "1.x.x",
+  "title": "Spaceship ZSH",
+  "plugins": ["edit-link", "github", "github-buttons", "anchorjs"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/Joaquin6/spaceship-zsh/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/Joaquin6/spaceship-zsh/"
+    },
+    "github-buttons": {
+      "buttons": [{
+        "user": "denysdovhan",
+        "repo": "spaceship-zsh",
+        "type": "star",
+        "size": "small",
+        "count": true
+      }]
+    }
+  }
+}

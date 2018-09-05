@@ -17,6 +17,7 @@
 -handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
 -handle-add-path $USER_LOCAL_OPT/libarchive/bin
 -handle-add-path $USER_LOCAL_OPT/openssl/bin
+-handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 -handle-add-path $(yarn global bin)
 -handle-add-path $(go env GOPATH)/bin
 -handle-add-path $USER_LOCAL_GO/bin
@@ -24,6 +25,7 @@
 -handle-add-path $PERL_LOCAL_LIB_ROOT/bin
 
 -handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+-handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
 -handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 -handle-add-pkgconfigpath libffi

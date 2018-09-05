@@ -1,0 +1,16 @@
+############################################ vscode ################################################
+
+alias vsc='code .'
+alias vscl='code --log'
+alias vsca='code --add'
+alias vscd='code --diff'
+alias vscg='code --goto'
+alias vscw='code --wait'
+alias vscv='code --verbose'
+alias vscn='code --new-window'
+alias vscr='code --reuse-window'
+alias vscu='code --user-data-dir'
+alias vsce='code --extensions-dir'
+alias vscie='code --install-extension'
+alias vsced='code --disable-extensions'
+alias vscue='code --uninstall-extension'

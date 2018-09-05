@@ -29,5 +29,5 @@ source ~/.jbconfig/zsh/environment.zsh
 source ~/.jbconfig/zsh/functions.zsh
 source ~/.jbconfig/zsh/paths.zsh
 source ~/.jbconfig/zsh/plugins/base.zsh
-source ~/.jbconfig/zsh/aliases.zsh
+source ~/.jbconfig/zsh/alias/index.zsh
 source ~/.jbconfig/zsh/theme.zsh

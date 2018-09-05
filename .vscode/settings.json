@@ -1,5 +1,14 @@
 {
   "typescript.navigator.active": true,
   "favorites.sortDirection": "ASC",
-  "favorites.groupsFirst": true
+  "favorites.groupsFirst": true,
+  "favorites.root": [
+    {
+      "type": "Directory",
+      "name": "/Users/joaquinbriceno/.jbconfig",
+      "parent_id": null,
+      "workspacePath": "",
+      "id": "sE41ORwYBJt2kn5T"
+    }
+  ]
 }
