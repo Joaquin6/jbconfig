@@ -6,11 +6,6 @@
 [[ -z $JB_ZSH_BASE ]] && export JB_ZSH_BASE=~/.jbconfig
 [[ -z $DEFAULT_MACHINE ]] && export DEFAULT_MACHINE="default"
 
-# source $JB_ZSH_BASE/zsh/plugins/aws.plugin.zsh
-# source $JB_ZSH_BASE/zsh/plugins/jira.plugin.zsh
-
-
-
 
 ############################################# private ##############################################
 # Set debug level. If enabled (> 0) it will print information to stderr.
@@ -90,6 +85,28 @@ function -handle-add-manpath() {
 		-jb-zsh-debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH"
 	fi
 }
+function -handle-add-infopath() {
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the INFOPATH variable
+		if [[ "$INFOPATH" != *"$incoming_path"* ]]; then
+			# Check if $INFOPATH is set
+			if [ -z ${INFOPATH+x} ]; then
+				# Control will enter here if $INFOPATH is not set.
+				export INFOPATH="$incoming_path"
+			else
+				# Control will enter here if $INFOPATH is set.
+				export INFOPATH="$incoming_path:$INFOPATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		-jb-zsh-debug "[INFOPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to INFOPATH"
+	fi
+}
 function -handle-add-pkgconfigpath() {
 	local incoming_path=/usr/local/opt/$1/lib/pkgconfig
 	# Check if $incoming_path exists.
@@ -117,22 +134,27 @@ function -handle-add-pkgconfigpath() {
 	fi
 }
 function -load-nvmrc() {
-	local node_version="$(nvm version)"
-	local nvmrc_path="$(nvm_find_nvmrc)"
+  if which nvm &> /dev/null; then
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
 
-	if [ -n "$nvmrc_path" ]; then
-		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ -n "$nvmrc_path" ]; then
+      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-		if [ "$nvmrc_node_version" = "N/A" ]; then
-			nvm install
-		elif [ "$nvmrc_node_version" != "$node_version" ]; then
-			nvm use --delete-prefix
-		fi
-	elif [ "$node_version" != "$(nvm version default)" ]; then
-		echo "Reverting to nvm default version"
-		nvm use --delete-prefix default
-	fi
-	-handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
+      if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+      elif [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm use --delete-prefix
+      fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use --delete-prefix default
+    fi
+    -handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
+  else
+    -jb-zsh-debug "[LOAD NVMRC DEBUG]: 	Can not find nvm command."
+  fi
+
 }
 function -load-user-specifics() {
 	local incoming_user=${USER:-"joaquinbriceno"}
@@ -193,9 +215,11 @@ function -load-url-highlighter() {
 		-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
 	fi
 
-	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
-	ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
-	-jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+  if [ ! -L $syntax_highlighting/highlighters/url ]; then
+	  -jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+	  -jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+  fi
 }
 function -load-mgdm-theme() {
 	local themes=$JB_ZSH_BASE/zsh/themes
@@ -276,7 +300,7 @@ function nygAll () {
 	done < ~/.nvm/default-packages
 }
 
-function upgrade-jb-zsh () {
+upgrade-jb-zsh() {
 	emulate -L zsh
 	upgrade_oh_my_zsh
 	eval antigen selfupdate && eval antigen update
@@ -303,7 +327,7 @@ function yarn_reinstall_latest_exact_dev () { sudo yarn remove "$1" && sudo yarn
 
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
-function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/index.zsh | grep -v '^\s*$' | less -FSRXc ; }
+function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/$1.zsh | grep -v '^\s*$' | less -FSRXc ; }
 
 function dockerKrakenLogin () { cat "$1" | docker login reg-kakarot.chorse.space -u joaquinb --password-stdin }
 
@@ -342,16 +366,9 @@ function listening-on-port() { lsof -i "tcp:$1" ; }
 #   ------------------------------------------------------------
 function my-ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
 
-# turn hidden files on/off in Finder
-function hiddenOn() { defaults write com.apple.Finder AppleShowAllFiles YES ; }
-function hiddenOff() { defaults write com.apple.Finder AppleShowAllFiles NO ; }
-
 # Remove workspace auto-switching by running the following command
 function workspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool YES ; }
 function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool NO ; }
-
-# Create a folder and move into it in one command
-function mkcd() { mkdir -p "$@" && cd "$_"; }
 
 #   ---------------------------
 #   -- PERMISSIONS
@@ -431,5 +448,182 @@ function check-web-connectivity() {
 	esac
 }
 
+add_auth_key () {
+  ssh-copy-id $@
+}
+# This is a handy little script I stole from somewhere which determines what type of archive
+# you have (based on file extension) and executes the correct incantation to unarchive it.
+# It doesn't support additional flags, however.
+extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)        tar xjf $1        ;;
+            *.tar.gz)         tar xzf $1        ;;
+            *.bz2)            bunzip2 $1        ;;
+            *.rar)            unrar x $1        ;;
+            *.gz)             gunzip $1         ;;
+            *.tar)            tar xf $1         ;;
+            *.tbz2)           tar xjf $1        ;;
+            *.tgz)            tar xzf $1        ;;
+            *.zip)            unzip $1          ;;
+            *.Z)              uncompress $1     ;;
+            *.7z)             7zr e $1          ;;
+            *)                echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
 
+# dict is a small utility which I used when cheating at IRC games.
+# The game was effectively "guess the word" using more or less binary search on a word space.
+# Once you got it down to something like "Wah - Water" and you had to guess all the words in
+# between there, it got really difficult. If no one could guess the right word,
+# I'd do a search for something like dict ^wa and try those words which occurred between the two.
 
+# This is a perfect example of when you want to use a function instead of an alias.
+# If this were an alias, we couldn't insert the term before the file name.
+# The $@ syntax means "Take the arguments that were passed to this function and put them here."
+dict() {
+    grep "$@" $USER_SHARE/dict/words
+}
+
+# dls will list directories instead of files in the current working directory.
+dls () {
+ # directory LS
+ echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
+}
+
+# dgrep will grep everything under the current directory and dfgrep does the same as dgrep save
+# that it filters out to only have unique filenames.
+dgrep() {
+    # A recursive, case-insensitive grep that excludes binary files
+    grep -iR "$@" * | grep -v "Binary"
+}
+dfgrep() {
+    # A recursive, case-insensitive grep that excludes binary files
+    # and returns only unique filenames
+    grep -iR "$@" * | grep -v "Binary" | sed 's/:/ /g' | awk '{ print $1 }' | sort | uniq
+}
+# To complete the grep triad, I have psgrep which is similar to pgrep in that it is a process grep.
+# Unlike pgrep, it shows the entire line of ps rather than just the PID.
+psgrep() {
+    if [ ! -z $1 ] ; then
+        echo "Grepping for processes matching $1..."
+        ps aux | grep $1 | grep -v grep
+    else
+        echo "!! Need name to grep for"
+    fi
+}
+
+# When I used to run a local copy of postgres, it would occasionally get into a weird state
+# where killing it was the only way to proceed. Unfortunately, there were 5-10 postgres processes
+# and I could never remember which was the correct one to kill. This function will basically let
+# you kill all processes that match a regex. Very handy for "postgres" or "java".
+killit() {
+    # Kills any process that matches a regexp passed to it
+    ps aux | grep -v "grep" | grep "$@" | awk '{print $2}' | xargs sudo kill
+}
+
+# If this computer doesn't have an implementation of tree, then let's make a simple one with find and sed.
+# Tree basically outputs a directory layout in a tree form.
+if [ -z "\${which tree}" ]; then
+  tree () {
+      find $@ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+  }
+fi
+
+# Create a folder and move into it in one command
+mkcd() { mkdir -p "$@" && cd "$@"; }
+
+# If you need to kill a process on a particular port, but you don't know the process, portslay handles that.
+portslay () {
+    kill -9 `lsof -i tcp:$1 | tail -1 | awk '{ print $2;}'`
+}
+
+# I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
+ghget () {
+    # input: rails/rails
+    USER=$(echo $@ | tr "/" " " | awk '{print $1}')
+    REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
+    mkcd "$HOME/projects/github.com/$USER" && \
+    hub clone $@ && \
+    cd $REPO
+}
+
+# A few debugging tools for IP addresses.
+# exip will list your external IP (as determined from myip.dk) and
+# ips will list what your NIC things your IP addresses are.
+exip () {
+    # gather external ip address
+    echo -n "Current External IP: "
+    curl -s -m 5 http://myip.dk | grep "ha4" | sed -e 's/.*ha4">//g' -e 's/<\/span>.*//g'
+}
+
+ips () {
+    # determine local IP address
+    ifconfig | grep "inet " | awk '{ print $2 }'
+}
+
+# The parse_git_branch and parse_svn_rev functions are used primarily for bash prompt use,
+# so I can display interesting information whenever I'm in a directory that supports it.
+parse_git_branch(){
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1] /';
+}
+
+parse_svn_rev(){
+    svn info 2> /dev/null | grep "Revision" | sed 's/Revision: \(.*\)/[r\1] /';
+}
+
+update_git_dirs() {
+    # so what the below does is finds all files named .git in my home
+    # directory, but excludes the .virtualenvs folder then strips the .git from
+    # the end, cd's into the directory, pulls from the origin master, then
+    # repeats
+
+    OLD_DIR=`pwd`
+    cd ~
+    for i in `find . -type d -name ".virtualenvs" -prune -o -name ".git" | sed 's/\.git//'`; do
+        echo "Going into $i"
+        cd $i
+        git pull origin master
+        cd ~
+    done
+    cd $OLD_DIR
+}
+
+# Its surprisingly hard to figure out what shell you're currently in, so the shell command will
+# tell you. Note that the environment variable SHELL will tell you what you started in, but if you change it it doesn't update.
+shell () {
+  ps | grep `echo $$` | awk '{ print $4 }'
+}
+
+# unegg and unpatch basically clean up crufty files.
+# unegg will take a .egg file (which is actually a zip archive) and make it a directory.
+# This will still be loadable by python. unpatch will clean up after some failed patches
+# (for instance, when you get the wrong patch level when applying a diff) by recursing through the
+# current directory removing any .orig or .rej files, as well as any directories named b.
+unegg () {
+    unzip $1 -d tmp
+    rm $1
+    mv tmp $1
+}
+
+unpatch () {
+  find . -name "*.orig" -o -name "*.rej"  -type f -exec rm {} \;
+  find . -name "b" -type d -exec rm -rf {} \;
+}
+
+# So, I play counterstrike on my linux laptop. The gamma isn't set correctly for the game due to
+# some issues in Steam v1. This script will update the gamma for the laptop to be at playable levels.
+set_gamma () {
+  xrandr --output eDP1 --gamma $1:$1:$1
+}
+
+cs_on() {
+  set_gamma 1.7
+}
+
+cs_off()  {
+  set_gamma 1.0
+}

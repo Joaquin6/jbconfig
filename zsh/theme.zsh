@@ -36,19 +36,3 @@ export SPACESHIP_RPROMPT_ORDER=(
 
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
-
-autoload -U compinit && compinit -i
-# autoload -U promptinit && promptinit -i
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd -load-nvmrc
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd -load-user-specifics
-
--load-nvmrc
--load-user-specifics
-
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship

@@ -24,6 +24,8 @@
 -handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 -handle-add-path $PERL_LOCAL_LIB_ROOT/bin
 
+-handle-add-infopath $USER_SHARE/info
+
 -handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
 -handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
 -handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman

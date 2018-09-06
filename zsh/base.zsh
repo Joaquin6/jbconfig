@@ -25,9 +25,57 @@
 #				https://unix.stackexchange.com/questions/121802/zsh-how-to-check-if-an-option-is-enabled
 #				https://www-s.acm.illinois.edu/workshops/zsh/parameters/expansion.html
 
-source ~/.jbconfig/zsh/environment.zsh
-source ~/.jbconfig/zsh/functions.zsh
-source ~/.jbconfig/zsh/paths.zsh
-source ~/.jbconfig/zsh/plugins/base.zsh
-source ~/.jbconfig/zsh/alias/index.zsh
-source ~/.jbconfig/zsh/theme.zsh
+# Automatic options added
+setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
+unsetopt beep
+bindkey -e
+zstyle :compinstall filename '~/.jbconfig/zsh/base.zsh'
+# end automatic options
+
+# Make prompt prettier
+autoload -U compinit && compinit -i
+autoload -U promptinit && promptinit -i
+
+. ~/.jbconfig/zsh/environment.zsh
+. ~/.jbconfig/zsh/functions.zsh
+. ~/.jbconfig/zsh/paths.zsh
+. ~/.jbconfig/zsh/plugins/base.zsh
+. ~/.jbconfig/zsh/alias/index.zsh
+. ~/.jbconfig/zsh/theme.zsh
+. ~/.jbconfig/zsh/completions.zsh
+. ~/.jbconfig/zsh/prompt.zsh
+
+[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
+
+if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
+  . $USER_LOCAL_BIN/virtualenvwrapper.sh
+fi
+
+. ~/.jbconfig/zsh/host_specific.zsh
+
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
+
+if [ -e "`which brew`" ]; then
+    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+fi
+
+[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
+  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+
+# Run on new shell
+if [ -e "`which fortune`" ]; then
+    echo ""
+    fortune
+    echo ""
+fi
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd -load-nvmrc
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd -load-user-specifics
+
+# Set Spaceship ZSH as a prompt
+# prompt spaceship

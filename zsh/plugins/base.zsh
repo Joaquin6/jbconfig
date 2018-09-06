@@ -1,23 +1,4 @@
-# Paths
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-# Set the list of directories that cd searches.
-export cdpath=(
-	$cdpath
-)
-# Set the list of directories that Zsh searches for programs.
-export path=(
-	/usr/local/{bin,sbin}
-	$path
-)
 
-export fpath=(
-	$HOME/.config/completion
-	$USER_LOCAL_ETC/bash_completion.d
-	$USER_LOCAL_SHARE/zsh-completions
-	$USER_LOCAL_SHARE/zsh/site-functions
-	$fpath
-)
 
 if [ ! -d $HOME/antigen ]; then
 	mkdir -p $HOME/antigen
@@ -29,7 +10,6 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
 	git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 fi
 
-test -e $HOME/.iterm2_shell_integration.zsh && source $HOME/.iterm2_shell_integration.zsh
 
 -load-syntax-highlighting
 
@@ -93,7 +73,7 @@ antigen bundle djui/alias-tips        											# https://github.com/djui/alias
 antigen bundle Joaquin6/git-aliases   											# https://github.com/Joaquin6/git-aliases
 antigen bundle jocelynmallon/zshmarks 											# https://github.com/jocelynmallon/zshmarks
 antigen bundle ascii-soup/zsh-url-highlighter								# https://github.com/ascii-soup/zsh-url-highlighter
-antigen bundle denysdovhan/spaceship-prompt 								# https://github.com/denysdovhan/spaceship-prompt
+# antigen bundle denysdovhan/spaceship-prompt 								# https://github.com/denysdovhan/spaceship-prompt
 
 # if [ -d $DOCKER_ETC_CONTENTS ]; then
 # 	ln -s $DOCKER_ETC_CONTENTS/docker.zsh-completion $USER_LOCAL_SHARE/zsh/site-functions/_docker
@@ -103,7 +83,7 @@ antigen bundle denysdovhan/spaceship-prompt 								# https://github.com/denysdo
 -load-url-highlighter
 # antigen theme powerlevel9k
 # Suuply the theme - https://denysdovhan.com/spaceship-prompt/
-antigen theme spaceship
+# antigen theme spaceship
 # antigen theme spaceship
 # https://github.com/tonsky/FiraCode/wiki/VS-Code-Instructions
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/API.md
