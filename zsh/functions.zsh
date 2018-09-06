@@ -327,7 +327,7 @@ function yarn_reinstall_latest_exact_dev () { sudo yarn remove "$1" && sudo yarn
 
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
-function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/$1.zsh | grep -v '^\s*$' | less -FSRXc ; }
+function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/*.zsh | grep -v '^\s*$' | less -FSRXc ; }
 
 function dockerKrakenLogin () { cat "$1" | docker login reg-kakarot.chorse.space -u joaquinb --password-stdin }
 
