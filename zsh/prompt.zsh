@@ -11,10 +11,12 @@ function install_powerline_precmd() {
   precmd_functions+=(powerline_precmd)
 }
 
-if which powerline-shell > /dev/null; then
-  install_powerline_precmd
-else
-  echo "You should install powerline-shell from https://github.com/milkbikis/powerline-shell/"
+if [ "$TERM" != "linux" ]; then
+  if ! [ -x "$(command -v powerline-shell)" ]; then
+    echo "You should install powerline-shell from https://github.com/milkbikis/powerline-shell/"
+  elif which powerline-shell > /dev/null; then
+    install_powerline_precmd
+  fi
 fi
 
 # Support for bash
