@@ -40,27 +40,16 @@ autoload -U promptinit && promptinit -i
 . ~/.jbconfig/zsh/functions.zsh
 . ~/.jbconfig/zsh/paths.zsh
 . ~/.jbconfig/zsh/plugins/base.zsh
-. ~/.jbconfig/zsh/alias/index.zsh
 . ~/.jbconfig/zsh/theme.zsh
 . ~/.jbconfig/zsh/completions.zsh
+. ~/.jbconfig/zsh/alias/index.zsh
 . ~/.jbconfig/zsh/prompt.zsh
-
-[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
-
-if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
-  . $USER_LOCAL_BIN/virtualenvwrapper.sh
-fi
-
 . ~/.jbconfig/zsh/host_specific.zsh
 
-if [ -f ~/.bash_local ]; then
-    . ~/.bash_local
-fi
-
-if [ -e "`which brew`" ]; then
-    [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
-fi
-
+[[ -s ~/.bash_local ]] && . ~/.bash_local
+[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
+[[ -s $USER_LOCAL_BIN/virtualenvwrapper.sh ]] && . $USER_LOCAL_BIN/virtualenvwrapper.sh
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
 
@@ -79,3 +68,7 @@ add-zsh-hook chpwd -load-user-specifics
 
 # Set Spaceship ZSH as a prompt
 # prompt spaceship
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship

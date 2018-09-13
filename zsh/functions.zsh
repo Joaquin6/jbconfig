@@ -627,3 +627,7 @@ cs_on() {
 cs_off()  {
   set_gamma 1.0
 }
+
+check-commands() {
+
+}

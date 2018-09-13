@@ -6,16 +6,17 @@
 [[ -z $JB_ZSH_BASE ]] && export JB_ZSH_BASE=~/.jbconfig
 
 
-source ~/.jbconfig/zsh/alias/cd.zsh
-source ~/.jbconfig/zsh/alias/docker.zsh
-source ~/.jbconfig/zsh/alias/docker-compose.zsh
-source ~/.jbconfig/zsh/alias/editor.zsh
-source ~/.jbconfig/zsh/alias/ls.zsh
-source ~/.jbconfig/zsh/alias/lsof.zsh
-source ~/.jbconfig/zsh/alias/vscode.zsh
-source ~/.jbconfig/zsh/alias/networking.zsh
-source ~/.jbconfig/zsh/alias/tar.zsh
-source ~/.jbconfig/zsh/alias/env.zsh
+. ~/.jbconfig/zsh/alias/ls.zsh
+. ~/.jbconfig/zsh/alias/docker.zsh
+. ~/.jbconfig/zsh/alias/docker-compose.zsh
+. ~/.jbconfig/zsh/alias/editor.zsh
+. ~/.jbconfig/zsh/alias/vscode.zsh
+. ~/.jbconfig/zsh/alias/lsof.zsh
+. ~/.jbconfig/zsh/alias/networking.zsh
+. ~/.jbconfig/zsh/alias/tar.zsh
+. ~/.jbconfig/zsh/alias/colorls.zsh
+. ~/.jbconfig/zsh/alias/cd.zsh
+. ~/.jbconfig/zsh/alias/env.zsh
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
