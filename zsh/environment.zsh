@@ -93,6 +93,8 @@ export ZSH_THEME="spaceship"
 export ZSHA_BASE=$HOME/.antigen
 export ADOTDIR=$ZSHA_BASE
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
+
+export POWERLEVEL9K_MODE='nerdfont-complete'
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
