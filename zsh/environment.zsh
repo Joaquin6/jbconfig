@@ -93,6 +93,7 @@ export ZSH_THEME="spaceship"
 export ZSHA_BASE=$HOME/.antigen
 export ADOTDIR=$ZSHA_BASE
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
+export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
 export POWERLEVEL9K_MODE='nerdfont-complete'
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes

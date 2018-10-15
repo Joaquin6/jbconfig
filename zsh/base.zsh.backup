@@ -33,14 +33,13 @@ zstyle :compinstall filename '~/.jbconfig/zsh/base.zsh'
 # end automatic options
 
 # Make prompt prettier
-# autoload -U compinit && compinit -i
-# autoload -U promptinit && promptinit -i
+autoload -U compinit && compinit -i
+autoload -U promptinit && promptinit -i
 
 . ~/.jbconfig/zsh/environment.zsh
 . ~/.jbconfig/zsh/functions.zsh
 . ~/.jbconfig/zsh/paths.zsh
 . ~/.jbconfig/zsh/plugins/base.zsh
-. ~/.jbconfig/zsh/plugins/git-flow-completion.zsh
 . ~/.jbconfig/zsh/theme.zsh
 . ~/.jbconfig/zsh/completions.zsh
 . ~/.jbconfig/zsh/alias/index.zsh
@@ -54,21 +53,18 @@ zstyle :compinstall filename '~/.jbconfig/zsh/base.zsh'
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
 
-# The next line updates PATH for the Google Cloud SDK.
-[[ -f $GCLOUD_SDK_PATH/path.zsh.inc ]] && . $GCLOUD_SDK_PATH/path.zsh.inc
-# The next line enables shell command completion for gcloud.
-[[ -f $GCLOUD_SDK_PATH/completion.zsh.inc ]] && . $GCLOUD_SDK_PATH/completion.zsh.inc
+# Run on new shell
+if [ -e "`which fortune`" ]; then
+    echo ""
+    fortune
+    echo ""
+fi
 
-# Make prompt prettier
-autoload -U compinit && compinit -i
-autoload -U promptinit && promptinit -i
 autoload -U add-zsh-hook
-
 add-zsh-hook chpwd -load-nvmrc
--load-nvmrc
 
+autoload -U add-zsh-hook
 add-zsh-hook chpwd -load-user-specifics
--load-user-specifics
 
 # Set Spaceship ZSH as a prompt
 # prompt spaceship
