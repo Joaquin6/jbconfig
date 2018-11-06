@@ -25,34 +25,22 @@
 #				https://unix.stackexchange.com/questions/121802/zsh-how-to-check-if-an-option-is-enabled
 #				https://www-s.acm.illinois.edu/workshops/zsh/parameters/expansion.html
 
-# Automatic options added
-setopt appendhistory autocd nomatch autopushd pushdignoredups promptsubst
-unsetopt beep
-bindkey -e
-zstyle :compinstall filename '~/.jbconfig/zsh/base.zsh'
-# end automatic options
-
-# Make prompt prettier
-# autoload -U compinit && compinit -i
-# autoload -U promptinit && promptinit -i
-
 . ~/.jbconfig/zsh/environment.zsh
+. ~/.jbconfig/zsh/plugins/base.zsh
+. ~/.jbconfig/zsh/alias/index.zsh
 . ~/.jbconfig/zsh/functions.zsh
 . ~/.jbconfig/zsh/paths.zsh
-. ~/.jbconfig/zsh/plugins/base.zsh
 . ~/.jbconfig/zsh/plugins/git-flow-completion.zsh
 . ~/.jbconfig/zsh/theme.zsh
 . ~/.jbconfig/zsh/completions.zsh
-. ~/.jbconfig/zsh/alias/index.zsh
 . ~/.jbconfig/zsh/prompt.zsh
 . ~/.jbconfig/zsh/host_specific.zsh
 
-[[ -s ~/.bash_local ]] && . ~/.bash_local
-[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 [[ -s $USER_LOCAL_BIN/virtualenvwrapper.sh ]] && . $USER_LOCAL_BIN/virtualenvwrapper.sh
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 [[ -f $GCLOUD_SDK_PATH/path.zsh.inc ]] && . $GCLOUD_SDK_PATH/path.zsh.inc
@@ -60,9 +48,9 @@ zstyle :compinstall filename '~/.jbconfig/zsh/base.zsh'
 [[ -f $GCLOUD_SDK_PATH/completion.zsh.inc ]] && . $GCLOUD_SDK_PATH/completion.zsh.inc
 
 # Make prompt prettier
-autoload -U compinit && compinit -i
-autoload -U promptinit && promptinit -i
-autoload -U add-zsh-hook
+# autoload -U compinit && compinit -i
+# autoload -U promptinit && promptinit -i
+autoload -U add-zsh-hook promptinit; promptinit
 
 add-zsh-hook chpwd -load-nvmrc
 -load-nvmrc
@@ -74,5 +62,5 @@ add-zsh-hook chpwd -load-user-specifics
 # prompt spaceship
 
 # Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
+# autoload -U promptinit; promptinit
 prompt spaceship

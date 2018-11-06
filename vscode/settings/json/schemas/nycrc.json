@@ -1,0 +1,292 @@
+  1 {
+  2   "definitions": {},
+  3   "$schema": "http://json-schema.org/draft-07/schema#",
+  4   "$id": "http://example.com/root.json",
+  5   "type": "object",
+  6   "title": "The Root Schema",
+  7   "required": [
+  8     "extends",
+  9     "all",
+ 10     "cache",
+ 11     "check-coverage",
+ 12     "per-file",
+ 13     "produce-source-map",
+ 14     "lines",
+ 15     "functions",
+ 16     "branches",
+ 17     "statements",
+ 18     "ignore-class-method",
+ 19     "temp-dir",
+ 20     "report-dir",
+ 21     "watermarks",
+ 22     "include",
+ 23     "exclude",
+ 24     "reporter",
+ 25     "require"
+ 26   ],
+ 27   "properties": {
+ 28     "extends": {
+ 29       "$id": "#/properties/extends",
+ 30       "type": "string",
+ 31       "title": "The Extends Schema",
+ 32       "default": "",
+ 33       "examples": [
+ 34         "@istanbuljs/nyc-config-babel"
+ 35       ],
+ 36       "pattern": "^(.*)$"
+ 37     },
+ 38     "all": {
+ 39       "$id": "#/properties/all",
+ 40       "type": "boolean",
+ 41       "title": "The All Schema",
+ 42       "default": false,
+ 43       "examples": [
+ 44         true
+ 45       ]
+ 46     },
+ 47     "cache": {
+ 48       "$id": "#/properties/cache",
+ 49       "type": "boolean",
+ 50       "title": "The Cache Schema",
+ 51       "default": false,
+ 52       "examples": [
+ 53         true
+ 54       ]
+ 55     },
+ 56     "check-coverage": {
+ 57       "$id": "#/properties/check-coverage",
+ 58       "type": "boolean",
+ 59       "title": "The Check-coverage Schema",
+ 60       "default": false,
+ 61       "examples": [
+ 62         true
+ 63       ]
+ 64     },
+ 65     "per-file": {
+ 66       "$id": "#/properties/per-file",
+ 67       "type": "boolean",
+ 68       "title": "The Per-file Schema",
+ 69       "default": false,
+ 70       "examples": [
+ 71         true
+ 72       ]
+ 73     },
+ 74     "produce-source-map": {
+ 75       "$id": "#/properties/produce-source-map",
+ 76       "type": "boolean",
+ 77       "title": "The Produce-source-map Schema",
+ 78       "default": false,
+ 79       "examples": [
+ 80         true
+ 81       ]
+ 82     },
+ 83     "lines": {
+ 84       "$id": "#/properties/lines",
+ 85       "type": "integer",
+ 86       "title": "The Lines Schema",
+ 87       "default": 0,
+ 88       "examples": [
+ 89         0
+ 90       ]
+ 91     },
+ 92     "functions": {
+ 93       "$id": "#/properties/functions",
+ 94       "type": "integer",
+ 95       "title": "The Functions Schema",
+ 96       "default": 0,
+ 97       "examples": [
+ 98         0
+ 99       ]
+100     },
+101     "branches": {
+102       "$id": "#/properties/branches",
+103       "type": "integer",
+104       "title": "The Branches Schema",
+105       "default": 0,
+106       "examples": [
+107         0
+108       ]
+109     },
+110     "statements": {
+111       "$id": "#/properties/statements",
+112       "type": "integer",
+113       "title": "The Statements Schema",
+114       "default": 0,
+115       "examples": [
+116         0
+117       ]
+118     },
+119     "ignore-class-method": {
+120       "$id": "#/properties/ignore-class-method",
+121       "type": "string",
+122       "title": "The Ignore-class-method Schema",
+123       "default": "",
+124       "examples": [
+125         "methodToIgnore"
+126       ],
+127       "pattern": "^(.*)$"
+128     },
+129     "temp-dir": {
+130       "$id": "#/properties/temp-dir",
+131       "type": "string",
+132       "title": "The Temp-dir Schema",
+133       "default": "",
+134       "examples": [
+135         "./alternative-tmp"
+136       ],
+137       "pattern": "^(.*)$"
+138     },
+139     "report-dir": {
+140       "$id": "#/properties/report-dir",
+141       "type": "string",
+142       "title": "The Report-dir Schema",
+143       "default": "",
+144       "examples": [
+145         "./alternative"
+146       ],
+147       "pattern": "^(.*)$"
+148     },
+149     "watermarks": {
+150       "$id": "#/properties/watermarks",
+151       "type": "object",
+152       "title": "The Watermarks Schema",
+153       "required": [
+154         "lines",
+155         "functions",
+156         "branches",
+157         "statements"
+158       ],
+159       "properties": {
+160         "lines": {
+161           "$id": "#/properties/watermarks/properties/lines",
+162           "type": "array",
+163           "title": "The Lines Schema",
+164           "items": {
+165             "$id": "#/properties/watermarks/properties/lines/items",
+166             "type": "integer",
+167             "title": "The Items Schema",
+168             "default": 0,
+169             "examples": [
+170               0,
+171               0
+172             ]
+173           }
+174         },
+175         "functions": {
+176           "$id": "#/properties/watermarks/properties/functions",
+177           "type": "array",
+178           "title": "The Functions Schema",
+179           "items": {
+180             "$id": "#/properties/watermarks/properties/functions/items",
+181             "type": "integer",
+182             "title": "The Items Schema",
+183             "default": 0,
+184             "examples": [
+185               0,
+186               0
+187             ]
+188           }
+189         },
+190         "branches": {
+191           "$id": "#/properties/watermarks/properties/branches",
+192           "type": "array",
+193           "title": "The Branches Schema",
+194           "items": {
+195             "$id": "#/properties/watermarks/properties/branches/items",
+196             "type": "integer",
+197             "title": "The Items Schema",
+198             "default": 0,
+199             "examples": [
+200               0,
+201               0
+202             ]
+203           }
+204         },
+205         "statements": {
+206           "$id": "#/properties/watermarks/properties/statements",
+207           "type": "array",
+208           "title": "The Statements Schema",
+209           "items": {
+210             "$id": "#/properties/watermarks/properties/statements/items",
+211             "type": "integer",
+212             "title": "The Items Schema",
+213             "default": 0,
+214             "examples": [
+215               0,
+216               0
+217             ]
+218           }
+219         }
+220       }
+221     },
+222     "include": {
+223       "$id": "#/properties/include",
+224       "type": "array",
+225       "title": "The Include Schema",
+226       "items": {
+227         "$id": "#/properties/include/items",
+228         "type": "string",
+229         "title": "The Items Schema",
+230         "default": "",
+231         "examples": [
+232           "src/**/*.js"
+233         ],
+234         "pattern": "^(.*)$"
+235       }
+236     },
+237     "exclude": {
+238       "$id": "#/properties/exclude",
+239       "type": "array",
+240       "title": "The Exclude Schema",
+241       "items": {
+242         "$id": "#/properties/exclude/items",
+243         "type": "string",
+244         "title": "The Items Schema",
+245         "default": "",
+246         "examples": [
+247           "config",
+248           "test/**/*.spec.js",
+249           "coverage/**",
+250           "packages/*/test/**",
+251           "test/**",
+252           "test{,-*}.js",
+253           "**/*{.,-}test.js",
+254           "**/__tests__/**",
+255           "**/node_modules/**"
+256         ],
+257         "pattern": "^(.*)$"
+258       }
+259     },
+260     "reporter": {
+261       "$id": "#/properties/reporter",
+262       "type": "array",
+263       "title": "The Reporter Schema",
+264       "items": {
+265         "$id": "#/properties/reporter/items",
+266         "type": "string",
+267         "title": "The Items Schema",
+268         "default": "",
+269         "examples": [
+270           "text",
+271           "text-summary"
+272         ],
+273         "pattern": "^(.*)$"
+274       }
+275     },
+276     "require": {
+277       "$id": "#/properties/require",
+278       "type": "array",
+279       "title": "The Require Schema",
+280       "items": {
+281         "$id": "#/properties/require/items",
+282         "type": "string",
+283         "title": "The Items Schema",
+284         "default": "",
+285         "examples": [
+286           "babel-register"
+287         ],
+288         "pattern": "^(.*)$"
+289       }
+290     }
+291   }
+292 }

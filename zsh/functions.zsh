@@ -150,7 +150,7 @@ function -load-nvmrc() {
       echo "Reverting to nvm default version"
       nvm use --delete-prefix default
     fi
-    -handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
+    -handle-add-path "$NVM_DIR/versions/node/v10.11.0/bin"
   else
     -jb-zsh-debug "[LOAD NVMRC DEBUG]: 	Can not find nvm command."
   fi
@@ -236,6 +236,175 @@ function -load-mgdm-theme() {
 		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copying $mgdm_theme to $destination/mgdm.zsh-theme" 2
 		cp $mgdm_theme $destination/mgdm.zsh-theme
 		-jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copied $mgdm_theme to $destination/mgdm.zsh-theme successfully" 2
+	fi
+}
+
+
+
+#   ---------------------------
+#   6. SEARCHING
+#   ---------------------------
+
+ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
+ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
+ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+
+
+#   ---------------------------
+#   7. PROCESS MANAGEMENT
+#   ---------------------------
+
+#   findPid: find out the pid of a specified process
+#   -----------------------------------------------------
+#       Note that the command name can be specified via a regex
+#       E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
+#       Without the 'sudo' it will only find processes of the current user
+#   -----------------------------------------------------
+findPid () { lsof -t -c "$@" ; }
+myip() {
+ 	ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
+	ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+}
+#   my_ps: List processes owned by my user:
+#   ------------------------------------------------------------
+my-ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+hist() { history | grep "$@" ; }
+#   extract:  Extract most known archives with one command
+#   ---------------------------------------------------------
+extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+       esac
+   else
+       echo "'$1' is not a valid file"
+   fi
+}
+#   ii:  display useful host related informaton
+#   -------------------------------------------------------------------
+ii () {
+	echo -e "\nYou are logged on ${RED}$HOST"
+	echo -e "\nAdditionnal information:$NC " ; uname -a
+	echo -e "\n${RED}Users logged on:$NC " ; w -h
+	echo -e "\n${RED}Current date :$NC " ; date
+	echo -e "\n${RED}Machine stats :$NC " ; uptime
+	echo -e "\n${RED}Current network location :$NC " ; scselect
+	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
+}
+reload () { exec $SHELL -l ; }
+#   nyg: shortcut to globally install pkgs with npm AND yarn
+#   ------------------------------------------------------------
+nyg () { npm install --global "$1" && yarn global add "$1" ; }
+nygAll () {
+	while IFS='' read -r line || [[ -n "$line" ]]; do
+	    echo "\tInstalling Globally:\t$line"
+	    nyg $line
+	done < ~/.nvm/default-packages
+}
+upgrade-jb-zsh() {
+	emulate -L zsh
+	upgrade_oh_my_zsh
+	eval antigen selfupdate && eval antigen update
+}
+#   showa: to remind yourself of an alias (given some part of it)
+#   ------------------------------------------------------------
+showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/*.zsh | grep -v '^\s*$' | less -FSRXc ; }
+check-web-connectivity() {
+	case "$(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
+	  [23]) echo "HTTP connectivity is up";;
+	  5) echo "The web proxy won't let us through";;
+	  *) echo "The network is down or very slow";;
+	esac
+}
+
+
+
+
+#   ---------------------------------------
+#   8. PERMISSIONS
+#   ---------------------------------------
+show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
+permitme() { pkexec chown $USER:adm $PWD -hR ; }
+users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
+
+# I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
+ghget () {
+    # input: rails/rails
+    USER=$(echo $@ | tr "/" " " | awk '{print $1}')
+    REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
+    mkcd "$HOME/projects/github.com/$USER" && \
+    hub clone $@ && \
+    cd $REPO
+}
+
+jb-zsh-debug() {
+  local level=${2:-1}
+  if (( JB_ZSH_DEBUG < level )); then
+    return
+  fi
+  local msg="$1"  # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
+  # Load zsh color support.
+  if [[ -z $color ]]; then
+    autoload colors
+    colors
+  fi
+  # Build $indent prefix.
+  local indent=
+  if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
+    for i in {1..${_jb_zsh_debug_indent}}; do
+      indent="  $indent"
+    done
+  fi
+
+  # Split $msg by \n (not newline).
+  lines=(${(ps:\\n:)msg})
+  for line in $lines; do
+    echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
+    echo ${indent}${line} >&2
+  done
+}
+
+load-user-specifics() {
+	local incoming_user=${USER:-"joaquinbriceno"}
+	local machine_hostname="$(hostname -f)"
+
+
+	# Handle git configs
+	if [[ $PWD == *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
+		jb-zsh-debug "[USER DEBUG]: 	Setting \"cattlebruisers\" git configs"
+
+		git config --local --unset user.name
+		git config --local user.name "Joaquin Briceno"
+		git config --local --unset user.email
+		git config --local user.email joaquin.briceno@insitu.com
+		git config --local --unset commit.gpgsign
+		git config --local commit.gpgsign false
+	elif [[ $PWD != *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
+		jb-zsh-debug "[USER DEBUG]: 	Setting \"kraken\" git configs"
+
+		git config --local --unset user.name
+		git config --global user.name "joaquinb"
+		git config --local user.name "joaquinb"
+		git config --local --unset user.email
+		git config --global user.email joaquinb@btcx.com
+		git config --local user.email joaquinb@btcx.com
+		git config --local --unset commit.gpgsign
+		git config --global commit.gpgsign true
+		git config --local commit.gpgsign true
 	fi
 }
 
@@ -376,36 +545,6 @@ function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto
 function show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
 function permitme() { pkexec chown $USER:adm $PWD -hR ; }
 function users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
-
-__confirm_existence() {
-	if [[ -d $1 ]] && [[ -n $1 ]] ; then
-		echo "\t\tDeleting Directory $1"
-		return 0
-	fi
-
-	if [[ -f $1 ]] && [[ -n $1 ]] ; then
-		echo "\t\tDeleting File $1"
-		return 0
-	fi
-
-	return 1
-}
-
-__trash() {
-		if which rimraf &> /dev/null; then
-			sudo rimraf $1 -s
-		else
-			sudo rm -rf $1
-		fi
-		echo "\n\t\tSuccessfully Trashed $1"
-}
-
-function trash() {
-	if __confirm_existence $1; then
-		__trash $1
-	fi;
-	echo
-}
 
 # Open the node api for your current version to the optional section.
 # TODO: Make the section part easier to use.
@@ -626,8 +765,4 @@ cs_on() {
 
 cs_off()  {
   set_gamma 1.0
-}
-
-check-commands() {
-
 }
