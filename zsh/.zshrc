@@ -1,3 +1,7 @@
+# 	REFERENCES
+#	-------------------------------
+#	http://zsh.sourceforge.net/Guide/zshguide.html
+
 
 #   CONFIGURATION VARIABLES
 #   -------------------------------
@@ -141,7 +145,7 @@ export fpath=(
 source $HOME/antigen/antigen.zsh
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -d "$$HOME/.phpbrew" ] && \. "$HOME/.phpbrew/bashrc"
+[ -d "$HOME/.phpbrew" ] && \. "$HOME/.phpbrew/bashrc"
 [ -f "/usr/local/etc/bash_completion" ] && \. "/usr/local/etc/bash_completion"
 if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
   source $USER_LOCAL_BIN/virtualenvwrapper.sh
@@ -199,6 +203,7 @@ antigen bundle ascii-soup/zsh-url-highlighter
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
+antigen bundle zpm-zsh/autoenv 							# https://github.com/zpm-zsh/autoenv
 
 # Suuply the theme
 antigen theme denysdovhan/spaceship-prompt spaceship
@@ -249,7 +254,7 @@ export SPACESHIP_TIME_12HR=true
 
 
 alias zshversion='echo ${ZSH_PATCHLEVEL}'
-alias zshconfig="$EDITOR ~/.zshrc"
+alias zshconfig="$EDITOR $JB_ZSH_BASE/zsh/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias ohmyzshconfig="$EDITOR ~/.oh-my-zsh"
 
@@ -311,7 +316,7 @@ alias .3='cd ../../../'                 # Go back 3 directory levels
 alias .4='cd ../../../../'              # Go back 4 directory levels
 alias .5='cd ../../../../../'           # Go back 5 directory levels
 alias .6='cd ../../../../../../'        # Go back 6 directory levels
-cd() { builtin cd "$@"; ls -l; }        # Always list directory contents upon 'cd'
+cd() { builtin cd "$@"; ls -la; }       # Always list directory contents upon 'cd'
 
 alias edit='code'		                # edit:     Opens any file in vscode
 alias c='clear'                               # c:            Clear terminal display
@@ -541,6 +546,8 @@ jb-zsh-debug() {
   done
 }
 
+# place this after nvm initialization!
+autoload -U add-zsh-hook
 load-user-specifics() {
 	local incoming_user=${USER:-"joaquinbriceno"}
 	local machine_hostname="$(hostname -f)"
@@ -570,10 +577,6 @@ load-user-specifics() {
 		git config --local commit.gpgsign true
 	fi
 }
-
-
-# place this after nvm initialization!
-autoload -U add-zsh-hook
 load-nvmrc() {
   load-user-specifics
 
@@ -594,7 +597,6 @@ load-nvmrc() {
   fi
 }
 add-zsh-hook chpwd load-nvmrc
-load-nvmrc
 
 autoload -U add-zsh-hook promptinit; promptinit
 prompt spaceship

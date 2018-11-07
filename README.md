@@ -12,3 +12,7 @@
 * Open iTerm2. To change the default shell to Zsh rather than bash, run the change shell command in your terminal. `chsh -s /bin/zsh`
 
 The Zsh resource file, `~/.zshrc`, is a script that is run whenever you start Zsh.
+
+## References
+
+* <https://github.com/Homebrew/homebrew-bundle>

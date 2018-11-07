@@ -4,6 +4,8 @@
     "p1c2u.docker-compose",
     "hookyqr.jsdoctagcomplete",
     "joelday.docthis",
-    "emilast.logfilehighlighter"
+    "emilast.logfilehighlighter",
+    "sharat.vscode-brewfile",
+    "beauallison.brew-services"
   ]
 }
