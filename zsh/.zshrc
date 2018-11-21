@@ -3,13 +3,151 @@
 #	http://zsh.sourceforge.net/Guide/zshguide.html
 
 
+############################################# private ##############################################
+# Set debug level. If enabled (> 0) it will print information to stderr.
+# 	0: no debug messages (Default)
+# 	1: generic debug logging
+# 	2: more verbose messages
+# 		messages about adding/removing files on the internal stack
+# 	3: everything
+# 		sets xtrace option (set -x) while sourcing env files
+
+jb-zsh-debug()
+{
+  local level=${2:-1}
+  if (( JB_ZSH_DEBUG < level )); then
+    return
+  fi
+  local msg="$1"  # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
+  # Load zsh color support.
+  if [[ -z $color ]]; then
+    autoload colors
+    colors
+  fi
+  # Build $indent prefix.
+  local indent=
+  if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
+    for i in {1..${_jb_zsh_debug_indent}}; do
+      indent="  $indent"
+    done
+  fi
+
+  # Split $msg by \n (not newline).
+  lines=(${(ps:\\n:)msg})
+  for line in $lines; do
+    echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
+    echo ${indent}${line} >&2
+  done
+}
+
+handle-add-path()
+{
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new node path is added to the PATH variable
+		if [[ "$PATH" != *"$incoming_path"* ]]; then
+			# Check if $PATH is set
+			if [ -z ${PATH+x} ]; then
+				# Control will enter here if $PATH is not set.
+				export PATH="$incoming_path"
+			else
+				# Control will enter here if $PATH is set.
+				export PATH="$incoming_path:$PATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		jb-zsh-debug "[PATH DEBUG]: 	$incoming_path doesn't exist. Not adding to PATH"
+	fi
+}
+
+handle-add-manpath()
+{
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the MANPATH variable
+		if [[ "$MANPATH" != *"$incoming_path"* ]]; then
+			# Check if $MANPATH is set
+			if [ -z ${MANPATH+x} ]; then
+				# Control will enter here if $MANPATH is not set.
+				export MANPATH="$incoming_path"
+			else
+				# Control will enter here if $MANPATH is set.
+				export MANPATH="$incoming_path:$MANPATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		jb-zsh-debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH"
+	fi
+}
+
+handle-add-infopath()
+{
+	local incoming_path="$1"
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the INFOPATH variable
+		if [[ "$INFOPATH" != *"$incoming_path"* ]]; then
+			# Check if $INFOPATH is set
+			if [ -z ${INFOPATH+x} ]; then
+				# Control will enter here if $INFOPATH is not set.
+				export INFOPATH="$incoming_path"
+			else
+				# Control will enter here if $INFOPATH is set.
+				export INFOPATH="$incoming_path:$INFOPATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		jb-zsh-debug "[INFOPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to INFOPATH"
+	fi
+}
+
+handle-add-pkgconfigpath()
+{
+	local incoming_path=/usr/local/opt/$1/lib/pkgconfig
+	# Check if $incoming_path exists.
+	if [ -d "$incoming_path" ]; then
+		# Control will enter here if $incoming_path exists.
+		# My check to make sure the new pkg config path is added to the PKG_CONFIG_PATH variable
+		if [[ "$PKG_CONFIG_PATH" != *"$incoming_path"* ]]; then
+			# Check if $PKG_CONFIG_PATH is set
+			if [ -z ${PKG_CONFIG_PATH+x} ]; then
+				# Control will enter here if $PKG_CONFIG_PATH is not set.
+				export PKG_CONFIG_PATH="$incoming_path"
+			else
+				# Control will enter here if $PKG_CONFIG_PATH is set.
+				export PKG_CONFIG_PATH="$incoming_path:$PKG_CONFIG_PATH"
+			fi
+		fi
+	else
+		# Control will enter here if $incoming_path doesn't exist.
+		# Check if we have $JB_ZSH_DEBUG set to true
+		jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	$incoming_path doesn't exist."
+		# Check if brew is a command. If so, suggest installing with brew
+		if which brew &> /dev/null; then
+			jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	Suggestion => \"brew install $1\"" 2
+		fi
+	fi
+}
+
+
 #   CONFIGURATION VARIABLES
 #   -------------------------------
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PYTHON_VERSION=Current
-export RUBY_VERSION="2.5.1p57"
-export RBENV_VERSION="1.1.1"
+export RUBY_VERSION="2.3.7p456"
+export RBENV_VERSION="rbx-3.105"
 export HOME_LIB_PATH=$HOME/Library
 export SYS_LIB_PATH=/System/Library
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
@@ -24,6 +162,42 @@ export USER_LOCAL_OPT=$USER_LOCAL/opt
 export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
+
+# If you come from bash you might have to change your $PATH.
+handle-add-path $USER_BIN
+handle-add-path $HOME/antigen
+# handle-add-path $SYS_FRWKS_PATH/Python.framework/Versions/$PYTHON_VERSION/bin
+handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/$PYTHON_VERSION/bin
+handle-add-path $USER_LOCAL_OPT/gettext/bin
+handle-add-path $USER_LOCAL_OPT/llvm/bin
+handle-add-path $USER_LOCAL_OPT/apr/bin
+handle-add-path $USER_LOCAL_OPT/apr-util/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+handle-add-path $USER_LOCAL_OPT/libpq/bin
+handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/sqlite/bin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/libarchive/bin
+handle-add-path $USER_LOCAL_OPT/openssl/bin
+handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+handle-add-path $USER_LOCAL_GO/bin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $PERL_LOCAL_LIB_ROOT/bin
+
+handle-add-infopath $USER_SHARE/info
+
+handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+
+handle-add-pkgconfigpath libffi
+handle-add-pkgconfigpath icu4c
+handle-add-pkgconfigpath libpq
+handle-add-pkgconfigpath sqlite
+handle-add-pkgconfigpath libarchive
+handle-add-pkgconfigpath openssl
 
 export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
@@ -97,6 +271,8 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export PERL_LOCAL_LIB_ROOT=$HOME/perl5
 export PERL5LIB=$PERL_LOCAL_LIB_ROOT/lib/perl5
 
+handle-add-path $(go env GOPATH)/bin
+
 export ZSH=$HOME/.oh-my-zsh
 export ZSHA_BASE=$HOME/.antigen
 export ZSH_CUSTOM=$ZSH/custom
@@ -145,7 +321,6 @@ export fpath=(
 source $HOME/antigen/antigen.zsh
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -d "$HOME/.phpbrew" ] && \. "$HOME/.phpbrew/bashrc"
 [ -f "/usr/local/etc/bash_completion" ] && \. "/usr/local/etc/bash_completion"
 if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
   source $USER_LOCAL_BIN/virtualenvwrapper.sh
@@ -153,7 +328,8 @@ if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
 fi
 if which rbenv &> /dev/null; then
 	if [ -d $HOME/.rbenv ]; then
-	  	export PATH=$HOME/.rbenv/bin:$PATH
+		handle-add-path $HOME/.rbenv/bin
+		handle-add-path $HOME/.rbenv/shims
 		eval "$(rbenv init -)"
 	fi
 fi
@@ -251,7 +427,7 @@ export SPACESHIP_RPROMPT_ORDER=(
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
 
-
+handle-add-path $(yarn global bin)
 
 alias zshversion='echo ${ZSH_PATCHLEVEL}'
 alias zshconfig="$EDITOR $JB_ZSH_BASE/zsh/.zshrc"
@@ -517,33 +693,6 @@ ghget () {
     mkcd "$HOME/projects/github.com/$USER" && \
     hub clone $@ && \
     cd $REPO
-}
-
-jb-zsh-debug() {
-  local level=${2:-1}
-  if (( JB_ZSH_DEBUG < level )); then
-    return
-  fi
-  local msg="$1"  # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
-  # Load zsh color support.
-  if [[ -z $color ]]; then
-    autoload colors
-    colors
-  fi
-  # Build $indent prefix.
-  local indent=
-  if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
-    for i in {1..${_jb_zsh_debug_indent}}; do
-      indent="  $indent"
-    done
-  fi
-
-  # Split $msg by \n (not newline).
-  lines=(${(ps:\\n:)msg})
-  for line in $lines; do
-    echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
-    echo ${indent}${line} >&2
-  done
 }
 
 # place this after nvm initialization!
