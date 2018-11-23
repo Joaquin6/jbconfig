@@ -1,0 +1,37 @@
+{
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/.babelrc*": false,
+    "**/.eslintrc*": false,
+    "**/.git": false,
+    "**/.jshintrc*": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "files.associations": {
+    "*.log.*": "log",
+    "*.code-workspace": "json",
+    ".bash*": "bat",
+    ".eslintrc.js": "javascript",
+    ".gpmrc": "json",
+    ".nycrc": "json",
+    ".zshrc": "shellscript",
+    ".zsh_aliases": "shellscript",
+    ".zsh_functions": "shellscript",
+    "gitto*": "javascript",
+    "zshrc": "shellscript",
+    "zsh_aliases": "shellscript",
+    "zsh_functions": "shellscript",
+    "merge-simplecov": "ruby",
+    "snykscan": "shellscript",
+    ".node-inspectorrc": "json",
+    "docker-ngrok": "shellscript",
+    ".sgcrc": "json",
+    ".auditorrc": "json",
+    "*.phpi1": "php",
+    ".prettierrc": "json"
+  }
+}

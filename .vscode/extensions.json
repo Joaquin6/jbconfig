@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "peterjausovec.vscode-docker",
+    "p1c2u.docker-compose",
+    "hookyqr.jsdoctagcomplete",
+    "joelday.docthis",
+    "emilast.logfilehighlighter",
+    "sharat.vscode-brewfile",
+    "beauallison.brew-services"
+  ]
+}

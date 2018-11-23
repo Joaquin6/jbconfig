@@ -1,0 +1,64 @@
+{
+	"extends": [
+		"plugin:import/recommended",
+		"plugin:react/recommended",
+		"plugin:jsx-a11y/recommended"
+	],
+	"env": {
+		"browser": true,
+		"es6": true,
+		"node": true
+	},
+	"plugins": [
+		"import",
+		"react",
+		"jsx-a11y"
+	],
+	"globals": {
+		"global": true,
+		"react": true
+	},
+	"rules": {
+		"curly": ["error", "all"],
+		"global-require": "off",
+		"lines-around-comment": ["error",
+			{
+				"beforeBlockComment": true,
+				"afterBlockComment": true,
+				"beforeLineComment": false,
+				"afterLineComment": false,
+				"allowBlockStart": true,
+				"allowBlockEnd": true,
+				"allowObjectStart": true,
+				"allowObjectEnd": true,
+				"allowArrayStart": true,
+				"allowArrayEnd": true
+			}
+		],
+		"max-len": ["error", {
+			"code": 120,
+			"ignoreUrls": true
+		}],
+		"import/no-dynamic-require": "off",
+		"jsx-a11y/no-static-element-interactions": [1,
+			{
+				"handlers": [
+					"onClick",
+					"onMouseDown",
+					"onMouseUp",
+					"onKeyPress",
+					"onKeyDown",
+					"onKeyUp"
+				]
+			}
+		],
+		"react/forbid-prop-types": "off",
+		"react/jsx-filename-extension": [1, {
+			"extensions": [".js", ".jsx"]
+		}],
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"react/no-typos": "error",
+		"react/no-string-refs": "off"
+	}
+}
