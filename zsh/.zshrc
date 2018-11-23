@@ -148,6 +148,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PYTHON_VERSION=Current
 export RUBY_VERSION="2.3.7p456"
 export RBENV_VERSION="rbx-3.105"
+export RBENV_ROOT=~/.rbenv
 export HOME_LIB_PATH=$HOME/Library
 export SYS_LIB_PATH=/System/Library
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
