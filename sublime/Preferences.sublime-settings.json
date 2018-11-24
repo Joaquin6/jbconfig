@@ -1,0 +1,53 @@
+{
+	"PersistentRegexHighlight":
+	{
+		"enabled": true
+	},
+	"atomic_save": false,
+	"bold_folder_labels": true,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Theme - Ksix/Ksix.tmTheme",
+	"fade_fold_buttons": true,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".hg",
+		"CVS"
+	],
+	"font_size": 10,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"CJSX Syntax",
+		"CSS",
+		"JavaScript",
+		"JavaScript Patterns",
+		"Markdown",
+		"Pug",
+		"React Templates",
+		"SublimeLinter-contrib-eslint_d",
+		"SublimeLinter-contrib-yamllint",
+		"SublimeLinter-flow",
+		"SublimeLinter-jshint",
+		"Theme - Monokai",
+		"Vintage"
+	],
+	"install_prereleases":
+	[
+		"Web Inspector"
+	],
+	"remember_full_screen": true,
+	"remember_open_files": true,
+	"rulers":
+	[
+		100
+	],
+	"save_on_focus_lost": true,
+	"scroll_past_end": true,
+	"show_definitions": false,
+	"spell_check": true,
+	"theme": "Ksix.sublime-theme",
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": false
+}

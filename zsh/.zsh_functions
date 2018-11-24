@@ -59,6 +59,20 @@ zshrc() {
 ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+# ch - browse chrome history
+chrome-hist() {
+  local cols sep
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+​
+  cp -f ~/Library/Application\ Support/Google/Chrome/Profile\ 1/History /tmp/h
+​
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
 
 
 #   ---------------------------

@@ -203,11 +203,12 @@ export MANPATH=$USER_LOCAL_MAN
 
 export RBENV_SHELL=zsh
 export PYTHON_VERSION=Current
+export RBENV_ROOT=$HOME/.rbenv
 export RUBY_VERSION="2.5.3p105"
 export RBENV_VERSION="rbx-3.105"
-export RBENV_ROOT=$HOME/.rbenv
 export RBENV_DIR=$RBENV_ROOT/bin
 export MONO_GAC_PREFIX=$USER_LOCAL
+
 if command_exists python; then
   export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
 else

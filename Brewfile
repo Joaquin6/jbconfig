@@ -1,6 +1,7 @@
 # URL Ref: https://github.com/Homebrew/homebrew-bundle
 # ====================================================
 
+tap "caskroom/fonts"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -9,8 +10,10 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "molovo/revolver"
 tap "phrase/brewed"
+tap "railwaycat/emacsmacport"
 tap "zunit-zsh/zunit"
-cask "osxfuse"
+
+
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # Apache Portable Runtime library
@@ -41,8 +44,6 @@ brew "fontconfig"
 brew "cask"
 # Cross-platform make
 brew "cmake"
-# Dependency Manager for PHP
-brew "composer"
 # Provides SOCKS and HTTPS proxy support to SSH
 brew "connect"
 # GNU File, Shell, and Text utilities
@@ -65,6 +66,7 @@ brew "fortune"
 brew "fswatch"
 # Comprehensive Library for Galois Field Arithmetic
 brew "gf-complete"
+brew "git"
 # Stores Git credentials for Visual Studio Team Services
 brew "git-credential-manager"
 # Enable transparent encryption/decryption of files in a git repo
@@ -79,6 +81,7 @@ brew "gitlab-runner"
 brew "gnu-sed"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
+brew "golang"
 # Pragmatic language for the JVM
 brew "gosu"
 # GNU PIC Utilities
@@ -160,12 +163,15 @@ brew "shfmt"
 brew "shpotify"
 # Bring your .bashrc, .vimrc, etc. with you when you SSH
 brew "sshrc"
+# A recursive directory listing command that produces a depth indented listing of files.
+brew "tree"
 # Terminal multiplexer
 brew "tmux"
 # Convert TTF files to EOT
 brew "ttf2eot"
 # Auto-hinter for TrueType fonts
 brew "ttfautohint"
+brew "vim"
 # Internet file retriever
 brew "wget"
 # Generate your Xcode project from a spec file and your folder structure
@@ -182,9 +188,34 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 # Debugger for zsh
 brew "zshdb"
+
+
+
+cask "alfred"
+cask "betterzipql"
+cask "cheatsheet"
+cask "docker"
+cask "dropbox"
 cask "docker-toolbox"
+cask "emacs-mac"
 cask "font-fira-code"
 cask "font-hack-nerd-font"
 cask "font-inconsolata"
+cask "font-source-code-pro"
+cask "google-chrome"
+cask "google-drive"
+cask "google-hangouts"
+cask "iterm2"
 cask "java8"
+cask "osxfuse"
+cask "pdftk"
+cask "qlcolorcode"
+cask "qlstephen"
+cask "qlmarkdown"
+cask "quicklook-json"
+cask "qlprettypatch"
+cask "quicklook-csv"
+cask "sublime-text"
+cask "suspicious-package"
 cask "virtualbox"
+cask "webpquicklook"
