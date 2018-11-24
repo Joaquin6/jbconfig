@@ -140,21 +140,23 @@ handle-add-pkgconfigpath()
 	fi
 }
 
+command_exists () {
+  type "$1" &> /dev/null;
+}
+
 
 #   CONFIGURATION VARIABLES
 #   -------------------------------
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PYTHON_VERSION=Current
-export RUBY_VERSION="2.3.7p456"
-export RBENV_VERSION="rbx-3.105"
-export RBENV_ROOT=~/.rbenv
-export HOME_LIB_PATH=$HOME/Library
-export SYS_LIB_PATH=/System/Library
-export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 export USER_BIN=/usr/bin
+export RBENV_ROOT=~/.rbenv
 export USER_LOCAL=/usr/local
 export USER_SHARE=/usr/share
+export SYS_LIB_PATH=/System/Library
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export HOME_LIB_PATH=$HOME/Library
+export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 export USER_LOCAL_GO=$USER_LOCAL/go
 export USER_LOCAL_BIN=$USER_LOCAL/bin
 export USER_LOCAL_ETC=$USER_LOCAL/etc
@@ -163,6 +165,18 @@ export USER_LOCAL_OPT=$USER_LOCAL/opt
 export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
+
+export RUBY_VERSION="2.5.0p0"
+export RBENV_VERSION="rbx-3.105"
+if command_exists python; then
+  export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+else
+  export PYTHON_VERSION=Current
+  echo "Python has not been installed!"
+fi
+
+export MONO_GAC_PREFIX=$USER_LOCAL
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
@@ -208,6 +222,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export XDG_CONFIG_HOME=$HOME/.config
 export DEFAULT_MACHINE="default"
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
+export OOO_FORCE_DESKTOP=gnome
 
 export SSH_PATH=$HOME/.ssh
 export SSH_ENV=$SSH_PATH/environment
@@ -215,23 +230,29 @@ export SSH_PRIVATE_KEY=$SSH_PATH/id_rsa
 export SSH_KEY_PATH=$SSH_PRIVATE_KEY
 export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
-export GREP_COLOR='1;31'
-export LESS="-R"
-export LESSOPEN="| src-hilite-lesspipe.sh %s"
-export LESSHISTFILE=/dev/null
-export LESS_TERMCAP_mb=$'\E[01;32m'
-export LESS_TERMCAP_md=$'\E[01;32m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;37m'
-export OOO_FORCE_DESKTOP=gnome
+# Less
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-g -i -M -R -S -w -z-4'
+# export LESS='-F -g -i -M -R -S -w -X -z-4'
 
-export HISTCONTROL=erasedups
-export HISTFILE=~/.histfile
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  if [[ "$OSTYPE" == darwin* ]]; then
+    # echo "------- DARWIN SYSTEM --------"
+    export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+  else
+    # echo "------- NON-DARWIN SYSTEM --------"
+    export LESSOPEN="|/usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+  fi
+fi
+
 export HISTSIZE=10000
 export SAVEHIST=10000
+export HISTFILE=~/.histfile
+export HISTCONTROL=erasedups
 export HISTIGNORE='&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g'
 
 export RED='\[\033[0;31m\]'
@@ -254,7 +275,7 @@ fi
 # Editors
 export PAGER='less'
 export VISUAL='nano'
-export EDITOR='nano'
+export EDITOR='code'
 
 # Language
 if [[ -z "$LANG" ]]; then
@@ -263,7 +284,6 @@ fi
 
 export NVM_DIR=$HOME/.nvm
 export GOPATH=$HOME/projects/go
-export MONO_GAC_PREFIX=$USER_LOCAL
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export ANTIGEN_BUNDLES=$HOME/.antigen/bundles
 export JB_ZSH_BASE=$HOME/.jbconfig
@@ -284,34 +304,30 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 export ADOTDIR=$ZSHA_BASE
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
-export POWERLEVEL9K_MODE='nerdfont-complete'
-export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
-export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 export POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_MODE='nerdfont-complete'
 export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
 export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes
+export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
-export KRAKEN_REMOTE_DEV=dev.kraken.com
-export KRAKEN_REMOTE_DEV_HOME=/home/jbriceno
-export NPM_TOKEN=QPASt_5h44AzSHrg4gNv
-
-export AUTOENV_DEBUG=0
 export JB_ZSH_DEBUG=1
+export AUTOENV_DEBUG=0
 
 # Paths
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 # Set the list of directories that cd searches.
-export cdpath=(
+cdpath=(
   $cdpath
 )
 # Set the list of directories that Zsh searches for programs.
-export path=(
+path=(
   /usr/local/{bin,sbin}
   $path
 )
-export fpath=(
+fpath=(
 	$HOME/.config/completion
 	$USER_LOCAL_ETC/bash_completion.d
 	$USER_LOCAL_SHARE/zsh-completions
@@ -319,84 +335,99 @@ export fpath=(
 	$fpath
 )
 
+source $HOME/.local/share/fonts/*.sh
 source $HOME/antigen/antigen.zsh
+source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -f "/usr/local/etc/bash_completion" ] && \. "/usr/local/etc/bash_completion"
-if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
-  source $USER_LOCAL_BIN/virtualenvwrapper.sh
-  export WORKON_HOME=$HOME/Code/VirtualEnvs
-fi
-if which rbenv &> /dev/null; then
-	if [ -d $HOME/.rbenv ]; then
-		handle-add-path $HOME/.rbenv/bin
-		handle-add-path $HOME/.rbenv/shims
-		eval "$(rbenv init -)"
-	fi
-fi
+COMPLETION_WAITING_DOTS="true"
 
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
-	autoenv
-	battery
-	command-not-found
-	dotenv
-	history
-	history-substring-search
-	sudo
-	gpg-agent
-	ssh-agent
-	jsontools
-	profiles
-	git
-	node
-	npm
-	npx
-	yarn
-	gnu-utils
-	cygwin
-	debian
-	systemd
-	systemadmin
+  aws
+  autoenv
+  archlinux
+  battery
+  command-not-found
+  dotenv
+  history
+  history-substring-search
+  iterm2
+  extract
+  git
+  git-prompt
+  profile
+  brew
+  ssh-agent
+  ruby
+  gem
+  rbenv
+  rsync
+  sublime
+  terminalapp
+  tmux
+  node
+  npm
+  npx
+  nvm
+  go
+  golang
+  jira
+  jsontools
+  postgres
+  profiles
+  sudo
+  yarn
+  yum
+  man
+  nanoc
+  xcode
+  z
+  zsh_reload
+  zsh-navigation-tools
+
+  # Python Plugins
+  pip
+  python
+  pyenv
+  pylint
+  virtualenv
+  postgres
+
+  # OS specific plugins
+  cygwin
+  debian
+  ubuntu
+  gnu-utils
+  compleat
+  osx
+
+  archlinux
+  systemadmin
+  systemd
 EOBUNDLES
 
-# OS Based Plugins
-if [[ "$OSTYPE" == darwin* ]]; then
- 	antigen bundle iterm2
-	antigen bundle gem
-	antigen bundle osx
-	antigen bundle brew
-	antigen bundle cask
-elif [[ "$OSTYPE" == linux* ]]; then
-	antigen bundle brew
-	antigen bundle cask
-fi
-
-antigen bundle zsh-users/zsh-syntax-highlighting 		# https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search 	# https://github.com/zsh-users/zsh-history-substring-search
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle ascii-soup/zsh-url-highlighter
+# antigen bundle ascii-soup/zsh-url-highlighter
+antigen bundle zsh-users/zsh-completions
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-antigen bundle zpm-zsh/autoenv 							# https://github.com/zpm-zsh/autoenv
+antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
+# antigen bundle lukechilds/zsh-nvm
 
 # Suuply the theme
-antigen theme denysdovhan/spaceship-prompt spaceship
+antigen theme spaceship
 # Tell antigen that you're done.
 antigen apply
 
 # User configuration
 
-# Theme configuration
-typeset -gA ZSH_HIGHLIGHT_STYLES
-# All options must be overridden in your .zshrc file after the theme.
-export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
-export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
-export ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
-export ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+# Customise autosuggestion color
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
 # Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ORDER=(
@@ -429,272 +460,61 @@ export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
 
 handle-add-path $(yarn global bin)
+handle-add-path $(brew --prefix)/bin
+handle-add-path $(brew --prefix)/sbin
+handle-add-manpath /usr/local/man
+handle-add-manpath $(brew --prefix)/share/man
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+handle-add-infopath $(brew --prefix)/share/info
 
-alias zshversion='echo ${ZSH_PATCHLEVEL}'
-alias zshconfig="$EDITOR $JB_ZSH_BASE/zsh/.zshrc"
-alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias ohmyzshconfig="$EDITOR ~/.oh-my-zsh"
+autoload -Uz compinit && compinit -i
 
-zshrc() {
-	local editor=${EDITOR:-code}
-
-	if [ -f "$JB_ZSH_BASE/zsh/base" ]; then
-		$editor $JB_ZSH_BASE/zsh/base
-	elif [ -f "$HOME/.zshrc" ]; then
-		$editor $HOME/.zshrc
-	else
-		echo "\n\tCant find an zshrc file!"
-	fi
-}
-
-
-#   -----------------------------
-#   2. MAKE TERMINAL BETTER
-#   -----------------------------
-
-# Detect which `ls` flavor is in use.
-# List all files colorized in long format, including dot files
-if ls --color > /dev/null 2>&1; then
-  colorflag="--color" # GNU `ls`
-else
-  colorflag="-G"      # OS X `ls`
+# if docker is present, configure it for use
+if which docker &> /dev/null; then
+  if [ -d $HOME/.config/completion ]; then
+    if [ ! -f $HOME/.config/completion/_docker ]; then
+      curl -fLo $HOME/.config/completion/_docker "https://raw.github.com/felixr/docker-zsh-completion/master/_docker"
+    fi
+  fi
 fi
 
-# ls, the common ones I use a lot shortened for rapid fire usage
-alias l='ls -lFh --color=always --group-directories-first'
-alias la='ls -lAFh ${colorflag}'
-alias lr='ls -tRFh'
-alias lt='ls -ltFh'
-alias ll='ls -l'
-alias ldot='ls -ld .*'
-alias lS='ls -1FSsh'
-alias lart='ls -1Fcart'
-alias lrt='ls -1Fcrt'
-alias lh='ls -a | egrep "^\."'
-alias llgf='ls -GFlAhp'
-alias lla='ls -la'
-alias lsg='ls -GFh'
-alias lrtg='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-alias filecount='ls -aRF | wc -l'
-alias sl=ls
-############################################ colorls ###############################################
-#	-------------------------------
-#	COLORLS DOCUMENTATION
-#	-------------------------------
-# https://github.com/athityakumar/colorls
-alias lsc='colorls'
-alias lc='colorls -lA --sd'
+# if docker-compose is present, configure it for use
+if which docker-compose &> /dev/null; then
+  if [ -d $HOME/.config/completion ]; then
+    if [ ! -f $HOME/.config/completion/_docker-compose ]; then
+      curl -fLo $HOME/.config/completion/_docker-compose "https://raw.githubusercontent.com/sdurrheimer/docker-compose-zsh-completion/master/_docker-compose"
+    fi
+  fi
+fi
 
-alias ~="cd ~"                          # Go Home
-alias cd..='cd ../'               		# Go back 1 directory level
-alias ..='cd ../'                       # Go back 1 directory level
-alias ...='cd ../../'                   # Go back 2 directory levels
-alias .3='cd ../../../'                 # Go back 3 directory levels
-alias .4='cd ../../../../'              # Go back 4 directory levels
-alias .5='cd ../../../../../'           # Go back 5 directory levels
-alias .6='cd ../../../../../../'        # Go back 6 directory levels
-cd() { builtin cd "$@"; ls -la; }       # Always list directory contents upon 'cd'
+if which rbenv &> /dev/null; then
+  if [ -d $HOME/.rbenv ]; then
+    handle-add-path $HOME/.rbenv/bin
+    handle-add-path $HOME/.rbenv/shims
+    eval "$(rbenv init -)"
+  fi
+fi
 
-alias edit='code'		                # edit:     Opens any file in vscode
-alias c='clear'                               # c:            Clear terminal display
-alias path='echo -e ${PATH//:/\\n}'           # path:         Echo all executable Paths
-alias show_options='shopt'                    # Show_options: display bash options settings
-alias fix_stty='stty sane'                    # fix_stty:     Restore terminal settings when screwed up
-mkcd() { mkdir -p "$@" && cd "$@"; }          # mkcd:          Makes new Dir and jumps inside
-alias UN='echo $USER'
+# If phpbrew is installed include the source
+if [ -d $HOME/.phpbrew ]; then
+  source $HOME/.phpbrew/bashrc
+fi
 
-alias vsc='code .'
-alias vscl='code --log'
-alias vsca='code --add'
-alias vscd='code --diff'
-alias vscg='code --goto'
-alias vscw='code --wait'
-alias vscv='code --verbose'
-alias vscn='code --new-window'
-alias vscr='code --reuse-window'
-alias vscu='code --user-data-dir'
-alias vscext='code --extensions-dir'
-alias vscexti='code --install-extension'
-alias vscextd='code --disable-extensions'
-alias vscextu='code --uninstall-extension'
+if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
+  source $USER_LOCAL_BIN/virtualenvwrapper.sh
+  export WORKON_HOME=$HOME/Code/VirtualEnvs
+fi
 
+if [ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]; then
+  source $USER_LOCAL_BIN/aws_zsh_completer.sh
+fi
 
+if [ -f /usr/local/etc/bash_completion.d ]; then
+  . /usr/local/etc/bash_completion.d
+fi
 
-
-#   ---------------------------
-#   4. NETWORKING
-#   ---------------------------
-alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
-alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
-alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
-alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
-alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
-alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
-alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
-alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
-alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
-
-
-############################################# docker ###############################################
-alias docker-clean-unused='docker system prune --all --force --volumes'
-alias docker-clean-all='docker stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
-alias docker-clean-containers='docker container stop $(docker container ls -a -q) && docker container rm $(docker container ls -a -q)'
-
-drm() { docker rm $(docker ps -a | grep $1 | awk '{print $1}') ; }
-# docker rm $(docker ps -a | grep "46 hours ago")
-drmt() { docker rm $(docker ps -a | grep "$1") ; }
-
-######################################### docker-compose ###########################################
-# Docker-compose related zsh aliases
-# Use dco as alias for docker-compose, since dc on *nix is 'dc - an arbitrary precision calculator'
-# https://www.gnu.org/software/bc/manual/dc-1.05/html_mono/dc.html
-alias dco='docker-compose'
-alias dcps='docker-compose ps'
-alias dcrm='docker-compose rm'
-alias dcr='docker-compose run'
-alias dcup='docker-compose up'
-alias dcl='docker-compose logs'
-alias dce='docker-compose exec'
-alias dcb='docker-compose build'
-alias dcdn='docker-compose down'
-alias dcpull='docker-compose pull'
-alias dcstop='docker-compose stop'
-alias dclf='docker-compose logs -f'
-alias dcstart='docker-compose start'
-alias dcrestart='docker-compose restart'
-
-
-
-#   ---------------------------------------
-#   5. SYSTEMS OPERATIONS & INFORMATION
-#   ---------------------------------------
-
-#   cleanupDS:  Recursively delete .DS_Store files
-# 	cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
-#   -------------------------------------------------------------------
-alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
-alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
-
-#   finderShowHidden:   Show hidden files in Finder
-#   finderHideHidden:   Hide hidden files in Finder
-#   enableWorkspaceAutoswitch:   	Add workspace auto-switching
-#   disableWorkspaceAutoswitch:   	Remove workspace auto-switching
-#   -------------------------------------------------------------------
-alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
-alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
-alias enableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh YES'
-alias disableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh NO'
-
-
-#   ---------------------------
-#   6. SEARCHING
-#   ---------------------------
-
-ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
-ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
-
-
-#   ---------------------------
-#   7. PROCESS MANAGEMENT
-#   ---------------------------
-
-#   findPid: find out the pid of a specified process
-#   -----------------------------------------------------
-#       Note that the command name can be specified via a regex
-#       E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
-#       Without the 'sudo' it will only find processes of the current user
-#   -----------------------------------------------------
-findPid () { lsof -t -c "$@" ; }
-myip() {
- 	ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
-	ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
-	ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
-	ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
-	ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
-}
-#   my_ps: List processes owned by my user:
-#   ------------------------------------------------------------
-my-ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-hist() { history | grep "$@" ; }
-#   extract:  Extract most known archives with one command
-#   ---------------------------------------------------------
-extract () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1     ;;
-      *.tar.gz)    tar xzf $1     ;;
-      *.bz2)       bunzip2 $1     ;;
-      *.rar)       unrar e $1     ;;
-      *.gz)        gunzip $1      ;;
-      *.tar)       tar xf $1      ;;
-      *.tbz2)      tar xjf $1     ;;
-      *.tgz)       tar xzf $1     ;;
-      *.zip)       unzip $1       ;;
-      *.Z)         uncompress $1  ;;
-      *.7z)        7z x $1        ;;
-      *)     echo "'$1' cannot be extracted via extract()" ;;
-       esac
-   else
-       echo "'$1' is not a valid file"
-   fi
-}
-#   ii:  display useful host related informaton
-#   -------------------------------------------------------------------
-ii () {
-	echo -e "\nYou are logged on ${RED}$HOST"
-	echo -e "\nAdditionnal information:$NC " ; uname -a
-	echo -e "\n${RED}Users logged on:$NC " ; w -h
-	echo -e "\n${RED}Current date :$NC " ; date
-	echo -e "\n${RED}Machine stats :$NC " ; uptime
-	echo -e "\n${RED}Current network location :$NC " ; scselect
-	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
-}
-reload () { exec $SHELL -l ; }
-#   nyg: shortcut to globally install pkgs with npm AND yarn
-#   ------------------------------------------------------------
-nyg () { npm install --global "$1" && yarn global add "$1" ; }
-nygAll () {
-	while IFS='' read -r line || [[ -n "$line" ]]; do
-	    echo "\tInstalling Globally:\t$line"
-	    nyg $line
-	done < ~/.nvm/default-packages
-}
-upgrade-jb-zsh() {
-	emulate -L zsh
-	upgrade_oh_my_zsh
-	eval antigen selfupdate && eval antigen update
-}
-#   showa: to remind yourself of an alias (given some part of it)
-#   ------------------------------------------------------------
-showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/*.zsh | grep -v '^\s*$' | less -FSRXc ; }
-check-web-connectivity() {
-	case "$(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
-	  [23]) echo "HTTP connectivity is up";;
-	  5) echo "The web proxy won't let us through";;
-	  *) echo "The network is down or very slow";;
-	esac
-}
-
-
-
-
-#   ---------------------------------------
-#   8. PERMISSIONS
-#   ---------------------------------------
-show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
-permitme() { pkexec chown $USER:adm $PWD -hR ; }
-users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
-
-# I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
-ghget () {
-    # input: rails/rails
-    USER=$(echo $@ | tr "/" " " | awk '{print $1}')
-    REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
-    mkcd "$HOME/projects/github.com/$USER" && \
-    hub clone $@ && \
-    cd $REPO
-}
+source $JB_ZSH_BASE/zsh/.zsh_aliases
+source $JB_ZSH_BASE/zsh/.zsh_functions
 
 # place this after nvm initialization!
 autoload -U add-zsh-hook
