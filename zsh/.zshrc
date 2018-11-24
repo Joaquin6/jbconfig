@@ -284,9 +284,9 @@ fi
 
 export NVM_DIR=$HOME/.nvm
 export GOPATH=$HOME/projects/go
+export JB_ZSH_BASE=$HOME/jbconfig
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export ANTIGEN_BUNDLES=$HOME/.antigen/bundles
-export JB_ZSH_BASE=$HOME/.jbconfig
 export WORKON_HOME=$HOME/.virtualenvs
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export PERL_LOCAL_LIB_ROOT=$HOME/perl5
