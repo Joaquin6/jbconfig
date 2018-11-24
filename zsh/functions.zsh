@@ -169,20 +169,6 @@ function -load-user-specifics() {
 		git config --local user.name "Joaquin Briceno"
 		git config --local --unset user.email
 		git config --local user.email joaquin.briceno@insitu.com
-		git config --local --unset commit.gpgsign
-		git config --local commit.gpgsign false
-	elif [[ $PWD != *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
-		-jb-zsh-debug "[USER DEBUG]: 	Setting \"kraken\" git configs"
-
-		git config --local --unset user.name
-		git config --global user.name "joaquinb"
-		git config --local user.name "joaquinb"
-		git config --local --unset user.email
-		git config --global user.email joaquinb@btcx.com
-		git config --local user.email joaquinb@btcx.com
-		git config --local --unset commit.gpgsign
-		git config --global commit.gpgsign true
-		git config --local commit.gpgsign true
 	fi
 }
 function -load-syntax-highlighting() {

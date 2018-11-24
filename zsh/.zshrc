@@ -139,7 +139,42 @@ handle-add-pkgconfigpath()
 		fi
 	fi
 }
+load-syntax-highlighting() {
+	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
+	local highlighter_repo=git@github.com:zsh-users/zsh-syntax-highlighting.git
 
+	if [ ! -d $plugins/zsh-syntax-highlighting ]; then
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	creating $plugins/zsh-syntax-highlighting"
+		mkdir -p $plugins/zsh-syntax-highlighting
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$plugins/zsh-syntax-highlighting created."
+
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-syntax-highlighting" 2
+		git clone $highlighter_repo $plugins/zsh-syntax-highlighting
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$highlighter_repo was cloned successfully" 2
+	fi
+}
+load-url-highlighter() {
+	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
+	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
+
+	if [ ! -d $plugins/zsh-url-highlighter ]; then
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $plugins/zsh-url-highlighter"
+		mkdir -p $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter created."
+
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-url-highlighter" 2
+		git clone $highlighter_repo $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
+	fi
+
+  if [ ! -L $syntax_highlighting/highlighters/url ]; then
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+  fi
+}
 command_exists () {
   type "$1" &> /dev/null;
 }
@@ -149,7 +184,6 @@ command_exists () {
 #   -------------------------------
 
 export USER_BIN=/usr/bin
-export RBENV_ROOT=~/.rbenv
 export USER_LOCAL=/usr/local
 export USER_SHARE=/usr/share
 export SYS_LIB_PATH=/System/Library
@@ -165,24 +199,26 @@ export USER_LOCAL_OPT=$USER_LOCAL/opt
 export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
+export MANPATH=$USER_LOCAL_MAN
 
-export RUBY_VERSION="2.5.0p0"
+export RBENV_SHELL=zsh
+export PYTHON_VERSION=Current
+export RUBY_VERSION="2.5.3p105"
 export RBENV_VERSION="rbx-3.105"
+export RBENV_ROOT=$HOME/.rbenv
+export RBENV_DIR=$RBENV_ROOT/bin
+export MONO_GAC_PREFIX=$USER_LOCAL
 if command_exists python; then
   export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
 else
-  export PYTHON_VERSION=Current
   echo "Python has not been installed!"
 fi
 
-export MONO_GAC_PREFIX=$USER_LOCAL
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
 handle-add-path $HOME/antigen
-# handle-add-path $SYS_FRWKS_PATH/Python.framework/Versions/$PYTHON_VERSION/bin
-handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/$PYTHON_VERSION/bin
+handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
 handle-add-path $USER_LOCAL_OPT/gettext/bin
 handle-add-path $USER_LOCAL_OPT/llvm/bin
 handle-add-path $USER_LOCAL_OPT/apr/bin
@@ -218,7 +254,6 @@ export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
 export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/lib)
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/include)
-export MANPATH="/usr/local/man:$MANPATH"
 export XDG_CONFIG_HOME=$HOME/.config
 export DEFAULT_MACHINE="default"
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
@@ -230,24 +265,18 @@ export SSH_PRIVATE_KEY=$SSH_PATH/id_rsa
 export SSH_KEY_PATH=$SSH_PRIVATE_KEY
 export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
-# Less
-# Set the default Less options.
-# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-# Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-g -i -M -R -S -w -z-4'
-# export LESS='-F -g -i -M -R -S -w -X -z-4'
-
-# Set the Less input preprocessor.
-# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if (( $#commands[(i)lesspipe(|.sh)] )); then
-  if [[ "$OSTYPE" == darwin* ]]; then
-    # echo "------- DARWIN SYSTEM --------"
-    export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-  else
-    # echo "------- NON-DARWIN SYSTEM --------"
-    export LESSOPEN="|/usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-  fi
-fi
+export GREP_COLOR='1;31'
+export LESS="-R"
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESSHISTFILE=/dev/null
+export LESS_TERMCAP_mb=$'\E[01;32m'
+export LESS_TERMCAP_md=$'\E[01;32m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;37m'
+export OOO_FORCE_DESKTOP=gnome
 
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -275,7 +304,7 @@ fi
 # Editors
 export PAGER='less'
 export VISUAL='nano'
-export EDITOR='code'
+export EDITOR='nano'
 
 # Language
 if [[ -z "$LANG" ]]; then
@@ -283,6 +312,10 @@ if [[ -z "$LANG" ]]; then
 fi
 
 export NVM_DIR=$HOME/.nvm
+export ZSH=$HOME/.oh-my-zsh
+export ZSHA_BASE=$HOME/.antigen
+export ZSH_CUSTOM=$ZSH/custom
+export ZSH_THEME=spaceship
 export GOPATH=$HOME/projects/go
 export JB_ZSH_BASE=$HOME/jbconfig
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
@@ -294,10 +327,6 @@ export PERL5LIB=$PERL_LOCAL_LIB_ROOT/lib/perl5
 
 handle-add-path $(go env GOPATH)/bin
 
-export ZSH=$HOME/.oh-my-zsh
-export ZSHA_BASE=$HOME/.antigen
-export ZSH_CUSTOM=$ZSH/custom
-export ZSH_THEME="spaceship"
 # export ZSH_THEME="powerlevel9k/powerlevel9k"
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
@@ -339,79 +368,65 @@ source $HOME/.local/share/fonts/*.sh
 source $HOME/antigen/antigen.zsh
 source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
 
+[ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh
+[ -f $USER_LOCAL_ETC/bash_completion ] && \. $USER_LOCAL_ETC/bash_completion
+if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
+  source $USER_LOCAL_BIN/virtualenvwrapper.sh
+  export WORKON_HOME=$HOME/Code/VirtualEnvs
+fi
+if which rbenv &> /dev/null; then
+	if [ -d $HOME/.rbenv ]; then
+		handle-add-path $HOME/.rbenv/bin
+		handle-add-path $HOME/.rbenv/shims
+		eval "$(rbenv init -)"
+	fi
+fi
+
 COMPLETION_WAITING_DOTS="true"
 
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
-  aws
-  autoenv
-  archlinux
-  battery
-  command-not-found
-  dotenv
-  history
-  history-substring-search
-  iterm2
-  extract
-  git
-  git-prompt
-  profile
-  brew
-  ssh-agent
-  ruby
-  gem
-  rbenv
-  rsync
-  sublime
-  terminalapp
-  tmux
-  node
-  npm
-  npx
-  nvm
-  go
-  golang
-  jira
-  jsontools
-  postgres
-  profiles
-  sudo
-  yarn
-  yum
-  man
-  nanoc
-  xcode
-  z
-  zsh_reload
-  zsh-navigation-tools
-
-  # Python Plugins
-  pip
-  python
-  pyenv
-  pylint
-  virtualenv
-  postgres
-
-  # OS specific plugins
-  cygwin
-  debian
-  ubuntu
-  gnu-utils
-  compleat
-  osx
-
-  archlinux
-  systemadmin
-  systemd
+	autoenv
+	battery
+	command-not-found
+	dotenv
+	history
+	history-substring-search
+	sudo
+	gpg-agent
+	ssh-agent
+	jsontools
+	profiles
+	git
+	node
+	npm
+	npx
+	yarn
+	gnu-utils
+	cygwin
+	debian
+	systemd
+	systemadmin
 EOBUNDLES
+
+# OS Based Plugins
+if [[ "$OSTYPE" == darwin* ]]; then
+ 	antigen bundle iterm2
+	antigen bundle gem
+	antigen bundle osx
+	antigen bundle brew
+	antigen bundle cask
+elif [[ "$OSTYPE" == linux* ]]; then
+	antigen bundle brew
+	antigen bundle cask
+fi
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-# antigen bundle ascii-soup/zsh-url-highlighter
+antigen bundle ascii-soup/zsh-url-highlighter
 antigen bundle zsh-users/zsh-completions
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
@@ -419,15 +434,23 @@ antigen bundle Joaquin6/git-aliases                     # https://github.com/Joa
 antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
 # antigen bundle lukechilds/zsh-nvm
 
+load-url-highlighter
+
 # Suuply the theme
-antigen theme spaceship
+antigen theme denysdovhan/spaceship-prompt spaceship
 # Tell antigen that you're done.
 antigen apply
 
 # User configuration
 
-# Customise autosuggestion color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+# Theme configuration
+typeset -gA ZSH_HIGHLIGHT_STYLES
+# All options must be overridden in your .zshrc file after the theme.
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+export ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+export ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
 # Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ORDER=(
@@ -460,45 +483,11 @@ export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
 
 handle-add-path $(yarn global bin)
-handle-add-path $(brew --prefix)/bin
-handle-add-path $(brew --prefix)/sbin
-handle-add-manpath /usr/local/man
-handle-add-manpath $(brew --prefix)/share/man
+handle-add-path $USER_LOCAL/bin
+handle-add-path $USER_LOCAL/sbin
+handle-add-manpath $USER_LOCAL/share/man
 handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
-handle-add-infopath $(brew --prefix)/share/info
-
-autoload -Uz compinit && compinit -i
-
-# if docker is present, configure it for use
-if which docker &> /dev/null; then
-  if [ -d $HOME/.config/completion ]; then
-    if [ ! -f $HOME/.config/completion/_docker ]; then
-      curl -fLo $HOME/.config/completion/_docker "https://raw.github.com/felixr/docker-zsh-completion/master/_docker"
-    fi
-  fi
-fi
-
-# if docker-compose is present, configure it for use
-if which docker-compose &> /dev/null; then
-  if [ -d $HOME/.config/completion ]; then
-    if [ ! -f $HOME/.config/completion/_docker-compose ]; then
-      curl -fLo $HOME/.config/completion/_docker-compose "https://raw.githubusercontent.com/sdurrheimer/docker-compose-zsh-completion/master/_docker-compose"
-    fi
-  fi
-fi
-
-if which rbenv &> /dev/null; then
-  if [ -d $HOME/.rbenv ]; then
-    handle-add-path $HOME/.rbenv/bin
-    handle-add-path $HOME/.rbenv/shims
-    eval "$(rbenv init -)"
-  fi
-fi
-
-# If phpbrew is installed include the source
-if [ -d $HOME/.phpbrew ]; then
-  source $HOME/.phpbrew/bashrc
-fi
+handle-add-infopath $USER_LOCAL/share/info
 
 if [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ]; then
   source $USER_LOCAL_BIN/virtualenvwrapper.sh
@@ -509,8 +498,8 @@ if [ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]; then
   source $USER_LOCAL_BIN/aws_zsh_completer.sh
 fi
 
-if [ -f /usr/local/etc/bash_completion.d ]; then
-  . /usr/local/etc/bash_completion.d
+if [ -f $USER_LOCAL_ETC/bash_completion.d ]; then
+  . $USER_LOCAL_ETC/bash_completion.d
 fi
 
 source $JB_ZSH_BASE/zsh/.zsh_aliases
@@ -519,32 +508,27 @@ source $JB_ZSH_BASE/zsh/.zsh_functions
 # place this after nvm initialization!
 autoload -U add-zsh-hook
 load-user-specifics() {
-	local incoming_user=${USER:-"joaquinbriceno"}
+	local incoming_user=$USER
 	local machine_hostname="$(hostname -f)"
 
 
 	# Handle git configs
 	if [[ $PWD == *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
-		jb-zsh-debug "[USER DEBUG]: 	Setting \"cattlebruisers\" git configs"
+		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
 
 		git config --local --unset user.name
 		git config --local user.name "Joaquin Briceno"
 		git config --local --unset user.email
 		git config --local user.email joaquin.briceno@insitu.com
-		git config --local --unset commit.gpgsign
-		git config --local commit.gpgsign false
 	elif [[ $PWD != *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
-		jb-zsh-debug "[USER DEBUG]: 	Setting \"kraken\" git configs"
+		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
 
 		git config --local --unset user.name
-		git config --global user.name "joaquinb"
-		git config --local user.name "joaquinb"
+		git config --global user.name joaquin6
+		git config --local user.name joaquin6
 		git config --local --unset user.email
-		git config --global user.email joaquinb@btcx.com
-		git config --local user.email joaquinb@btcx.com
-		git config --local --unset commit.gpgsign
-		git config --global commit.gpgsign true
-		git config --local commit.gpgsign true
+		git config --global user.email joaquinbriceno1@gmail.com
+		git config --local user.email joaquinbriceno1@gmail.com
 	fi
 }
 load-nvmrc() {
