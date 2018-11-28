@@ -47,6 +47,8 @@ alias fix_stty='stty sane'                    # fix_stty:     Restore terminal s
 mkcd() { mkdir -p "$@" && cd "$@"; }          # mkcd:          Makes new Dir and jumps inside
 alias UN='echo $USER'
 
+############################################ vscode ################################################
+
 alias vsc='code .'
 alias vscl='code --log'
 alias vsca='code --add'
