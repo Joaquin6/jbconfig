@@ -208,6 +208,7 @@ export RUBY_VERSION="2.5.3p105"
 export RBENV_VERSION="rbx-3.105"
 export RBENV_DIR=$RBENV_ROOT/bin
 export MONO_GAC_PREFIX=$USER_LOCAL
+export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
 if command_exists python; then
   export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
@@ -237,6 +238,7 @@ handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 handle-add-path $USER_LOCAL_GO/bin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $PERL_LOCAL_LIB_ROOT/bin
+handle-add-path /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
 
 handle-add-infopath $USER_SHARE/info
 
@@ -358,7 +360,7 @@ path=(
   $path
 )
 fpath=(
-	$HOME/.config/completion
+	$HOME/.config/completions
 	$USER_LOCAL_ETC/bash_completion.d
 	$USER_LOCAL_SHARE/zsh-completions
 	$USER_LOCAL_SHARE/zsh/site-functions
@@ -382,6 +384,11 @@ if which rbenv &> /dev/null; then
 		eval "$(rbenv init -)"
 	fi
 fi
+if which hub &> /dev/null; then
+	eval "$(hub alias -s)"
+fi
+
+[[ -s $(dirname $(gem which colorls))/tab_complete.sh ]] && . $(dirname $(gem which colorls))/tab_complete.sh
 
 COMPLETION_WAITING_DOTS="true"
 
@@ -503,6 +510,15 @@ if [ -f $USER_LOCAL_ETC/bash_completion.d ]; then
   . $USER_LOCAL_ETC/bash_completion.d
 fi
 
+[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
+[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
+  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
+# The next line updates PATH for the Google Cloud SDK.
+[[ -f $GCLOUD_SDK_PATH/path.zsh.inc ]] && . $GCLOUD_SDK_PATH/path.zsh.inc
+# The next line enables shell command completion for gcloud.
+[[ -f $GCLOUD_SDK_PATH/completion.zsh.inc ]] && . $GCLOUD_SDK_PATH/completion.zsh.inc
+
 source $JB_ZSH_BASE/zsh/.zsh_aliases
 source $JB_ZSH_BASE/zsh/.zsh_functions
 
@@ -514,14 +530,14 @@ load-user-specifics() {
 
 
 	# Handle git configs
-	if [[ $PWD == *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
+	if [[ $PWD == *"cattlebruisers"* ]]; then
 		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
 
 		git config --local --unset user.name
 		git config --local user.name "Joaquin Briceno"
 		git config --local --unset user.email
 		git config --local user.email joaquin.briceno@insitu.com
-	elif [[ $PWD != *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
+	else
 		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
 
 		git config --local --unset user.name
@@ -532,9 +548,8 @@ load-user-specifics() {
 		git config --local user.email joaquinbriceno1@gmail.com
 	fi
 }
+add-zsh-hook chpwd load-user-specifics
 load-nvmrc() {
-  load-user-specifics
-
   local node_version="$(nvm version)"
   local nvmrc_path="$(nvm_find_nvmrc)"
 
@@ -552,6 +567,7 @@ load-nvmrc() {
   fi
 }
 add-zsh-hook chpwd load-nvmrc
+load-user-specifics
 
 autoload -U add-zsh-hook promptinit; promptinit
 prompt spaceship

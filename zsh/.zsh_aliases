@@ -44,7 +44,6 @@ alias c='clear'                               # c:            Clear terminal dis
 alias path='echo -e ${PATH//:/\\n}'           # path:         Echo all executable Paths
 alias show_options='shopt'                    # Show_options: display bash options settings
 alias fix_stty='stty sane'                    # fix_stty:     Restore terminal settings when screwed up
-mkcd() { mkdir -p "$@" && cd "$@"; }          # mkcd:          Makes new Dir and jumps inside
 alias UN='echo $USER'
 
 ############################################ vscode ################################################

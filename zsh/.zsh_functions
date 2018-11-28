@@ -156,6 +156,11 @@ check-web-connectivity() {
   esac
 }
 
+upgradejb-zsh-reload () { upgradejb-zsh && reload; }
+
+# Create a folder and move into it in one command
+mkcd() { mkdir -p "$@" && cd "$@"; }
+
 
 
 
@@ -166,17 +171,22 @@ show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
 permitme() { pkexec chown $USER:adm $PWD -hR ; }
 users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
-# I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
 ghget () {
-    # input: rails/rails
     USER=$(echo $@ | tr "/" " " | awk '{print $1}')
     REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
-    mkcd "$HOME/projects/github.com/$USER" && \
-    hub clone $@ && \
-    cd $REPO
+
+    mkdir -p $HOME/projects/github.com/$USER && cd $HOME/projects/github.com/$USER
+    hub clone $@ && cd $REPO
+}
+bbget () {
+    USER=$(echo $@ | tr "/" " " | awk '{print $1}')
+    REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
+
+    mkdir -p ~/projects/bitbucket.org/$USER && cd ~/projects/bitbucket.org/$USER
+    git clone https://bitbucket.org/$USER/$REPO.git && cd $REPO
 }
 
-__confirm_existence()
+confirm_existence()
 {
     if [[ -d $1 ]] && [[ -n $1 ]] ; then
         echo "\t\tDeleting Directory $1"
@@ -191,20 +201,15 @@ __confirm_existence()
     return 1
 }
 
-__trash()
-{
-    if which rimraf &> /dev/null; then
-        sudo rimraf $1 -s
-    else
-        sudo rm -rf $1
-    fi
-    echo "\n\t\tSuccessfully Trashed $1"
-}
-
 trash()
 {
-    if __confirm_existence $1; then
-        __trash $1
-    fi;
+    if confirm_existence $1; then
+        if which rimraf &> /dev/null; then
+            rimraf $1 -s
+        else
+            rm -rf $1
+        fi
+        echo "\n\t\tSuccessfully Trashed $1"
+    fi
     echo
 }

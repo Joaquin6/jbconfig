@@ -26,6 +26,7 @@ brew "aspell"
 brew "autoconf"
 # Per-project, per-directory shell environments
 brew "autoenv"
+brew "autojump"
 # Automatically restart SSH sessions and tunnels
 brew "autossh"
 # Text processing scripting language
