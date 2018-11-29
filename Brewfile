@@ -101,6 +101,7 @@ brew "hub"
 brew "jq"
 # Port-knock server
 brew "knock"
+brew "kubernetes-cli"
 # Bash completion for Launchctl
 brew "launchctl-completion"
 # Input filter for the pager less
@@ -208,6 +209,7 @@ cask "google-drive"
 cask "google-hangouts"
 cask "iterm2"
 cask "java8"
+cask "minikube"
 cask "osxfuse"
 cask "pdftk"
 cask "qlcolorcode"

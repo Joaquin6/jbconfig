@@ -48,7 +48,7 @@
 	"scroll_past_end": true,
 	"show_definitions": false,
 	"spell_check": true,
-	"theme": "Ksix.sublime-theme",
+	"theme": "Seti Monokai.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false
 }

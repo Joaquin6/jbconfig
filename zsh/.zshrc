@@ -401,6 +401,7 @@ antigen bundles <<EOBUNDLES
 	dotenv
 	history
 	history-substring-search
+	kubectl
 	sudo
 	gpg-agent
 	ssh-agent
@@ -528,25 +529,26 @@ load-user-specifics() {
 	local incoming_user=$USER
 	local machine_hostname="$(hostname -f)"
 
+  if [ -d $PWD/.git ]; then
+  	# Handle git configs
+  	if [[ $PWD == *"cattlebruisers"* ]]; then
+  		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
 
-	# Handle git configs
-	if [[ $PWD == *"cattlebruisers"* ]]; then
-		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
+  		git config --local --unset user.name
+  		git config --local user.name "Joaquin Briceno"
+  		git config --local --unset user.email
+  		git config --local user.email joaquin.briceno@insitu.com
+  	else
+  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
 
-		git config --local --unset user.name
-		git config --local user.name "Joaquin Briceno"
-		git config --local --unset user.email
-		git config --local user.email joaquin.briceno@insitu.com
-	else
-		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
-
-		git config --local --unset user.name
-		git config --global user.name joaquin6
-		git config --local user.name joaquin6
-		git config --local --unset user.email
-		git config --global user.email joaquinbriceno1@gmail.com
-		git config --local user.email joaquinbriceno1@gmail.com
-	fi
+  		git config --local --unset user.name
+  		git config --global user.name joaquin6
+  		git config --local user.name joaquin6
+  		git config --local --unset user.email
+  		git config --global user.email joaquinbriceno1@gmail.com
+  		git config --local user.email joaquinbriceno1@gmail.com
+  	fi
+  fi
 }
 add-zsh-hook chpwd load-user-specifics
 load-nvmrc() {
