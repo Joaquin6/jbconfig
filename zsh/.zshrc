@@ -207,6 +207,7 @@ export RBENV_ROOT=$HOME/.rbenv
 export RUBY_VERSION="2.5.3p105"
 export RBENV_VERSION="rbx-3.105"
 export RBENV_DIR=$RBENV_ROOT/bin
+export JB_ZSH_BASE=$HOME/jbconfig
 export MONO_GAC_PREFIX=$USER_LOCAL
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
@@ -215,7 +216,6 @@ if command_exists python; then
 else
   echo "Python has not been installed!"
 fi
-
 
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
@@ -283,7 +283,7 @@ export OOO_FORCE_DESKTOP=gnome
 
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE=~/.histfile
+export HISTFILE=$HOME/.histfile
 export HISTCONTROL=erasedups
 export HISTIGNORE='&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g'
 
@@ -316,11 +316,11 @@ fi
 
 export NVM_DIR=$HOME/.nvm
 export ZSH=$HOME/.oh-my-zsh
+export ZDOTDIR=$HOME/.zprezto
 export ZSHA_BASE=$HOME/.antigen
 export ZSH_CUSTOM=$ZSH/custom
 export ZSH_THEME=spaceship
 export GOPATH=$HOME/projects/go
-export JB_ZSH_BASE=$HOME/jbconfig
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export ANTIGEN_BUNDLES=$HOME/.antigen/bundles
 export WORKON_HOME=$HOME/.virtualenvs
