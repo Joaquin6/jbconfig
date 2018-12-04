@@ -306,5 +306,5 @@ source $JB_ZSH_BASE/zsh/.zsh_aliases
 source $JB_ZSH_BASE/zsh/.zsh_functions
 
 # Choose which plugin to use
-# source $JB_ZSH_BASE/zsh/.zshrc-antigen
-source $JB_ZSH_BASE/zsh/.zshrc-prezto
+source $JB_ZSH_BASE/zsh/.zshrc-antigen
+# source $JB_ZSH_BASE/zsh/.zshrc-prezto
