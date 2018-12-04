@@ -19,3 +19,18 @@
 [submodule "zsh/plugins/prezto-contrib"]
 	path = zsh/plugins/prezto-contrib
 	url = https://github.com/belak/prezto-contrib
+[submodule "zsh/plugins/git-aliases"]
+	path = zsh/plugins/git-aliases
+	url = https://github.com/Joaquin6/git-aliases.git
+[submodule "zsh/plugins/direnv"]
+	path = zsh/plugins/direnv
+	url = https://github.com/direnv/direnv.git
+[submodule "zsh/plugins/alias-tips"]
+	path = zsh/plugins/alias-tips
+	url = https://github.com/djui/alias-tips.git
+[submodule "zsh/plugins/zshmarks"]
+	path = zsh/plugins/zshmarks
+	url = https://github.com/jocelynmallon/zshmarks.git
+[submodule "zsh/plugins/url-highlighter"]
+	path = zsh/plugins/url-highlighter
+	url = https://github.com/ascii-soup/zsh-url-highlighter.git

@@ -57,8 +57,9 @@ export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
 export HISTSIZE=10000
 export SAVEHIST=10000
-export HISTFILE=$HOME/.histfile
 export HISTCONTROL=erasedups
+export HISTFILE=$HOME/.histfile
+export BOOKMARKS_FILE=$HOME/.bookmarks
 export HISTIGNORE='&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g'
 
 export RED='\[\033[0;31m\]'
@@ -75,6 +76,8 @@ export COLOR_NONE='\[\033[0m\]'
 
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
+
+export COMPLETION_WAITING_DOTS="true"
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then

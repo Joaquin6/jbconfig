@@ -1,3 +1,30 @@
+#	-------------------------------
+#	JB ZSH DOCUMENTATION
+#	-------------------------------
+
+#		autoload
+#			The `autoload` feature is not available in bash, but it is in `ksh` (korn shell) and `zsh`.
+#			On `zsh` see `man zshbuiltins`.
+#
+#			Functions are called in the same way as any other command.
+#			There can be a name conflict between a program and a function.
+#			What autoload does is to mark that name as being a function rather than an external program.
+#			The function has to be in a file on its own, with the filename the same as the function name.
+#
+#			For Example: `autoload -Uz vcs_info`
+#
+#			The `-U` means mark the function `vcs_info` for autoloading and suppress alias expansion.
+#			The `-z` means use `zsh` (rather than `ksh`) style. See also the `functions` command.
+#
+#			References
+#				http://zsh.sourceforge.net/Doc/Release/Files.html
+#				http://linux.die.net/man/1/zshbuiltins
+#				http://zsh.sourceforge.net/Doc/Release/Functions.html
+#				https://stackoverflow.com/questions/12570749/zsh-completion-difference
+#				http://bewatermyfriend.org/p/2012/003/
+#				https://unix.stackexchange.com/questions/121802/zsh-how-to-check-if-an-option-is-enabled
+#				https://www-s.acm.illinois.edu/workshops/zsh/parameters/expansion.html
+#
 # 	REFERENCES
 #	-------------------------------
 #	http://zsh.sourceforge.net/Guide/zshguide.html
@@ -44,6 +71,7 @@ handle-add-path()
 	local incoming_path="$1"
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
+		jb-zsh-debug "[PATH DEBUG]: 	Adding $incoming_path to PATH" 2
 		# Control will enter here if $incoming_path exists.
 		# My check to make sure the new node path is added to the PATH variable
 		if [[ "$PATH" != *"$incoming_path"* ]]; then
@@ -194,19 +222,9 @@ load-nvmrc() {
     echo "Reverting to nvm default version"
     nvm use default
   fi
+
+	handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
 }
-
-unsetopt CORRECT                      # Disable autocorrect guesses. Happens when typing a wrong
-                                      # command that may look like an existing one.
-
-expand-or-complete-with-dots() {      # This bunch of code displays red dots when autocompleting
-  echo -n "\e[31m......\e[0m"         # a command with the tab key, "Oh-my-zsh"-style.
-  zle expand-or-complete
-  zle redisplay
-}
-zle -N expand-or-complete-with-dots
-bindkey "^I" expand-or-complete-with-dots
-
 
 handle-add-path $HOME/bin
 handle-add-path /usr/local/bin
@@ -219,7 +237,6 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
-handle-add-path $HOME/.zprezto
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
 handle-add-path $USER_LOCAL_OPT/gettext/bin
 handle-add-path $USER_LOCAL_OPT/llvm/bin
@@ -238,7 +255,7 @@ handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 handle-add-path $USER_LOCAL_GO/bin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-handle-add-path /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin
+handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 handle-add-infopath $USER_SHARE/info
 
@@ -253,9 +270,24 @@ handle-add-pkgconfigpath sqlite
 handle-add-pkgconfigpath libarchive
 handle-add-pkgconfigpath openssl
 
-handle-add-path $(go env GOPATH)/bin
+handle-add-path $GOPATH/bin
+handle-add-path $USER_LOCAL/bin
+handle-add-path $USER_LOCAL/sbin
+handle-add-manpath $USER_LOCAL/share/man
+handle-add-infopath $USER_LOCAL/share/info
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
-[ -s $NVM_DIR/nvm.sh ] && . $NVM_DIR/nvm.sh
+autoload -Uz compinit && compinit -i
+
+[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
+[[ -s $USER_LOCAL_BIN/virtualenvwrapper.sh ]] && . $USER_LOCAL_BIN/virtualenvwrapper.sh
+[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
+[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
+  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+[[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
+[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
+
 if which rbenv &> /dev/null; then
 	if [ -d $HOME/.rbenv ]; then
 		handle-add-path $HOME/.rbenv/bin
@@ -266,22 +298,9 @@ fi
 if which hub &> /dev/null; then
 	eval "$(hub alias -s)"
 fi
-
-[[ -s $(dirname $(gem which colorls))/tab_complete.sh ]] && . $(dirname $(gem which colorls))/tab_complete.sh
-
-COMPLETION_WAITING_DOTS="true"
-
-handle-add-path $(yarn global bin)
-handle-add-path $USER_LOCAL/bin
-handle-add-path $USER_LOCAL/sbin
-handle-add-manpath $USER_LOCAL/share/man
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
-handle-add-infopath $USER_LOCAL/share/info
-
-[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
-[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
-  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
-[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
+if which direnv &> /dev/null; then
+	eval "$(direnv hook zsh)"
+fi
 
 source $JB_ZSH_BASE/zsh/.zsh_aliases
 source $JB_ZSH_BASE/zsh/.zsh_functions

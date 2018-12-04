@@ -25,14 +25,6 @@ export PAGER='less'
 # Language
 #
 
-LC_COLLATE="en_GB.UTF-8"
-LC_CTYPE="en_GB.UTF-8"
-LC_MESSAGES="en_GB.UTF-8"
-LC_MONETARY="en_GB.UTF-8"
-LC_NUMERIC="en_GB.UTF-8"
-LC_TIME="en_GB.UTF-8"
-LC_ALL=
-
 if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
@@ -47,11 +39,12 @@ cdpath=(
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
-  $HOME/jbconfig/zsh/plugins/prezto
+  $HOME/.zprezto
   $path
 )
 fpath=(
 	$HOME/.config/completions
+  $HOME/.zfunctions
 	$USER_LOCAL_ETC/bash_completion.d
 	$USER_LOCAL_SHARE/zsh-completions
 	$USER_LOCAL_SHARE/zsh/site-functions
@@ -75,8 +68,8 @@ export GREP_COLOR='1;31'
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESS="-R"
-  # export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-  export LESSOPEN="| src-hilite-lesspipe.sh %s"
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+  # export LESSOPEN="| src-hilite-lesspipe.sh %s"
   export LESSHISTFILE=/dev/null
   export LESS_TERMCAP_mb=$'\E[01;32m'
   export LESS_TERMCAP_md=$'\E[01;32m'
