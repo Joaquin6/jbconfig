@@ -1,0 +1,156 @@
+load-url-highlighter() {
+	local plugins=$ZSH_CUSTOM/plugins
+	local syntax_highlighting=$ANTIGEN_BUNDLES/zsh-users/zsh-syntax-highlighting
+	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
+
+	if [ ! -d $plugins/zsh-url-highlighter ]; then
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $plugins/zsh-url-highlighter"
+		mkdir -p $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter created."
+
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-url-highlighter" 2
+		git clone $highlighter_repo $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
+	fi
+
+  if [ ! -L $syntax_highlighting/highlighters/url ]; then
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+  fi
+}
+
+export ZSH=$JB_ZSH_BASE/zsh/plugins/oh-my-zsh
+export ADOTDIR=$JB_ZSH_BASE/zsh/plugins/antigen
+
+export ZSH_THEME=spaceship
+export ZSH_CUSTOM=$ZSH/custom
+export ANTIGEN_BUNDLES=$ADOTDIR/bundles
+
+handle-add-path $ADOTDIR
+
+export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+
+export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+export POWERLEVEL9K_MODE='nerdfont-complete'
+export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
+export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
+export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
+
+source $HOME/.local/share/fonts/*.sh
+source $HOME/antigen/antigen.zsh
+source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+
+antigen use oh-my-zsh
+
+antigen bundles <<EOBUNDLES
+	autoenv
+	battery
+	command-not-found
+	dotenv
+	history
+	history-substring-search
+	kubectl
+	sudo
+	gpg-agent
+	ssh-agent
+	jsontools
+	profiles
+	git
+	node
+	npm
+	npx
+	yarn
+	gnu-utils
+	cygwin
+	debian
+	systemd
+	systemadmin
+EOBUNDLES
+
+# OS Based Plugins
+if [[ "$OSTYPE" == darwin* ]]; then
+ 	antigen bundle iterm2
+	antigen bundle gem
+	antigen bundle osx
+	antigen bundle brew
+	antigen bundle cask
+elif [[ "$OSTYPE" == linux* ]]; then
+	antigen bundle brew
+	antigen bundle cask
+fi
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle ascii-soup/zsh-url-highlighter
+antigen bundle zsh-users/zsh-completions
+antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
+antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
+antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
+antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
+# antigen bundle lukechilds/zsh-nvm
+
+load-url-highlighter
+
+# Suuply the theme
+antigen theme denysdovhan/spaceship-prompt spaceship
+# Tell antigen that you're done.
+antigen apply
+
+# User configuration
+
+# Theme configuration
+typeset -gA ZSH_HIGHLIGHT_STYLES
+# All options must be overridden in your .zshrc file after the theme.
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+export ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+export ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+
+# Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
+export SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  golang        # Go section
+  php           # PHP section
+  docker        # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  pyenv         # Pyenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+export SPACESHIP_RPROMPT_ORDER=(
+	time          # Time stampts section
+	battery       # Battery level and status
+)
+export SPACESHIP_TIME_SHOW=true
+export SPACESHIP_TIME_12HR=true
+
+source $JB_ZSH_BASE/zsh/.zsh_aliases
+source $JB_ZSH_BASE/zsh/.zsh_functions
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+
+add-zsh-hook chpwd load-user-specifics
+add-zsh-hook chpwd load-nvmrc
+
+load-user-specifics
+
+autoload -U add-zsh-hook promptinit; promptinit
+prompt spaceship

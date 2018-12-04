@@ -11,6 +11,7 @@ tap "homebrew/services"
 tap "molovo/revolver"
 tap "phrase/brewed"
 tap "railwaycat/emacsmacport"
+tap "sambadevi/powerlevel9k"
 tap "zunit-zsh/zunit"
 
 
@@ -65,6 +66,7 @@ brew "fontforge"
 brew "fortune"
 # Monitor a directory for changes and run a shell command
 brew "fswatch"
+brew "gdbm"
 # Comprehensive Library for Galois Field Arithmetic
 brew "gf-complete"
 brew "git"
@@ -106,6 +108,7 @@ brew "kubernetes-cli"
 brew "launchctl-completion"
 # Input filter for the pager less
 brew "lesspipe"
+brew "libarchive"
 # 2D game development library
 brew "libgosu"
 # Library for Apple Binary- and XML-Property Lists
@@ -114,6 +117,7 @@ brew "libplist"
 brew "libsass"
 # C library SSHv1/SSHv2 client and server protocols
 brew "libssh"
+brew "macvim", args: ["--env-std", "--with-override-system-vim"]
 # Utility for directing compilation
 brew "make"
 # Scalable distributed version control system
@@ -132,6 +136,7 @@ brew "node", link: false
 brew "ntfs-3g"
 # Swiss-army knife of markup format conversion
 brew "pandoc"
+brew "pcre"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 brew "pkill"
@@ -186,6 +191,7 @@ brew "zsh"
 brew "zsh-autosuggestions"
 # Additional completion definitions for zsh
 brew "zsh-completions"
+brew "zsh-history-substring-search"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # Debugger for zsh
@@ -203,6 +209,7 @@ cask "emacs-mac"
 cask "font-fira-code"
 cask "font-hack-nerd-font"
 cask "font-inconsolata"
+cask "font-powerline-symbols"
 cask "font-source-code-pro"
 cask "google-chrome"
 cask "google-drive"
