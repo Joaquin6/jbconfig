@@ -278,8 +278,6 @@ handle-add-manpath $USER_LOCAL/share/man
 handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 handle-add-infopath $USER_LOCAL/share/info
 
-export DEFAULT_USER=$USER
-
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
