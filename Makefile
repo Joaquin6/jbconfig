@@ -19,8 +19,8 @@ install-hub:
 	mkdir -p ~/projects/go/src/github.com/github
 	if [ ! -d ~/projects/go/src/github.com/github/hub ]; then make clone-hub; fi
 	cd ~/projects/go/src/github.com/github/hub \
-  && sudo gem install bundler \
-  && rbenv rehash \
+	&& sudo gem install bundler \
+	&& rbenv rehash \
 	&& make install prefix=/usr/local
 
 install-fonts:
@@ -48,9 +48,11 @@ brew-ch:
 brew-cl:
 	brew bundle cleanup
 
+.PHONY: update
 update:
+	@echo 'Running Update...'
 	make iterm2-shell-integration
 	make brew-i
 	make install-fonts
 	make install-nvm
-  make install-hub
+	make install-hub
