@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+export JB_ZSH_DEBUG=1
+export AUTOENV_DEBUG=0
+
 export USER_BIN=/usr/bin
 export USER_LOCAL=/usr/local
 export USER_SHARE=/usr/share
@@ -12,11 +15,6 @@ export JB_ZSH_BASE=$HOME/jbconfig
 export HOME_LIB_PATH=$HOME/Library
 export SYS_LIB_PATH=/System/Library
 
-export JB_ZSH_DEBUG=1
-export AUTOENV_DEBUG=0
-
-export JB_ZSH_BASE=$HOME/jbconfig
-export HOME_LIB_PATH=$HOME/Library
 export USER_LOCAL_GO=$USER_LOCAL/go
 export USER_LOCAL_BIN=$USER_LOCAL/bin
 export USER_LOCAL_ETC=$USER_LOCAL/etc
@@ -26,11 +24,11 @@ export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
-export MANPATH=$USER_LOCAL_MAN
 
 export RBENV_SHELL=zsh
 export NVM_DIR=$HOME/.nvm
 export PYTHON_VERSION="2.7"
+export MANPATH=$USER_LOCAL_MAN
 export RBENV_ROOT=$HOME/.rbenv
 export GOPATH=$HOME/projects/go
 export RUBY_VERSION="2.5.3p105"

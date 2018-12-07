@@ -161,7 +161,8 @@ upgradejb-zsh-reload () { upgradejb-zsh && reload; }
 # Create a folder and move into it in one command
 mkcd() { mkdir -p "$@" && cd "$@"; }
 
-
+# https://stackoverflow.com/questions/18936337/makefile1-missing-separator-stop/18936393
+fix_space_tabs () { perl -pi -e 's/^  */\t/' "$1"; }
 
 
 #   ---------------------------------------
