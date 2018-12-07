@@ -153,4 +153,4 @@ add-zsh-hook chpwd load-nvmrc
 load-user-specifics
 
 autoload -U add-zsh-hook promptinit; promptinit
-prompt spaceship
+# prompt spaceship
