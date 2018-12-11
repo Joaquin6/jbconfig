@@ -13,9 +13,6 @@
 [submodule "zsh/themes/powerline"]
 	path = zsh/themes/powerline
 	url = https://github.com/powerline/powerline.git
-[submodule "zsh/plugins/git-aliases"]
-	path = zsh/plugins/git-aliases
-	url = https://github.com/Joaquin6/git-aliases.git
 [submodule "zsh/plugins/direnv"]
 	path = zsh/plugins/direnv
 	url = https://github.com/direnv/direnv.git
