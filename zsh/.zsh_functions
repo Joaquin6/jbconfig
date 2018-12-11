@@ -187,6 +187,12 @@ bbget () {
     git clone https://bitbucket.org/$USER/$REPO.git && cd $REPO
 }
 
+git-submodule-rm-clean () {
+  git submodule deinit $1 & wait
+  git rm $1 & wait
+  git commit -m "Removed submodule" && rm -rf .git/modules/$1
+}
+
 confirm_existence()
 {
     if [[ -d $1 ]] && [[ -n $1 ]] ; then
