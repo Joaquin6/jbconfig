@@ -78,6 +78,6 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export COMPLETION_WAITING_DOTS="true"
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then
+  source "$HOME/.zprofile"
 fi
