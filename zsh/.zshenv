@@ -37,6 +37,7 @@ export RBENV_DIR=$RBENV_ROOT/bin
 export MONO_GAC_PREFIX=$USER_LOCAL
 export XDG_CONFIG_HOME=$HOME/.config
 export WORKON_HOME=$HOME/.virtualenvs
+export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
 export TERM="xterm-256color"
@@ -73,9 +74,9 @@ export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
 
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
-export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 
 export COMPLETION_WAITING_DOTS="true"
+export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then

@@ -23,7 +23,7 @@ load-url-highlighter() {
 export ZSH=$JB_ZSH_BASE/zsh/plugins/oh-my-zsh
 export ADOTDIR=$JB_ZSH_BASE/zsh/plugins/antigen
 
-export ZSH_THEME=spaceship
+export ZSH_THEME="spaceship"
 export ZSH_CUSTOM=$ZSH/custom
 export ANTIGEN_BUNDLES=$ADOTDIR/bundles
 
