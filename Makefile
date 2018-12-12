@@ -44,6 +44,28 @@ install-nvm:
 	&& . ~/.nvm/nvm.sh \
 	&& cd ~/jbconfig
 
+install-ohmyzsh:
+	git submodule update --init --recursive zsh/plugins/oh-my-zsh
+	make link-ohmyzsh
+
+unlink-ohmyzsh:
+	if [ -L ~/.oh-my-zsh ]; then rm -rf ~/.oh-my-zsh; fi
+
+link-ohmyzsh:
+	make unlink-ohmyzsh
+	ln -s ~/jbconfig/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
+
+install-antigen:
+	git submodule update --init --recursive zsh/plugins/antigen
+	make link-antigen
+
+unlink-antigen:
+	if [ -L ~/antigen ]; then rm -rf ~/antigen; fi
+
+link-antigen:
+	make unlink-antigen
+	ln -s ~/jbconfig/zsh/plugins/antigen ~/antigen
+
 install-powerline:
 	git clone https://github.com/powerline/fonts.git --depth=1 \
 	&& cd fonts \
@@ -94,3 +116,5 @@ update:
 	make install-maximum-awesome
 	make install-powerline
 	make install-vimrc
+	make install-ohmyzsh
+	make install-antigen

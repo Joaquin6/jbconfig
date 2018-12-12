@@ -20,7 +20,7 @@ load-url-highlighter() {
   fi
 }
 
-export ZSH=$JB_ZSH_BASE/zsh/plugins/oh-my-zsh
+export ZSH=~/.oh-my-zsh
 export ADOTDIR=$JB_ZSH_BASE/zsh/plugins/antigen
 
 export ZSH_THEME="spaceship"
