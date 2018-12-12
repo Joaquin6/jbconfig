@@ -55,17 +55,6 @@ link-ohmyzsh:
 	make unlink-ohmyzsh
 	ln -s ~/jbconfig/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
 
-install-antigen:
-	git submodule update --init --recursive zsh/plugins/antigen
-	make link-antigen
-
-unlink-antigen:
-	if [ -L ~/antigen ]; then rm -rf ~/antigen; fi
-
-link-antigen:
-	make unlink-antigen
-	ln -s ~/jbconfig/zsh/plugins/antigen ~/antigen
-
 install-powerline:
 	git clone https://github.com/powerline/fonts.git --depth=1 \
 	&& cd fonts \
@@ -96,13 +85,13 @@ iterm2-shell-integration:
 	curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
 
 brew-i:
-	brew bundle install
+	brew bundle install --file=./tools/brew/$(shell uname -s)/Brewfile
 
 brew-ch:
-	brew bundle check --verbose
+	brew bundle check --file=./tools/brew/$(shell uname -s)/Brewfile --verbose
 
 brew-cl:
-	brew bundle cleanup
+	brew bundle cleanup --file=./tools/brew/$(shell uname -s)/Brewfile
 
 .PHONY: update
 update:
