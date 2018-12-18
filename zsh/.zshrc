@@ -163,21 +163,6 @@ handle-add-pkgconfigpath()
 		fi
 	fi
 }
-load-syntax-highlighting() {
-	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
-	local highlighter_repo=git@github.com:zsh-users/zsh-syntax-highlighting.git
-
-	if [ ! -d $plugins/zsh-syntax-highlighting ]; then
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	creating $plugins/zsh-syntax-highlighting"
-		mkdir -p $plugins/zsh-syntax-highlighting
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$plugins/zsh-syntax-highlighting created."
-
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-syntax-highlighting" 2
-		git clone $highlighter_repo $plugins/zsh-syntax-highlighting
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$highlighter_repo was cloned successfully" 2
-	fi
-}
 command_exists () {
   type "$1" &> /dev/null;
 }
@@ -307,10 +292,7 @@ fi
 
 source $JB_ZSH_BASE/zsh/.zsh_aliases
 source $JB_ZSH_BASE/zsh/.zsh_functions
-
-# Choose which plugin to use
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
-# source $JB_ZSH_BASE/zsh/.zshrc-prezto
-  # Set Spaceship ZSH as a prompt
-  autoload -U promptinit; promptinit
-  prompt spaceship
+
+autoload -U add-zsh-hook promptinit; promptinit
+prompt spaceship

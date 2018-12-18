@@ -111,8 +111,6 @@ brew "fontforge"
 brew "fortune"
 # Monitor a directory for changes and run a shell command
 brew "fswatch"
-# Comprehensive Library for Galois Field Arithmetic
-brew "gf-complete"
 # Distributed revision control system
 brew "git", link: false
 # Stores Git credentials for Visual Studio Team Services
@@ -123,8 +121,6 @@ brew "git-crypt"
 brew "git-flow-avh"
 # Proxy for serving git repositories over SSH
 brew "git-ssh"
-# The official GitLab CI runner written in Go
-brew "gitlab-runner"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # Assuan IPC Library
@@ -135,10 +131,6 @@ brew "gnupg", link: false
 brew "gosu"
 # GNU PIC Utilities
 brew "gputils"
-# Open-source build automation tool based on the Groovy and Kotlin DSL
-brew "gradle"
-# Java-based scripting language
-brew "groovy"
 # Smarter Dockerfile linter to validate best practices
 brew "hadolint"
 # Haskell source code suggestions
@@ -159,8 +151,6 @@ brew "lesspipe"
 brew "libarchive"
 # Asynchronous event library
 brew "libevent"
-# 2D game development library
-brew "libgosu"
 # International domain name library (IDNA2008, Punycode and TR46)
 brew "libidn2"
 # Library for Apple Binary- and XML-Property Lists
@@ -263,14 +253,6 @@ brew "yarn", args: ["--without-node"]
 brew "zenity"
 # UNIX shell (command interpreter)
 brew "zsh"
-# Fish-like fast/unobtrusive autosuggestions for zsh
-brew "zsh-autosuggestions"
-# Additional completion definitions for zsh
-brew "zsh-completions"
-# Zsh port of Fish shell's history search
-brew "zsh-history-substring-search"
-# Fish shell like syntax highlighting for zsh
-brew "zsh-syntax-highlighting"
 # Debugger for zsh
 brew "zshdb"
 # A badass zsh theme with more power than a normal earthling
@@ -300,7 +282,6 @@ cask "railwaycat/emacsmacport/emacs-mac"
 mas "BetterSnapTool", id: 417375580
 mas "Desktop Verse", id: 572304633
 mas "Earth 3D", id: 476566660
-mas "Earth 3D Lite", id: 476567010
 mas "GIF Brewery 3", id: 1081413713
 mas "Simplenote", id: 692867256
 mas "Slack", id: 803453959

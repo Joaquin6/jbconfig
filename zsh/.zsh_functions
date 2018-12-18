@@ -2,43 +2,6 @@
 ######################### Functions #########################
 #############################################################
 
-load-syntax-highlighting() {
-	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
-	local highlighter_repo=git@github.com:zsh-users/zsh-syntax-highlighting.git
-
-	if [ ! -d $plugins/zsh-syntax-highlighting ]; then
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	creating $plugins/zsh-syntax-highlighting"
-		mkdir -p $plugins/zsh-syntax-highlighting
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$plugins/zsh-syntax-highlighting created."
-
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-syntax-highlighting" 2
-		git clone $highlighter_repo $plugins/zsh-syntax-highlighting
-		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$highlighter_repo was cloned successfully" 2
-	fi
-}
-load-url-highlighter() {
-	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
-	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
-
-	if [ ! -d $plugins/zsh-url-highlighter ]; then
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $plugins/zsh-url-highlighter"
-		mkdir -p $plugins/zsh-url-highlighter
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter created."
-
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-url-highlighter" 2
-		git clone $highlighter_repo $plugins/zsh-url-highlighter
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
-	fi
-
-  if [ ! -L $syntax_highlighting/highlighters/url ]; then
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
-	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
-  fi
-}
-
 zshrc() {
   local editor=${EDITOR:-code}
 
@@ -59,20 +22,6 @@ zshrc() {
 ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
-# ch - browse chrome history
-chrome-hist() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-​
-  cp -f ~/Library/Application\ Support/Google/Chrome/Profile\ 1/History /tmp/h
-​
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
-}
 
 
 #   ---------------------------

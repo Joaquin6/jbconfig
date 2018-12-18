@@ -23,6 +23,11 @@ clone-vimrc:
 	git clone \
 	--depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 
+clone-zsh-url-highlighter:
+	mkdir -p ~/.oh-my-zsh/custom/plugins
+	git clone \
+	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter
+
 install-hub:
 	mkdir -p ~/projects/go/src/github.com/github
 	if [ ! -d ~/projects/go/src/github.com/github/hub ]; then make clone-hub; fi
@@ -47,12 +52,18 @@ install-nvm:
 install-ohmyzsh:
 	if [ ! -d ~/.oh-my-zsh ]; then git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; fi
 
+install-antigen:
+	if [ ! -d ~/.antigen ]; then git clone https://github.com/zsh-users/antigen.git ~/.antigen; fi
+
 install-powerline:
 	git clone https://github.com/powerline/fonts.git --depth=1 \
 	&& cd fonts \
 	&& ./install.sh \
 	&& cd .. \
 	&& rm -rf fonts
+
+install-powerlevel9k:
+	if [ ! -d ~/powerlevel9k ]; then git clone https://github.com/bhilburn/powerlevel9k.git ~/powerlevel9k; fi
 
 install-maximum-awesome:
 	mkdir -p ~/projects/github.com/square
@@ -62,6 +73,10 @@ install-maximum-awesome:
 	&& git pull origin master \
 	&& rake
 
+install-spaceship-prompt:
+	if [ ! -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]; then git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt; fi
+	if [ ! -L ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]; then ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme; fi
+
 install-vimrc:
 	if [ ! -d ~/.vim_runtime ]; then make clone-vimrc; fi
 	cd ~/.vim_runtime \
@@ -69,6 +84,11 @@ install-vimrc:
 	&& git pull origin master \
 	&& chmod +x ./install_awesome_vimrc.sh \
 	&& sh ./install_awesome_vimrc.sh
+
+install-zsh-url-highlighter:
+	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
+	mkdir -p ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	if [ ! -L ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters; fi
 
 update-submodules:
 	git submodule update --init --recursive
@@ -90,12 +110,14 @@ update:
 	@echo 'Running Update...'
 	make iterm2-shell-integration
 	make brew-i
-	make update-submodules
-	make install-fonts
 	make install-nvm
 	make install-hub
-	make install-maximum-awesome
-	make install-powerline
+	make install-fonts
 	make install-vimrc
 	make install-ohmyzsh
 	make install-antigen
+	make install-powerline
+	make install-powerlevel9k
+	make install-maximum-awesome
+	make install-spaceship-prompt
+	make install-zsh-url-highlighter

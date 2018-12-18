@@ -1,27 +1,5 @@
-load-url-highlighter() {
-	local plugins=$ZSH_CUSTOM/plugins
-	local syntax_highlighting=$ANTIGEN_BUNDLES/zsh-users/zsh-syntax-highlighting
-	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
-
-	if [ ! -d $plugins/zsh-url-highlighter ]; then
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $plugins/zsh-url-highlighter"
-		mkdir -p $plugins/zsh-url-highlighter
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter created."
-
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-url-highlighter" 2
-		git clone $highlighter_repo $plugins/zsh-url-highlighter
-		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
-	fi
-
-  if [ ! -L $syntax_highlighting/highlighters/url ]; then
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
-	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
-  fi
-}
-
-export ZSH=~/.oh-my-zsh
-export ADOTDIR=$JB_ZSH_BASE/zsh/plugins/antigen
+export ZSH=$HOME/.oh-my-zsh
+export ADOTDIR=$HOME/.antigen
 
 export ZSH_THEME="spaceship"
 export ZSH_CUSTOM=$ZSH/custom
@@ -41,7 +19,7 @@ export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
 source $HOME/.local/share/fonts/*.sh
-source $HOME/antigen/antigen.zsh
+source $ADOTDIR/antigen.zsh
 source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
 
 antigen use oh-my-zsh
@@ -151,6 +129,3 @@ add-zsh-hook chpwd load-user-specifics
 add-zsh-hook chpwd load-nvmrc
 
 load-user-specifics
-
-autoload -U add-zsh-hook promptinit; promptinit
-# prompt spaceship
