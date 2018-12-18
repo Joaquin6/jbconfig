@@ -1,9 +1,6 @@
 [submodule "zsh/plugins/direnv"]
 	path = zsh/plugins/direnv
 	url = https://github.com/direnv/direnv.git
-[submodule "zsh/plugins/alias-tips"]
-	path = zsh/plugins/alias-tips
-	url = https://github.com/djui/alias-tips.git
 [submodule "zsh/plugins/zshmarks"]
 	path = zsh/plugins/zshmarks
 	url = https://github.com/jocelynmallon/zshmarks.git
