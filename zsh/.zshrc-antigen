@@ -71,9 +71,6 @@ antigen bundle djui/alias-tips                          # https://github.com/dju
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
 antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
-# antigen bundle lukechilds/zsh-nvm
-
-load-url-highlighter
 
 # Suuply the theme
 antigen theme denysdovhan/spaceship-prompt spaceship
