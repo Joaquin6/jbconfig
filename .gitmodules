@@ -1,9 +1,6 @@
 [submodule "zsh/plugins/antigen"]
 	path = zsh/plugins/antigen
 	url = https://github.com/zsh-users/antigen.git
-[submodule "zsh/plugins/oh-my-zsh"]
-	path = zsh/plugins/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "zsh/themes/spaceship-prompt"]
 	path = zsh/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
