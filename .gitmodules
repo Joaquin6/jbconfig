@@ -7,6 +7,3 @@
 [submodule "zsh/plugins/zshmarks"]
 	path = zsh/plugins/zshmarks
 	url = https://github.com/jocelynmallon/zshmarks.git
-[submodule "zsh/plugins/url-highlighter"]
-	path = zsh/plugins/url-highlighter
-	url = https://github.com/ascii-soup/zsh-url-highlighter.git
