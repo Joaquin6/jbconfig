@@ -1,9 +1,6 @@
 [submodule "zsh/themes/spaceship-prompt"]
 	path = zsh/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
-[submodule "zsh/themes/powerlevel9k"]
-	path = zsh/themes/powerlevel9k
-	url = https://github.com/bhilburn/powerlevel9k.git
 [submodule "zsh/plugins/direnv"]
 	path = zsh/plugins/direnv
 	url = https://github.com/direnv/direnv.git
