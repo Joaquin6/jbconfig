@@ -42,8 +42,8 @@ export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
 export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
-export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/lib)
-export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,readline}/include)
+export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include)
 export DEFAULT_MACHINE="default"
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
 export OOO_FORCE_DESKTOP=gnome

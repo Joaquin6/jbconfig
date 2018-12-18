@@ -251,6 +251,9 @@ handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/libarchive/bin
 handle-add-path $USER_LOCAL_OPT/openssl/bin
+handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
+handle-add-path $USER_LOCAL_OPT/openldap/bin
+handle-add-path $USER_LOCAL_OPT/openldap/sbin
 handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 handle-add-path $USER_LOCAL_GO/bin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
@@ -308,3 +311,6 @@ source $JB_ZSH_BASE/zsh/.zsh_functions
 # Choose which plugin to use
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
 # source $JB_ZSH_BASE/zsh/.zshrc-prezto
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
