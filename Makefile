@@ -45,15 +45,7 @@ install-nvm:
 	&& cd ~/jbconfig
 
 install-ohmyzsh:
-	git submodule update --init --recursive zsh/plugins/oh-my-zsh
-	make link-ohmyzsh
-
-unlink-ohmyzsh:
-	if [ -L ~/.oh-my-zsh ]; then rm -rf ~/.oh-my-zsh; fi
-
-link-ohmyzsh:
-	make unlink-ohmyzsh
-	ln -s ~/jbconfig/zsh/plugins/oh-my-zsh ~/.oh-my-zsh
+	if [ ! -d ~/.oh-my-zsh ]; then git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; fi
 
 install-powerline:
 	git clone https://github.com/powerline/fonts.git --depth=1 \
