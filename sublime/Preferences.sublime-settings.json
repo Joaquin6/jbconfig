@@ -7,7 +7,7 @@
 	"bold_folder_labels": true,
 	"caret_style": "phase",
 	"close_windows_when_empty": false,
-	"color_scheme": "Packages/Theme - Ksix/Ksix.tmTheme",
+	"color_scheme": "Packages/Theme - Monokai Pro/Monokai Classic.tmTheme",
 	"fade_fold_buttons": true,
 	"folder_exclude_patterns":
 	[
@@ -48,7 +48,7 @@
 	"scroll_past_end": true,
 	"show_definitions": false,
 	"spell_check": true,
-	"theme": "Seti Monokai.sublime-theme",
+	"theme": "Monokai+.sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false
 }
