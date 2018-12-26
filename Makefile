@@ -17,7 +17,7 @@ clone-hub:
 
 clone-maximum-awesome:
 	git clone \
-	https://github.com/square/maximum-awesome.git ~/projects/go/src/github.com/square/maximum-awesome
+	https://github.com/square/maximum-awesome.git ~/projects/github.com/square/maximum-awesome
 
 clone-vimrc:
 	git clone \
@@ -32,11 +32,11 @@ install-hub:
 	mkdir -p ~/projects/go/src/github.com/github
 	if [ ! -d ~/projects/go/src/github.com/github/hub ]; then make clone-hub; fi
 	cd ~/projects/go/src/github.com/github/hub \
-	&& sudo gem install bundler \
-	&& rbenv rehash \
-	&& make install prefix=/usr/local
+	&& sudo gem install bundler & wait \
+	&& $(exec $(shell which rbenv) rehash)
 
 install-fonts:
+	mkdir -p ~/Library/Fonts
 	cd ~/Library/Fonts \
 	&& curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" \
 	https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
@@ -75,7 +75,7 @@ install-maximum-awesome:
 
 install-spaceship-prompt:
 	if [ ! -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]; then git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt; fi
-	if [ ! -L ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]; then ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme; fi
+	if [ ! -f ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]; then ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme; fi
 
 install-vimrc:
 	if [ ! -d ~/.vim_runtime ]; then make clone-vimrc; fi
@@ -97,13 +97,13 @@ iterm2-shell-integration:
 	curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
 
 brew-i:
-	brew bundle install --file=./tools/brew/$(shell uname -s)/Brewfile
+	$(exec $(shell which brew) bundle install --file=./tools/brew/$(shell uname -s)/Brewfile)
 
 brew-ch:
-	brew bundle check --file=./tools/brew/$(shell uname -s)/Brewfile --verbose
+	$(exec $(shell which brew) bundle check --file=./tools/brew/$(shell uname -s)/Brewfile --verbose)
 
 brew-cl:
-	brew bundle cleanup --file=./tools/brew/$(shell uname -s)/Brewfile
+	$(exec $(shell which brew) bundle cleanup --file=./tools/brew/$(shell uname -s)/Brewfile)
 
 .PHONY: update
 update:
@@ -118,6 +118,6 @@ update:
 	make install-antigen
 	make install-powerline
 	make install-powerlevel9k
-	make install-maximum-awesome
+	if [ $(shell uname -s) == Darwin ]; then make install-maximum-awesome; fi
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter

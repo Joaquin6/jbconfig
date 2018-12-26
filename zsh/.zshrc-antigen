@@ -38,27 +38,27 @@ antigen bundles <<EOBUNDLES
 	jsontools
 	profiles
 	git
-	node
-	npm
 	npx
 	yarn
 	gnu-utils
 	cygwin
+	brew
+	gem
 	debian
 	systemd
 	systemadmin
+	cask
 EOBUNDLES
 
 # OS Based Plugins
 if [[ "$OSTYPE" == darwin* ]]; then
  	antigen bundle iterm2
-	antigen bundle gem
 	antigen bundle osx
-	antigen bundle brew
-	antigen bundle cask
-elif [[ "$OSTYPE" == linux* ]]; then
-	antigen bundle brew
-	antigen bundle cask
+fi
+
+if [ -d $LINUXBREW_PATH ]; then
+	handle-add-path $LINUXBREW_LOCAL_BIN
+	handle-add-path $LINUXBREW_LOCAL_OPT/go/libexec/bin
 fi
 
 # Syntax highlighting bundle.
@@ -70,7 +70,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
+# antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
 
 # Suuply the theme
 antigen theme denysdovhan/spaceship-prompt spaceship

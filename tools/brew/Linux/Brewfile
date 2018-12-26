@@ -33,6 +33,8 @@ brew "aptly-completion"
 brew "autoenv"
 # GNU multiple precision arithmetic library
 brew "gmp"
+# Generic library support script
+brew "libtool"
 # C string library for manipulating Unicode strings
 brew "libunistring"
 # Shell extension to jump to frequently used directories
@@ -44,9 +46,9 @@ brew "python"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Programmable completion for Bash 3.2
-brew "bash-completion", link: false
+brew "bash-completion"
 # Programmable completion for Bash 4.1+
-brew "bash-completion@2", link: false
+brew "bash-completion@2"
 # Install pip packages as homebrew formulae
 brew "brew-pip"
 # (Arguably) the best yacc variant
@@ -55,6 +57,8 @@ brew "byacc"
 brew "cairo"
 # Emacs dependency management
 brew "cask"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c"
 # Object-relational database system
 brew "postgresql"
 # Monitor Postgres databases
@@ -81,28 +85,30 @@ brew "git-crypt"
 brew "git-flow-avh"
 # Proxy for serving git repositories over SSH
 brew "git-ssh"
-# GNU implementation of the famous stream editor
-brew "gnu-sed"
-# Assuan IPC Library
-brew "libassuan"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg", link: false
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # GNU PIC Utilities
 brew "gputils"
 # Smarter Dockerfile linter to validate best practices
 brew "hadolint"
-# OpenType text shaping engine
-brew "harfbuzz"
+# Add GitHub support to git on the command-line
+brew "hub"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Input filter for the pager less
 brew "lesspipe"
+# Assuan IPC Library
+brew "libassuan"
 # Asynchronous event library
 brew "libevent"
 # Powerful, lightweight programming language
 brew "lua"
+# Utility for directing compilation
+brew "make"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
+# Ruby version manager
+brew "rbenv"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -111,5 +117,3 @@ brew "shellcheck"
 brew "shfmt"
 # Terminal multiplexer
 brew "tmux"
-# JavaScript package manager
-brew "yarn"

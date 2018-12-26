@@ -11,6 +11,8 @@
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+elif [[ "$OSTYPE" == linux* ]]; then
+  export BROWSER='xdg-open'
 fi
 
 #
@@ -49,6 +51,19 @@ fpath=(
 	$USER_LOCAL_SHARE/zsh/site-functions
 	$fpath
 )
+
+if [ -d $LINUXBREW_PATH ]; then
+  path=(
+    /usr/local/{bin,sbin}
+    $LINUXBREW_PATH/{bin,sbin}
+    $path
+  )
+
+  fpath=(
+    $LINUXBREW_LOCAL_SHARE/zsh/site-functions
+    $fpath
+  )
+fi
 
 export OOO_FORCE_DESKTOP=gnome
 

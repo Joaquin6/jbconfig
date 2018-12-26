@@ -14,6 +14,7 @@ export USER_SHARE=/usr/share
 export JB_ZSH_BASE=$HOME/jbconfig
 export HOME_LIB_PATH=$HOME/Library
 export SYS_LIB_PATH=/System/Library
+export LINUXBREW_PATH=/home/linuxbrew/.linuxbrew
 
 export USER_LOCAL_GO=$USER_LOCAL/go
 export USER_LOCAL_BIN=$USER_LOCAL/bin
@@ -24,6 +25,14 @@ export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
+
+export LINUXBREW_LOCAL_GO=$LINUXBREW_PATH/go
+export LINUXBREW_LOCAL_BIN=$LINUXBREW_PATH/bin
+export LINUXBREW_LOCAL_ETC=$LINUXBREW_PATH/etc
+export LINUXBREW_LOCAL_LIB=$LINUXBREW_PATH/lib
+export LINUXBREW_LOCAL_OPT=$LINUXBREW_PATH/opt
+export LINUXBREW_LOCAL_MAN=$LINUXBREW_PATH/man
+export LINUXBREW_LOCAL_SHARE=$LINUXBREW_PATH/share
 
 export RBENV_SHELL=zsh
 export NVM_DIR=$HOME/.nvm
@@ -47,6 +56,11 @@ export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openss
 export DEFAULT_MACHINE="default"
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
 export OOO_FORCE_DESKTOP=gnome
+
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib $LDFLAGS)
+  export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include $CPPFLAGS)
+fi
 
 export SSH_PATH=$HOME/.ssh
 export SSH_ENV=$SSH_PATH/environment

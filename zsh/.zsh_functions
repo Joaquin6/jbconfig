@@ -105,6 +105,15 @@ check-web-connectivity() {
   esac
 }
 
+reset-npm-prefix() {
+  # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
+
+  local node_version="$(nvm version)"
+
+  npm config delete prefix
+  npm config set prefix $NVM_DIR/versions/node/$(node_version)
+}
+
 upgradejb-zsh-reload () { upgradejb-zsh && reload; }
 
 # Create a folder and move into it in one command

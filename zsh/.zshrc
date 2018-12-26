@@ -201,14 +201,14 @@ load-nvmrc() {
     if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+      nvm use --delete-prefix
     fi
   elif [ "$node_version" != "$(nvm version default)" ]; then
     echo "Reverting to nvm default version"
-    nvm use default
+    nvm use --delete-prefix default --silent
   fi
 
-	handle-add-path "$NVM_DIR/versions/node/$(nvm version)/bin"
+	handle-add-path $NVM_DIR/versions/node/$node_version/bin
 }
 
 handle-add-path $HOME/bin
