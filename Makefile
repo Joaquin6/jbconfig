@@ -32,8 +32,8 @@ install-hub:
 	mkdir -p ~/projects/go/src/github.com/github
 	if [ ! -d ~/projects/go/src/github.com/github/hub ]; then make clone-hub; fi
 	cd ~/projects/go/src/github.com/github/hub \
-	&& sudo gem install bundler & wait \
-	&& $(exec $(shell which rbenv) rehash)
+	&& sudo gem install bundler
+	$(exec $(shell which rbenv) rehash)
 
 install-fonts:
 	mkdir -p ~/Library/Fonts
@@ -88,7 +88,14 @@ install-vimrc:
 install-zsh-url-highlighter:
 	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
 	mkdir -p ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	if [ ! -L ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters; fi
+	if [ ! -L ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter/url ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+
+install-rbenv:
+	if [ ! -d ~/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git ~/.rbenv; fi
+	~/.rbenv/src/configure
+	make -C ~/.rbenv/src
+	eval ~/.rbenv/bin/rbenv init -
+	cd ~/jbconfig
 
 update-submodules:
 	git submodule update --init --recursive

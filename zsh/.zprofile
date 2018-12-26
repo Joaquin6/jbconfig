@@ -11,8 +11,10 @@
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
-elif [[ "$OSTYPE" == linux* ]]; then
-  export BROWSER='xdg-open'
+else
+  if [[ "$OSTYPE" == linux-gnu ]]; then
+  	export BROWSER='xdg-open'
+  fi
 fi
 
 #
@@ -69,29 +71,23 @@ export OOO_FORCE_DESKTOP=gnome
 
 export GREP_COLOR='1;31'
 
-#
 # Less
-#
-
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-g -i -M -R -S -w -z-4'
 # export LESS='-F -g -i -M -R -S -w -X -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESS="-R"
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-  # export LESSOPEN="| src-hilite-lesspipe.sh %s"
-  export LESSHISTFILE=/dev/null
-  export LESS_TERMCAP_mb=$'\E[01;32m'
-  export LESS_TERMCAP_md=$'\E[01;32m'
-  export LESS_TERMCAP_me=$'\E[0m'
-  export LESS_TERMCAP_se=$'\E[0m'
-  export LESS_TERMCAP_so=$'\E[01;44;33m'
-  export LESS_TERMCAP_ue=$'\E[0m'
-  export LESS_TERMCAP_us=$'\E[01;37m'
+	if [[ "$OSTYPE" == darwin* ]]; then
+		# echo "------- DARWIN SYSTEM --------"
+		export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+	else
+		# echo "------- NON-DARWIN SYSTEM --------"
+		export LESSOPEN="|/home/linuxbrew/.linuxbrew/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+	fi
 fi
 
 #

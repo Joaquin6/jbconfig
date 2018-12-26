@@ -17,8 +17,6 @@ tap "zunit-zsh/zunit"
 brew "ack"
 # C/C++ resolver library and DNS resolver utilities
 brew "adns"
-# Plugin manager for zsh, inspired by oh-my-zsh and vundle
-brew "antigen"
 # Completion for Atom Package Manager
 brew "apm-bash-completion"
 # Library for command-line editing
@@ -107,8 +105,6 @@ brew "lua"
 brew "make"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
-# Ruby version manager
-brew "rbenv"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -117,3 +113,5 @@ brew "shellcheck"
 brew "shfmt"
 # Terminal multiplexer
 brew "tmux"
+# JavaScript package manager
+brew "yarn", args: ["--without-node"]

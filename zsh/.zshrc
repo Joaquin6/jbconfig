@@ -87,7 +87,7 @@ handle-add-path()
 	else
 		# Control will enter here if $incoming_path doesn't exist.
 		# Check if we have $JB_ZSH_DEBUG set to true
-		jb-zsh-debug "[PATH DEBUG]: 	$incoming_path doesn't exist. Not adding to PATH"
+		jb-zsh-debug "[PATH DEBUG]: 	$incoming_path doesn't exist. Not adding to PATH" 2
 	fi
 }
 handle-add-manpath()
@@ -110,7 +110,7 @@ handle-add-manpath()
 	else
 		# Control will enter here if $incoming_path doesn't exist.
 		# Check if we have $JB_ZSH_DEBUG set to true
-		jb-zsh-debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH"
+		jb-zsh-debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH" 2
 	fi
 }
 handle-add-infopath()
@@ -133,7 +133,7 @@ handle-add-infopath()
 	else
 		# Control will enter here if $incoming_path doesn't exist.
 		# Check if we have $JB_ZSH_DEBUG set to true
-		jb-zsh-debug "[INFOPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to INFOPATH"
+		jb-zsh-debug "[INFOPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to INFOPATH" 2
 	fi
 }
 handle-add-pkgconfigpath()
@@ -156,7 +156,7 @@ handle-add-pkgconfigpath()
 	else
 		# Control will enter here if $incoming_path doesn't exist.
 		# Check if we have $JB_ZSH_DEBUG set to true
-		jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	$incoming_path doesn't exist."
+		jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	$incoming_path doesn't exist." 2
 		# Check if brew is a command. If so, suggest installing with brew
 		if which brew &> /dev/null; then
 			jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	Suggestion => \"brew install $1\"" 2
@@ -223,33 +223,42 @@ fi
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-handle-add-path $USER_LOCAL_OPT/gettext/bin
-handle-add-path $USER_LOCAL_OPT/llvm/bin
-handle-add-path $USER_LOCAL_OPT/apr/bin
-handle-add-path $USER_LOCAL_OPT/apr-util/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/sbin
-handle-add-path $USER_LOCAL_OPT/libpq/bin
-handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/sqlite/bin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/libarchive/bin
-handle-add-path $USER_LOCAL_OPT/openssl/bin
-handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
-handle-add-path $USER_LOCAL_OPT/openldap/bin
-handle-add-path $USER_LOCAL_OPT/openldap/sbin
-handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+
+if [ -d $USER_LOCAL_OPT ]; then
+	handle-add-path $USER_LOCAL_OPT/gettext/bin
+	handle-add-path $USER_LOCAL_OPT/llvm/bin
+	handle-add-path $USER_LOCAL_OPT/apr/bin
+	handle-add-path $USER_LOCAL_OPT/apr-util/bin
+	handle-add-path $USER_LOCAL_OPT/icu4c/bin
+	handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+	handle-add-path $USER_LOCAL_OPT/libpq/bin
+	handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+	handle-add-path $USER_LOCAL_OPT/sqlite/bin
+	handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+	handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+	handle-add-path $USER_LOCAL_OPT/libarchive/bin
+	handle-add-path $USER_LOCAL_OPT/openssl/bin
+	handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
+	handle-add-path $USER_LOCAL_OPT/openldap/bin
+	handle-add-path $USER_LOCAL_OPT/openldap/sbin
+	handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+	handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+
+	handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+	handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+	handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+fi
+
 handle-add-path $USER_LOCAL_GO/bin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $PERL_LOCAL_LIB_ROOT/bin
 handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+if [ -d /usr/lib/x86_64-linux-gnu ]; then
+	handle-add-path /usr/lib/x86_64-linux-gnu
+fi
+
 handle-add-infopath $USER_SHARE/info
 
-handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 handle-add-pkgconfigpath libffi
 handle-add-pkgconfigpath icu4c
@@ -280,8 +289,12 @@ if which rbenv &> /dev/null; then
 	if [ -d $HOME/.rbenv ]; then
 		handle-add-path $HOME/.rbenv/bin
 		handle-add-path $HOME/.rbenv/shims
-		eval "$(rbenv init -)"
 	fi
+	if [ -d $LINUXBREW_PATH ]; then
+		handle-add-path $LINUXBREW_PATH/bin/rbenv
+		handle-add-path $LINUXBREW_PATH/rbenv/shims
+	fi
+	eval "$(rbenv init -)"
 fi
 if which hub &> /dev/null; then
 	eval "$(hub alias -s)"

@@ -21,6 +21,9 @@ export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 source $HOME/.local/share/fonts/*.sh
 source $ADOTDIR/antigen.zsh
 source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+# source $HOME/.autoenv/activate.sh  # https://github.com/kennethreitz/autoenv
+
+COMPLETION_WAITING_DOTS="true"
 
 antigen use oh-my-zsh
 
@@ -39,6 +42,8 @@ antigen bundles <<EOBUNDLES
 	profiles
 	git
 	npx
+	go
+	golang
 	yarn
 	gnu-utils
 	cygwin
@@ -62,15 +67,18 @@ if [ -d $LINUXBREW_PATH ]; then
 fi
 
 # Syntax highlighting bundle.
+antigen bundle ascii-soup/zsh-url-highlighter
 antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle ascii-soup/zsh-url-highlighter
 antigen bundle zsh-users/zsh-completions
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
 # antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
+# antigen bundle direnv/direnv 							# git clone https://github.com/direnv/direnv
+# antigen bundle bhilburn/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
+
 
 # Suuply the theme
 antigen theme denysdovhan/spaceship-prompt spaceship
@@ -82,11 +90,12 @@ antigen apply
 # Theme configuration
 typeset -gA ZSH_HIGHLIGHT_STYLES
 # All options must be overridden in your .zshrc file after the theme.
-export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
-export ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
-export ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
-export ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+# Customise autosuggestion color
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
 # Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ORDER=(

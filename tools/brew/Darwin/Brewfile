@@ -21,8 +21,6 @@ cask "osxfuse"
 brew "ack"
 # C/C++ resolver library and DNS resolver utilities
 brew "adns"
-# Plugin manager for zsh, inspired by oh-my-zsh and vundle
-brew "antigen"
 # Completion for Atom Package Manager
 brew "apm-bash-completion"
 # Apache Portable Runtime library
@@ -206,10 +204,6 @@ brew "pv"
 brew "pyenv"
 # Install various Ruby versions and implementations
 brew "ruby-build"
-# Ruby version manager
-brew "rbenv"
-# Switch between rubies without reference to patch levels
-brew "rbenv-use"
 # Implementation of the AT&T Plan 9 shell
 brew "rc"
 # Reattach process (e.g., tmux) to background

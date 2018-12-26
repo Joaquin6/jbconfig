@@ -57,9 +57,10 @@ export DEFAULT_MACHINE="default"
 export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
 export OOO_FORCE_DESKTOP=gnome
 
-if [ -d /home/linuxbrew/.linuxbrew ]; then
+if [ -d $LINUXBREW_PATH ]; then
   export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib $LDFLAGS)
   export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include $CPPFLAGS)
+  export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
 fi
 
 export SSH_PATH=$HOME/.ssh
