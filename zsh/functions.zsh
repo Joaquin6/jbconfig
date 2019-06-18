@@ -3,7 +3,7 @@
 ####################################################################################################
 
 # Set JB_ZSH_BASE if it isn't already defined
-[[ -z $JB_ZSH_BASE ]] && export JB_ZSH_BASE=~/.jbconfig
+[[ -z $JB_ZSH_BASE ]] && export JB_ZSH_BASE=~/jbconfig
 [[ -z $DEFAULT_MACHINE ]] && export DEFAULT_MACHINE="default"
 
 

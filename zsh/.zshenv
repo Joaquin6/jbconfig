@@ -36,12 +36,9 @@ export LINUXBREW_LOCAL_SHARE=$LINUXBREW_PATH/share
 
 export RBENV_SHELL=zsh
 export NVM_DIR=$HOME/.nvm
-export PYTHON_VERSION="2.7"
 export MANPATH=$USER_LOCAL_MAN
 export RBENV_ROOT=$HOME/.rbenv
 export GOPATH=$HOME/projects/go
-export RUBY_VERSION="2.5.3p105"
-export RBENV_VERSION="rbx-3.105"
 export RBENV_DIR=$RBENV_ROOT/bin
 export MONO_GAC_PREFIX=$USER_LOCAL
 export XDG_CONFIG_HOME=$HOME/.config
@@ -53,8 +50,6 @@ export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
 export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib)
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include)
-export DEFAULT_MACHINE="default"
-export DOCKER_ETC_CONTENTS=/Applications/Docker.app/Contents/Resources/etc
 export OOO_FORCE_DESKTOP=gnome
 
 if [ -d $LINUXBREW_PATH ]; then
@@ -88,6 +83,7 @@ export CYAN='\[\033[1;36m\]'
 export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
 
+export ADOTDIR=$HOME/antigen
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 
 export COMPLETION_WAITING_DOTS="true"

@@ -213,6 +213,7 @@ load-nvmrc() {
 
 handle-add-path $HOME/bin
 handle-add-path /usr/local/bin
+handle-add-path $HOME/.cask/bin
 
 if command_exists python; then
   export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
@@ -222,7 +223,10 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 handle-add-path $USER_BIN
-handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+
+if [ -d $USER_LOCAL_FRWKS ]; then
+	handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+fi
 
 if [ -d $USER_LOCAL_OPT ]; then
 	handle-add-path $USER_LOCAL_OPT/gettext/bin
@@ -251,7 +255,10 @@ fi
 
 handle-add-path $USER_LOCAL_GO/bin
 handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+if [[ "$OSTYPE" == darwin* ]]; then
+	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
 
 if [ -d /usr/lib/x86_64-linux-gnu ]; then
 	handle-add-path /usr/lib/x86_64-linux-gnu
@@ -303,9 +310,14 @@ if which direnv &> /dev/null; then
 	eval "$(direnv hook zsh)"
 fi
 
-source $JB_ZSH_BASE/zsh/.zsh_aliases
-source $JB_ZSH_BASE/zsh/.zsh_functions
+source $JB_ZSH_BASE/zsh/alias/index.zsh
+source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
+source $JB_ZSH_BASE/zsh/prompt.zsh
 
-autoload -U add-zsh-hook promptinit; promptinit
-prompt spaceship
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR=$HOME/.sdkman
+[[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh
+
+# autoload -U add-zsh-hook promptinit; promptinit
+# prompt spaceship

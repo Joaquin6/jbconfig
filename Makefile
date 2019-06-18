@@ -1,12 +1,22 @@
 SHELL=/bin/zsh
 
 LDFLAGS = $(libgl) -lpng -lz -lm
+DIR="${HOME}/jbconfig"
 
 ifeq ($(shell uname -s), Darwin)
 	libgl = -framework OpenGL -framework GLUT
 else
 	libgl = -lGL -lglut
 endif
+
+symlinks:
+	@ln -sf $(DIR)/zsh/.zlogin ~/.zlogin
+	@ln -sf $(DIR)/zsh/.zlogout ~/.zlogout
+	@ln -sf $(DIR)/zsh/.zprofile ~/.zprofile
+	@ln -sf $(DIR)/zsh/alias/index.zsh ~/.zaliases
+	@ln -sf $(DIR)/zsh/functions.zsh ~/.zfunctions
+	@ln -sf $(DIR)/zsh/.zshenv ~/.zshenv
+	@ln -sf $(DIR)/zsh/.zshrc ~/.zshrc
 
 clone-hub:
 	git clone \
@@ -24,9 +34,13 @@ clone-vimrc:
 	--depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 
 clone-zsh-url-highlighter:
-	mkdir -p ~/.oh-my-zsh/custom/plugins
+	mkdir -p ~/.oh-my-zsh/custom
 	git clone \
-	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter
+	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/zsh-url-highlighter
+
+clone-zsh-autosuggestions:
+	mkdir -p ~/.oh-my-zsh/custom
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 install-hub:
 	mkdir -p ~/projects/go/src/github.com/github
@@ -37,8 +51,9 @@ install-hub:
 
 install-fonts:
 	mkdir -p ~/Library/Fonts
-	cd ~/Library/Fonts \
-	&& curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" \
+	if [ $(shell uname -s) == Darwin ]; then mkdir -p ~/Library/Fonts && cd ~/Library/Fonts; fi
+	if [ $(shell uname -s) == Linux ]; then mkdir -p ~/.local/share/fonts && ~/.local/share/fonts; fi
+	curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" \
 	https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
 	&& cd ~/jbconfig
 
@@ -53,7 +68,7 @@ install-ohmyzsh:
 	if [ ! -d ~/.oh-my-zsh ]; then git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; fi
 
 install-antigen:
-	if [ ! -d ~/.antigen ]; then git clone https://github.com/zsh-users/antigen.git ~/.antigen; fi
+	if [ ! -d ~/antigen ]; then git clone https://github.com/zsh-users/antigen.git ~/antigen; fi
 
 install-powerline:
 	git clone https://github.com/powerline/fonts.git --depth=1 \
@@ -87,8 +102,13 @@ install-vimrc:
 
 install-zsh-url-highlighter:
 	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
-	mkdir -p ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	if [ ! -L ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter/url ~/.antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+	mkdir -p ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	if [ ! -L ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter/url ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+
+install-zsh-autosuggestions:
+	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
+	mkdir -p ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	if [ ! -L ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-autosuggestions ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/url ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
 
 install-rbenv:
 	if [ ! -d ~/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git ~/.rbenv; fi

@@ -5,6 +5,17 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# Change shell for current user to zsh
+if [ -n "$ZSH_VERSION" ]; then
+    # include .zshrc if it exists
+    if [ -f "$HOME/.zshrc" ]; then
+    . "$HOME/.zshrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin directories
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
 #
 # Browser
 #
@@ -21,8 +32,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
