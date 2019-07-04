@@ -9,6 +9,8 @@ else
 	libgl = -lGL -lglut
 endif
 
+default: update
+
 symlinks:
 	@ln -sf $(DIR)/zsh/.zlogin ~/.zlogin
 	@ln -sf $(DIR)/zsh/.zlogout ~/.zlogout
@@ -17,6 +19,12 @@ symlinks:
 	@ln -sf $(DIR)/zsh/functions.zsh ~/.zfunctions
 	@ln -sf $(DIR)/zsh/.zshenv ~/.zshenv
 	@ln -sf $(DIR)/zsh/.zshrc ~/.zshrc
+
+prepare-project-directories:
+	mkdir -p ~/projects/github.com
+	mkdir -p ~/projects/gitlab.com
+	mkdir -p ~/projects/bitbucket.org
+	mkdir -p ~/projects/go/src/github.com
 
 clone-hub:
 	git clone \
@@ -34,12 +42,12 @@ clone-vimrc:
 	--depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 
 clone-zsh-url-highlighter:
-	mkdir -p ~/.oh-my-zsh/custom
+	mkdir -p ~/.oh-my-zsh/custom/plugins
 	git clone \
-	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/zsh-url-highlighter
+	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
-	mkdir -p ~/.oh-my-zsh/custom
+	mkdir -p ~/.oh-my-zsh/custom/plugins
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 install-hub:
@@ -48,6 +56,24 @@ install-hub:
 	cd ~/projects/go/src/github.com/github/hub \
 	&& sudo gem install bundler
 	$(exec $(shell which rbenv) rehash)
+
+install-eksctl:
+	curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+	sudo mv /tmp/eksctl /usr/local/bin
+
+install-kubectl:
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+	chmod +x ./kubectl
+	sudo mv ./kubectl /usr/local/bin/kubectl
+
+install-kubectl-plugins:
+	sudo chmod +x ./tools/kubectl/plugins/kubectl-*
+	sudo mv ./tools/kubectl/plugins/kubectl-* /usr/local/bin
+
+install-minikube:
+	curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+	chmod +x minikube
+	sudo mv minikube /usr/local/bin
 
 install-fonts:
 	mkdir -p ~/Library/Fonts
@@ -135,6 +161,7 @@ brew-cl:
 .PHONY: update
 update:
 	@echo 'Running Update...'
+	make prepare-project-directories
 	make iterm2-shell-integration
 	make brew-i
 	make install-nvm
@@ -148,3 +175,4 @@ update:
 	if [ $(shell uname -s) == Darwin ]; then make install-maximum-awesome; fi
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter
+	make symlinks

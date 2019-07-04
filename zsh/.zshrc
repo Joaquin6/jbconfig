@@ -179,6 +179,13 @@ load-user-specifics() {
   		git config --local user.name "Joaquin Briceno"
   		git config --local --unset user.email
   		git config --local user.email joaquin.briceno@insitu.com
+  	elif [[ $PWD == *"machine-learning"* ]]; then
+  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Machine Learning\" git configs"
+
+  		git config --local --unset user.name
+  		git config --local user.name "Joaquin Briceno"
+  		git config --local --unset user.email
+  		git config --local user.email joaquin.briceno@insitu.com
   	else
   		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
 
@@ -295,6 +302,7 @@ autoload -Uz compinit && compinit -i
 if which rbenv &> /dev/null; then
 	if [ -d $HOME/.rbenv ]; then
 		handle-add-path $HOME/.rbenv/bin
+		handle-add-path $HOME/.rbenv/libexec
 		handle-add-path $HOME/.rbenv/shims
 	fi
 	if [ -d $LINUXBREW_PATH ]; then

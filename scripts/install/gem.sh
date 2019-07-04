@@ -23,9 +23,9 @@ extract () {
   fi
 }
 
-if which brew &> /dev/null; then
-  brew install ruby
-else
+# if which brew &> /dev/null; then
+#   brew install ruby
+# else
   # https://www.ruby-lang.org/en/documentation/installation/
   curl -sS https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.1.tar.gz \
     && extract ./ruby-2.5.1.tar.gz \
@@ -36,7 +36,7 @@ else
     && sudo make install \
     && cd .. \
     && rm -rf ./ruby-2.5.1
-fi
+# fi
 
 # https://guides.rubygems.org/rubygems-basics/#installing-gems
 
