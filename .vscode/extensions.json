@@ -6,6 +6,8 @@
     "joelday.docthis",
     "emilast.logfilehighlighter",
     "sharat.vscode-brewfile",
-    "beauallison.brew-services"
+    "beauallison.brew-services",
+    "technosophos.vscode-make",
+    "madmous.makefile-command-runner"
   ]
 }

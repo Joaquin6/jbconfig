@@ -17,6 +17,7 @@ HTTPSGIT=https://github.com/$(GIT_USERNAME)
 ITERM_SUPPORT=$(HOME)/Library/Application\ Support/iTerm2
 ITERM_SCRIPTS=$(ITERM_SUPPORT)/scripts
 ITERM_DYNAMIC_PROFILES=$(ITERM_SUPPORT)/DynamicProfiles
+DIRENV_USER_PATH=$(GIT_USER_PATH)/direnv
 OMZ_USER_PATH=$(GIT_USER_PATH)/oh-my-zsh
 ZSH=$(HOME)/.oh-my-zsh
 ANTIGEN_USER_PATH=$(GIT_USER_PATH)/antigen
@@ -26,8 +27,11 @@ POWERLEVEL9K_PATH=$(HOME)/powerlevel9k
 POWERLEVEL9K_USER_PATH=$(GIT_USER_PATH)/powerlevel9k
 VIMRC_USER_PATH=$(GIT_USER_PATH)/vimrc
 VIMRC_RUNTIME=$(HOME)/.vim_runtime
+MAXIMUM_AWESOME_USER_PATH=$(GIT_USER_PATH)/maximum-awesome
+IS_MAC_OS=false
 
 ifeq ($(SYSTEM), Darwin)
+	IS_MAC_OS=true
 	FONT_PATH=$(HOME)/Library/Fonts
 	libgl=-framework OpenGL -framework GLUT
 else
@@ -59,8 +63,8 @@ prepare-project-directories:
 	mkdir -p $(GITHUBGOPATH)
 
 clone-direnv:
-	git clone \
-	git@github.com:direnv/direnv.git $(GITHUBPATH)/direnv/direnv
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(DIRENV_USER_PATH) ]; then git clone $(SSHGIT)/direnv.git $(DIRENV_USER_PATH); fi
 
 clone-nvm:
 	if [ ! -d $(NVM_DIR) ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
@@ -94,8 +98,8 @@ clone-powerlevel9k:
 	if [ ! -d $(POWERLEVEL9K_USER_PATH) ]; then git clone $(SSHGIT)/powerlevel9k.git $(POWERLEVEL9K_USER_PATH); fi
 
 clone-maximum-awesome:
-	MA_PATH=$(GIT_USER_PATH)/maximum-awesome
-	git clone $(SSHGIT)/maximum-awesome.git $(MA_PATH)
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(MAXIMUM_AWESOME_USER_PATH) ]; then git clone $(SSHGIT)/maximum-awesome.git $(MAXIMUM_AWESOME_USER_PATH); fi
 
 clone-vimrc:
 	@mkdir -p $(GIT_USER_PATH)
@@ -115,9 +119,10 @@ clone-spaceship-prompt:
 	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone https://github.com/Joaquin6/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
 
 install-direnv:
-	mkdir -p $(GITHUBPATH)/direnv
-	if [ ! -d $(GITHUBPATH)/direnv/direnv ]; then make clone-direnv; fi
-	cd $(GITHUBPATH)/direnv/direnv && make install
+	make clone-direnv
+	cd $(DIRENV_USER_PATH) \
+		&& sudo make install \
+		&& cd $(DIR)
 
 install-hub:
 	mkdir -p $(PROJECTS)/go/src/github.com/github
@@ -177,12 +182,12 @@ install-powerlevel9k:
 	@ln -sf $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH)
 
 install-maximum-awesome:
-	mkdir -p $(GITHUBPATH)/square
-	if [ ! -d $(GITHUBPATH)/square/maximum-awesome ]; then make clone-maximum-awesome; fi
-	cd $(GITHUBPATH)/square/maximum-awesome \
-	&& git checkout . \
-	&& git pull origin master \
-	&& rake
+	make clone-maximum-awesome
+	cd $(MAXIMUM_AWESOME_USER_PATH) \
+		&& git checkout . \
+		&& git pull origin master \
+		&& rake \
+		&& cd $(DIR)
 
 install-spaceship-prompt:
 	make clone-spaceship-prompt
@@ -223,12 +228,12 @@ iterm2-shell-integration:
 	@source $(HOME)/.iterm2_shell_integration.zsh
 
 iterm2-profiles:
-	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then @mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
+	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
 	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
 	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
 
 iterm2-setup:
-	@echo 'Running iTerm2 Setup...'
+	echo 'Running iTerm2 Setup...'
 	make iterm2-shell-integration
 	make iterm2-profiles
 
@@ -245,7 +250,7 @@ brew-cl:
 update:
 	@echo 'Running Update...'
 	make prepare-project-directories
-	make iterm2-setup
+	@$(ifeq ($(strip $(SYSTEM)), Darwin) make iterm2-setup endif)
 	make brew-i
 	make install-nvm
 	make install-hub
@@ -256,7 +261,7 @@ update:
 	make install-antigen
 	make install-powerline
 	make install-powerlevel9k
-	make install-maximum-awesome
+	@$(ifeq ($(strip $(SYSTEM)), Darwin) make install-maximum-awesome endif)
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter
 	make symlinks
