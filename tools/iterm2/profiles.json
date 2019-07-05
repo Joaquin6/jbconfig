@@ -491,7 +491,10 @@
       "Bound Hosts": [
         "/User/joaquin/*",
         "!/User/joaquin/projects/gitlab.uk.inexa.io",
-        "!/User/joaquin/projects/bitbucket.org/cattlebruisers"
+        "!/User/joaquin/projects/bitbucket.org/cattlebruisers",
+        "~/*",
+        "!~/projects/gitlab.uk.inexa.io",
+        "!~/projects/bitbucket.org/cattlebruisers"
       ],
       "Character Encoding": 4,
       "Close Sessions On End": true,
@@ -1217,7 +1220,8 @@
         "Red Component": "1"
       },
       "Bound Hosts": [
-        "/User/joaquin/projects/gitlab.uk.inexa.io/*"
+        "/User/joaquin/projects/gitlab.uk.inexa.io/*",
+        "~/projects/gitlab.uk.inexa.io/*"
       ],
       "Character Encoding": 4,
       "Close Sessions On End": true,
@@ -1581,7 +1585,8 @@
         "Red Component": "1"
       },
       "Bound Hosts": [
-        "/User/joaquin/projects/bitbucket.org/cattlebruisers/*"
+        "/User/joaquin/projects/bitbucket.org/cattlebruisers/*",
+        "~/projects/bitbucket.org/cattlebruisers/*"
       ],
       "Character Encoding": 4,
       "Close Sessions On End": true,
