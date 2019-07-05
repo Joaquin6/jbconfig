@@ -314,9 +314,9 @@ fi
 if which hub &> /dev/null; then
 	eval "$(hub alias -s)"
 fi
-if which direnv &> /dev/null; then
-	eval "$(direnv hook zsh)"
-fi
+# if which direnv &> /dev/null; then
+# 	eval "$(direnv hook zsh)"
+# fi
 
 source $JB_ZSH_BASE/zsh/alias/index.zsh
 source $JB_ZSH_BASE/zsh/functions.zsh
@@ -329,3 +329,5 @@ export SDKMAN_DIR=$HOME/.sdkman
 
 # autoload -U add-zsh-hook promptinit; promptinit
 # prompt spaceship
+
+iterm2_prompt_mark

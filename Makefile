@@ -1,59 +1,128 @@
 SHELL=/bin/zsh
-
+SYSTEM=$(shell uname -s)
+DIR=${HOME}/jbconfig
 LDFLAGS = $(libgl) -lpng -lz -lm
-DIR="${HOME}/jbconfig"
+PROJECTS=$(HOME)/projects
+GOPATH=$(PROJECTS)/go
+GITHUBGOPATH=$(GOPATH)/src/github.com
+BITBUCKETPATH=$(PROJECTS)/bitbucket.org
+GITHUBPATH=$(PROJECTS)/github.com
+GITLABPATH=$(PROJECTS)/gitlab.com
+GIT_USERNAME=Joaquin6
+GIT_USER_PATH=$(GITHUBPATH)/$(GIT_USERNAME)
+FONT_PATH=$(HOME)/.local/share/fonts
+NVM_DIR=$(HOME)/.nvm
+SSHGIT=git@github.com:$(GIT_USERNAME)
+HTTPSGIT=https://github.com/$(GIT_USERNAME)
+ITERM_SUPPORT=$(HOME)/Library/Application\ Support/iTerm2
+ITERM_SCRIPTS=$(ITERM_SUPPORT)/scripts
+ITERM_DYNAMIC_PROFILES=$(ITERM_SUPPORT)/DynamicProfiles
+OMZ_USER_PATH=$(GIT_USER_PATH)/oh-my-zsh
+ZSH=$(HOME)/.oh-my-zsh
+ANTIGEN_USER_PATH=$(GIT_USER_PATH)/antigen
+ADOTDIR=$(HOME)/antigen
+POWERLINE_USER_PATH=$(GIT_USER_PATH)/powerline
+POWERLEVEL9K_PATH=$(HOME)/powerlevel9k
+POWERLEVEL9K_USER_PATH=$(GIT_USER_PATH)/powerlevel9k
+VIMRC_USER_PATH=$(GIT_USER_PATH)/vimrc
+VIMRC_RUNTIME=$(HOME)/.vim_runtime
 
-ifeq ($(shell uname -s), Darwin)
-	libgl = -framework OpenGL -framework GLUT
+ifeq ($(SYSTEM), Darwin)
+	FONT_PATH=$(HOME)/Library/Fonts
+	libgl=-framework OpenGL -framework GLUT
 else
-	libgl = -lGL -lglut
+	libgl=-lGL -lglut
 endif
+
+FONT_DROID_SANS_MONO=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
+
+BREWCMD=$(shell which brew)
 
 default: update
 
+show-env:
+	@echo $(FONT_PATH)
+
 symlinks:
-	@ln -sf $(DIR)/zsh/.zlogin ~/.zlogin
-	@ln -sf $(DIR)/zsh/.zlogout ~/.zlogout
-	@ln -sf $(DIR)/zsh/.zprofile ~/.zprofile
-	@ln -sf $(DIR)/zsh/alias/index.zsh ~/.zaliases
-	@ln -sf $(DIR)/zsh/functions.zsh ~/.zfunctions
-	@ln -sf $(DIR)/zsh/.zshenv ~/.zshenv
-	@ln -sf $(DIR)/zsh/.zshrc ~/.zshrc
+	@ln -sf $(DIR)/zsh/.zlogin $(HOME)/.zlogin
+	@ln -sf $(DIR)/zsh/.zlogout $(HOME)/.zlogout
+	@ln -sf $(DIR)/zsh/.zprofile $(HOME)/.zprofile
+	@ln -sf $(DIR)/zsh/alias/index.zsh $(HOME)/.zaliases
+	@ln -sf $(DIR)/zsh/functions.zsh $(HOME)/.zfunctions
+	@ln -sf $(DIR)/zsh/.zshenv $(HOME)/.zshenv
+	@ln -sf $(DIR)/zsh/.zshrc $(HOME)/.zshrc
 
 prepare-project-directories:
-	mkdir -p ~/projects/github.com
-	mkdir -p ~/projects/gitlab.com
-	mkdir -p ~/projects/bitbucket.org
-	mkdir -p ~/projects/go/src/github.com
+	mkdir -p $(GITHUBPATH)
+	mkdir -p $(GITLABPATH)
+	mkdir -p $(BITBUCKETPATH)
+	mkdir -p $(GITHUBGOPATH)
+
+clone-direnv:
+	git clone \
+	git@github.com:direnv/direnv.git $(GITHUBPATH)/direnv/direnv
+
+clone-nvm:
+	if [ ! -d $(NVM_DIR) ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
+	@cd $(NVM_DIR) && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
+	@cd $(DIR)
 
 clone-hub:
+	mkdir -p $(GITHUBGOPATH)/github
 	git clone \
-	--config transfer.fsckobjects=false \
-	--config receive.fsckobjects=false \
-	--config fetch.fsckobjects=false \
-	https://github.com/github/hub.git ~/projects/go/src/github.com/github/hub
+	  --config transfer.fsckobjects=false \
+	  --config receive.fsckobjects=false \
+	  --config fetch.fsckobjects=false \
+	  https://github.com/github/hub.git $(GITHUBGOPATH)/github/hub
+	cd $(GITHUBGOPATH)/github/hub
+	make install prefix=/usr/local
+
+clone-antigen:
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(ANTIGEN_USER_PATH) ]; then git clone $(SSHGIT)/antigen.git $(ANTIGEN_USER_PATH); fi
+
+clone-ohmyzsh:
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(OMZ_USER_PATH) ]; then git clone $(SSHGIT)/oh-my-zsh.git $(OMZ_USER_PATH); fi
+
+clone-powerline:
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(POWERLINE_USER_PATH) ]; then git clone $(SSHGIT)/fonts.git --depth=1 $(POWERLINE_USER_PATH); fi
+
+clone-powerlevel9k:
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(POWERLEVEL9K_USER_PATH) ]; then git clone $(SSHGIT)/powerlevel9k.git $(POWERLEVEL9K_USER_PATH); fi
 
 clone-maximum-awesome:
-	git clone \
-	https://github.com/square/maximum-awesome.git ~/projects/github.com/square/maximum-awesome
+	MA_PATH=$(GIT_USER_PATH)/maximum-awesome
+	git clone $(SSHGIT)/maximum-awesome.git $(MA_PATH)
 
 clone-vimrc:
-	git clone \
-	--depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(VIMRC_USER_PATH) ]; then git clone $(SSHGIT)/vimrc.git --depth=1 $(VIMRC_USER_PATH); fi
 
 clone-zsh-url-highlighter:
-	mkdir -p ~/.oh-my-zsh/custom/plugins
+	mkdir -p $(ZSH)/custom/plugins
 	git clone \
-	git@github.com:ascii-soup/zsh-url-highlighter.git ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter
+	git@github.com:ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
-	mkdir -p ~/.oh-my-zsh/custom/plugins
-	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	mkdir -p $(ZSH)/custom/plugins
+	git clone https://github.com/zsh-users/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
+
+clone-spaceship-prompt:
+	@mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone https://github.com/Joaquin6/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
+
+install-direnv:
+	mkdir -p $(GITHUBPATH)/direnv
+	if [ ! -d $(GITHUBPATH)/direnv/direnv ]; then make clone-direnv; fi
+	cd $(GITHUBPATH)/direnv/direnv && make install
 
 install-hub:
-	mkdir -p ~/projects/go/src/github.com/github
-	if [ ! -d ~/projects/go/src/github.com/github/hub ]; then make clone-hub; fi
-	cd ~/projects/go/src/github.com/github/hub \
+	mkdir -p $(PROJECTS)/go/src/github.com/github
+	if [ ! -d $(PROJECTS)/go/src/github.com/github/hub ]; then make clone-hub; fi
+	cd $(PROJECTS)/go/src/github.com/github/hub \
 	&& sudo gem install bundler
 	$(exec $(shell which rbenv) rehash)
 
@@ -76,103 +145,115 @@ install-minikube:
 	sudo mv minikube /usr/local/bin
 
 install-fonts:
-	mkdir -p ~/Library/Fonts
-	if [ $(shell uname -s) == Darwin ]; then mkdir -p ~/Library/Fonts && cd ~/Library/Fonts; fi
-	if [ $(shell uname -s) == Linux ]; then mkdir -p ~/.local/share/fonts && ~/.local/share/fonts; fi
-	curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" \
-	https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
-	&& cd ~/jbconfig
+	@mkdir -p $(FONT_PATH)
+	@cd $(FONT_PATH)
+	@curl -fLo $(FONT_DROID_SANS_MONO) \
+		https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+	@mv $(FONT_DROID_SANS_MONO) $(FONT_PATH)/
 
 install-nvm:
-	if [ ! -d ~/.nvm ]; then git clone https://github.com/creationix/nvm.git ~/.nvm; fi
-	cd ~/.nvm \
-	&& git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)` \
-	&& . ~/.nvm/nvm.sh \
-	&& cd ~/jbconfig
+	make clone-nvm
+	@cd $(NVM_DIR)
+	@source $(NVM_DIR)/nvm.sh
+	@cd $(DIR)
 
 install-ohmyzsh:
-	if [ ! -d ~/.oh-my-zsh ]; then git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh; fi
+	make clone-ohmyzsh
+	if [ ! -L $(ZSH) ]; then ln -sf $(OMZ_USER_PATH) $(ZSH); fi
 
 install-antigen:
-	if [ ! -d ~/antigen ]; then git clone https://github.com/zsh-users/antigen.git ~/antigen; fi
+	make clone-antigen
+	if [ ! -L $(ADOTDIR) ]; then ln -sf $(ANTIGEN_USER_PATH) $(ADOTDIR); fi
 
 install-powerline:
-	git clone https://github.com/powerline/fonts.git --depth=1 \
-	&& cd fonts \
-	&& ./install.sh \
-	&& cd .. \
-	&& rm -rf fonts
+	make clone-powerline
+	@cd $(POWERLINE_USER_PATH) && ./install.sh
 
 install-powerlevel9k:
-	if [ ! -d ~/powerlevel9k ]; then git clone https://github.com/bhilburn/powerlevel9k.git ~/powerlevel9k; fi
+	make clone-powerlevel9k
+	if [ ! -L $(POWERLEVEL9K_PATH) ]; then ln -s $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH); fi
 
 install-maximum-awesome:
-	mkdir -p ~/projects/github.com/square
-	if [ ! -d ~/projects/github.com/square/maximum-awesome ]; then make clone-maximum-awesome; fi
-	cd ~/projects/github.com/square/maximum-awesome \
+	mkdir -p $(GITHUBPATH)/square
+	if [ ! -d $(GITHUBPATH)/square/maximum-awesome ]; then make clone-maximum-awesome; fi
+	cd $(GITHUBPATH)/square/maximum-awesome \
 	&& git checkout . \
 	&& git pull origin master \
 	&& rake
 
 install-spaceship-prompt:
-	if [ ! -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]; then git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt; fi
-	if [ ! -f ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]; then ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme; fi
+	make clone-spaceship-prompt
+	if [ ! -d $(ZSH)/custom/themes/spaceship-prompt ]; then ln -s $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt; fi
+	if [ ! -f $(ZSH)/custom/themes/spaceship.zsh-theme ]; then ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme; fi
 
 install-vimrc:
-	if [ ! -d ~/.vim_runtime ]; then make clone-vimrc; fi
-	cd ~/.vim_runtime \
-	&& git checkout . \
-	&& git pull origin master \
-	&& chmod +x ./install_awesome_vimrc.sh \
-	&& sh ./install_awesome_vimrc.sh
+	make clone-vimrc
+	cd $(VIMRC_USER_PATH) \
+		&& git checkout . \
+		&& git pull origin master
+	@cd $(DIR)
+	@ln -sf $(VIMRC_USER_PATH) $(VIMRC_RUNTIME)
+	@chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
+	$(exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh)
 
 install-zsh-url-highlighter:
-	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
-	mkdir -p ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	if [ ! -L ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-url-highlighter/url ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+	if [ ! -d $(ZSH)/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
+	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	rm -rf $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+	if [ ! -L $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
 
 install-zsh-autosuggestions:
-	if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
-	mkdir -p ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	if [ ! -L ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-autosuggestions ]; then ln -s ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/url ~/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+	if [ ! -d $(ZSH)/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
+	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	if [ ! -L $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-autosuggestions ]; then ln -s $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
 
 install-rbenv:
-	if [ ! -d ~/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git ~/.rbenv; fi
-	~/.rbenv/src/configure
-	make -C ~/.rbenv/src
-	eval ~/.rbenv/bin/rbenv init -
-	cd ~/jbconfig
-
-update-submodules:
-	git submodule update --init --recursive
+	if [ ! -d $(HOME)/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git $(HOME)/.rbenv; fi
+	$(HOME)/.rbenv/src/configure
+	make -C $(HOME)/.rbenv/src
+	eval $(HOME)/.rbenv/bin/rbenv init -
+	cd $(DIR)
 
 iterm2-shell-integration:
-	curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+	@curl -L https://iterm2.com/shell_integration/bash -o $(HOME)/.iterm2_shell_integration.bash
+	@curl -L https://iterm2.com/shell_integration/zsh -o $(HOME)/.iterm2_shell_integration.zsh
+	@source $(HOME)/.iterm2_shell_integration.zsh
+
+iterm2-profiles:
+	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then @mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
+	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
+	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
+
+iterm2-setup:
+	@echo 'Running iTerm2 Setup...'
+	make iterm2-shell-integration
+	make iterm2-profiles
 
 brew-i:
-	$(exec $(shell which brew) bundle install --file=./tools/brew/$(shell uname -s)/Brewfile)
+	$(exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile)
 
 brew-ch:
-	$(exec $(shell which brew) bundle check --file=./tools/brew/$(shell uname -s)/Brewfile --verbose)
+	$(exec $(BREWCMD) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose)
 
 brew-cl:
-	$(exec $(shell which brew) bundle cleanup --file=./tools/brew/$(shell uname -s)/Brewfile)
+	$(exec $(BREWCMD) bundle cleanup --file=./tools/brew/$(SYSTEM)/Brewfile)
 
 .PHONY: update
 update:
 	@echo 'Running Update...'
 	make prepare-project-directories
-	make iterm2-shell-integration
+	make iterm2-setup
 	make brew-i
 	make install-nvm
 	make install-hub
 	make install-fonts
 	make install-vimrc
+	make install-direnv
 	make install-ohmyzsh
 	make install-antigen
 	make install-powerline
 	make install-powerlevel9k
-	if [ $(shell uname -s) == Darwin ]; then make install-maximum-awesome; fi
+	make install-maximum-awesome
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter
 	make symlinks

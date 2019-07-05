@@ -80,16 +80,28 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
 antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-# antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
+antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
 # antigen bundle direnv/direnv 							# git clone https://github.com/direnv/direnv
-# antigen bundle bhilburn/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
+antigen bundle Joaquin6/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
 
 # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Suuply the theme
-antigen theme denysdovhan/spaceship-prompt spaceship
+antigen theme Joaquin6/spaceship-prompt spaceship
 # Tell antigen that you're done.
 antigen apply
+
+source $JB_ZSH_BASE/zsh/.zaliases
+source $JB_ZSH_BASE/zsh/.zfunctions
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+
+add-zsh-hook chpwd load-user-specifics
+add-zsh-hook chpwd load-nvmrc
+
+load-nvmrc
+load-user-specifics
 
 # User configuration
 
@@ -130,15 +142,3 @@ export SPACESHIP_RPROMPT_ORDER=(
 )
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
-
-source $JB_ZSH_BASE/zsh/.zaliases
-source $JB_ZSH_BASE/zsh/.zfunctions
-
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-
-add-zsh-hook chpwd load-user-specifics
-add-zsh-hook chpwd load-nvmrc
-
-load-nvmrc
-load-user-specifics
