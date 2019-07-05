@@ -38,6 +38,7 @@ export RBENV_SHELL=zsh
 export NVM_DIR=$HOME/.nvm
 export MANPATH=$USER_LOCAL_MAN
 export RBENV_ROOT=$HOME/.rbenv
+export SDKMAN_DIR=$HOME/.sdkman
 export GOPATH=$HOME/projects/go
 export RBENV_DIR=$RBENV_ROOT/bin
 export MONO_GAC_PREFIX=$USER_LOCAL
@@ -88,6 +89,8 @@ export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 
 export COMPLETION_WAITING_DOTS="true"
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
+
+export ITERM2_SQUELCH_MARK=1
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then
