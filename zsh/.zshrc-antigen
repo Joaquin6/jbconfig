@@ -77,12 +77,12 @@ antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-use
 antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
-antigen bundle djui/alias-tips                          # https://github.com/djui/alias-tips
-antigen bundle jocelynmallon/zshmarks                   # https://github.com/jocelynmallon/zshmarks
+antigen bundle Joaquin6/alias-tips                      # https://github.com/Joaquin6/alias-tips
+antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-antigen bundle zpm-zsh/autoenv              # https://github.com/zpm-zsh/autoenv
-# antigen bundle direnv/direnv 							# git clone https://github.com/direnv/direnv
-antigen bundle Joaquin6/powerlevel9k 										# https://github.com/bhilburn/powerlevel9k
+antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
+antigen bundle Joaquin6/direnv 							# https://github.com/Joaquin6/direnv
+antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
 
 # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
