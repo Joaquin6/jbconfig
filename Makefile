@@ -171,7 +171,10 @@ install-powerline:
 
 install-powerlevel9k:
 	make clone-powerlevel9k
-	if [ ! -L $(POWERLEVEL9K_PATH) ]; then ln -s $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH); fi
+	cd $(POWERLEVEL9K_USER_PATH) \
+		&& git checkout . \
+		&& git pull origin master
+	@ln -sf $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH)
 
 install-maximum-awesome:
 	mkdir -p $(GITHUBPATH)/square
@@ -183,7 +186,7 @@ install-maximum-awesome:
 
 install-spaceship-prompt:
 	make clone-spaceship-prompt
-	if [ ! -d $(ZSH)/custom/themes/spaceship-prompt ]; then ln -s $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt; fi
+	if [ ! -d $(ZSH)/custom/themes/spaceship-prompt ]; then ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt; fi
 	if [ ! -f $(ZSH)/custom/themes/spaceship.zsh-theme ]; then ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme; fi
 
 install-vimrc:
