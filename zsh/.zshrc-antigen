@@ -12,24 +12,20 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 export POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-# export POWERLEVEL9K_MODE='nerdfont-complete'
 export POWERLEVEL9K_MODE='awesome-fontconfig'
 export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
 export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
-# source $HOME/.local/share/fonts/*.sh
 source $ADOTDIR/antigen.zsh
 source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
-# source $HOME/.autoenv/activate.sh  # https://github.com/kennethreitz/autoenv
 
 COMPLETION_WAITING_DOTS="true"
 
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
-	autoenv
 	battery
 	command-not-found
 	dotenv
@@ -62,6 +58,7 @@ fi
 
 # OS Based Plugins
 if [[ "$OSTYPE" == darwin* ]]; then
+	antigen bundle Joaquin6/direnv
  	antigen bundle iterm2
 	antigen bundle osx
 fi
@@ -81,10 +78,9 @@ antigen bundle Joaquin6/alias-tips                      # https://github.com/Joa
 antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
 antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
-antigen bundle Joaquin6/direnv 							# https://github.com/Joaquin6/direnv
 antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
 
-# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Suuply the theme
 antigen theme Joaquin6/spaceship-prompt spaceship

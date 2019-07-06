@@ -273,7 +273,6 @@ fi
 
 handle-add-infopath $USER_SHARE/info
 
-
 handle-add-pkgconfigpath libffi
 handle-add-pkgconfigpath icu4c
 handle-add-pkgconfigpath libpq
@@ -318,12 +317,8 @@ fi
 source $JB_ZSH_BASE/zsh/alias/index.zsh
 source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
-source $JB_ZSH_BASE/zsh/prompt.zsh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 [[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh
-
-autoload -U add-zsh-hook promptinit; promptinit
-# prompt spaceship
 
 iterm2_prompt_mark
