@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "peterjausovec.vscode-docker",
+    "ms-azuretools.vscode-docker",
     "p1c2u.docker-compose",
     "hookyqr.jsdoctagcomplete",
     "joelday.docthis",
@@ -8,6 +8,6 @@
     "sharat.vscode-brewfile",
     "beauallison.brew-services",
     "technosophos.vscode-make",
-    "madmous.makefile-command-runner"
+    "bmuskalla.vscode-tldr"
   ]
 }

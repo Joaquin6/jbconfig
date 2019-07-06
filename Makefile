@@ -111,12 +111,14 @@ clone-zsh-url-highlighter:
 	git@github.com:ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
+	mkdir -p $(GIT_USER_PATH)
+	git clone $(SSHGIT)/zsh-autosuggestions.git $(GIT_USER_PATH)/zsh-autosuggestions
 	mkdir -p $(ZSH)/custom/plugins
-	git clone https://github.com/zsh-users/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
+	ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
 
 clone-spaceship-prompt:
-	@mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone https://github.com/Joaquin6/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
+	mkdir -p $(GIT_USER_PATH)
+	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone $(SSHGIT)/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
 
 install-direnv:
 	make clone-direnv
@@ -172,14 +174,14 @@ install-antigen:
 
 install-powerline:
 	make clone-powerline
-	@cd $(POWERLINE_USER_PATH) && ./install.sh
+	cd $(POWERLINE_USER_PATH) && ./install.sh
 
 install-powerlevel9k:
 	make clone-powerlevel9k
 	cd $(POWERLEVEL9K_USER_PATH) \
 		&& git checkout . \
-		&& git pull origin master
-	@ln -sf $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH)
+		&& git pull origin master \
+		&& ln -sf $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH)
 
 install-maximum-awesome:
 	make clone-maximum-awesome
@@ -198,10 +200,10 @@ install-vimrc:
 	make clone-vimrc
 	cd $(VIMRC_USER_PATH) \
 		&& git checkout . \
-		&& git pull origin master
-	@cd $(DIR)
-	@ln -sf $(VIMRC_USER_PATH) $(VIMRC_RUNTIME)
-	@chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
+		&& git pull origin master \
+		&& cd $(DIR) \
+		&& ln -sf $(VIMRC_USER_PATH) $(VIMRC_RUNTIME) \
+		&& chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 	$(exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh)
 
 install-zsh-url-highlighter:
@@ -213,7 +215,7 @@ install-zsh-url-highlighter:
 install-zsh-autosuggestions:
 	if [ ! -d $(ZSH)/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
 	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	if [ ! -L $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-autosuggestions ]; then ln -s $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+	ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
 
 install-rbenv:
 	if [ ! -d $(HOME)/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git $(HOME)/.rbenv; fi
@@ -248,7 +250,9 @@ brew-cl:
 
 .PHONY: update
 update:
-	@echo 'Running Update...'
+	@echo
+	@echo '	Running Update...'
+	@echo
 	make prepare-project-directories
 	@$(ifeq ($(strip $(SYSTEM)), Darwin) make iterm2-setup endif)
 	make brew-i
@@ -264,4 +268,8 @@ update:
 	@$(ifeq ($(strip $(SYSTEM)), Darwin) make install-maximum-awesome endif)
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter
+	make install-zsh-autosuggestions
 	make symlinks
+	@echo
+	@echo '	Updated succesfully!...'
+	@echo

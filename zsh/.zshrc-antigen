@@ -58,7 +58,6 @@ fi
 
 # OS Based Plugins
 if [[ "$OSTYPE" == darwin* ]]; then
-	antigen bundle Joaquin6/direnv
  	antigen bundle iterm2
 	antigen bundle osx
 fi
