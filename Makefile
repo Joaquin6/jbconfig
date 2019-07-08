@@ -66,13 +66,15 @@ prepare-project-directories:
 	mkdir -p $(GITHUBGOPATH)
 
 clone-direnv:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(DIRENV_USER_PATH) ]; then git clone $(SSHGIT)/direnv.git $(DIRENV_USER_PATH); fi
 
 clone-nvm:
 	if [ ! -d $(NVM_DIR) ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
-	@cd $(NVM_DIR) && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
-	@cd $(DIR)
+	cd $(NVM_DIR) \
+		&& git checkout \
+			`git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)` \
+		&& cd $(DIR)
 
 clone-hub:
 	mkdir -p $(GITHUBGOPATH)/github
@@ -85,27 +87,27 @@ clone-hub:
 	make install prefix=/usr/local
 
 clone-antigen:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(ANTIGEN_USER_PATH) ]; then git clone $(SSHGIT)/antigen.git $(ANTIGEN_USER_PATH); fi
 
 clone-ohmyzsh:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(OMZ_USER_PATH) ]; then git clone $(SSHGIT)/oh-my-zsh.git $(OMZ_USER_PATH); fi
 
 clone-powerline:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(POWERLINE_USER_PATH) ]; then git clone $(SSHGIT)/fonts.git --depth=1 $(POWERLINE_USER_PATH); fi
 
 clone-powerlevel9k:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(POWERLEVEL9K_USER_PATH) ]; then git clone $(SSHGIT)/powerlevel9k.git $(POWERLEVEL9K_USER_PATH); fi
 
 clone-maximum-awesome:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(MAXIMUM_AWESOME_USER_PATH) ]; then git clone $(SSHGIT)/maximum-awesome.git $(MAXIMUM_AWESOME_USER_PATH); fi
 
 clone-vimrc:
-	@mkdir -p $(GIT_USER_PATH)
+	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(VIMRC_USER_PATH) ]; then git clone $(SSHGIT)/vimrc.git --depth=1 $(VIMRC_USER_PATH); fi
 
 clone-zsh-url-highlighter:

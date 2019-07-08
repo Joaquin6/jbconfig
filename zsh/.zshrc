@@ -218,10 +218,50 @@ load-nvmrc() {
 	handle-add-path $NVM_DIR/versions/node/$node_version/bin
 }
 
+if command_exists python; then
+  export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+else
+  echo "Python has not been installed!"
+fi
+
 handle-add-path $HOME/bin
 handle-add-path /usr/local/bin
 handle-add-path $HOME/.cask/bin
 handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
+handle-add-path $HOME/npm/bin
+handle-add-path $USER_BIN
+handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+handle-add-path $USER_LOCAL_OPT/gettext/bin
+handle-add-path $USER_LOCAL_OPT/llvm/bin
+handle-add-path $USER_LOCAL_OPT/apr/bin
+handle-add-path $USER_LOCAL_OPT/apr-util/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+handle-add-path $USER_LOCAL_OPT/libpq/bin
+handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/sqlite/bin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/libarchive/bin
+handle-add-path $USER_LOCAL_OPT/openssl/bin
+handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
+handle-add-path $USER_LOCAL_OPT/openldap/bin
+handle-add-path $USER_LOCAL_OPT/openldap/sbin
+handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $USER_LOCAL_GO/bin
+handle-add-path $PERL_LOCAL_LIB_ROOT/bin
+handle-add-path $GOPATH/bin
+handle-add-path $USER_LOCAL/bin
+handle-add-path $USER_LOCAL/sbin
+
+handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+
+if [[ $OSTYPE == darwin* ]]; then
+	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
 
 if command_exists yarn; then
 	handle-add-path $(yarn global bin)
@@ -229,56 +269,13 @@ else
 	jb-zsh-debug "Yarn is not Installed!"
 fi
 
-if command_exists python; then
-  export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
-else
-  echo "Python has not been installed!"
-fi
-
-# If you come from bash you might have to change your $PATH.
-handle-add-path $USER_BIN
-
-if [ -d $USER_LOCAL_FRWKS ]; then
-	handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-fi
-
-if [ -d $USER_LOCAL_OPT ]; then
-	handle-add-path $USER_LOCAL_OPT/gettext/bin
-	handle-add-path $USER_LOCAL_OPT/llvm/bin
-	handle-add-path $USER_LOCAL_OPT/apr/bin
-	handle-add-path $USER_LOCAL_OPT/apr-util/bin
-	handle-add-path $USER_LOCAL_OPT/icu4c/bin
-	handle-add-path $USER_LOCAL_OPT/icu4c/sbin
-	handle-add-path $USER_LOCAL_OPT/libpq/bin
-	handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
-	handle-add-path $USER_LOCAL_OPT/sqlite/bin
-	handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-	handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-	handle-add-path $USER_LOCAL_OPT/libarchive/bin
-	handle-add-path $USER_LOCAL_OPT/openssl/bin
-	handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
-	handle-add-path $USER_LOCAL_OPT/openldap/bin
-	handle-add-path $USER_LOCAL_OPT/openldap/sbin
-	handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
-	handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-
-	handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-	handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-	handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
-fi
-
-handle-add-path $USER_LOCAL_GO/bin
-handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-
-if [[ "$OSTYPE" == darwin* ]]; then
-	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-fi
-
-if [ -d /usr/lib/x86_64-linux-gnu ]; then
-	handle-add-path /usr/lib/x86_64-linux-gnu
-fi
+handle-add-path /usr/lib/x86_64-linux-gnu
 
 handle-add-infopath $USER_SHARE/info
+handle-add-infopath $USER_LOCAL/share/info
+
+handle-add-manpath $USER_LOCAL/share/man
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 handle-add-pkgconfigpath libffi
 handle-add-pkgconfigpath icu4c
@@ -286,15 +283,6 @@ handle-add-pkgconfigpath libpq
 handle-add-pkgconfigpath sqlite
 handle-add-pkgconfigpath libarchive
 handle-add-pkgconfigpath openssl
-
-handle-add-path $GOPATH/bin
-handle-add-path $USER_LOCAL/bin
-handle-add-path $USER_LOCAL/sbin
-handle-add-manpath $USER_LOCAL/share/man
-handle-add-infopath $USER_LOCAL/share/info
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
-
-autoload -Uz compinit && compinit -i
 
 [[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
 [[ -s $USER_LOCAL_BIN/virtualenvwrapper.sh ]] && . $USER_LOCAL_BIN/virtualenvwrapper.sh
@@ -317,6 +305,7 @@ if which rbenv &> /dev/null; then
 	fi
 	eval "$(rbenv init -)"
 fi
+
 if which hub &> /dev/null; then
 	eval "$(hub alias -s)"
 fi
@@ -328,4 +317,6 @@ source $JB_ZSH_BASE/zsh/.zshrc-antigen
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 [[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh
 
-iterm2_prompt_mark
+if [[ $OSTYPE == darwin* ]]; then
+	iterm2_prompt_mark
+fi
