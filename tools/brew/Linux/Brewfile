@@ -2,7 +2,6 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
-tap "homebrew/completions"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "linuxbrew/extra"
@@ -25,8 +24,6 @@ brew "readline"
 brew "zlib"
 # Apache Portable Runtime library
 brew "apr"
-# Bash completion for Aptly
-brew "aptly-completion"
 # Per-project, per-directory shell environments
 brew "autoenv"
 # GNU multiple precision arithmetic library
@@ -87,8 +84,6 @@ brew "git-ssh"
 brew "go"
 # GNU PIC Utilities
 brew "gputils"
-# Smarter Dockerfile linter to validate best practices
-brew "hadolint"
 # Add GitHub support to git on the command-line
 brew "hub"
 # Lightweight and flexible command-line JSON processor
@@ -99,19 +94,25 @@ brew "lesspipe"
 brew "libassuan"
 # Asynchronous event library
 brew "libevent"
+brew "libyaml"
+brew "libffi"
 # Powerful, lightweight programming language
 brew "lua"
 # Utility for directing compilation
 brew "make"
+brew "openssl"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
+brew "ruby-build"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Autoformat shell script source code
 brew "shfmt"
 # Terminal multiplexer
 brew "tmux"
-# JavaScript package manager
-brew "yarn", args: ["--without-node"]
+brew "zsh-autosuggestions"
+brew "zsh-completions"
+brew "zsh-history-substring-search"
+brew "zsh-syntax-highlighting"

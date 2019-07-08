@@ -39,7 +39,6 @@ antigen bundles <<EOBUNDLES
 	profiles
 	git
 	npx
-	go
 	golang
 	yarn
 	gnu-utils
@@ -79,10 +78,6 @@ antigen bundle Joaquin6/git-aliases                     # https://github.com/Joa
 antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
 antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
 antigen bundle Joaquin6/spaceship-prompt
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Suuply the theme
 antigen theme spaceship

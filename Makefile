@@ -136,7 +136,7 @@ install-zsh-url-highlighter:
 	make clone-zsh-url-highlighter
 	mkdir -p $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
 	rm -rf $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
-	ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+	ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
 install-zsh-autosuggestions:
 	make clone-zsh-autosuggestions
