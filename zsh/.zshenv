@@ -7,7 +7,9 @@
 
 export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
+export YARN_VERSION=1.16.0
 
+export OPT_PATH=/opt
 export USER_BIN=/usr/bin
 export USER_LOCAL=/usr/local
 export USER_SHARE=/usr/share
@@ -91,6 +93,10 @@ export COMPLETION_WAITING_DOTS="true"
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 
 export ITERM2_SQUELCH_MARK=1
+
+if type brew &>/dev/null; then
+  export HOMEBREW_PREFIX=$(brew --prefix)
+fi
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then

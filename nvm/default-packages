@@ -15,6 +15,7 @@ js-beautify
 jshint
 knex
 mocha
+newman
 node-debug
 node-inspector
 node-gyp

@@ -1,5 +1,6 @@
 SHELL=/bin/zsh
 SYSTEM=$(shell uname -s)
+HOMEBREW_PREFIX=$(shell brew --prefix)
 DIR=${HOME}/jbconfig
 LDFLAGS = $(libgl) -lpng -lz -lm
 PROJECTS=$(HOME)/projects
@@ -42,10 +43,12 @@ FONT_DROID_SANS_MONO=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
 
 BREWCMD=$(shell which brew)
 
+YARN_VERSION ?= 1.16.0
+
 default: update
 
 show-env:
-	@echo $(FONT_PATH)
+	@echo $(YARN_VERSION)
 
 symlinks:
 	@ln -sf $(DIR)/zsh/.zlogin $(HOME)/.zlogin
@@ -119,6 +122,9 @@ clone-zsh-autosuggestions:
 clone-spaceship-prompt:
 	mkdir -p $(GIT_USER_PATH)
 	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone $(SSHGIT)/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
+
+install-cask:
+	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 install-direnv:
 	make clone-direnv
@@ -239,14 +245,14 @@ iterm2-setup:
 	make iterm2-shell-integration
 	make iterm2-profiles
 
-brew-i:
-	$(exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile)
+brew-install:
+	@exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
 
-brew-ch:
-	$(exec $(BREWCMD) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose)
+brew-check:
+	@exec $(BREWCMD) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose
 
-brew-cl:
-	$(exec $(BREWCMD) bundle cleanup --file=./tools/brew/$(SYSTEM)/Brewfile)
+brew-clean:
+	@exec $(BREWCMD) bundle cleanup --file=./tools/brew/$(SYSTEM)/Brewfile
 
 .PHONY: update
 update:
@@ -273,3 +279,12 @@ update:
 	@echo
 	@echo '	Updated succesfully!...'
 	@echo
+
+yarn:
+	sudo mkdir -p /opt \
+		&& cd /opt \
+		&& sudo wget https://yarnpkg.com/latest.tar.gz
+	wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import \
+		&& wget https://yarnpkg.com/latest.tar.gz.asc \
+		&& gpg --verify latest.tar.gz.asc
+	sudo tar zvxf latest.tar.gz

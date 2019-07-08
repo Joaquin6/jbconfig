@@ -221,6 +221,13 @@ load-nvmrc() {
 handle-add-path $HOME/bin
 handle-add-path /usr/local/bin
 handle-add-path $HOME/.cask/bin
+handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
+
+if command_exists yarn; then
+	handle-add-path $(yarn global bin)
+else
+	jb-zsh-debug "Yarn is not Installed!"
+fi
 
 if command_exists python; then
   export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')

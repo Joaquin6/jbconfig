@@ -6,6 +6,7 @@ tap "caskroom/fonts"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "telemachus/brew", "https://telemachus@bitbucket.org/telemachus/brew.git", pin: true
+tap "caskroom/fonts"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
@@ -27,8 +28,6 @@ brew "apm-bash-completion"
 brew "apr"
 # SSL/TLS cryptography library
 brew "openssl"
-# Bash completion for Aptly
-brew "aptly-completion"
 brew "cocoapods"
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
@@ -74,8 +73,6 @@ brew "gmp"
 brew "libunistring"
 # Emacs dependency management
 brew "cask"
-# Tool for automated testing of webapps across many browsers
-brew "chromedriver"
 # Cross-platform make
 brew "cmake"
 # Provides SOCKS and HTTPS proxy support to SSH
@@ -126,8 +123,6 @@ brew "gnu-sed"
 brew "libassuan"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg", link: false
-# Pragmatic language for the JVM
-brew "gosu"
 # GNU PIC Utilities
 brew "gputils"
 # Smarter Dockerfile linter to validate best practices
@@ -250,19 +245,23 @@ brew "zenity"
 brew "zsh"
 # Debugger for zsh
 brew "zshdb"
+
+# Fonts
 # A badass zsh theme with more power than a normal earthling
 brew "sambadevi/powerlevel9k/powerlevel9k"
+cask "homebrew/cask-fonts/font-fira-code"
+cask "homebrew/cask-fonts/font-hack-nerd-font"
+cask "homebrew/cask-fonts/font-inconsolata"
+cask "homebrew/cask-fonts/font-powerline-symbols"
+cask "homebrew/cask-fonts/font-source-code-pro"
+
+# Tool for automated testing of webapps across many browsers
+cask "chromedriver"
 cask "alfred"
 cask "cheatsheet"
 cask "docker-toolbox"
-cask "font-fira-code"
-cask "font-hack-nerd-font"
-cask "font-inconsolata"
-cask "font-powerline-symbols"
-cask "font-source-code-pro"
 cask "google-drive-file-stream"
 cask "google-hangouts"
-cask "java8"
 cask "macvim"
 cask "qlcolorcode"
 cask "qlmarkdown"
@@ -274,6 +273,11 @@ cask "suspicious-package"
 cask "virtualbox"
 cask "webpquicklook"
 cask "railwaycat/emacsmacport/emacs-mac"
+cask "homebrew/cask-versions/adoptopenjdk8"
+
+# Pragmatic language for the JVM
+brew "gosu"
+
 mas "BetterSnapTool", id: 417375580
 mas "Desktop Verse", id: 572304633
 mas "Earth 3D", id: 476566660

@@ -65,6 +65,13 @@ fpath=(
 	$fpath
 )
 
+if type brew &>/dev/null; then
+  fpath=(
+    $(brew --prefix)/share/zsh/site-functions
+    $fpath
+  )
+fi
+
 if [ -d $LINUXBREW_PATH ]; then
   path=(
     /usr/local/{bin,sbin}
