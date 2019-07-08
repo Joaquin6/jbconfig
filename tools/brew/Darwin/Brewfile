@@ -237,8 +237,6 @@ brew "vim", link: false
 brew "wget"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
-# JavaScript package manager
-brew "yarn", args: ["--without-node"]
 # GTK+ dialog boxes for the command-line
 brew "zenity"
 # UNIX shell (command interpreter)

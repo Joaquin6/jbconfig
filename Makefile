@@ -112,8 +112,7 @@ clone-vimrc:
 
 clone-zsh-url-highlighter:
 	mkdir -p $(ZSH)/custom/plugins
-	git clone \
-	git@github.com:ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter
+	git clone git@github.com:ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
 	mkdir -p $(GIT_USER_PATH)
@@ -138,8 +137,8 @@ install-hub:
 	mkdir -p $(PROJECTS)/go/src/github.com/github
 	if [ ! -d $(PROJECTS)/go/src/github.com/github/hub ]; then make clone-hub; fi
 	cd $(PROJECTS)/go/src/github.com/github/hub \
-	&& sudo gem install bundler
-	$(exec $(shell which rbenv) rehash)
+		&& sudo gem install bundler
+	@exec $(shell which rbenv) rehash
 
 install-eksctl:
 	curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -160,25 +159,26 @@ install-minikube:
 	sudo mv minikube /usr/local/bin
 
 install-fonts:
-	@mkdir -p $(FONT_PATH)
-	@cd $(FONT_PATH)
-	@curl -fLo $(FONT_DROID_SANS_MONO) \
-		https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-	@mv $(FONT_DROID_SANS_MONO) $(FONT_PATH)/
+	mkdir -p $(FONT_PATH)
+	rm -rf $(FONT_PATH)/$(FONT_DROID_SANS_MONO)
+	cd $(FONT_PATH) \
+		&& curl -fLo $(FONT_DROID_SANS_MONO) \
+			https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
+		&& mv -f $(FONT_DROID_SANS_MONO) $(FONT_PATH)/
 
 install-nvm:
 	make clone-nvm
-	@cd $(NVM_DIR)
-	@source $(NVM_DIR)/nvm.sh
-	@cd $(DIR)
+	cd $(NVM_DIR) \
+		&& source $(NVM_DIR)/nvm.sh \
+		&& cd $(DIR)
 
 install-ohmyzsh:
 	make clone-ohmyzsh
-	if [ ! -L $(ZSH) ]; then ln -sf $(OMZ_USER_PATH) $(ZSH); fi
+	ln -sf $(OMZ_USER_PATH) $(ZSH)
 
 install-antigen:
 	make clone-antigen
-	if [ ! -L $(ADOTDIR) ]; then ln -sf $(ANTIGEN_USER_PATH) $(ADOTDIR); fi
+	ln -sf $(ANTIGEN_USER_PATH) $(ADOTDIR)
 
 install-powerline:
 	make clone-powerline
@@ -212,13 +212,13 @@ install-vimrc:
 		&& cd $(DIR) \
 		&& ln -sf $(VIMRC_USER_PATH) $(VIMRC_RUNTIME) \
 		&& chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
-	$(exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh)
+	@exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 
 install-zsh-url-highlighter:
 	if [ ! -d $(ZSH)/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
 	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
 	rm -rf $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
-	if [ ! -L $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/zsh-url-highlighter ]; then ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url; fi
+	ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
 
 install-zsh-autosuggestions:
 	if [ ! -d $(ZSH)/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
@@ -233,21 +233,21 @@ install-rbenv:
 	cd $(DIR)
 
 iterm2-shell-integration:
-	@curl -L https://iterm2.com/shell_integration/bash -o $(HOME)/.iterm2_shell_integration.bash
-	@curl -L https://iterm2.com/shell_integration/zsh -o $(HOME)/.iterm2_shell_integration.zsh
-	@source $(HOME)/.iterm2_shell_integration.zsh
+	curl -L https://iterm2.com/shell_integration/bash -o $(HOME)/.iterm2_shell_integration.bash
+	curl -L https://iterm2.com/shell_integration/zsh -o $(HOME)/.iterm2_shell_integration.zsh
+	source $(HOME)/.iterm2_shell_integration.zsh
 
 iterm2-profiles:
 	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
 	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
-	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
+	ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
 
 iterm2-setup:
 	echo 'Running iTerm2 Setup...'
 	make iterm2-shell-integration
 	make iterm2-profiles
 
-brew-install:
+install-brew:
 	@exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
 
 brew-check:
@@ -262,18 +262,17 @@ update:
 	@echo '	Running Update...'
 	@echo
 	make prepare-project-directories
-	@$(ifeq ($(strip $(SYSTEM)), Darwin) make iterm2-setup endif)
-	make brew-i
+	if [[ $(SYSTEM) == *'Darwin'* ]]; then make iterm2-setup; fi
+	make install-brew
 	make install-nvm
 	make install-hub
-	make install-fonts
 	make install-vimrc
 	make install-direnv
 	make install-ohmyzsh
 	make install-antigen
 	make install-powerline
 	make install-powerlevel9k
-	@$(ifeq ($(strip $(SYSTEM)), Darwin) make install-maximum-awesome endif)
+	if [[ $(SYSTEM) == *'Darwin'* ]]; then make install-maximum-awesome; fi
 	make install-spaceship-prompt
 	make install-zsh-url-highlighter
 	make install-zsh-autosuggestions
