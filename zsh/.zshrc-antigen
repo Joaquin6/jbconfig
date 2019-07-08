@@ -68,21 +68,24 @@ if [ -d $LINUXBREW_PATH ]; then
 fi
 
 # Syntax highlighting bundle.
-antigen bundle ascii-soup/zsh-url-highlighter
-antigen bundle zsh-users/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
+antigen bundle Joaquin6/zsh-url-highlighter
+antigen bundle Joaquin6/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle Joaquin6/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle Joaquin6/zsh-completions
+antigen bundle Joaquin6/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
 antigen bundle Joaquin6/alias-tips                      # https://github.com/Joaquin6/alias-tips
 antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
 antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
 antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
 antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
+antigen bundle Joaquin6/spaceship-prompt
 
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Suuply the theme
-antigen theme Joaquin6/spaceship-prompt spaceship
+antigen theme spaceship
 # Tell antigen that you're done.
 antigen apply
 
@@ -102,13 +105,6 @@ load-user-specifics
 
 # Theme configuration
 typeset -gA ZSH_HIGHLIGHT_STYLES
-# All options must be overridden in your .zshrc file after the theme.
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
-ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
-ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
-# Customise autosuggestion color
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
 
 # Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ORDER=(
@@ -137,3 +133,11 @@ export SPACESHIP_RPROMPT_ORDER=(
 )
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true
+
+# All options must be overridden in your .zshrc file after the theme.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern url)
+ZSH_HIGHLIGHT_URL_HIGHLIGHTER_TIMEOUT=4
+ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
+# Customise autosuggestion color
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'

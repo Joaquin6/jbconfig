@@ -16,6 +16,7 @@ tap "phrase/brewed"
 tap "railwaycat/emacsmacport"
 tap "sambadevi/powerlevel9k"
 tap "zunit-zsh/zunit"
+tap "weaveworks/tap"
 cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "osxfuse"
 # Search tool like grep, but optimized for programmers
@@ -233,7 +234,7 @@ brew "ttf2eot"
 brew "ttfautohint"
 # Vi 'workalike' with many additional features
 brew "vim", link: false
-# Internet file retriever
+brew "weaveworks/tap/eksctl"
 brew "wget"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
@@ -243,6 +244,10 @@ brew "zenity"
 brew "zsh"
 # Debugger for zsh
 brew "zshdb"
+brew "zsh-autosuggestions"
+brew "zsh-completions"
+brew "zsh-history-substring-search"
+brew "zsh-syntax-highlighting"
 
 # Fonts
 # A badass zsh theme with more power than a normal earthling

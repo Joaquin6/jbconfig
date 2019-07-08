@@ -65,165 +65,83 @@ prepare-project-directories:
 	mkdir -p $(BITBUCKETPATH)
 	mkdir -p $(GITHUBGOPATH)
 
-clone-direnv:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(DIRENV_USER_PATH) ]; then git clone $(SSHGIT)/direnv.git $(DIRENV_USER_PATH); fi
+clone:
+	mkdir -p $(GIT_USER_PATH);
+	if [ ! -d $(GIT_USER_PATH)/$(REPO) ]; then git clone $(SSHGIT)/$(REPO).git $(GIT_USER_PATH)/$(REPO) $(GIT_FLAGS); fi
 
 clone-nvm:
-	if [ ! -d $(NVM_DIR) ]; then git clone https://github.com/creationix/nvm.git $(NVM_DIR); fi
-	cd $(NVM_DIR) \
-		&& git checkout \
-			`git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)` \
-		&& cd $(DIR)
-
-clone-hub:
-	mkdir -p $(GITHUBGOPATH)/github
-	git clone \
-	  --config transfer.fsckobjects=false \
-	  --config receive.fsckobjects=false \
-	  --config fetch.fsckobjects=false \
-	  https://github.com/github/hub.git $(GITHUBGOPATH)/github/hub
-	cd $(GITHUBGOPATH)/github/hub
-	make install prefix=/usr/local
-
-clone-antigen:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(ANTIGEN_USER_PATH) ]; then git clone $(SSHGIT)/antigen.git $(ANTIGEN_USER_PATH); fi
-
-clone-ohmyzsh:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(OMZ_USER_PATH) ]; then git clone $(SSHGIT)/oh-my-zsh.git $(OMZ_USER_PATH); fi
-
-clone-powerline:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(POWERLINE_USER_PATH) ]; then git clone $(SSHGIT)/fonts.git --depth=1 $(POWERLINE_USER_PATH); fi
-
-clone-powerlevel9k:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(POWERLEVEL9K_USER_PATH) ]; then git clone $(SSHGIT)/powerlevel9k.git $(POWERLEVEL9K_USER_PATH); fi
-
-clone-maximum-awesome:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(MAXIMUM_AWESOME_USER_PATH) ]; then git clone $(SSHGIT)/maximum-awesome.git $(MAXIMUM_AWESOME_USER_PATH); fi
-
-clone-vimrc:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(VIMRC_USER_PATH) ]; then git clone $(SSHGIT)/vimrc.git --depth=1 $(VIMRC_USER_PATH); fi
+	make clone REPO=nvm
+	if [ ! -d $(NVM_DIR) ]; then ln -sf $(GIT_USER_PATH)/nvm $(NVM_DIR); fi
+	cd $(NVM_DIR); git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
 
 clone-zsh-url-highlighter:
+	make clone REPO=zsh-url-highlighter
 	mkdir -p $(ZSH)/custom/plugins
-	git clone git@github.com:ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter
+	ln -sf $(GIT_USER_PATH)/zsh-url-highlighter $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
-	mkdir -p $(GIT_USER_PATH)
-	git clone $(SSHGIT)/zsh-autosuggestions.git $(GIT_USER_PATH)/zsh-autosuggestions
+	make clone REPO=zsh-autosuggestions
 	mkdir -p $(ZSH)/custom/plugins
 	ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
-
-clone-spaceship-prompt:
-	mkdir -p $(GIT_USER_PATH)
-	if [ ! -d $(GIT_USER_PATH)/spaceship-prompt ]; then git clone $(SSHGIT)/spaceship-prompt.git $(GIT_USER_PATH)/spaceship-prompt; fi
 
 install-cask:
 	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 install-direnv:
-	make clone-direnv
-	cd $(DIRENV_USER_PATH) \
-		&& sudo make install \
-		&& cd $(DIR)
-
-install-hub:
-	mkdir -p $(PROJECTS)/go/src/github.com/github
-	if [ ! -d $(PROJECTS)/go/src/github.com/github/hub ]; then make clone-hub; fi
-	cd $(PROJECTS)/go/src/github.com/github/hub \
-		&& sudo gem install bundler
-	@exec $(shell which rbenv) rehash
-
-install-eksctl:
-	curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-	sudo mv /tmp/eksctl /usr/local/bin
-
-install-kubectl:
-	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-	chmod +x ./kubectl
-	sudo mv ./kubectl /usr/local/bin/kubectl
+	make clone REPO=direnv
+	cd $(GIT_USER_PATH)/direnv; sudo make install
 
 install-kubectl-plugins:
 	sudo chmod +x ./tools/kubectl/plugins/kubectl-*
 	sudo mv ./tools/kubectl/plugins/kubectl-* /usr/local/bin
 
-install-minikube:
-	curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-	chmod +x minikube
-	sudo mv minikube /usr/local/bin
-
-install-fonts:
-	mkdir -p $(FONT_PATH)
-	rm -rf $(FONT_PATH)/$(FONT_DROID_SANS_MONO)
-	cd $(FONT_PATH) \
-		&& curl -fLo $(FONT_DROID_SANS_MONO) \
-			https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf \
-		&& mv -f $(FONT_DROID_SANS_MONO) $(FONT_PATH)/
-
 install-nvm:
 	make clone-nvm
-	cd $(NVM_DIR) \
-		&& source $(NVM_DIR)/nvm.sh \
-		&& cd $(DIR)
+	cd $(NVM_DIR); source $(NVM_DIR)/nvm.sh
 
 install-ohmyzsh:
-	make clone-ohmyzsh
-	ln -sf $(OMZ_USER_PATH) $(ZSH)
+	make clone REPO=oh-my-zsh
+	ln -sf $(GIT_USER_PATH)/oh-my-zsh $(ZSH)
 
 install-antigen:
-	make clone-antigen
-	ln -sf $(ANTIGEN_USER_PATH) $(ADOTDIR)
+	make clone REPO=antigen
+	ln -sf $(GIT_USER_PATH)/antigen $(ADOTDIR)
 
 install-powerline:
-	make clone-powerline
-	cd $(POWERLINE_USER_PATH) && ./install.sh
+	make clone REPO=fonts GIT_FLAGS=--depth=1
+	cd $(GIT_USER_PATH)/fonts; ./install.sh
 
 install-powerlevel9k:
-	make clone-powerlevel9k
-	cd $(POWERLEVEL9K_USER_PATH) \
-		&& git checkout . \
-		&& git pull origin master \
-		&& ln -sf $(POWERLEVEL9K_USER_PATH) $(POWERLEVEL9K_PATH)
+	make clone REPO=powerlevel9k
+	cd $(GIT_USER_PATH)/powerlevel9k; git checkout . && git pull origin master
+	ln -sf $(GIT_USER_PATH)/powerlevel9k $(POWERLEVEL9K_PATH)
 
 install-maximum-awesome:
-	make clone-maximum-awesome
-	cd $(MAXIMUM_AWESOME_USER_PATH) \
-		&& git checkout . \
-		&& git pull origin master \
-		&& rake \
-		&& cd $(DIR)
+	make clone REPO=maximum-awesome
+	cd $(GIT_USER_PATH)/maximum-awesome; git checkout . && git pull origin master && rake
 
 install-spaceship-prompt:
-	make clone-spaceship-prompt
-	if [ ! -d $(ZSH)/custom/themes/spaceship-prompt ]; then ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt; fi
-	if [ ! -f $(ZSH)/custom/themes/spaceship.zsh-theme ]; then ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme; fi
+	make clone REPO=spaceship-prompt
+	ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt
+	ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme
 
 install-vimrc:
-	make clone-vimrc
-	cd $(VIMRC_USER_PATH) \
-		&& git checkout . \
-		&& git pull origin master \
-		&& cd $(DIR) \
-		&& ln -sf $(VIMRC_USER_PATH) $(VIMRC_RUNTIME) \
-		&& chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
+	make clone REPO=vimrc GIT_FLAGS=--depth=1
+	cd $(GIT_USER_PATH)/vimrc; git checkout . && git pull origin master
+	ln -sf $(GIT_USER_PATH)/vimrc $(VIMRC_RUNTIME)
+	chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 	@exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 
 install-zsh-url-highlighter:
-	if [ ! -d $(ZSH)/custom/plugins/zsh-url-highlighter ]; then make clone-zsh-url-highlighter; fi
-	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	rm -rf $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
-	ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+	make clone-zsh-url-highlighter
+	mkdir -p $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
+	rm -rf $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+	ln -s $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
 install-zsh-autosuggestions:
-	if [ ! -d $(ZSH)/custom/plugins/zsh-autosuggestions ]; then make clone-zsh-autosuggestions; fi
-	mkdir -p $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters
-	ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+	make clone-zsh-autosuggestions
+	mkdir -p $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
+	ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
 install-rbenv:
 	if [ ! -d $(HOME)/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git $(HOME)/.rbenv; fi
@@ -265,7 +183,6 @@ update:
 	if [[ $(SYSTEM) == *'Darwin'* ]]; then make iterm2-setup; fi
 	make install-brew
 	make install-nvm
-	make install-hub
 	make install-vimrc
 	make install-direnv
 	make install-ohmyzsh
