@@ -1,0 +1,65 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+      "key": "ctrl+shift+x",
+      "command": "workbench.action.terminal.kill"
+    },
+    {
+      "key": "ctrl+shift+j",
+      "command": "workbench.action.terminal.focusNext"
+    },
+    {
+      "key": "ctrl+shift+k",
+      "command": "workbench.action.terminal.focusPrevious"
+    },
+    {
+      "key": "ctrl+c",
+      "command": "workbench.action.terminal.copySelection",
+      "when": "terminalFocus && terminalTextSelected"
+    },
+    {
+      "key": "ctrl+v",
+      "command": "workbench.action.terminal.paste",
+      "when": "terminalFocus"
+    },
+    {
+      "key": "ctrl+a",
+      "command": "workbench.action.terminal.selectAll",
+      "when": "terminalFocus"
+    },
+    {
+      "key": "ctrl+f",
+      "command": "-workbench.action.terminal.focusFindWidget",
+      "when": "terminalFocus"
+    },
+    {
+      "key": "shift+alt+down",
+      "command": "editor.action.moveLinesDownAction",
+      "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+      "key": "shift+alt+up",
+      "command": "editor.action.moveLinesUpAction",
+      "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+      "key": "alt+down",
+      "command": "editor.action.copyLinesDownAction",
+      "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+      "key": "alt+up",
+      "command": "editor.action.copyLinesUpAction",
+      "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+      "key": "cmd+y",
+      "command": "redo",
+      "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "f9",
+        "command": "-sortLines.sortLines",
+        "when": "editorTextFocus"
+    }
+  ]

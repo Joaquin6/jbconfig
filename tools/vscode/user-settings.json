@@ -1,0 +1,226 @@
+{
+    "docker-compose.showExplorer": true,
+    "docker-explorer.containerLogsOptions": "--tail 50 -f",
+    "docker-explorer.showDockerContainers": true,
+    "docker-explorer.showDockerImages": true,
+    "docker-explorer.showAzureRegistries": false,
+    "docker-explorer.showDockerHubTreeView": false,
+    "docker-explorer.showSuggestedDockerImages": false,
+    "markdownlint.run": "onSave",
+    "npm.registry": "https://registry.npmjs.org",
+    "npm.runInTerminal": true,
+    "npm.enableScriptExplorer": true,
+    "npm-intellisense.importES6": true,
+    "npm-intellisense.importQuotes": "'",
+    "npm-intellisense.importLinebreak": ";\r\n",
+    "npm-intellisense.importDeclarationType": "const",
+    "npm-intellisense.recursivePackageJsonLookup": true,
+    "npm-intellisense.packageSubfoldersIntellisense": true,
+    "git.path": "/usr/local/bin/git",
+    "git-autoconfig.configList": [
+        {
+            "user.email": "joaquinbriceno1@gmail.com",
+            "user.name": "Joaquin Briceno",
+            "commit.gpgsign": false
+        },
+        {
+            "user.email": "joaquin.briceno@insitu.com",
+            "user.name": "Joaquin Briceno",
+            "commit.gpgsign": false
+        }
+    ],
+    "gitProjectManager.baseProjectsFolders": [
+        "/Users/joaquin",
+        "/Users/joaquin/projects/github",
+        "/Users/joaquin/projects/github.com",
+        "/Users/joaquin/projects/bitbucket",
+        "/Users/joaquin/projects/bitbucket.org",
+        "/Users/joaquin/projects/gitlab",
+        "/Users/joaquin/projects/gitlab.com",
+        "/Users/joaquin/projects/codecommit"
+    ],
+    "gitProjectManager.ignoredFolders": [
+        ".config",
+        "node_modules",
+        "backups",
+        "Dropbox",
+        "Google Drive",
+        "perl5"
+    ],
+    "gitProjectManager.maxDepthRecursion": 5,
+    "gitProjectManager.displayProjectPath": true,
+    "gitProjectManager.recentProjectsListSize": 8,
+    "gitProjectManager.warnIfFolderNotFound": true,
+    "gitProjectManager.codePath": "$(which code)",
+    "gitProjectManager.storeRepositoriesBetweenSessions": true,
+    "editor.autoIndent": true,
+    "editor.detectIndentation": true,
+    "editor.tabSize": 4,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": false,
+    "editor.wordWrap": "off",
+    "editor.rulers": [
+        100
+    ],
+    "editor.wrappingIndent": "same",
+    "editor.showFoldingControls": "mouseover",
+    "editor.minimap.enabled": false,
+    "editor.scrollBeyondLastLine": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": false
+    },
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "log.error",
+                "settings": {
+                    "foreground": "#af1f1f",
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": "log.warn",
+                "settings": {
+                    "foreground": "#f4ad42",
+                    "fontStyle": ""
+                }
+            }
+        ]
+    },
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.babelrc*": false,
+        "**/.eslintrc*": false,
+        "**/.git": false,
+        "**/.jshintrc*": false,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.map.js": true
+    },
+    "files.associations": {
+        "*.log.*": "log",
+        "*.code-workspace": "json",
+        ".bash*": "bat",
+        ".eslintrc.js": "javascript",
+        ".gpmrc": "json",
+        ".nycrc": "json",
+        ".zshrc": "shellscript",
+        ".zsh_aliases": "shellscript",
+        ".zsh_functions": "shellscript",
+        "gitto*": "javascript",
+        "zshrc": "shellscript",
+        "zsh_aliases": "shellscript",
+        "zsh_functions": "shellscript",
+        "merge-simplecov": "ruby",
+        "snykscan": "shellscript",
+        ".node-inspectorrc": "json",
+        "docker-ngrok": "shellscript",
+        ".sgcrc": "json",
+        ".auditorrc": "json",
+        "*.phpi1": "php",
+        ".prettierrc": "json",
+        ".zpreztorc": "shellscript",
+        ".zshrc-antigen": "shellscript",
+        ".zshrc-prezto": "shellscript",
+        "*.js": "javascript",
+        "git-release": "bat",
+        ".env-development": "dotenv",
+        ".huskyrc": "json",
+        ".stylelintrc": "json",
+        ".sequelizerc": "javascript",
+        "run-postgresql": "shellscript"
+    },
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.shellArgs.osx": [
+        "-l"
+    ],
+    "terminal.external.linuxExec": "xterm",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.env.linux": {
+        "EDITOR": "$(which code)"
+    },
+    "terminal.integrated.env.osx": {
+        "EDITOR": "$(which code)"
+    },
+    "terminal.integrated.scrollback": 5000,
+    "terminal.integrated.setLocaleVariables": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.rightClickBehavior": "copyPaste",
+    "yarn.runInTerminal": true,
+    "json.format.enable": true,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "./.babelrc"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquin/jbconfig/vscode/schemas/babelrc.json"
+            }
+        },
+        {
+            "fileMatch": [
+                "./tsconfig.json"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquin/jbconfig/vscode/schemas/tsconfig.json"
+            }
+        },
+        {
+            "fileMatch": [
+                "./package.json"
+            ],
+            "schema": {
+                "$schema": "file:///Users/joaquin/jbconfig/vscode/schemas/package.json"
+            }
+        }
+    ],
+    "json.trace.server": "off",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "window.restoreFullscreen": true,
+    "window.restoreWindows": "all",
+    "workbench.colorTheme": "Deepdark Material Theme | Full Black Version",
+    "editor.largeFileOptimizations": false,
+    "markdown.trace": "verbose",
+    "material-icon-theme.showWelcomeMessage": false,
+    "logFileHighlighter.customPatterns": [
+        {
+            "pattern": "Verbose",
+            "foreground": "green"
+        },
+        {
+            "pattern": "E/\\w+",
+            "foreground": "#af1f1f"
+        }
+    ],
+    "git.autofetch": true,
+    "path-intellisense.showHiddenFiles": true,
+    "path-intellisense.mappings": {
+        "/": "${workspaceRoot}",
+        "lib": "${workspaceRoot}/lib"
+    },
+    "window.closeWhenEmpty": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnPaste": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "terminal.integrated.rendererType": "dom",
+    "editor.formatOnType": false,
+    "editor.fontSize": 14,
+    "gitlens.views.compare.files.layout": "list",
+    "sublimeImporter.hasPromptedOnStartup": true,
+    "workbench.settings.useSplitJSON": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "vs-kubernetes": {
+        "vs-kubernetes.minikube-path": "/Users/joaquin/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+        "vs-kubernetes.draft-path": "/Users/joaquin/.vs-kubernetes/tools/draft/darwin-amd64/draft",
+        "vs-kubernetes.helm-path": "/Users/joaquin/.vs-kubernetes/tools/helm/darwin-amd64/helm"
+    },
+    "vsicons.dontShowNewVersionMessage": true
+}
