@@ -42,8 +42,10 @@ endif
 FONT_DROID_SANS_MONO=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
 
 BREWCMD=$(shell which brew)
+ANTIGENCMD=$(shell which antigen)
 
 YARN_VERSION ?= 1.16.0
+ADOTDIR ?= $(HOME)/antigen
 
 default: update
 
@@ -206,3 +208,11 @@ yarn:
 		&& wget https://yarnpkg.com/latest.tar.gz.asc \
 		&& gpg --verify latest.tar.gz.asc
 	sudo tar zvxf latest.tar.gz
+
+refresh:
+	source $(ADOTDIR)/antigen.zsh
+	antigen selfupdate \
+		&& antigen update \
+		&& antigen cleanup \
+		&& antigen reset \
+		&& exec $(SHELL) -l

@@ -67,6 +67,9 @@ export SSH_PRIVATE_KEY=$SSH_PATH/id_rsa
 export SSH_KEY_PATH=$SSH_PRIVATE_KEY
 export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
+export AWS_CONFIG_FILE=$HOME/.aws/config
+export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
+
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTCONTROL=erasedups

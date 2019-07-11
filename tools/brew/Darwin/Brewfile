@@ -17,6 +17,7 @@ tap "railwaycat/emacsmacport"
 tap "sambadevi/powerlevel9k"
 tap "zunit-zsh/zunit"
 tap "weaveworks/tap"
+tap "aws/tap"
 cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "osxfuse"
 # Search tool like grep, but optimized for programmers
@@ -27,6 +28,9 @@ brew "adns"
 brew "apm-bash-completion"
 # Apache Portable Runtime library
 brew "apr"
+# Official Amazon AWS command-line interface
+brew "awscli"
+brew "aws-sam-cli"
 # SSL/TLS cryptography library
 brew "openssl"
 brew "cocoapods"
@@ -54,8 +58,6 @@ brew "sqlite"
 brew "xz"
 # Interpreted, interactive, object-oriented programming language
 brew "python"
-# Official Amazon AWS command-line interface
-brew "awscli"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Programmable completion for Bash 3.2
