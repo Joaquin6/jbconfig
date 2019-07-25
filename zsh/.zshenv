@@ -8,6 +8,7 @@
 export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
+export JB_ZSH_AUTHOR=joaquin
 
 export OPT_PATH=/opt
 export USER_BIN=/usr/bin
@@ -69,6 +70,7 @@ export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 
 export AWS_CONFIG_FILE=$HOME/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
+export AWS_DEFAULT_PROFILE=$JB_ZSH_AUTHOR
 
 export HISTSIZE=10000
 export SAVEHIST=10000

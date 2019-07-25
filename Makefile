@@ -45,7 +45,7 @@ BREWCMD=$(shell which brew)
 ANTIGENCMD=$(shell which antigen)
 
 YARN_VERSION ?= 1.16.0
-ADOTDIR ?= $(HOME)/antigen
+ADOTDIR = $(HOME)/antigen
 
 default: update
 
@@ -85,6 +85,13 @@ clone-zsh-autosuggestions:
 	make clone REPO=zsh-autosuggestions
 	mkdir -p $(ZSH)/custom/plugins
 	ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
+
+install-mongo:
+	curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz
+	curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz.sig
+	curl -LO https://www.mongodb.org/static/pgp/server-3.4.asc
+	gpg --import server-3.4.asc
+	gpg --verify mongodb-osx-ssl-x86_64-3.4.9.tgz.sig mongodb-osx-ssl-x86_64-3.4.9.tgz
 
 install-cask:
 	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
@@ -186,7 +193,6 @@ update:
 	make install-brew
 	make install-nvm
 	make install-vimrc
-	make install-direnv
 	make install-ohmyzsh
 	make install-antigen
 	make install-powerline

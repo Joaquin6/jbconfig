@@ -18,8 +18,10 @@ tap "sambadevi/powerlevel9k"
 tap "zunit-zsh/zunit"
 tap "weaveworks/tap"
 tap "aws/tap"
+tap "mongodb/brew"
 cask "java" unless system "/usr/libexec/java_home --failfast"
 cask "osxfuse"
+cask "movist-pro"
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # C/C++ resolver library and DNS resolver utilities
@@ -254,6 +256,7 @@ brew "zsh-syntax-highlighting"
 # Fonts
 # A badass zsh theme with more power than a normal earthling
 brew "sambadevi/powerlevel9k/powerlevel9k"
+# cask "font-fira-code"
 cask "homebrew/cask-fonts/font-fira-code"
 cask "homebrew/cask-fonts/font-hack-nerd-font"
 cask "homebrew/cask-fonts/font-inconsolata"

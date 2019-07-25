@@ -6,6 +6,7 @@ declare -a SSH_KEYS=(
 	~/.ssh/gitlab_id_rsa
 	~/.ssh/gitlab_uk_id_rsa
 	~/.ssh/gitlab_uk_inexa_id_rsa
+	~/.ssh/codecommit_id_rsa
 	~/.ssh/id_rsa
 	~/.ssh/mac_id_rsa
 )

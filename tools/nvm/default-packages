@@ -15,6 +15,7 @@ js-beautify
 jshint
 knex
 mocha
+mongodb-dataset-generator
 newman
 node-debug
 node-inspector
