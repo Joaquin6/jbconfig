@@ -49,6 +49,8 @@ antigen bundles <<EOBUNDLES
 	systemd
 	systemadmin
 	cask
+	aws
+	redis-cli
 EOBUNDLES
 
 if [[ $TILIX_ID ]]; then

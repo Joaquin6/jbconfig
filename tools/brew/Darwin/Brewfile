@@ -214,6 +214,7 @@ brew "ripgrep"
 brew "rsync"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
+brew "redis-cli"
 # Airtunes emulator
 brew "shairport"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -238,6 +239,7 @@ brew "ttf2eot"
 brew "ttfautohint"
 # Vi 'workalike' with many additional features
 brew "vim", link: false
+brew "vsts-cli"
 brew "weaveworks/tap/eksctl"
 brew "wget"
 # Generate your Xcode project from a spec file and your folder structure

@@ -1,3 +1,5 @@
+@apache-royale/royale-js
+@apache-royale/royale-js-swf
 babel-cli
 babel-core
 babel-polyfill

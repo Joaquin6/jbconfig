@@ -260,6 +260,7 @@ handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
 handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 if [[ $OSTYPE == darwin* ]]; then
+	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
 	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 fi
 
