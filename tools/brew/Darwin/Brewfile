@@ -214,7 +214,6 @@ brew "ripgrep"
 brew "rsync"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
-brew "redis-cli"
 # Airtunes emulator
 brew "shairport"
 # Static analysis and lint tool, for (ba)sh scripts

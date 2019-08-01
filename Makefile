@@ -222,3 +222,20 @@ refresh:
 		&& antigen cleanup \
 		&& antigen reset \
 		&& exec $(SHELL) -l
+
+redis:
+	@echo
+	@echo '	Making Redis...'
+	@echo
+	mkdir -p $(HOME)/redis \
+		&& cd $(HOME)/redis \
+		&& curl -O http://download.redis.io/redis-stable.tar.gz \
+		&& tar xvzf redis-stable.tar.gz \
+		&& cd redis-stable \
+		&& make \
+		&& sudo make install
+	cd $(DIR)
+	@echo
+	@echo '	Redis Successfully Installed, Built and Tested...'
+	@echo '	For help: https://auth0.com/blog/introduction-to-redis-install-cli-commands-and-data-types/'
+	@echo
