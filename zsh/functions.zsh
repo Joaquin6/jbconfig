@@ -225,6 +225,17 @@ function -load-mgdm-theme() {
 	fi
 }
 
+zshrc() {
+  local editor=${EDITOR:-code}
+
+  if [ -f "$JB_ZSH_BASE/zsh/base" ]; then
+    $editor $JB_ZSH_BASE/zsh/base
+  elif [ -f "$HOME/.zshrc" ]; then
+    $editor $HOME/.zshrc
+  else
+    echo "\n\tCant find an zshrc file!"
+  fi
+}
 
 
 #   ---------------------------
@@ -235,6 +246,23 @@ ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the curr
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
+# To get the directory utilitization size of the current directory:
+directory-utilitization-size () {
+	local DIRSIZE=${1:-$PWD}
+	du -sh $DIRSIZE ; 
+}
+
+# Count the number files in the folder by piping to the “word count” utility:
+# (The -al includes hidden files and folders)
+count-files () {
+	local DIRCOUNT=${1:-$PWD}
+	ls -al $DIRCOUNT | wc -l ;
+}
+# (The find . includes files nested within folders as well)
+count-files-nested () {
+	local DIRCOUNT=${1:-$PWD}
+	find $DIRCOUNT -print | wc -l ;
+}
 
 #   ---------------------------
 #   7. PROCESS MANAGEMENT
@@ -292,6 +320,10 @@ ii () {
 	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
 }
 reload () { exec $SHELL -l ; }
+antigen-reload () { 
+	emulate -L zsh
+	eval antigen reset && reload
+}
 #   nyg: shortcut to globally install pkgs with npm AND yarn
 #   ------------------------------------------------------------
 nyg () { npm install --global "$1" && yarn global add "$1" ; }
@@ -311,6 +343,7 @@ upgrade-jb-zsh() {
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
 showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/*.zsh | grep -v '^\s*$' | less -FSRXc ; }
+
 check-web-connectivity() {
 	case "$(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
 	  [23]) echo "HTTP connectivity is up";;
@@ -319,14 +352,21 @@ check-web-connectivity() {
 	esac
 }
 
+# Create a folder and move into it in one command
+mkcd() { mkdir -p "$@" && cd "$@"; }
 
 
+# https://stackoverflow.com/questions/18936337/makefile1-missing-separator-stop/18936393
+fix_space_tabs () { perl -pi -e 's/^  */\t/' "$1"; }
 
 #   ---------------------------------------
 #   8. PERMISSIONS
 #   ---------------------------------------
 show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
-permitme() { pkexec chown $USER:adm $PWD -hR ; }
+permitme() {
+	local PERMITTING_DIR=${1:-$PWD}
+	sudo chown -hR $(whoami) $PERMITTING_DIR && chmod u+w $PERMITTING_DIR ;
+}
 users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
 # I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
@@ -337,6 +377,14 @@ ghget () {
     mkcd "$HOME/projects/github.com/$USER" && \
     hub clone $@ && \
     cd $REPO
+}
+
+bbget () {
+    USER=$(echo $@ | tr "/" " " | awk '{print $1}')
+    REPO=$(echo $@ | tr "/" " " | awk '{print $2}')
+
+    mkdir -p ~/projects/bitbucket.org/$USER && cd ~/projects/bitbucket.org/$USER
+    git clone https://bitbucket.org/$USER/$REPO.git && cd $REPO
 }
 
 jb-zsh-debug() {
@@ -399,6 +447,19 @@ load-user-specifics() {
   fi
 }
 
+upgradejb-zsh() {
+  emulate -L zsh
+  upgrade_oh_my_zsh
+  eval antigen selfupdate && eval antigen update
+}
+
+upgradejb-zsh-reload () { upgradejb-zsh && reload; }
+
+git-submodule-rm-clean () {
+  git submodule deinit $1 & wait
+  git rm $1 & wait
+  git commit -m "Removed submodule" && rm -rf .git/modules/$1
+}
 
 
 
@@ -570,14 +631,6 @@ function ii () {
 	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
 }
 
-function check-web-connectivity() {
-	case "$(curl -s --max-time 2 -I http://google.com | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
-	  [23]) echo "HTTP connectivity is up";;
-	  5) echo "The web proxy won't let us through";;
-	  *) echo "The network is down or very slow";;
-	esac
-}
-
 add_auth_key () {
   ssh-copy-id $@
 }
@@ -662,9 +715,6 @@ if [ -z "\${which tree}" ]; then
       find $@ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
   }
 fi
-
-# Create a folder and move into it in one command
-mkcd() { mkdir -p "$@" && cd "$@"; }
 
 # If you need to kill a process on a particular port, but you don't know the process, portslay handles that.
 portslay () {
@@ -756,4 +806,41 @@ cs_on() {
 
 cs_off()  {
   set_gamma 1.0
+}
+
+reset-npm-prefix() {
+  # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
+
+  local node_version="$(nvm version)"
+
+  npm config delete prefix
+  npm config set prefix $NVM_DIR/versions/node/$(node_version)
+}
+
+confirm_existence()
+{
+    if [[ -d $1 ]] && [[ -n $1 ]] ; then
+        echo "\t\tDeleting Directory $1"
+        return 0
+    fi
+
+    if [[ -f $1 ]] && [[ -n $1 ]] ; then
+        echo "\t\tDeleting File $1"
+        return 0
+    fi
+
+    return 1
+}
+
+trash()
+{
+    if confirm_existence $1; then
+        if which rimraf &> /dev/null; then
+            rimraf $1 -s
+        else
+            rm -rf $1
+        fi
+        echo "\n\t\tSuccessfully Trashed $1"
+    fi
+    echo
 }

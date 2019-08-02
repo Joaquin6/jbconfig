@@ -58,7 +58,7 @@ path=(
 )
 fpath=(
 	$HOME/.config/completions
-  $HOME/.zfunctions
+  $HOME/functions.zsh
 	$USER_LOCAL_ETC/bash_completion.d
 	$USER_LOCAL_SHARE/zsh-completions
 	$USER_LOCAL_SHARE/zsh/site-functions

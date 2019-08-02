@@ -239,3 +239,6 @@ redis:
 	@echo '	Redis Successfully Installed, Built and Tested...'
 	@echo '	For help: https://auth0.com/blog/introduction-to-redis-install-cli-commands-and-data-types/'
 	@echo
+
+haskell:
+	curl https://get-ghcup.haskell.org -sSf | sh

@@ -14,6 +14,7 @@ export OPT_PATH=/opt
 export USER_BIN=/usr/bin
 export USER_LOCAL=/usr/local
 export USER_SHARE=/usr/share
+export USER_LIBEXEC=/usr/libexec
 export JB_ZSH_BASE=$HOME/jbconfig
 export HOME_LIB_PATH=$HOME/Library
 export SYS_LIB_PATH=/System/Library
@@ -48,13 +49,18 @@ export MONO_GAC_PREFIX=$USER_LOCAL
 export XDG_CONFIG_HOME=$HOME/.config
 export WORKON_HOME=$HOME/.virtualenvs
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
+export JAVA_HOME=$USER_LIBEXEC/java_home
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 
 export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
-export LDFLAGS=(-L$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib)
-export CPPFLAGS=(-I$USER_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include)
+export LDFLAGS=(-L$USER_LOCAL_OPT/{binutils,diffutils,gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{binutils,diffutils,gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include)
 export OOO_FORCE_DESKTOP=gnome
+if type brew &>/dev/null; then
+	export HOMEBREW_PREFIX=$(brew --prefix)
+	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
+fi
 
 if [ -d $LINUXBREW_PATH ]; then
   export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib $LDFLAGS)
@@ -99,9 +105,7 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 
 export ITERM2_SQUELCH_MARK=1
 
-if type brew &>/dev/null; then
-  export HOMEBREW_PREFIX=$(brew --prefix)
-fi
+[[ -s $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then

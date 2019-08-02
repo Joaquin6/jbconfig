@@ -33,6 +33,8 @@ brew "apr"
 # Official Amazon AWS command-line interface
 brew "awscli"
 brew "aws-sam-cli"
+brew "binutils"
+brew "diffutils"
 # SSL/TLS cryptography library
 brew "openssl"
 brew "cocoapods"
@@ -94,6 +96,7 @@ brew "dep"
 brew "direnv"
 # Debian package management system
 brew "dpkg"
+brew "ed"
 # Codegen for Echoprint
 brew "echoprint-codegen"
 # Emacs plugin using libclang to complete C/C++ code
@@ -138,6 +141,7 @@ brew "hlint"
 brew "hub"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+brew "jenv"
 # Port-knock server
 brew "knock"
 # Kubernetes command-line interface
@@ -178,6 +182,8 @@ brew "mongodb"
 brew "mono"
 # A simple and efficient MsgPack binary serialization library
 brew "msgpuck"
+# https://mac.softpedia.com/get/Utilities/ncdu.shtml
+brew "ncdu"
 # Fast, highly customisable system info script
 brew "neofetch"
 # HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server

@@ -231,29 +231,40 @@ handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
 handle-add-path $HOME/npm/bin
 handle-add-path $USER_BIN
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+handle-add-path $USER_LOCAL_OPT/binutils/bin
+handle-add-path $USER_LOCAL_OPT/diffutils/bin
 handle-add-path $USER_LOCAL_OPT/gettext/bin
 handle-add-path $USER_LOCAL_OPT/llvm/bin
 handle-add-path $USER_LOCAL_OPT/apr/bin
+handle-add-path $USER_LOCAL_OPT/m4/bin
+handle-add-path $USER_LOCAL_OPT/file-formula/bin
 handle-add-path $USER_LOCAL_OPT/apr-util/bin
 handle-add-path $USER_LOCAL_OPT/icu4c/bin
 handle-add-path $USER_LOCAL_OPT/icu4c/sbin
 handle-add-path $USER_LOCAL_OPT/libpq/bin
-handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/sqlite/bin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/libarchive/bin
 handle-add-path $USER_LOCAL_OPT/openssl/bin
 handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
 handle-add-path $USER_LOCAL_OPT/openldap/bin
 handle-add-path $USER_LOCAL_OPT/openldap/sbin
 handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $USER_LOCAL_GO/bin
 handle-add-path $PERL_LOCAL_LIB_ROOT/bin
 handle-add-path $GOPATH/bin
 handle-add-path $USER_LOCAL/bin
 handle-add-path $USER_LOCAL/sbin
+handle-add-path $HOME/.jenv/bin
+handle-add-path $HOME/.cabal/bin
+handle-add-path $HOME/.ghcup/bin
 
 handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
 handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
@@ -276,7 +287,6 @@ handle-add-infopath $USER_SHARE/info
 handle-add-infopath $USER_LOCAL/share/info
 
 handle-add-manpath $USER_LOCAL/share/man
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 handle-add-pkgconfigpath libffi
 handle-add-pkgconfigpath icu4c
@@ -309,6 +319,10 @@ fi
 
 if which hub &> /dev/null; then
 	eval "$(hub alias -s)"
+fi
+
+if which jenv &> /dev/null; then
+	eval "$(jenv init -)"
 fi
 
 source $JB_ZSH_BASE/zsh/alias/index.zsh
