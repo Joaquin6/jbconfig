@@ -35,6 +35,7 @@ brew "awscli"
 brew "aws-sam-cli"
 brew "binutils"
 brew "diffutils"
+brew "findutils"
 # SSL/TLS cryptography library
 brew "openssl"
 brew "cocoapods"
@@ -52,6 +53,7 @@ brew "autojump"
 brew "autossh"
 # Text processing scripting language
 brew "awk"
+brew "gawk"
 # GNU database manager
 brew "gdbm"
 # Library for command-line editing
@@ -127,6 +129,17 @@ brew "git-flow-avh"
 brew "git-ssh"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+brew "gnu-indent"
+brew "gnu-which"
+brew "gnutls"
+brew "grep"
+brew "gzip"
+brew "screen"
+brew "watch"
+brew "wdiff"
+brew "emacs"
+brew "gpatch"
+brew "file-formula"
 # Assuan IPC Library
 brew "libassuan"
 # GNU Pretty Good Privacy (PGP) package
@@ -148,6 +161,7 @@ brew "knock"
 brew "kubernetes-cli"
 # Bash completion for Launchctl
 brew "launchctl-completion"
+brew "less"
 # Input filter for the pager less
 brew "lesspipe"
 # Multi-format archive and compression library
@@ -168,6 +182,8 @@ brew "libyaml"
 brew "macvim", link: false
 # Utility for directing compilation
 brew "make"
+brew "m4"
+brew "nano"
 # Mac App Store command-line interface
 brew "mas"
 # Java-based project management
