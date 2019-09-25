@@ -58,8 +58,13 @@
       "when": "textInputFocus && !editorReadonly"
     },
     {
-        "key": "f9",
-        "command": "-sortLines.sortLines",
-        "when": "editorTextFocus"
+      "key": "f9",
+      "command": "-sortLines.sortLines",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+r",
+      "command": "workbench.action.debug.restart",
+      "when": "inDebugMode"
     }
   ]

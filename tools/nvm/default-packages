@@ -1,5 +1,6 @@
 @apache-royale/royale-js
 @apache-royale/royale-js-swf
+@aws-amplify/cli
 babel-cli
 babel-core
 babel-polyfill
@@ -17,6 +18,7 @@ js-beautify
 jshint
 knex
 mocha
+mongo-hacker
 mongodb-dataset-generator
 newman
 node-debug

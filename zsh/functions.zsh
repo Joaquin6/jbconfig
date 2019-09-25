@@ -595,7 +595,6 @@ function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto
 #   -- PERMISSIONS
 #   ---------------------------
 function show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
-function permitme() { pkexec chown $USER:adm $PWD -hR ; }
 function users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
 # Open the node api for your current version to the optional section.
@@ -843,4 +842,12 @@ trash()
         echo "\n\t\tSuccessfully Trashed $1"
     fi
     echo
+}
+
+set-aws-profile()
+{
+	export AWS_PROFILE="$1"
+	export AWS_DEFAULT_PROFILE="$1"
+
+	aws configure --profile "$1"
 }

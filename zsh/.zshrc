@@ -208,11 +208,11 @@ load-nvmrc() {
     if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use --delete-prefix
+      nvm use --delete-prefix default
     fi
   elif [ "$node_version" != "$(nvm version default)" ]; then
     echo "Reverting to nvm default version"
-    nvm use --delete-prefix default --silent
+    nvm use --delete-prefix default
   fi
 
 	handle-add-path $NVM_DIR/versions/node/$node_version/bin
@@ -335,3 +335,28 @@ source $JB_ZSH_BASE/zsh/.zshrc-antigen
 if [[ $OSTYPE == darwin* ]]; then
 	iterm2_prompt_mark
 fi
+
+if which aws &> /dev/null; then
+	compctl -K /usr/local/bin/aws_completer aws
+fi
+
+if which pip &> /dev/null; then
+	# pip zsh completion start
+	function _pip_completion {
+	  local words cword
+	  read -Ac words
+	  read -cn cword
+	  reply=( $( COMP_WORDS="$words[*]" \
+	             COMP_CWORD=$(( cword-1 )) \
+	             PIP_AUTO_COMPLETE=1 $words[1] ) )
+	}
+	compctl -K _pip_completion pip
+	# pip zsh completion end
+fi
+
+### ZCA's installer added snippet ###
+fpath=( "$fpath[@]" "$HOME/.config/zca/zsh-cmd-architect" )
+autoload h-list zca zca-usetty-wrapper zca-widget
+zle -N zca-widget
+bindkey '^T' zca-widget
+### END ###

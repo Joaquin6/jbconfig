@@ -77,6 +77,9 @@ export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 export AWS_CONFIG_FILE=$HOME/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
 export AWS_DEFAULT_PROFILE=$JB_ZSH_AUTHOR
+if type aws &>/dev/null; then
+	export POLICYARN=$(aws iam list-policies --query 'Policies[?PolicyName==`PowerUserAccess`].{ARN:Arn}' --output text)
+fi
 
 export HISTSIZE=10000
 export SAVEHIST=10000

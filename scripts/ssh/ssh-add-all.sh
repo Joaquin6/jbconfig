@@ -9,6 +9,7 @@ declare -a SSH_KEYS=(
 	~/.ssh/codecommit_id_rsa
 	~/.ssh/id_rsa
 	~/.ssh/mac_id_rsa
+  ~/.ssh/vibrant_id_rsa
 )
 
 declare -a IGNORE=(
