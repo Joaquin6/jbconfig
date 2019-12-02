@@ -3,8 +3,7 @@
 -handle-add-path $USER_BIN
 -handle-add-path $HOME/antigen
 -handle-add-path $HOME/.dotnet/tools
-# -handle-add-path $SYS_FRWKS_PATH/Python.framework/Versions/$PYTHON_VERSION/bin
--handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/$PYTHON_VERSION/bin
+-handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
 -handle-add-path $USER_LOCAL_OPT/gettext/bin
 -handle-add-path $USER_LOCAL_OPT/llvm/bin
 -handle-add-path $USER_LOCAL_OPT/apr/bin

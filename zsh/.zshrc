@@ -166,6 +166,14 @@ handle-add-pkgconfigpath()
 command_exists () {
   type "$1" &> /dev/null;
 }
+reset-npm-prefix() {
+  # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
+
+  local node_version=`nvm version`
+
+  npm config delete prefix
+  npm config set prefix $NVM_DIR/versions/node/$node_version
+}
 load-user-specifics() {
 	local incoming_user=$USER
 	local machine_hostname="$(hostname -f)"
@@ -199,21 +207,23 @@ load-user-specifics() {
   fi
 }
 load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+	local node_version=`nvm version`
+	local nvmrc_path=`nvm_find_nvmrc`
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+	if [ -n "$nvmrc_path" ]; then
+		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use --delete-prefix default
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use --delete-prefix default
-  fi
+		if [ "$nvmrc_node_version" = "N/A" ]; then
+		  nvm install
+		elif [ "$nvmrc_node_version" != "$node_version" ]; then
+		  nvm use --delete-prefix default
+		fi
+	elif [ "$node_version" != "$(nvm version default)" ]; then
+		echo "Reverting to nvm default version"
+		nvm use --delete-prefix default
+	fi
+
+	reset-npm-prefix
 
 	handle-add-path $NVM_DIR/versions/node/$node_version/bin
 }
@@ -225,63 +235,60 @@ else
 fi
 
 handle-add-path $HOME/bin
-handle-add-path /usr/local/bin
-handle-add-path $HOME/.cask/bin
-handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
-handle-add-path $HOME/npm/bin
 handle-add-path $USER_BIN
-handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-handle-add-path $USER_LOCAL_OPT/binutils/bin
-handle-add-path $USER_LOCAL_OPT/diffutils/bin
-handle-add-path $USER_LOCAL_OPT/gettext/bin
-handle-add-path $USER_LOCAL_OPT/llvm/bin
-handle-add-path $USER_LOCAL_OPT/apr/bin
-handle-add-path $USER_LOCAL_OPT/m4/bin
-handle-add-path $USER_LOCAL_OPT/file-formula/bin
-handle-add-path $USER_LOCAL_OPT/apr-util/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/sbin
-handle-add-path $USER_LOCAL_OPT/libpq/bin
-handle-add-path $USER_LOCAL_OPT/sqlite/bin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_OPT/libarchive/bin
-handle-add-path $USER_LOCAL_OPT/openssl/bin
-handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
-handle-add-path $USER_LOCAL_OPT/openldap/bin
-handle-add-path $USER_LOCAL_OPT/openldap/sbin
-handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_GO/bin
-handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-handle-add-path $GOPATH/bin
-handle-add-path $USER_LOCAL/bin
-handle-add-path $USER_LOCAL/sbin
+# handle-add-path /usr/local/bin
+handle-add-path $HOME/antigen
+handle-add-path $HOME/npm/bin
+handle-add-path $HOME/.cask/bin
 handle-add-path $HOME/.jenv/bin
 handle-add-path $HOME/.cabal/bin
 handle-add-path $HOME/.ghcup/bin
+handle-add-path $HOME/.dotnet/tools
+# handle-add-path $MONO_PREFIX/bin
+# handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
+handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+# handle-add-path $USER_LOCAL_OPT/binutils/bin
+# handle-add-path $USER_LOCAL_OPT/diffutils/bin
+# handle-add-path $USER_LOCAL_OPT/gettext/bin
+# handle-add-path $USER_LOCAL_OPT/llvm/bin
+# handle-add-path $USER_LOCAL_OPT/apr/bin
+# handle-add-path $USER_LOCAL_OPT/m4/bin
+# handle-add-path $USER_LOCAL_OPT/file-formula/bin
+# handle-add-path $USER_LOCAL_OPT/apr-util/bin
+# handle-add-path $USER_LOCAL_OPT/portable-readline/bin
+# handle-add-path $USER_LOCAL_OPT/icu4c/bin
+# handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+handle-add-path $USER_LOCAL_OPT/libpq/bin
+# handle-add-path $USER_LOCAL_OPT/sqlite/bin
+# handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+# handle-add-path $USER_LOCAL_OPT/libarchive/bin
+# handle-add-path $USER_LOCAL_OPT/openssl/bin
+# handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
+# handle-add-path $USER_LOCAL_OPT/openldap/bin
+# handle-add-path $USER_LOCAL_OPT/openldap/sbin
+# handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
+# handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+# handle-add-path $USER_LOCAL_GO/bin
+# handle-add-path $PERL_LOCAL_LIB_ROOT/bin
+# handle-add-path $GOPATH/bin
+handle-add-path $USER_LOCAL/bin
+handle-add-path $USER_LOCAL/sbin
+handle-add-path $USER_LOCAL_SHARE/dotnet
+handle-add-path $USER_LOCAL_SHARE/dotnet/sdk/NuGetFallbackFolder
+handle-add-path $USER_LOCAL_SHARE/postgresql
+handle-add-path $HOME/.nuget/packages
 
-handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+# handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+# handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+# handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
-if [[ $OSTYPE == darwin* ]]; then
-	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
-	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-fi
-
-if command_exists yarn; then
-	handle-add-path $(yarn global bin)
-else
-	jb-zsh-debug "Yarn is not Installed!"
-fi
-
-handle-add-path /usr/lib/x86_64-linux-gnu
+# handle-add-path /usr/lib/x86_64-linux-gnu
 
 handle-add-infopath $USER_SHARE/info
 handle-add-infopath $USER_LOCAL/share/info
@@ -300,11 +307,11 @@ handle-add-pkgconfigpath openssl
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
-[[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
-[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+# [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
+# [[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
 [[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 
-if which rbenv &> /dev/null; then
+if command_exists rbenv; then
 	if [ -d $HOME/.rbenv ]; then
 		handle-add-path $HOME/.rbenv/bin
 		handle-add-path $HOME/.rbenv/libexec
@@ -317,46 +324,44 @@ if which rbenv &> /dev/null; then
 	eval "$(rbenv init -)"
 fi
 
-if which hub &> /dev/null; then
+if command_exists hub; then
 	eval "$(hub alias -s)"
 fi
 
-if which jenv &> /dev/null; then
+if command_exists jenv; then
 	eval "$(jenv init -)"
 fi
 
+if command_exists compctl; then
+	if command_exists yarn; then
+		handle-add-path $(yarn global bin)
+	else
+		jb-zsh-debug "Yarn is not Installed!"
+	fi
+else
+	jb-zsh-debug "Command 'compctl' is not installed!"
+fi
+
+# source $JB_ZSH_BASE/zsh/plugins/dotnet-install.zsh
 source $JB_ZSH_BASE/zsh/alias/index.zsh
 source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source $SDKMAN_DIR/bin/sdkman-init.sh
-
 if [[ $OSTYPE == darwin* ]]; then
 	iterm2_prompt_mark
+	handle-add-path "/Applications/Visual Studio.app/Contents/MacOS"
+	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
 fi
 
-if which aws &> /dev/null; then
-	compctl -K /usr/local/bin/aws_completer aws
-fi
+# zsh parameter completion for the dotnet CLI
 
-if which pip &> /dev/null; then
-	# pip zsh completion start
-	function _pip_completion {
-	  local words cword
-	  read -Ac words
-	  read -cn cword
-	  reply=( $( COMP_WORDS="$words[*]" \
-	             COMP_CWORD=$(( cword-1 )) \
-	             PIP_AUTO_COMPLETE=1 $words[1] ) )
-	}
-	compctl -K _pip_completion pip
-	# pip zsh completion end
-fi
+_dotnet_zsh_complete() 
+{
+  local completions=("$(dotnet complete "$words")")
 
-### ZCA's installer added snippet ###
-fpath=( "$fpath[@]" "$HOME/.config/zca/zsh-cmd-architect" )
-autoload h-list zca zca-usetty-wrapper zca-widget
-zle -N zca-widget
-bindkey '^T' zca-widget
-### END ###
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
+

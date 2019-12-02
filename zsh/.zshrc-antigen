@@ -31,14 +31,12 @@ antigen bundles <<EOBUNDLES
 	dotenv
 	history
 	history-substring-search
-	kubectl
 	sudo
 	gpg-agent
 	ssh-agent
 	jsontools
 	profiles
 	git
-	git-auto-fetch
 	npx
 	golang
 	yarn
@@ -52,8 +50,7 @@ antigen bundles <<EOBUNDLES
 	cask
 	aws
 	redis-cli
-	pep8
-	nomad
+	rvm
 	docker
 	docker-compose
 	docker-machine
@@ -87,7 +84,6 @@ antigen bundle Joaquin6/git-aliases                     # https://github.com/Joa
 antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
 antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
 antigen bundle Joaquin6/spaceship-prompt
-antigen bundle psprint/zsh-cmd-architect
 
 # Suuply the theme
 antigen theme spaceship

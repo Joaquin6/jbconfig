@@ -156,21 +156,6 @@ function -load-nvmrc() {
   fi
 
 }
-function -load-user-specifics() {
-	local incoming_user=${USER:-"joaquinbriceno"}
-	local machine_hostname="$(hostname -f)"
-
-
-	# Handle git configs
-	if [[ $PWD == *"cattlebruisers"* && $machine_hostname == "ip-192-168-1-26" ]]; then
-		-jb-zsh-debug "[USER DEBUG]: 	Setting \"cattlebruisers\" git configs"
-
-		git config --local --unset user.name
-		git config --local user.name "Joaquin Briceno"
-		git config --local --unset user.email
-		git config --local user.email joaquin.briceno@insitu.com
-	fi
-}
 function -load-syntax-highlighting() {
 	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
 	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
@@ -282,6 +267,9 @@ myip() {
 	ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
 	ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
+terminate(){
+  lsof -P | grep ':$1' | awk '{print $2}' | xargs kill -9 
+}
 #   my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
 my-ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
@@ -365,7 +353,9 @@ fix_space_tabs () { perl -pi -e 's/^  */\t/' "$1"; }
 show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
 permitme() {
 	local PERMITTING_DIR=${1:-$PWD}
-	sudo chown -hR $(whoami) $PERMITTING_DIR && chmod u+w $PERMITTING_DIR ;
+	sudo chown -hR $(whoami) $PERMITTING_DIR;
+	sudo chmod u+w $PERMITTING_DIR;
+	sudo chmod go-w $PERMITTING_DIR;
 }
 users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
@@ -412,39 +402,6 @@ jb-zsh-debug() {
     echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
     echo ${indent}${line} >&2
   done
-}
-
-load-user-specifics() {
-	local incoming_user=$USER
-	local machine_hostname="$(hostname -f)"
-
-  if [ -d $PWD/.git ]; then
-  	# Handle git configs
-  	if [[ $PWD == *"cattlebruisers"* ]]; then
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
-
-  		git config --local --unset user.name
-  		git config --local user.name "Joaquin Briceno"
-  		git config --local --unset user.email
-  		git config --local user.email joaquin.briceno@insitu.com
-  	elif [[ $PWD == *"machine-learning"* ]]; then
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Machine Learning\" git configs"
-
-  		git config --local --unset user.name
-  		git config --local user.name "Joaquin Briceno"
-  		git config --local --unset user.email
-  		git config --local user.email joaquin.briceno@insitu.com
-  	else
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
-
-  		git config --local --unset user.name
-  		git config --global user.name joaquin6
-  		git config --local user.name joaquin6
-  		git config --local --unset user.email
-  		git config --global user.email joaquinbriceno1@gmail.com
-  		git config --local user.email joaquinbriceno1@gmail.com
-  	fi
-  fi
 }
 
 upgradejb-zsh() {
@@ -511,22 +468,6 @@ function iwhois() {
 
 function reload () { exec $SHELL -l ; }
 
-#   nyg: shortcut to globally install pkgs with npm AND yarn
-#   ------------------------------------------------------------
-function nyg () { npm install --global "$1" && yarn global add "$1" ; }
-function nygAll () {
-	while IFS='' read -r line || [[ -n "$line" ]]; do
-	    echo "\tInstalling Globally:\t$line"
-	    nyg $line
-	done < ~/.nvm/default-packages
-}
-
-upgrade-jb-zsh() {
-	emulate -L zsh
-	upgrade_oh_my_zsh
-	eval antigen selfupdate && eval antigen update
-}
-
 function unzip-from-link() {
 	local download_link=$1; shift || return 1
 	local temporary_dir
@@ -546,27 +487,12 @@ function yarn_reinstall_latest () { sudo yarn remove "$1" && sudo yarn add "$1@l
 function yarn_reinstall_latest_exact () { sudo yarn remove "$1" && sudo yarn add "$1@latest" --exact ; }
 function yarn_reinstall_latest_exact_dev () { sudo yarn remove "$1" && sudo yarn add "$1@latest" --exact --dev ; }
 
-#   showa: to remind yourself of an alias (given some part of it)
-#   ------------------------------------------------------------
-function showa () { /usr/bin/grep --color=always -i -a1 "$@" $JB_ZSH_BASE/zsh/alias/*.zsh | grep -v '^\s*$' | less -FSRXc ; }
-
-function dockerKrakenLogin () { cat "$1" | docker login reg-kakarot.chorse.space -u joaquinb --password-stdin }
-
 function encodeBase64 () {
 	local registry_username="$1"
 	local registry_password="$2"
 
 	echo -n "${registry_username}:${registry_password}" | base64
 }
-
-
-#   ---------------------------
-#   4. SEARCHING
-#   ---------------------------
-
-function ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
-function ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-function ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
 #   ---------------------------
 #   5. PROCESS MANAGEMENT
@@ -583,10 +509,6 @@ function find-pid () { lsof -t -c "$@" ; }
 #   ------------------------------------------------------------
 function listening-on-port() { lsof -i "tcp:$1" ; }
 
-#   my-ps: List processes owned by my user:
-#   ------------------------------------------------------------
-function my-ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-
 # Remove workspace auto-switching by running the following command
 function workspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool YES ; }
 function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool NO ; }
@@ -595,19 +517,12 @@ function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto
 #   -- PERMISSIONS
 #   ---------------------------
 function show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
-function users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
 # Open the node api for your current version to the optional section.
 # TODO: Make the section part easier to use.
 function node-docs() {
   local section=${1:-all}
   open_command "https://nodejs.org/docs/$(node --version)/api/$section.html"
-}
-
-function docker-ngrok() {
-	local server=$1
-	local server_port=${2:80}
-  docker run --rm -it --link $server:http wernight/ngrok ngrok http http:$server_port
 }
 
 function my-ip() {
@@ -618,43 +533,8 @@ function my-ip() {
 	ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
 }
 
-#   ii:  display useful host related informaton
-#   -------------------------------------------------------------------
-function ii () {
-	echo -e "\nYou are logged on ${RED}$HOST"
-	echo -e "\nAdditionnal information:$NC " ; uname -a
-	echo -e "\n${RED}Users logged on:$NC " ; w -h
-	echo -e "\n${RED}Current date :$NC " ; date
-	echo -e "\n${RED}Machine stats :$NC " ; uptime
-	echo -e "\n${RED}Current network location :$NC " ; scselect
-	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
-}
-
 add_auth_key () {
   ssh-copy-id $@
-}
-# This is a handy little script I stole from somewhere which determines what type of archive
-# you have (based on file extension) and executes the correct incantation to unarchive it.
-# It doesn't support additional flags, however.
-extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)        tar xjf $1        ;;
-            *.tar.gz)         tar xzf $1        ;;
-            *.bz2)            bunzip2 $1        ;;
-            *.rar)            unrar x $1        ;;
-            *.gz)             gunzip $1         ;;
-            *.tar)            tar xf $1         ;;
-            *.tbz2)           tar xjf $1        ;;
-            *.tgz)            tar xzf $1        ;;
-            *.zip)            unzip $1          ;;
-            *.Z)              uncompress $1     ;;
-            *.7z)             7zr e $1          ;;
-            *)                echo "'$1' cannot be extracted via extract()" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
 }
 
 # dict is a small utility which I used when cheating at IRC games.
@@ -807,15 +687,6 @@ cs_off()  {
   set_gamma 1.0
 }
 
-reset-npm-prefix() {
-  # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
-
-  local node_version="$(nvm version)"
-
-  npm config delete prefix
-  npm config set prefix $NVM_DIR/versions/node/$(node_version)
-}
-
 confirm_existence()
 {
     if [[ -d $1 ]] && [[ -n $1 ]] ; then
@@ -850,4 +721,15 @@ set-aws-profile()
 	export AWS_DEFAULT_PROFILE="$1"
 
 	aws configure --profile "$1"
+}
+
+gi() { curl -sLw "\n" https://www.gitignore.io/api/\$@ ; }
+
+dotnet-refresh()
+{
+	if command_exists dotnet; then
+		dotnet clean $1 && rm -rf ./{*,**}/{obj,bin} && dotnet restore $1 && dotnet build $1
+	else
+		jb-zsh-debug "Command 'dotnet' is not installed!"
+	fi
 }

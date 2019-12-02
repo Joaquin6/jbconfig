@@ -45,17 +45,26 @@ export RBENV_ROOT=$HOME/.rbenv
 export SDKMAN_DIR=$HOME/.sdkman
 export GOPATH=$HOME/projects/go
 export RBENV_DIR=$RBENV_ROOT/bin
-export MONO_GAC_PREFIX=$USER_LOCAL
+export MONO_PREFIX=$OPT_PATH/mono
+export MONO_GAC_PREFIX=/usr/local
+export GNOME_PREFIX=$OPT_PATH/gnome
 export XDG_CONFIG_HOME=$HOME/.config
 export WORKON_HOME=$HOME/.virtualenvs
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
+export XDG_DATA_HOME=$HOME/.local/share
 export JAVA_HOME=$USER_LIBEXEC/java_home
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
+export PKG_CONFIG_PATH="/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig/"
+export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
+export DYLD_FALLBACK_LIBRARY_PATH="/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib"
+export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include
+export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
 export TERM="xterm-256color"
 export ARCHFLAGS="-arch x86_64"
-export LDFLAGS=(-L$USER_LOCAL_OPT/{binutils,diffutils,gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib)
-export CPPFLAGS=(-I$USER_LOCAL_OPT/{binutils,diffutils,gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include)
+export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
 export OOO_FORCE_DESKTOP=gnome
 if type brew &>/dev/null; then
 	export HOMEBREW_PREFIX=$(brew --prefix)
@@ -63,8 +72,8 @@ if type brew &>/dev/null; then
 fi
 
 if [ -d $LINUXBREW_PATH ]; then
-  export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/lib $LDFLAGS)
-  export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{gettext,icu4c,libarchive,openssl,curl-openssl,openldap,readline}/include $CPPFLAGS)
+  export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
+  export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
   export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
 fi
 
@@ -104,8 +113,6 @@ export ADOTDIR=$HOME/antigen
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 
 export COMPLETION_WAITING_DOTS="true"
-export XDG_DATA_DIRS=$USER_LOCAL_SHARE
-
 export ITERM2_SQUELCH_MARK=1
 
 [[ -s $HOME/.ghcup/env ]] && source $HOME/.ghcup/env

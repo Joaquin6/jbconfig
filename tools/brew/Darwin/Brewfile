@@ -67,12 +67,6 @@ brew "xz"
 brew "python"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
-# Programmable completion for Bash 3.2
-brew "bash-completion", link: false
-# Programmable completion for Bash 4.1+
-brew "bash-completion@2"
-# Install pip packages as homebrew formulae
-brew "brew-pip"
 # XML-based font configuration API for X Windows
 brew "fontconfig"
 # Vector graphics library with cross-device output support
@@ -180,8 +174,6 @@ brew "libsass"
 brew "libssh"
 # YAML Parser
 brew "libyaml"
-# GUI for vim, made for macOS
-brew "macvim", link: false
 # Utility for directing compilation
 brew "make"
 brew "m4"
@@ -281,6 +273,8 @@ brew "zsh-syntax-highlighting"
 # Fonts
 # A badass zsh theme with more power than a normal earthling
 brew "sambadevi/powerlevel9k/powerlevel9k"
+brew "omnisharp/omnisharp-roslyn/omnisharp"
+brew "omnisharp/omnisharp-roslyn/omnisharp-mono"
 # cask "font-fira-code"
 cask "homebrew/cask-fonts/font-fira-code"
 cask "homebrew/cask-fonts/font-hack-nerd-font"
@@ -291,7 +285,6 @@ cask "homebrew/cask-fonts/font-source-code-pro"
 # Tool for automated testing of webapps across many browsers
 cask "chromedriver"
 cask "alfred"
-cask "cheatsheet"
 cask "docker-toolbox"
 cask "google-drive-file-stream"
 cask "google-hangouts"
@@ -310,11 +303,10 @@ cask "homebrew/cask-versions/adoptopenjdk8"
 
 # Pragmatic language for the JVM
 brew "gosu"
+brew "libgosu"
 
 mas "BetterSnapTool", id: 417375580
 mas "Desktop Verse", id: 572304633
-mas "Earth 3D", id: 476566660
-mas "GIF Brewery 3", id: 1081413713
 mas "Simplenote", id: 692867256
 mas "Slack", id: 803453959
 mas "Spark", id: 1176895641

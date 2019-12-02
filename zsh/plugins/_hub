@@ -1,5 +1,3 @@
-#compdef hub
-
 # Zsh will source this file when attempting to autoload the "_hub" function,
 # typically on the first attempt to complete the hub command.  We define two new
 # setup helper routines (one for the zsh-distributed version, one for the
