@@ -24,7 +24,7 @@ SHELL_TARGETS := $(addprefix test-,$(SHELLS))
 	# Define the default test suite(s). This can be overridden with `make TEST_SUITE=<...>  <target>`.
 	# Test suites are the names of subfolders of './test'.
 TEST_SUITE := $(shell find ./test/* -type d -prune -exec basename {} \;)
-SHELL=/bin/zsh
+SHELL=/usr/local/bin/zsh
 SYSTEM=$(shell uname -s)
 HOMEBREW_PREFIX=$(shell brew --prefix)
 DIR=${HOME}/jbconfig
@@ -156,17 +156,17 @@ clone:
 	if [ ! -d $(GIT_USER_PATH)/$(REPO) ]; then git clone $(SSHGIT)/$(REPO).git $(GIT_USER_PATH)/$(REPO) $(GIT_FLAGS); fi
 
 clone-nvm:
-	make clone REPO=nvm
+	@$(MAKE) clone REPO=nvm
 	if [ ! -d $(NVM_DIR) ]; then ln -sf $(GIT_USER_PATH)/nvm $(NVM_DIR); fi
 	cd $(NVM_DIR); git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
 
 clone-zsh-url-highlighter:
-	make clone REPO=zsh-url-highlighter
+	@$(MAKE) clone REPO=zsh-url-highlighter
 	mkdir -p $(ZSH)/custom/plugins
 	ln -sf $(GIT_USER_PATH)/zsh-url-highlighter $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
-	make clone REPO=zsh-autosuggestions
+	@$(MAKE) clone REPO=zsh-autosuggestions
 	mkdir -p $(ZSH)/custom/plugins
 	ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
 
@@ -181,7 +181,7 @@ install-cask:
 	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 
 install-direnv:
-	make clone REPO=direnv
+	@$(MAKE) clone REPO=direnv
 	cd $(GIT_USER_PATH)/direnv; sudo make install
 
 install-kubectl-plugins:
@@ -189,64 +189,70 @@ install-kubectl-plugins:
 	sudo mv ./tools/kubectl/plugins/kubectl-* /usr/local/bin
 
 install-nvm:
-	make clone-nvm
+	@$(MAKE) clone-nvm
 	cd $(NVM_DIR); source $(NVM_DIR)/nvm.sh
 
 install-ohmyzsh:
-	make clone REPO=oh-my-zsh
+	@$(MAKE) clone REPO=oh-my-zsh
 	ln -sf $(GIT_USER_PATH)/oh-my-zsh $(ZSH)
 
 install-antigen:
-	make clone REPO=antigen
+	@$(MAKE) clone REPO=antigen
 	ln -sf $(GIT_USER_PATH)/antigen $(ADOTDIR)
 
+update-antigen:
+	cd $(ADOTDIR); git checkout . && git pull origin master && chmod +x $(ADOTDIR)/configure;
+	cd $(ADOTDIR); $(ADOTDIR)/configure --with-debug;
+	cd $(DIR); make refresh
+
 install-powerline:
-	make clone REPO=fonts GIT_FLAGS=--depth=1
+	@$(MAKE) clone REPO=fonts GIT_FLAGS=--depth=1
 	cd $(GIT_USER_PATH)/fonts; ./install.sh
 
 install-powerlevel9k:
-	make clone REPO=powerlevel9k
+	@$(MAKE) clone REPO=powerlevel9k
 	cd $(GIT_USER_PATH)/powerlevel9k; git checkout . && git pull origin master
 	ln -sf $(GIT_USER_PATH)/powerlevel9k $(POWERLEVEL9K_PATH)
 
 install-maximum-awesome:
-	make clone REPO=maximum-awesome
+	@$(MAKE) clone REPO=maximum-awesome
 	cd $(GIT_USER_PATH)/maximum-awesome; git checkout . && git pull origin master && rake
 
 install-spaceship-prompt:
-	make clone REPO=spaceship-prompt
+	@$(MAKE) clone REPO=spaceship-prompt
 	ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt
 	ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme
 
 install-vimrc:
-	make clone REPO=vimrc GIT_FLAGS=--depth=1
+	@$(MAKE) clone REPO=vimrc GIT_FLAGS=--depth=1
 	cd $(GIT_USER_PATH)/vimrc; git checkout . && git pull origin master
 	ln -sf $(GIT_USER_PATH)/vimrc $(VIMRC_RUNTIME)
 	chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 	@exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 
 install-zsh-url-highlighter:
-	make clone-zsh-url-highlighter
+	@$(MAKE) clone-zsh-url-highlighter
 	mkdir -p $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
 	rm -rf $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 	ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
 install-zsh-autosuggestions:
-	make clone-zsh-autosuggestions
+	@$(MAKE) clone-zsh-autosuggestions
 	mkdir -p $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
 	ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(HOME)/antigen/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
 install-rbenv:
 	if [ ! -d $(HOME)/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git $(HOME)/.rbenv; fi
 	$(HOME)/.rbenv/src/configure
-	make -C $(HOME)/.rbenv/src
-	eval $(HOME)/.rbenv/bin/rbenv init -
+	@$(MAKE) -C $(HOME)/.rbenv/src
+	val $(HOME
 	cd $(DIR)
+	ln -sf  benv/bin/rbenv init -
 
 iterm2-shell-integration:
-	curl -L https://iterm2.com/shell_integration/bash -o $(HOME)/.iterm2_shell_integration.bash
-	curl -L https://iterm2.com/shell_integration/zsh -o $(HOME)/.iterm2_shell_integration.zsh
-	source $(HOME)/.iterm2_shell_integration.zsh
+	@curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
+	@curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
+	source ~/.iterm2_shell_integration.zsh
 
 iterm2-profiles:
 	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
@@ -255,8 +261,8 @@ iterm2-profiles:
 
 iterm2-setup:
 	echo 'Running iTerm2 Setup...'
-	make iterm2-shell-integration
-	make iterm2-profiles
+	@$(MAKE) iterm2-shell-integration
+	@$(MAKE) iterm2-profiles
 
 install-brew:
 	@exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
@@ -272,20 +278,20 @@ update:
 	@echo
 	@echo '	Running Update...'
 	@echo
-	make prepare-project-directories
-	if [[ $(SYSTEM) == *'Darwin'* ]]; then make iterm2-setup; fi
-	make install-brew
-	make install-nvm
-	make install-vimrc
-	make install-ohmyzsh
-	make install-antigen
-	make install-powerline
-	make install-powerlevel9k
-	if [[ $(SYSTEM) == *'Darwin'* ]]; then make install-maximum-awesome; fi
-	make install-spaceship-prompt
-	make install-zsh-url-highlighter
-	make install-zsh-autosuggestions
-	make symlinks
+	@$(MAKE) prepare-project-directories
+	if [[ $(SYSTEM) == *'Darwin'* ]]; then @$(MAKE) iterm2-setup; fi
+	if [[ $(SYSTEM) == *'Darwin'* ]]; then @$(MAKE) install-brew; fi
+	@$(MAKE) install-nvm
+	@$(MAKE) install-vimrc
+	@$(MAKE) install-ohmyzsh
+	@$(MAKE) install-antigen
+	@$(MAKE) install-powerline
+	@$(MAKE) install-powerlevel9k
+	if [[ $(SYSTEM) == *'Darwin'* ]]; then @$(MAKE) install-maximum-awesome; fi
+	@$(MAKE) install-spaceship-prompt
+	@$(MAKE) install-zsh-url-highlighter
+	@$(MAKE) install-zsh-autosuggestions
+	@$(MAKE) symlinks
 	@echo
 	@echo '	Updated succesfully!...'
 	@echo
@@ -300,12 +306,12 @@ yarn:
 	sudo tar zvxf latest.tar.gz
 
 refresh:
-	source $(ADOTDIR)/antigen.zsh
-	antigen selfupdate \
+	chmod +x $(ADOTDIR)/antigen.zsh && source $(ADOTDIR)/antigen.zsh;
+	@exec $(shell which antigen) selfupdate \
 		&& antigen update \
 		&& antigen cleanup \
-		&& antigen reset \
-		&& exec $(SHELL) -l
+		&& antigen reset;
+	@$(MAKE) reload
 
 ssh-keys:
 	chmod +x $(DIR)/scripts/ssh/*.sh
@@ -330,3 +336,6 @@ redis:
 
 haskell:
 	curl https://get-ghcup.haskell.org -sSf | sh
+
+reload:
+	@exec $(SHELL) -l
