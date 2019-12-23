@@ -39,8 +39,7 @@
 # 	3: everything
 # 		sets xtrace option (set -x) while sourcing env files
 
-jb-zsh-debug()
-{
+jb-zsh-debug() {
   local level=${2:-1}
   if (( JB_ZSH_DEBUG < level )); then
     return
@@ -60,14 +59,13 @@ jb-zsh-debug()
   fi
 
   # Split $msg by \n (not newline).
-  lines=(${(ps:\\n:)msg})
-  for line in $lines; do
+  local lines=(${(ps:\\n:)msg})
+  for line in "$lines"; do
     echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
     echo ${indent}${line} >&2
   done
 }
-handle-add-path()
-{
+handle-add-path() {
 	local incoming_path="$1"
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
@@ -90,8 +88,7 @@ handle-add-path()
 		jb-zsh-debug "[PATH DEBUG]: 	$incoming_path doesn't exist. Not adding to PATH" 2
 	fi
 }
-handle-add-manpath()
-{
+handle-add-manpath() {
 	local incoming_path="$1"
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
@@ -113,8 +110,7 @@ handle-add-manpath()
 		jb-zsh-debug "[MANPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to MANPATH" 2
 	fi
 }
-handle-add-infopath()
-{
+handle-add-infopath() {
 	local incoming_path="$1"
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
@@ -136,8 +132,7 @@ handle-add-infopath()
 		jb-zsh-debug "[INFOPATH DEBUG]: 	$incoming_path doesn't exist. Not adding to INFOPATH" 2
 	fi
 }
-handle-add-pkgconfigpath()
-{
+handle-add-pkgconfigpath() {
 	local incoming_path=/usr/local/opt/$1/lib/pkgconfig
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
@@ -207,36 +202,95 @@ load-user-specifics() {
   fi
 }
 load-nvmrc() {
-	local node_version=`nvm version`
-	local nvmrc_path=`nvm_find_nvmrc`
+	if which nvm &> /dev/null; then
+		local node_version="$(nvm version)"
+    	local nvmrc_path="$(nvm_find_nvmrc)"
 
-	if [ -n "$nvmrc_path" ]; then
-		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+		if [ -n "$nvmrc_path" ]; then
+			local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-		if [ "$nvmrc_node_version" = "N/A" ]; then
-		  nvm install
-		elif [ "$nvmrc_node_version" != "$node_version" ]; then
-		  nvm use --delete-prefix default
+			if [ "$nvmrc_node_version" = "N/A" ]; then
+				nvm install
+			elif [ "$nvmrc_node_version" != "$node_version" ]; then
+				nvm use --delete-prefix default
+			fi
+		elif [ "$node_version" != "$(nvm version default)" ]; then
+			echo "Reverting to nvm default version"
+			nvm use --delete-prefix default
 		fi
-	elif [ "$node_version" != "$(nvm version default)" ]; then
-		echo "Reverting to nvm default version"
-		nvm use --delete-prefix default
+
+		reset-npm-prefix
+
+		handle-add-path $NVM_DIR/versions/node/$node_version/bin
+	else
+    	jb-zsh-debug "[LOAD NVMRC DEBUG]: 	Can not find nvm command."
+  	fi
+}
+load-syntax-highlighting() {
+	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
+	local highlighter_repo=git@github.com:zsh-users/zsh-syntax-highlighting.git
+
+	if [ ! -d $plugins/zsh-syntax-highlighting ]; then
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	creating $plugins/zsh-syntax-highlighting"
+		mkdir -p $plugins/zsh-syntax-highlighting
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$plugins/zsh-syntax-highlighting created."
+
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-syntax-highlighting" 2
+		git clone $highlighter_repo $plugins/zsh-syntax-highlighting
+		jb-zsh-debug "[LOAD SYNTAX HIGHLIGHTING DEBUG]: 	$highlighter_repo was cloned successfully" 2
+	fi
+}
+load-url-highlighter() {
+	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+	local syntax_highlighting=${ANTIGEN_BUNDLES:-~/.antigen/bundles}/zsh-users/zsh-syntax-highlighting
+	local highlighter_repo=git@github.com:ascii-soup/zsh-url-highlighter.git
+
+	if [ ! -d $plugins/zsh-url-highlighter ]; then
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	creating $plugins/zsh-url-highlighter"
+		mkdir -p $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter created."
+
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	cloning $highlighter_repo into $plugins/zsh-url-highlighter" 2
+		git clone $highlighter_repo $plugins/zsh-url-highlighter
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
 	fi
 
-	reset-npm-prefix
+  if [ ! -L $syntax_highlighting/highlighters/url ]; then
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+  fi
+}
+load-mgdm-theme() {
+	local themes=$JB_ZSH_BASE/zsh/themes
+	local mgdm_theme=$themes/mgdm.zsh-theme
+	local destination=$ZSH_CUSTOM/themes
 
-	handle-add-path $NVM_DIR/versions/node/$node_version/bin
+	if [ ! -d $destination ]; then
+		jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	creating $destination" 2
+		mkdir -p $destination
+		jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	$destination created." 2
+	fi
+
+	if [ ! -f $destination/mgdm.zsh-theme ]; then
+		jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copying $mgdm_theme to $destination/mgdm.zsh-theme" 2
+		cp $mgdm_theme $destination/mgdm.zsh-theme
+		jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copied $mgdm_theme to $destination/mgdm.zsh-theme successfully" 2
+	fi
 }
 
 if command_exists python; then
-  export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+elif command_exists python3; then
+	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
 else
-  echo "Python has not been installed!"
+	echo "Python has not been installed!"
 fi
 
 handle-add-path $HOME/bin
 handle-add-path $USER_BIN
-# handle-add-path /usr/local/bin
+handle-add-path $USER_LOCAL_BIN
 handle-add-path $HOME/antigen
 handle-add-path $HOME/npm/bin
 handle-add-path $HOME/.cask/bin
@@ -307,8 +361,8 @@ handle-add-pkgconfigpath openssl
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
-# [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
-# [[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+[[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
+[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
 [[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 
 if command_exists rbenv; then
@@ -356,7 +410,7 @@ fi
 
 # zsh parameter completion for the dotnet CLI
 
-_dotnet_zsh_complete() 
+_dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
 

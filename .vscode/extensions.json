@@ -8,6 +8,7 @@
     "sharat.vscode-brewfile",
     "beauallison.brew-services",
     "technosophos.vscode-make",
-    "bmuskalla.vscode-tldr"
+    "bmuskalla.vscode-tldr",
+    "rogalmic.zsh-debug"
   ]
 }

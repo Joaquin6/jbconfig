@@ -14,15 +14,16 @@
   "files.associations": {
     "*.log.*": "log",
     "*.code-workspace": "json",
+    "*.zsh": "shellscript",
     ".bash*": "bat",
     ".eslintrc.js": "javascript",
     ".gpmrc": "json",
     ".nycrc": "json",
-    ".zshrc": "shellscript",
     ".zsh_aliases": "shellscript",
     ".zsh_functions": "shellscript",
     "gitto*": "javascript",
     "zshrc": "shellscript",
+    ".zshrc": "shellscript",
     "zsh_aliases": "shellscript",
     "zsh_functions": "shellscript",
     "merge-simplecov": "ruby",
@@ -33,5 +34,6 @@
     ".auditorrc": "json",
     "*.phpi1": "php",
     ".prettierrc": "json"
-  }
+  },
+  "bashBeautify.tabSize": 4
 }
