@@ -20,11 +20,12 @@
     ".gpmrc": "json",
     ".nycrc": "json",
     ".zsh_aliases": "shellscript",
+    ".zaliases": "shellscript",
     ".zsh_functions": "shellscript",
     "gitto*": "javascript",
     "zshrc": "shellscript",
     ".zshrc": "shellscript",
-    "zsh_aliases": "shellscript",
+    ".zshrc-antigen": "shellscript",
     "zsh_functions": "shellscript",
     "merge-simplecov": "ruby",
     "snykscan": "shellscript",
@@ -33,7 +34,8 @@
     ".sgcrc": "json",
     ".auditorrc": "json",
     "*.phpi1": "php",
-    ".prettierrc": "json"
+    ".prettierrc": "json",
+    "Makefile.in": "makefile"
   },
   "bashBeautify.tabSize": 4
 }

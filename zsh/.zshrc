@@ -212,10 +212,12 @@ load-nvmrc() {
 			if [ "$nvmrc_node_version" = "N/A" ]; then
 				nvm install
 			elif [ "$nvmrc_node_version" != "$node_version" ]; then
+				nvm install default
 				nvm use --delete-prefix default
 			fi
 		elif [ "$node_version" != "$(nvm version default)" ]; then
 			echo "Reverting to nvm default version"
+			nvm install default
 			nvm use --delete-prefix default
 		fi
 
@@ -291,13 +293,12 @@ fi
 handle-add-path $HOME/bin
 handle-add-path $USER_BIN
 handle-add-path $USER_LOCAL_BIN
-handle-add-path $HOME/antigen
-handle-add-path $HOME/npm/bin
 handle-add-path $HOME/.cask/bin
 handle-add-path $HOME/.jenv/bin
 handle-add-path $HOME/.cabal/bin
 handle-add-path $HOME/.ghcup/bin
 handle-add-path $HOME/.dotnet/tools
+handle-add-path $HOME/npm/bin
 # handle-add-path $MONO_PREFIX/bin
 # handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
@@ -337,6 +338,14 @@ handle-add-path $USER_LOCAL_SHARE/dotnet
 handle-add-path $USER_LOCAL_SHARE/dotnet/sdk/NuGetFallbackFolder
 handle-add-path $USER_LOCAL_SHARE/postgresql
 handle-add-path $HOME/.nuget/packages
+
+if [[ $OSTYPE == linux* ]]; then
+	handle-add-path $HOME/.linuxbrew/bin
+	handle-add-path $HOME/.linuxbrew/Homebrew/bin
+fi
+
+handle-add-path $ADOTDIR
+handle-add-path $ANTIGEN_USER_PATH
 
 # handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
 # handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
@@ -406,16 +415,13 @@ if [[ $OSTYPE == darwin* ]]; then
 	handle-add-path "/Applications/Visual Studio.app/Contents/MacOS"
 	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
+
+	# zsh parameter completion for the dotnet CLI
+	_dotnet_zsh_complete()
+	{
+		local completions=("$(dotnet complete "$words")")
+		reply=( "${(ps:\n:)completions}" )
+	}
+
+	compctl -K _dotnet_zsh_complete dotnet
 fi
-
-# zsh parameter completion for the dotnet CLI
-
-_dotnet_zsh_complete()
-{
-  local completions=("$(dotnet complete "$words")")
-
-  reply=( "${(ps:\n:)completions}" )
-}
-
-compctl -K _dotnet_zsh_complete dotnet
-

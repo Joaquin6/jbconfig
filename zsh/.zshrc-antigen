@@ -4,9 +4,6 @@ export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="powerlevel9k/powerlevel9k"
 export ZSH_CUSTOM=$ZSH/custom
 export ANTIGEN_BUNDLES=$ADOTDIR/bundles
-
-handle-add-path $ADOTDIR
-
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
@@ -18,11 +15,12 @@ export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
-source $ADOTDIR/antigen.zsh
-source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+[[ -s $ADOTDIR/antigen.zsh ]] && . $ADOTDIR/antigen.zsh
+[[ -s $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme ]] && . $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
 
 COMPLETION_WAITING_DOTS="true"
 
+if command_exists antigen; then
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
@@ -89,6 +87,9 @@ antigen bundle Joaquin6/spaceship-prompt
 antigen theme spaceship
 # Tell antigen that you're done.
 antigen apply
+else
+	jb-zsh-debug "Command 'antigen' is not installed!"
+fi
 
 source $JB_ZSH_BASE/zsh/.zaliases
 source $JB_ZSH_BASE/zsh/functions.zsh

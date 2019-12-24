@@ -38,7 +38,14 @@ export LINUXBREW_LOCAL_OPT=$LINUXBREW_PATH/opt
 export LINUXBREW_LOCAL_MAN=$LINUXBREW_PATH/man
 export LINUXBREW_LOCAL_SHARE=$LINUXBREW_PATH/share
 
-export RBENV_SHELL=zsh
+export PROJECTS=$HOME/projects
+export GITHUBPATH=$PROJECTS/github.com
+export GIT_USERNAME=Joaquin6
+export GIT_USER_PATH=$GITHUBPATH/$GIT_USERNAME
+export ANTIGEN_USER_PATH=$GIT_USER_PATH/antigen
+
+export SHELL=/bin/zsh
+export RBENV_SHELL=$SHELL
 export NVM_DIR=$HOME/.nvm
 export MANPATH=$USER_LOCAL_MAN
 export RBENV_ROOT=$HOME/.rbenv
@@ -68,7 +75,11 @@ export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchi
 export OOO_FORCE_DESKTOP=gnome
 if type brew &>/dev/null; then
 	export HOMEBREW_PREFIX=$(brew --prefix)
-	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
+  if [[ $OSTYPE == darwin* ]]; then
+	  export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
+  else
+    export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
+  fi
 fi
 
 if [ -d $LINUXBREW_PATH ]; then
@@ -109,9 +120,11 @@ export CYAN='\[\033[1;36m\]'
 export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
 
-export ADOTDIR=$HOME/antigen
-export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
+if [ -d $HOME/.antigen ]; then
+  export ADOTDIR=$HOME/.antigen
+fi
 
+export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
 export COMPLETION_WAITING_DOTS="true"
 export ITERM2_SQUELCH_MARK=1
 
