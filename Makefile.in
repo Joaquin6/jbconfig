@@ -277,10 +277,10 @@ endif
 	if [ ! -d $(HOMEBREW_HOME_PATH) ]; then git clone https://github.com/Homebrew/brew $(HOMEBREW_HOME_PATH); fi
 	mkdir -p $(HOMEBREW_BIN_PATH)
 	ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)/brew
-	eval $($(BREWCMD) shellenv)
+	$(shell which brew) shellenv
 	$(MAKE) reload
 	cd $(DIR)
-	@$(BREW) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
+	$(BREW) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
 
 brew-check:
 	@$(BREW) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose
