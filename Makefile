@@ -7,247 +7,259 @@ WITH_DEBUG=yes
 WITH_EXTENSIONS=yes
 WITH_COMPLETION=yes
 ######################################################################
-SHELL=/usr/bin/zsh
-URCHIN := urchin
-PREFIX ?= /usr/local
-LDFLAGS ?= $(libgl) -lpng -lz -lm
-
-# Since we rely on paths relative to the makefile location, abort if make isn't being run from there.
+DIR=$(PWD)
+# Since we rely on paths relative to the makefile location, abort if@$(MAKE) isn't being run from there.
 $(if $(findstring /,$(MAKEFILE_LIST)),$(error Please only invoke this makefile from the directory it resides in))
-	# Note: With Travis CI:
-	#  - the path to urchin is passed via the command line.
-	#  - the other utilities are NOT needed, so we skip the test for their existence.
-ifeq ($(findstring /,$(URCHIN)),) # urchin path was NOT passed in.
-		# Add the local npm packages' bin folder to the PATH, so that `make` can find them, when invoked directly.
-		# Note that rather than using `$(npm bin)` the 'node_modules/.bin' path component is hard-coded, so that invocation works even from an environment
-		# where npm is (temporarily) unavailable due to having deactivated an nvm instance loaded into the calling shell in order to avoid interference with tests.
-	export PATH := $(shell printf '%s' "$$PWD/node_modules/.bin:$$PATH")
-		# The list of all supporting utilities, installed with `npm install`.
-	UTILS := $(URCHIN) replace semver
-		# Make sure that all required utilities can be located.
-	UTIL_CHECK := $(or $(shell PATH="$(PATH)" which $(UTILS) >/dev/null && echo 'ok'),$(error Did you forget to run `npm install` after cloning the repo? At least one of the required supporting utilities not found: $(UTILS)))
-endif
+# The files that need updating when incrementing the version number.
+VERSIONED_FILES 	:= README.md package.json
+# Define all shells to test with. Can be overridden with @$(MAKE) SHELLS=... <target>`.
+SHELLS := sh bash dash zsh # ksh (#574)
+# Generate 'test-<shell>' target names from specified shells.
+# The embedded shell names are extracted on demand inside the recipes.
+SHELL_TARGETS 	:= $(addprefix /bin/,$(SHELLS))
+SHELL     		= /bin/zsh
+PREFIX    		?= /usr/local
+CRAM_OPTS 		?= -v
+IS_MAC_OS 		= false
+SYSTEM 			= $(shell uname -s)
+USER 			= $(shell whoami)
+LDFLAGS 		= $(libgl) -lpng -lz -lm
 
-SYSTEM =? $(shell uname -s)
-HOMEBREW_PREFIX =? $(shell brew --prefix)
+COM_COLOR   = \033[0;34m
+OBJ_COLOR   = \033[0;36m
+OK_COLOR    = \033[0;32m
+ERROR_COLOR = \033[0;31m
+WARN_COLOR  = \033[0;33m
+NO_COLOR    = \033[m
 
-HOMEBREW_LINUX=/home/linuxbrew
-HOMEBREW_PATH=$(HOMEBREW_LINUX)/.linuxbrew
-HOMEBREW_BIN_PATH=$(HOMEBREW_LINUX)/.linuxbrew/bin
-HOMEBREW_HOME_PATH=$(HOMEBREW_LINUX)/.linuxbrew/Homebrew
-HOMEBREW_PATHS=$(HOMEBREW_HOME_PATH)/etc $(HOMEBREW_HOME_PATH)/include $(HOMEBREW_HOME_PATH)/lib $(HOMEBREW_HOME_PATH)/opt $(HOMEBREW_HOME_PATH)/sbin $(HOMEBREW_HOME_PATH)/share $(HOMEBREW_HOME_PATH)/var $(HOMEBREW_HOME_PATH)/var/homebrew/linked $(HOMEBREW_HOME_PATH)/Cellar;
+OK_STRING    = "[OK]"
+ERROR_STRING = "[ERROR]"
+WARN_STRING  = "[WARNING]"
 
-DIR=$(HOME)/jbconfig
-PROJECTS=$(HOME)/projects
-GOPATH=$(PROJECTS)/go
-GIT_USERNAME=Joaquin6
-GITHUBGOPATH=$(GOPATH)/src/github.com
-BITBUCKETPATH=$(PROJECTS)/bitbucket.org
-GITHUBPATH=$(PROJECTS)/github.com
-GITLABPATH=$(PROJECTS)/gitlab.com
-GIT_USER_PATH=$(GITHUBPATH)/$(GIT_USERNAME)
+GIT_USERNAME 		=Joaquin6
+GITSSH 				=git@github.com:$(GIT_USERNAME)
+GITHTTPS 			=https://github.com/$(GIT_USERNAME)
 
-SSHGIT=git@github.com:$(GIT_USERNAME)
-HTTPSGIT=https://github.com/$(GIT_USERNAME)
+PROJECT   			?= $(CURDIR)
+NVM_DIR 			= ~/.nvm
+RBENV_ROOT 			:= ~/.rbenv
+ADOTDIR 			= ~/.antigen
+ZSH 				= ~/.oh-my-zsh
+VIMRC_RUNTIME 		= ~/.vim_runtime
+FONT_PATH 			= ~/.local/share/fonts
+PROJECTS_PATH 		= ~/projects
+POWERLEVEL9K_PATH 	= ~/powerlevel9k
+USER_LOCAL 			= $(PREFIX)
+USER_LOCAL_SHARE 	= $(USER_LOCAL)/share
+JBCONFIG_ZSH_PATH 	= $(DIR)/zsh
 
-ITERM_SUPPORT=$(HOME)/Library/Application\ Support/iTerm2
-ITERM_SCRIPTS=$(ITERM_SUPPORT)/scripts
-ITERM_DYNAMIC_PROFILES=$(ITERM_SUPPORT)/DynamicProfiles
+GOPATH 						=$(PROJECTS_PATH)/go
+GITHUBPATH 					=$(PROJECTS_PATH)/github.com
+GITLABPATH 					=$(PROJECTS_PATH)/gitlab.com
+GITHUBGOPATH 				=$(GOPATH)/src/github.com
+BITBUCKETPATH 				=$(PROJECTS_PATH)/bitbucket.org
+GIT_USER_PATH 				=$(GITHUBPATH)/$(GIT_USERNAME)
+DIRENV_USER_PATH 			=$(GIT_USER_PATH)/direnv
+OMZ_USER_PATH 				=$(GIT_USER_PATH)/oh-my-zsh
+ANTIGEN_USER_PATH 			=$(GIT_USER_PATH)/antigen
+POWERLINE_USER_PATH 		=$(GIT_USER_PATH)/powerline
+POWERLEVEL9K_USER_PATH 		=$(GIT_USER_PATH)/powerlevel9k
+VIMRC_USER_PATH 			=$(GIT_USER_PATH)/vimrc
+MAXIMUM_AWESOME_USER_PATH 	=$(GIT_USER_PATH)/maximum-awesome
 
-NVM_DIR=$(HOME)/.nvm
-DIRENV_USER_PATH=$(GIT_USER_PATH)/direnv
-OMZ_USER_PATH=$(GIT_USER_PATH)/oh-my-zsh
-ZSH=$(HOME)/.oh-my-zsh
-ADOTDIR=$(HOME)/.antigen
-ANTIGEN_USER_PATH=$(GIT_USER_PATH)/antigen
-POWERLINE_USER_PATH=$(GIT_USER_PATH)/powerline
-POWERLEVEL9K_PATH=$(HOME)/powerlevel9k
-POWERLEVEL9K_USER_PATH=$(GIT_USER_PATH)/powerlevel9k
-VIMRC_USER_PATH=$(GIT_USER_PATH)/vimrc
-VIMRC_RUNTIME=$(HOME)/.vim_runtime
-MAXIMUM_AWESOME_USER_PATH=$(GIT_USER_PATH)/maximum-awesome
-FONT_DROID_SANS_MONO="Droid Sans Mono for Powerline Nerd Font Complete.otf"
+PROJECT_SUBPATHS =$(GITHUBPATH) $(GITLABPATH) $(BITBUCKETPATH) $(GITHUBGOPATH)
 
-USER_LOCAL=/usr/local
-USER_LOCAL_SHARE=$(USER_LOCAL)/share
 IS_MAC_OS=false
 libgl=-lGL -lglut
-FONT_PATH=$(HOME)/.local/share/fonts
+FONT_DROID_SANS_MONO="Droid Sans Mono for Powerline Nerd Font Complete.otf"
+BREWCMD=$(shell which brew)
+ANTIGENCMD=$(shell which antigen)
+
+HOMEBREW_VISUAL		:= vim
+HOMEBREW_PREFIX		= $(shell brew --prefix)
+HOMEBREW_PATH 		= $(HOMEBREW_PREFIX)
+HOMEBREW_BIN_PATH 	= $(HOMEBREW_PATH)/bin
+HOMEBREW_HOME_PATH 	= $(HOMEBREW_PATH)/Homebrew
+ifeq ($(SYSTEM), Linux)
+	HOMEBREW_LINUX 		=/home/linuxbrew
+	HOMEBREW_PATH 		=$(HOMEBREW_LINUX)/.linuxbrew
+	HOMEBREW_BIN_PATH 	=$(HOMEBREW_LINUX)/.linuxbrew/bin
+	HOMEBREW_HOME_PATH 	=$(HOMEBREW_LINUX)/.linuxbrew/Homebrew
+endif
+HOMEBREW_PATHS = $(HOMEBREW_HOME_PATH)/etc $(HOMEBREW_HOME_PATH)/include \
+	$(HOMEBREW_HOME_PATH)/lib $(HOMEBREW_HOME_PATH)/opt $(HOMEBREW_HOME_PATH)/sbin \
+	$(HOMEBREW_HOME_PATH)/share $(HOMEBREW_HOME_PATH)/var \
+	$(HOMEBREW_HOME_PATH)/var/homebrew/linked $(HOMEBREW_HOME_PATH)/Cellar
 
 ifeq ($(SYSTEM), Darwin)
 	IS_MAC_OS=true
-	FONT_PATH=$(HOME)/Library/Fonts
+	FONT_PATH=~/Library/Fonts
 	libgl=-framework OpenGL -framework GLUT
+	ITERM_SUPPORT=~/Library/Application\ Support/iTerm2
+	ITERM_SCRIPTS=$(ITERM_SUPPORT)/scripts
+	ITERM_DYNAMIC_PROFILES=$(ITERM_SUPPORT)/DynamicProfiles
 endif
-
-BREWCMD=$(shell which brew)
-ANTIGENCMD=$(shell which antigen)
 
 # Lists all targets defined in this makefile.
 .PHONY: list
 list:
 	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
 
-.PHONY: _ensure-tag
-_ensure-tag:
-ifndef TAG
-	$(error Please invoke with `make TAG=<new-version> release`, where <new-version> is either an increment specifier (patch, minor, major, prepatch, preminor, premajor, prerelease), or an explicit major.minor.patch version number)
-endif
-
-# Ensures there are version tags in repository
-.PHONY: _ensure-current-version
-
-_ensure-current-version:
-ifeq ($(shell git tag),$(printf ''))
-	@git fetch --tags
-endif
-
-# Ensures that the git workspace is clean.
-.PHONY: _ensure-clean
-_ensure-clean:
-	@[ -z "$$(git status --porcelain --untracked-files=no || echo err)" ] || { echo "Workspace is not clean; please commit changes first." >&2; exit 2; }
-
-default: update
+default: list
 
 show-env:
-	@echo $(SYSTEM)
+	@echo $(ENV_VARS)
+
+show-system-env:
+	@$(MAKE) show-env ENV_VARS=$(SYSTEM)
+
+show-user-env:
+	@$(MAKE) show-env ENV_VARS=$(USER)
+
+rmrf:
+	[ -s $(SRC) ] && rm -rf $(SRC)
 
 symlinks:
-	@ln -sf $(DIR)/zsh/.zlogin $(HOME)/.zlogin
-	@ln -sf $(DIR)/zsh/.zlogout $(HOME)/.zlogout
-	@ln -sf $(DIR)/zsh/.zprofile $(HOME)/.zprofile
-	@ln -sf $(DIR)/zsh/alias/index.zsh $(HOME)/.zaliases
-	@ln -sf $(DIR)/zsh/functions.zsh $(HOME)/.zfunctions
-	@ln -sf $(DIR)/zsh/.zshenv $(HOME)/.zshenv
-	@ln -sf $(DIR)/zsh/.zshrc $(HOME)/.zshrc
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogin ~/.zlogin
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogout ~/.zlogout
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zprofile ~/.zprofile
+	@ln -sf $(JBCONFIG_ZSH_PATH)/alias/index.zsh ~/.zaliases
+	@ln -sf $(JBCONFIG_ZSH_PATH)/functions.zsh ~/.zfunctions
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshenv ~/.zshenv
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshrc ~/.zshrc
 
-prepare-project-directories:
-	@mkdir -p $(GITHUBPATH)
-	@mkdir -p $(GITLABPATH)
-	@mkdir -p $(BITBUCKETPATH)
-	@mkdir -p $(GITHUBGOPATH)
+prepare-project-directories: $(PROJECT_SUBPATHS)
+	@mkdir -p $(PROJECT_SUBPATHS)
 
 clone:
 	mkdir -p $(GIT_USER_PATH);
-	if [ ! -d $(GIT_USER_PATH)/$(REPOSITORY) ]; then git clone $(SSHGIT)/$(REPOSITORY).git $(GIT_USER_PATH)/$(REPOSITORY) $(GIT_FLAGS); fi
+	if [ ! -d $(GIT_USER_PATH)/$(REPOSITORY) ]; then git clone --single-branch --branch $(BRANCH) $(GITSSH)/$(REPOSITORY).git $(GIT_USER_PATH)/$(REPOSITORY) $(GIT_FLAGS); fi
 
 clone-nvm:
-	$(MAKE) clone REPOSITORY=nvm
+	$(MAKE) clone REPOSITORY=nvm BRANCH=master
 	if [ ! -d $(NVM_DIR) ]; then ln -sf $(GIT_USER_PATH)/nvm $(NVM_DIR); fi
 	cd $(NVM_DIR); git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
 
 clone-zsh-url-highlighter:
-	@$(MAKE) clone REPOSITORY=zsh-url-highlighter
-	mkdir -p $(ZSH)/custom/plugins
-	ln -sf $(GIT_USER_PATH)/zsh-url-highlighter $(ZSH)/custom/plugins/zsh-url-highlighter
+	@$(MAKE) clone REPOSITORY=zsh-url-highlighter BRANCH=master
+	@mkdir -p $(ZSH)/custom/plugins
+	@ln -sf $(GIT_USER_PATH)/zsh-url-highlighter $(ZSH)/custom/plugins/zsh-url-highlighter
 
 clone-zsh-autosuggestions:
-	@$(MAKE) clone REPOSITORY=zsh-autosuggestions
-	mkdir -p $(ZSH)/custom/plugins
-	ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
+	@$(MAKE) clone REPOSITORY=zsh-autosuggestions BRANCH=master
+	@mkdir -p $(ZSH)/custom/plugins
+	@ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
 
-install-mongo:
-	curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz
-	curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz.sig
-	curl -LO https://www.mongodb.org/static/pgp/server-3.4.asc
-	gpg --import server-3.4.asc
-	gpg --verify mongodb-osx-ssl-x86_64-3.4.9.tgz.sig mongodb-osx-ssl-x86_64-3.4.9.tgz
+mongo:
+	@curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz
+	@curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz.sig
+	@curl -LO https://www.mongodb.org/static/pgp/server-3.4.asc
+	@gpg --import server-3.4.asc
+	@gpg --verify mongodb-osx-ssl-x86_64-3.4.9.tgz.sig mongodb-osx-ssl-x86_64-3.4.9.tgz
 
-install-cask:
-	if [[ $(SYSTEM) == *'Linux'* ]]; then sudo apt-get install emacs; fi
+cask:
+	@echo '	Installing Cask...'
+ifeq (${SYSTEM}, Linux)
+	sudo apt-get install emacs
+endif
 	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python3
 
-install-direnv:
-	@$(MAKE) clone REPOSITORY=direnv
-	cd $(GIT_USER_PATH)/direnv; sudo make install
+direnv:
+	@echo '	Installing DirENV...'
+	$(MAKE) clone REPOSITORY=direnv BRANCH=master
+	pushd $(GIT_USER_PATH)/direnv; sudo make install; popd
 
 install-kubectl-plugins:
+	@echo '	Installing KubeCtl Plugins...'
 	sudo chmod +x ./tools/kubectl/plugins/kubectl-*
 	sudo mv ./tools/kubectl/plugins/kubectl-* /usr/local/bin
 
-install-nvm:
+nvm:
+	@echo '	Installing NVM...'
 	$(MAKE) clone-nvm
 	chmod +x $(NVM_DIR)/nvm.sh
 	source $(NVM_DIR)/nvm.sh
 
-install-ohmyzsh:
+ohmyzsh:
 	@echo '	Installing Oh-My-Zsh...'
-	@$(MAKE) clone REPOSITORY=oh-my-zsh
+	@$(MAKE) clone REPOSITORY=oh-my-zsh BRANCH=master
 	ln -sf $(GIT_USER_PATH)/oh-my-zsh $(ZSH)
 
-install-antigen:
-	@$(MAKE) clone REPOSITORY=antigen
-	ln -sf $(ANTIGEN_USER_PATH) $(ADOTDIR)
+antigen:
+	@echo '	Installing Antigen...'
+	@$(MAKE) clone REPOSITORY=antigen BRANCH=develop
+	@ln -fs $(ANTIGEN_USER_PATH) $(ADOTDIR)
 
-fix-homebrew-paths:
-	sudo mkdir -p $(HOMEBREW_HOME_PATH)/etc \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/include \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/lib \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/opt \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/sbin \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/share \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/var \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/var/homebrew/linked \
-		&& sudo mkdir -p $(HOMEBREW_HOME_PATH)/Cellar;
-	sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/etc \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/include \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/lib \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/opt \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/sbin \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/share \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/var \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/var/homebrew/linked \
-		&& sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_HOME_PATH)/Cellar;
+antigen-hard:
+	@echo '	Hard Installing Antigen...'
+	$(MAKE) rmrf SRC=$(ADOTDIR) 
+	$(MAKE) rmrf SRC=$(ANTIGEN_USER_PATH) 
+	$(MAKE) antigen
+	$(MAKE) permitme-antigen
+
+fix-homebrew-paths: $(HOMEBREW_PATHS)
+	sudo mkdir -p $(HOMEBREW_PATHS)
+	sudo chown -R a=r,u+w $(shell whoami) $(HOMEBREW_PATHS)
 
 update-antigen:
-	cd $(ANTIGEN_USER_PATH) && git checkout . && git pull origin master;
-	cd $(ANTIGEN_USER_PATH) && sudo make all && cd $(DIR);
-	$(MAKE) permitme-antigen
-	$(MAKE) refresh
+	@echo '	Updating Antigen...'
+	cd $(ADOTDIR) && git checkout . && git pull origin develop;
+	cd $(ADOTDIR) && sudo make all;
+	cd $(DIR); $(MAKE) refresh
 
-install-powerline:
-	@$(MAKE) clone REPOSITORY=fonts GIT_FLAGS=--depth=1
+powerline:
+	@echo '	Installing Powerline...'
+	@$(MAKE) clone REPOSITORY=fonts BRANCH=master GIT_FLAGS=--depth=1
 	cd $(GIT_USER_PATH)/fonts; ./install.sh
 
-install-powerlevel9k:
-	@$(MAKE) clone REPOSITORY=powerlevel9k
+powerlevel9k:
+	@echo '	Installing Powerlevel9k...'
+	@$(MAKE) clone REPOSITORY=powerlevel9k BRANCH=master
 	cd $(GIT_USER_PATH)/powerlevel9k; git checkout . && git pull origin master
 	ln -sf $(GIT_USER_PATH)/powerlevel9k $(POWERLEVEL9K_PATH)
 
-install-maximum-awesome:
-	@$(MAKE) clone REPOSITORY=maximum-awesome
+maximum-awesome:
+	@echo '	Installing Maximum Awesome...'
+	@$(MAKE) clone REPOSITORY=maximum-awesome BRANCH=master
 	cd $(GIT_USER_PATH)/maximum-awesome; git checkout . && git pull origin master && rake
 
-install-spaceship-prompt:
-	@$(MAKE) clone REPOSITORY=spaceship-prompt
+spaceship-prompt:
+	@echo '	Installing Spaceship Prompt...'
+	@$(MAKE) clone REPOSITORY=spaceship-prompt BRANCH=master
 	ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt
 	ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme
 
 install-vimrc:
-	@$(MAKE) clone REPOSITORY=vimrc GIT_FLAGS=--depth=1
+	@echo '	Installing Vimrc...'
+	@$(MAKE) clone REPOSITORY=vimrc BRANCH=master GIT_FLAGS=--depth=1
 	cd $(GIT_USER_PATH)/vimrc; git checkout . && git pull origin master
 	ln -sf $(GIT_USER_PATH)/vimrc $(VIMRC_RUNTIME)
 	chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 	@exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 
-install-zsh-url-highlighter:
+zsh-url-highlighter:
+	@echo '	Installing ZSH URL Highlighter...'
 	@$(MAKE) clone-zsh-url-highlighter
-	mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
-	rm -rf $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
-	ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+	@mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
+	@rm -rf $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+	@ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
-install-zsh-autosuggestions:
+zsh-autosuggestions:
+	@echo '	Installing ZSH Autosuggestions...'
 	@$(MAKE) clone-zsh-autosuggestions
-	mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
-	ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+	@mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
+	@ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
 
-install-rbenv:
-	if [ ! -d $(HOME)/.rbenv ]; then git clone https://github.com/rbenv/rbenv.git $(HOME)/.rbenv; fi
-	$(HOME)/.rbenv/src/configure
-	@$(MAKE) -C $(HOME)/.rbenv/src
-	val $(HOME)
-	cd $(DIR)
-	ln -sf  benv/bin/rbenv init -
+rbenv:
+	@echo '	Installing RBENV...'
+	if [ ! -d $(RBENV_ROOT) ]; then git clone https://github.com/rbenv/rbenv.git $(RBENV_ROOT); fi
+	pushd $(RBENV_ROOT); chmod +x src/configure; src/configure && make -C src; popd
+	pushd $(RBENV_ROOT); ln -sf bin/rbenv init; popd
+
+rbenv-hard:
+	@echo '	Hard Installing RBENV...'
+	if [ -d $(RBENV_ROOT) ]; then $(MAKE) rmrf SRC=$(RBENV_ROOT); fi
+	@$(MAKE) rbenv
 
 iterm2-shell-integration:
 	@curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
@@ -259,58 +271,53 @@ iterm2-profiles:
 	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
 	ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
 
-iterm2-setup:
-	echo 'Running iTerm2 Setup...'
+iterm2:
+	@echo 'Running iTerm2 Setup...'
 	@$(MAKE) iterm2-shell-integration
 	@$(MAKE) iterm2-profiles
 
-install-deps:
+deps:
 	sudo pip3 install cram=='0.6.*'
 
-install-brew:
+brew:
 ifeq (${SYSTEM}, Linux)
 	sudo apt-get install build-essential curl file git
 endif
 	if [ ! -d $(HOMEBREW_HOME_PATH) ]; then git clone https://github.com/Homebrew/brew $(HOMEBREW_HOME_PATH); fi
 	mkdir -p $(HOMEBREW_BIN_PATH)
-	ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)
-	eval $($(HOMEBREW_BIN_PATH)/brew shellenv)
+	ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)/brew
+	eval $($(BREWCMD) shellenv)
 	$(MAKE) reload
-	exec $(BREWCMD) install hello
 	cd $(DIR)
-	exec $(BREWCMD) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
+	@$(BREW) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
 
 brew-check:
-	sudo $(shell which brew) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose
+	@$(BREW) bundle check --file=./tools/brew/$(SYSTEM)/Brewfile --verbose
 
 brew-clean:
-	sudo $(BREWCMD) bundle cleanup --file=./tools/brew/$(SYSTEM)/Brewfile
+	@$(BREW) bundle cleanup --file=./tools/brew/$(SYSTEM)/Brewfile
 
-.PHONY: update refresh
-update:
-	@echo
-	@echo '	Running Update...'
-	@echo
-	make prepare-project-directories
-	if [ $(SYSTEM) == *'Darwin'* ]; then make iterm2-setup; fi
-	if [ $(SYSTEM) == *'Darwin'* ]; then make install-brew; fi
-	if [ $(SYSTEM) == *'Linux'* ]; then make install-brew; fi
-	make install-antigen
-	make install-ohmyzsh
-	make install-powerline
-	make install-powerlevel9k
-	if [[ $(SYSTEM) == *'Darwin'* ]]; then make install-maximum-awesome; fi
-	make install-spaceship-prompt
-	make install-zsh-url-highlighter
-	make install-zsh-autosuggestions
-	make symlinks
-ifeq (${WITH_DEBUG}, no)
-	$(call isede,"s/ (WARN|LOG|ERR|TRACE) .*&//",${TARGET})
-	$(call isede,"/ (WARN|LOG|ERR|TRACE) .*/d",${TARGET})
+.PHONY: update
+ifeq (${SYSTEM}, Linux)
+update: prepare-project-directories antigen ohmyzsh powerline powerlevel9k spaceship-prompt \
+	zsh-url-highlighter zsh-autosuggestions symlinks
 endif
-	@echo
-	@echo '	Updated succesfully!...'
-	@echo
+ifeq (${SYSTEM}, Darwin)
+update: prepare-project-directories iterm2 iterm2-profiles iterm2-shell-integration brew antigen \
+	maximum-awesome ohmyzsh powerline powerlevel9k spaceship-prompt zsh-url-highlighter \
+	zsh-autosuggestions symlinks
+endif
+
+.PHONY: install
+ifeq (${SYSTEM}, Linux)
+install: prepare-project-directories antigen ohmyzsh powerline powerlevel9k spaceship-prompt \
+	zsh-url-highlighter zsh-autosuggestions deps symlinks
+endif
+ifeq (${SYSTEM}, Darwin)
+install: prepare-project-directories iterm2 iterm2-profiles iterm2-shell-integration brew antigen \
+	maximum-awesome ohmyzsh powerline powerlevel9k spaceship-prompt zsh-url-highlighter \
+	zsh-autosuggestions deps nvm symlinks
+endif
 
 yarn:
 	sudo mkdir -p /opt \
@@ -321,16 +328,16 @@ yarn:
 		&& gpg --verify latest.tar.gz.asc
 	sudo tar zvxf latest.tar.gz
 
+.PHONY: refresh
 refresh:
-	sudo
-	[[ -s $(ADOTDIR)/antigen.zsh ]] && chmod +x $(ADOTDIR)/antigen.zsh
-	source $(ADOTDIR)/antigen.zsh
-	exec $(shell which antigen) selfupdate \
-		&& exec $(shell which antigen) update \
-		&& exec $(shell which antigen) cleanup \
-		&& exec $(shell which antigen) reset;
 	make permitme-antigen
-	exec $(SHELL) -l
+	[ -s $(ADOTDIR)/bin/antigen.zsh ] && chmod +x $(ADOTDIR)/bin/antigen.zsh
+	source $(ADOTDIR)/bin/antigen.zsh
+	sudo $(ANTIGENCMD) selfupdate \
+		&& $(ANTIGENCMD) update \
+		&& $(ANTIGENCMD) cleanup \
+		&& $(ANTIGENCMD) reset;
+	make reload
 
 ssh-keys:
 	chmod +x $(DIR)/scripts/ssh/*.sh
@@ -340,8 +347,8 @@ redis:
 	@echo
 	@echo '	Making Redis...'
 	@echo
-	mkdir -p $(HOME)/redis \
-		&& cd $(HOME)/redis \
+	mkdir -p ~/redis \
+		&& cd ~/redis \
 		&& curl -O http://download.redis.io/redis-stable.tar.gz \
 		&& tar xvzf redis-stable.tar.gz \
 		&& cd redis-stable \
@@ -357,29 +364,29 @@ haskell:
 	curl https://get-ghcup.haskell.org -sSf | sh
 
 reload:
-	@exec $(SHELL) -l
+	exec $(SHELL) -l
 
 permitme-dir:
-	sudo chown -hR $(shell whoami) $(PERMITTING)
+	sudo chown -hR $(USER) $(PERMITTING)
 	sudo chmod u+w $(PERMITTING)
 	sudo chmod go-w $(PERMITTING)
 
 permitme-file:
-	@sudo chown -hR $(shell whoami) $(PERMITTING)
-	@sudo chmod +110 $(PERMITTING)
-	@sudo chmod ug+x $(PERMITTING)
+	sudo chown -hR $(USER) $(PERMITTING)
+	sudo chmod 110 $(PERMITTING)
+	sudo chmod ug+x $(PERMITTING)
 
 permitme-antigen:
-	@$(MAKE) permitme-dir PERMITTING=$(ADOTDIR)
-	@$(MAKE) permitme-file PERMITTING=$(ADOTDIR)/antigen.zsh
+	$(MAKE) permitme-dir PERMITTING=$(ADOTDIR)
+	$(MAKE) permitme-file PERMITTING=$(ADOTDIR)/bin/antigen.zsh
 
 change-default-shell:
 	@echo
 	@echo '	Changing Default Shell to...\n\t'
-	@echo $(shell which zsh)
+	@echo $(SHELL)
 	@echo
-	@chsh -s $(shell which zsh)
-	export SHELL=$(shell which zsh)
+	chsh -s $(SHELL)
+	export SHELL=$(SHELL)
 
 .PRECIOUS: Makefile
 

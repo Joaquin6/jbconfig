@@ -6,6 +6,7 @@ export ZSH_CUSTOM=$ZSH/custom
 export ANTIGEN_BUNDLES=$ADOTDIR/bundles
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+export COMPLETION_WAITING_DOTS="true"
 
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 export POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
@@ -15,78 +16,95 @@ export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
-[[ -s $ADOTDIR/antigen.zsh ]] && . $ADOTDIR/antigen.zsh
-[[ -s $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme ]] && . $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+if [[ -f $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme ]]; then
+	source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+fi
 
-COMPLETION_WAITING_DOTS="true"
+if [[ -d $ADOTDIR ]]; then
+	permitme $ADOTDIR;
+
+	if [[ -f $USER_LOCAL_SHARE/antigen.zsh ]]; then
+		permitme $USER_LOCAL_SHARE/antigen.zsh
+		source $USER_LOCAL_SHARE/antigen.zsh
+	elif [[ -f $ADOTDIR/bin/antigen.zsh ]]; then
+		permitme $ADOTDIR/bin/antigen.zsh
+		source $ADOTDIR/bin/antigen.zsh
+	else
+		permitme $ADOTDIR/src/antigen.zsh;
+		source $ADOTDIR/src/antigen.zsh
+	fi
+elif [[ -f $USER_LOCAL_SHARE/antigen.zsh ]]; then
+	permitme $USER_LOCAL_SHARE/antigen.zsh
+	source $USER_LOCAL_SHARE/antigen.zsh
+else
+	jb-zsh-debug "'antigen' source not found!"
+fi
 
 if command_exists antigen; then
-antigen use oh-my-zsh
+	antigen use oh-my-zsh
 
-antigen bundles <<EOBUNDLES
-	battery
-	command-not-found
-	dotenv
-	history
-	history-substring-search
-	sudo
-	gpg-agent
-	ssh-agent
-	jsontools
-	profiles
-	git
-	npx
-	golang
-	yarn
-	gnu-utils
-	cygwin
-	brew
-	gem
-	debian
-	systemd
-	systemadmin
-	cask
-	aws
-	redis-cli
-	rvm
-	docker
-	docker-compose
-	docker-machine
-EOBUNDLES
+	antigen bundle battery
+	antigen bundle command-not-found
+	antigen bundle dotenv
+	antigen bundle history
+	antigen bundle history-substring-search
+	antigen bundle sudo
+	antigen bundle gpg-agent
+	antigen bundle ssh-agent
+	antigen bundle jsontools
+	antigen bundle profiles
+	antigen bundle git
+	antigen bundle npx
+	antigen bundle golang
+	antigen bundle yarn
+	antigen bundle gnu-utils
+	antigen bundle cygwin
+	antigen bundle brew
+	antigen bundle gem
+	antigen bundle debian
+	antigen bundle systemd
+	antigen bundle systemadmin
+	antigen bundle cask
+	antigen bundle aws
+	antigen bundle redis-cli
+	antigen bundle rvm
+	antigen bundle docker
+	antigen bundle docker-compose
+	antigen bundle docker-machine
 
-if [[ $TILIX_ID ]]; then
-    source /etc/profile.d/vte.sh
-fi
+	if [[ $TILIX_ID ]]; then
+	    source /etc/profile.d/vte.sh
+	fi
 
-# OS Based Plugins
-if [[ "$OSTYPE" == darwin* ]]; then
- 	antigen bundle iterm2
-	antigen bundle osx
-	antigen bundle colorize
-fi
+	# OS Based Plugins
+	if [[ "$OSTYPE" == darwin* ]]; then
+	 	antigen bundle iterm2
+		antigen bundle osx
+		antigen bundle colorize
+	fi
 
-if [ -d $LINUXBREW_PATH ]; then
-	handle-add-path $LINUXBREW_LOCAL_BIN
-	handle-add-path $LINUXBREW_LOCAL_OPT/go/libexec/bin
-fi
+	if [ -d $LINUXBREW_PATH ]; then
+		handle-add-path $LINUXBREW_LOCAL_BIN
+		handle-add-path $LINUXBREW_LOCAL_OPT/go/libexec/bin
+	fi
 
-# Syntax highlighting bundle.
-antigen bundle Joaquin6/zsh-url-highlighter
-antigen bundle Joaquin6/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
-antigen bundle Joaquin6/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle Joaquin6/zsh-completions
-antigen bundle Joaquin6/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
-antigen bundle Joaquin6/alias-tips                      # https://github.com/Joaquin6/alias-tips
-antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
-antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
-antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
-antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
-antigen bundle Joaquin6/spaceship-prompt
+	# Syntax highlighting bundle.
+	antigen bundle Joaquin6/zsh-url-highlighter
+	antigen bundle Joaquin6/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
+	antigen bundle Joaquin6/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
+	antigen bundle Joaquin6/zsh-completions
+	antigen bundle Joaquin6/zsh-syntax-highlighting    # https://github.com/zsh-users/zsh-syntax-highlighting
+	antigen bundle Joaquin6/alias-tips                      # https://github.com/Joaquin6/alias-tips
+	antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
+	antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
+	antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
+	antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
+	antigen bundle Joaquin6/spaceship-prompt
 
-# Suuply the theme
-antigen theme spaceship
-# Tell antigen that you're done.
-antigen apply
+	# Suuply the theme
+	antigen theme spaceship
+	# Tell antigen that you're done.
+	antigen apply
 else
 	jb-zsh-debug "Command 'antigen' is not installed!"
 fi

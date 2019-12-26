@@ -338,18 +338,19 @@ handle-add-path $USER_LOCAL_SHARE/dotnet
 handle-add-path $USER_LOCAL_SHARE/dotnet/sdk/NuGetFallbackFolder
 handle-add-path $USER_LOCAL_SHARE/postgresql
 handle-add-path $HOME/.nuget/packages
+handle-add-path $USER_LOCAL_OPT/python/libexec/bin
 
 if [[ $OSTYPE == linux* ]]; then
-	handle-add-path $HOME/.linuxbrew/bin
-	handle-add-path $HOME/.linuxbrew/Homebrew/bin
+	handle-add-path $HOME/linuxbrew/.linuxbrew/bin
+	handle-add-path $HOME/linuxbrew/.linuxbrew/Homebrew/bin
 fi
 
 handle-add-path $ADOTDIR
 handle-add-path $ANTIGEN_USER_PATH
 
-# handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-# handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-# handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
 
 # handle-add-path /usr/lib/x86_64-linux-gnu
 
@@ -366,12 +367,12 @@ handle-add-pkgconfigpath libarchive
 handle-add-pkgconfigpath openssl
 
 [[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-[[ -s $USER_LOCAL_BIN/virtualenvwrapper.sh ]] && . $USER_LOCAL_BIN/virtualenvwrapper.sh
+# [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper.sh
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
-[[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
-[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+# [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
+# [[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
 [[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 
 if command_exists rbenv; then

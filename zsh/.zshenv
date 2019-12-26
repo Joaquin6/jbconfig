@@ -38,8 +38,8 @@ export LINUXBREW_LOCAL_OPT=$LINUXBREW_PATH/opt
 export LINUXBREW_LOCAL_MAN=$LINUXBREW_PATH/man
 export LINUXBREW_LOCAL_SHARE=$LINUXBREW_PATH/share
 
-export PROJECTS=$HOME/projects
-export GITHUBPATH=$PROJECTS/github.com
+export PROJECTS_PATH=$HOME/projects
+export GITHUBPATH=$PROJECTS_PATH/github.com
 export GIT_USERNAME=Joaquin6
 export GIT_USER_PATH=$GITHUBPATH/$GIT_USERNAME
 export ANTIGEN_USER_PATH=$GIT_USER_PATH/antigen
@@ -119,6 +119,10 @@ export PURPLE='\[\033[1;35m\]'
 export CYAN='\[\033[1;36m\]'
 export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
+
+if [ -d $HOME/.oh-my-zsh ]; then
+  export ZSH=$HOME/.oh-my-zsh
+fi
 
 if [ -d $HOME/.antigen ]; then
   export ADOTDIR=$HOME/.antigen
