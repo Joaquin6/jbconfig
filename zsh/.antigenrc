@@ -1,0 +1,57 @@
+antigen use oh-my-zsh
+
+antigen bundle battery
+antigen bundle command-not-found
+antigen bundle dotenv
+antigen bundle history
+antigen bundle history-substring-search
+antigen bundle sudo
+antigen bundle gpg-agent
+antigen bundle ssh-agent
+antigen bundle jsontools
+antigen bundle profiles
+antigen bundle git
+antigen bundle git-extras
+antigen bundle npx
+antigen bundle golang
+antigen bundle yarn
+antigen bundle gnu-utils
+antigen bundle cygwin
+antigen bundle brew
+antigen bundle gem
+antigen bundle debian
+antigen bundle systemd
+antigen bundle systemadmin
+antigen bundle cask
+antigen bundle aws
+antigen bundle rvm
+antigen bundle docker
+antigen bundle docker-compose
+antigen bundle docker-machine
+
+# OS Based Plugins
+if [[ $OSTYPE == darwin* ]]; then
+ 	antigen bundle iterm2
+	antigen bundle osx
+	antigen bundle colorize
+fi
+
+# Syntax highlighting bundle.
+antigen bundle Joaquin6/zsh-url-highlighter
+antigen bundle Joaquin6/zsh-history-substring-search   # https://github.com/zsh-users/zsh-history-substring-search
+antigen bundle Joaquin6/zsh-autosuggestions            # https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle Joaquin6/zsh-completions
+antigen bundle Joaquin6/alias-tips                      # https://github.com/Joaquin6/alias-tips
+antigen bundle Joaquin6/zshmarks                   		# https://github.com/Joaquin6/zshmarks
+antigen bundle Joaquin6/git-aliases                     # https://github.com/Joaquin6/git-aliases
+antigen bundle Joaquin6/autoenv              			# https://github.com/Joaquin6/autoenv
+antigen bundle Joaquin6/powerlevel9k 					# https://github.com/Joaquin6/powerlevel9k
+antigen bundle Joaquin6/spaceship-prompt
+antigen bundle Joaquin6/zsh-syntax-highlighting    		# https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle gretzky/auto-color-ls 					# https://github.com/gretzky/auto-color-ls
+
+# Suuply the theme
+antigen theme spaceship
+
+# Tell antigen that you're done.
+antigen apply

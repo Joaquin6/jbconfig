@@ -178,8 +178,8 @@ ohmyzsh:
 
 antigen:
 	@echo '	Installing Antigen...'
-	@$(MAKE) clone REPOSITORY=antigen BRANCH=develop
-	@ln -fs $(ANTIGEN_USER_PATH) $(ADOTDIR)
+	$(MAKE) clone REPOSITORY=antigen BRANCH=develop
+	ln -fs $(ANTIGEN_USER_PATH) $(ADOTDIR)
 
 antigen-hard:
 	@echo '	Hard Installing Antigen...'

@@ -412,7 +412,6 @@ source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
 
 if [[ $OSTYPE == darwin* ]]; then
-	iterm2_prompt_mark
 	handle-add-path "/Applications/Visual Studio.app/Contents/MacOS"
 	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"

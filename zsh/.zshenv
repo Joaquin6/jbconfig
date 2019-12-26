@@ -126,6 +126,7 @@ fi
 
 if [ -d $HOME/.antigen ]; then
   export ADOTDIR=$HOME/.antigen
+  export ZSHA_BASE=$ADOTDIR
 fi
 
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
