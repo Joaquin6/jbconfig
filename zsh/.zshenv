@@ -60,6 +60,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export XDG_DATA_HOME=$HOME/.local/share
 export JAVA_HOME=$USER_LIBEXEC/java_home
+export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 export PKG_CONFIG_PATH="/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig/"
 export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
@@ -73,14 +74,6 @@ export ARCHFLAGS="-arch x86_64"
 export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib)
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
 export OOO_FORCE_DESKTOP=gnome
-if type brew &>/dev/null; then
-	export HOMEBREW_PREFIX=$(brew --prefix)
-  if [[ $OSTYPE == darwin* ]]; then
-	  export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
-  else
-    export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
-  fi
-fi
 
 if [ -d $LINUXBREW_PATH ]; then
   export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)

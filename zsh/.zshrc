@@ -212,13 +212,11 @@ load-nvmrc() {
 			if [ "$nvmrc_node_version" = "N/A" ]; then
 				nvm install
 			elif [ "$nvmrc_node_version" != "$node_version" ]; then
-				nvm install
-				nvm use --delete-prefix default
+				nvm use $nvmrc_node_version
 			fi
 		elif [ "$node_version" != "$(nvm version default)" ]; then
 			echo "Reverting to nvm default version"
-			nvm install
-			nvm use --delete-prefix default
+			nvm use default
 		fi
 
 		reset-npm-prefix
@@ -288,6 +286,15 @@ elif command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
 else
 	echo "Python has not been installed!"
+fi
+
+if command_exists brew; then
+	export HOMEBREW_PREFIX=$(brew --prefix)
+  	if [[ $OSTYPE == darwin* ]]; then
+	  	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
+  	else
+    	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
+  	fi
 fi
 
 handle-add-path $HOME/bin
@@ -415,6 +422,8 @@ if [[ $OSTYPE == darwin* ]]; then
 	handle-add-path "/Applications/Visual Studio.app/Contents/MacOS"
 	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
+	handle-add-path "/Applications/Adobe Acrobat Reader DC.app/Contents/MacOS"
+	handle-add-path "/Applications/Adobe Extension Manager CC/ExtensionManager.app/Contents/MacOS"
 
 	# zsh parameter completion for the dotnet CLI
 	_dotnet_zsh_complete()
