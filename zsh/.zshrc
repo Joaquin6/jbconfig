@@ -279,6 +279,17 @@ load-mgdm-theme() {
 		jb-zsh-debug "[LOAD MGDM THEME DEBUG]: 	copied $mgdm_theme to $destination/mgdm.zsh-theme successfully" 2
 	fi
 }
+check-install() {
+	pid=$1;
+	name=$2;
+
+	type -P $pid &>/dev/null && echo "- $name is already installed" || {
+	        read -p "Do you want to install $name? [y/n]: " install
+	        if [ $install == "y" ]; then
+			toinstall=("${toinstall[@]}" "$pid")
+	        fi
+	}
+}
 
 if command_exists python; then
 	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
@@ -286,6 +297,7 @@ elif command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
 else
 	echo "Python has not been installed!"
+	check-install python "Python"
 fi
 
 if command_exists brew; then
@@ -295,6 +307,8 @@ if command_exists brew; then
   	else
     	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
   	fi
+else
+	check-install brew "HomeBrew"
 fi
 
 handle-add-path $HOME/bin

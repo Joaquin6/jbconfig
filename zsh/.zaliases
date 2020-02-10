@@ -72,6 +72,22 @@ alias vscextd='code --disable-extensions'
 alias vscextu='code --uninstall-extension'
 
 
+# weather from my current location
+alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|us|brooklyn-ny|11215' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'"
+
+alias restartdock="killall -KILL Dock"
+# opens up the IOS Simulator without launching xcode
+alias iossimulator="(cd /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/ && open -a iPhone\ Simulator.app)"
+
+# Displays the flash traces in the terminal (when running in the flash player debugger) 
+alias flog="tail -f ~/Library/Preferences/Macromedia/Flash\\ Player/Logs/flashlog.txt"
+# Or maybe you prefer flashlog in a gui
+alias trace='/Applications/Utilities/Console.app/Contents/MacOS/Console ~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt &'
+
+# Calculates the gzip compression of a file
+function gzipsize(){
+	echo $((`gzip -c $1 | wc -c`/1024))"KB"
+}
 
 
 #   ---------------------------
@@ -137,6 +153,12 @@ alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
 alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
 alias enableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh YES'
 alias disableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh NO'
+
+# GIT
+function gitexport(){
+	mkdir -p "$1"
+	git archive master | tar -x -C "$1"
+}
 
 
 # Command line head / tail shortcuts
