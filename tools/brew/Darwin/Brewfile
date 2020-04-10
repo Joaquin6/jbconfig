@@ -306,7 +306,6 @@ brew "gosu"
 brew "libgosu"
 
 mas "BetterSnapTool", id: 417375580
-mas "Desktop Verse", id: 572304633
 mas "Simplenote", id: 692867256
 mas "Slack", id: 803453959
 mas "Spark", id: 1176895641

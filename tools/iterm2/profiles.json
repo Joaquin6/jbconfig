@@ -1,6 +1,9 @@
 {
   "Profiles": [
     {
+      "Name": "joaquin",
+      "Command" : "\/bin\/zsh --login",
+      "Initial Text": "antigen-reload",
       "ASCII Anti Aliased": true,
       "Ambiguous Double Width": false,
       "Ansi 0 Color": {
@@ -99,15 +102,16 @@
       },
       "Blinking Cursor": true,
       "Blur": false,
+      "Blur Radius": 3.0786167512690352,
       "Bold Color": {
         "Blue Component": 1,
         "Green Component": 1,
         "Red Component": 1
       },
+      "Bound Hosts": [],
       "Character Encoding": 4,
       "Close Sessions On End": true,
       "Columns": 80,
-      "Command": "/bin/zsh --login",
       "Cursor Color": {
         "Blue Component": 0.73333334922790527,
         "Green Component": 0.73333334922790527,
@@ -125,7 +129,7 @@
         "Green Component": 1,
         "Red Component": 1
       },
-      "Custom Command": "Yes",
+      "Custom Command": "No",
       "Custom Directory": "No",
       "Default Bookmark": "Yes",
       "Description": "Default",
@@ -138,9 +142,11 @@
         "Red Component": 0.73333334922790527
       },
       "Guid": "57909625-C0A3-4072-8D22-713EEE80A96D",
+      "Has Hotkey": false,
       "Horizontal Spacing": 1,
+      "Icon": 0,
       "Idle Code": 0,
-      "Initial Text": "",
+      "Initial Use Transparency": false,
       "Jobs to Ignore": [
         "rlogin",
         "ssh",
@@ -321,7 +327,6 @@
         "Red Component": 0
       },
       "Mouse Reporting": true,
-      "Name": "Default",
       "Non Ascii Font": "MesloLGLDZNerdFontCM-Regular 12",
       "Non-ASCII Anti Aliased": true,
       "Normal Font": "MesloLGLDZNerdFontC-Regular 12",
@@ -346,9 +351,11 @@
       "Silence Bell": false,
       "Sync Title": false,
       "Tags": [
-        "Dynamic"
+        "Dynamic",
+        "Home"
       ],
       "Terminal Type": "xterm-256color",
+      "Title Components": 3,
       "Transparency": 0,
       "Unicode Normalization": 3,
       "Unlimited Scrollback": true,
@@ -362,6 +369,9 @@
       "Working Directory": "/Users/joaquin"
     },
     {
+      "Name": "projects",
+      "Command" : "\/bin\/zsh --login",
+      "Initial Text": "antigen-reload",
       "ASCII Anti Aliased": true,
       "Ambiguous Double Width": false,
       "Ansi 0 Color": {
@@ -460,6 +470,7 @@
       },
       "Blinking Cursor": false,
       "Blur": false,
+      "Blur Radius": 3.0786167512690352,
       "Bold Color": {
         "Blue Component": 1,
         "Green Component": 1,
@@ -476,7 +487,6 @@
       "Character Encoding": 4,
       "Close Sessions On End": true,
       "Columns": 80,
-      "Command": "",
       "Cursor Color": {
         "Blue Component": 0.73333334922790527,
         "Green Component": 0.73333334922790527,
@@ -507,9 +517,11 @@
         "Red Component": 0.73333334922790527
       },
       "Guid": "77D1542E-2D74-4627-8D7B-0BD34EF045B5",
+      "Has Hotkey": false,
       "Horizontal Spacing": 1,
+      "Icon": 0,
       "Idle Code": 0,
-      "Initial Text": "",
+      "Initial Use Transparency": false,
       "Jobs to Ignore": [
         "rlogin",
         "ssh",
@@ -686,7 +698,6 @@
         "Red Component": 0
       },
       "Mouse Reporting": true,
-      "Name": "Joaquin6",
       "Non Ascii Font": "Monaco 12",
       "Non-ASCII Anti Aliased": true,
       "Normal Font": "mononokiNerdFontCM-Regular 12",
@@ -711,11 +722,11 @@
       "Silence Bell": false,
       "Sync Title": false,
       "Tags": [
-        "github",
         "Dynamic",
-        "public"
+        "Projects"
       ],
       "Terminal Type": "xterm-256color",
+      "Title Components": 3,
       "Transparency": 0,
       "Unicode Normalization": 3,
       "Unlimited Scrollback": true,
@@ -729,6 +740,9 @@
       "Working Directory": "/Users/joaquin/projects"
     },
     {
+      "Name": "root",
+      "Command" : "\/bin\/zsh --login",
+      "Initial Text": "antigen-reload",
       "ASCII Anti Aliased": true,
       "Ambiguous Double Width": false,
       "Ansi 0 Color": {
@@ -827,6 +841,7 @@
       },
       "Blinking Cursor": true,
       "Blur": false,
+      "Blur Radius": 3.0786167512690352,
       "Bold Color": {
         "Blue Component": 0.56363654136657715,
         "Green Component": 0.56485837697982788,
@@ -838,7 +853,6 @@
       "Character Encoding": 4,
       "Close Sessions On End": true,
       "Columns": 80,
-      "Command": "/bin/zsh --login",
       "Cursor Color": {
         "Blue Component": 0.51685798168182373,
         "Green Component": 0.50962930917739868,
@@ -856,7 +870,7 @@
         "Green Component": 0.15575926005840302,
         "Red Component": 0
       },
-      "Custom Command": "Yes",
+      "Custom Command": "No",
       "Custom Directory": "No",
       "Default Bookmark": "No",
       "Description": "Default",
@@ -869,9 +883,11 @@
         "Red Component": 0.44058024883270264
       },
       "Guid": "489CAE69-30CD-46F0-A93E-5E6333BCBE4D",
+      "Has Hotkey": false,
       "Horizontal Spacing": 1,
+      "Icon": 0,
       "Idle Code": 0,
-      "Initial Text": "",
+      "Initial Use Transparency": false,
       "Jobs to Ignore": [
         "rlogin",
         "ssh",
@@ -1052,7 +1068,6 @@
         "Red Component": 0
       },
       "Mouse Reporting": true,
-      "Name": "Root",
       "Non Ascii Font": "MesloLGLDZNerdFontCM-Regular 12",
       "Non-ASCII Anti Aliased": true,
       "Normal Font": "MesloLGLDZNerdFontC-Regular 12",
@@ -1077,9 +1092,11 @@
       "Silence Bell": false,
       "Sync Title": false,
       "Tags": [
-        "Dynamic"
+        "Dynamic",
+        "Root"
       ],
       "Terminal Type": "xterm-256color",
+      "Title Components": 3,
       "Transparency": 0,
       "Unicode Normalization": 3,
       "Unlimited Scrollback": true,
@@ -1091,736 +1108,6 @@
       "Visual Bell": true,
       "Window Type": 0,
       "Working Directory": "/Users/joaquin"
-    },
-    {
-      "ASCII Anti Aliased": true,
-      "Ambiguous Double Width": false,
-      "Ansi 0 Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Ansi 1 Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0.8"
-      },
-      "Ansi 10 Color": {
-        "Blue Component": "0.2039216",
-        "Green Component": "0.8862745",
-        "Red Component": "0.5411764999999999"
-      },
-      "Ansi 11 Color": {
-        "Blue Component": "0.3098039",
-        "Green Component": "0.9137255",
-        "Red Component": "0.9882353"
-      },
-      "Ansi 12 Color": {
-        "Blue Component": "0.8117647",
-        "Green Component": "0.6235294",
-        "Red Component": "0.4470588"
-      },
-      "Ansi 13 Color": {
-        "Blue Component": "0.6588235",
-        "Green Component": "0.4980392",
-        "Red Component": "0.6784314"
-      },
-      "Ansi 14 Color": {
-        "Blue Component": "0.8862745",
-        "Green Component": "0.8862745",
-        "Red Component": "0.2039216"
-      },
-      "Ansi 15 Color": {
-        "Blue Component": "0.9254902",
-        "Green Component": "0.9333333",
-        "Red Component": "0.9333333"
-      },
-      "Ansi 2 Color": {
-        "Blue Component": "0.02352941",
-        "Green Component": "0.6039215999999999",
-        "Red Component": "0.3058824"
-      },
-      "Ansi 3 Color": {
-        "Blue Component": "0",
-        "Green Component": "0.627451",
-        "Red Component": "0.7686275"
-      },
-      "Ansi 4 Color": {
-        "Blue Component": "0.6431373",
-        "Green Component": "0.3960784",
-        "Red Component": "0.2039216"
-      },
-      "Ansi 5 Color": {
-        "Blue Component": "0.4823529",
-        "Green Component": "0.3137255",
-        "Red Component": "0.4588235"
-      },
-      "Ansi 6 Color": {
-        "Blue Component": "0.6039215999999999",
-        "Green Component": "0.5960785",
-        "Red Component": "0.02352941"
-      },
-      "Ansi 7 Color": {
-        "Blue Component": "0.8117647",
-        "Green Component": "0.8431373",
-        "Red Component": "0.827451"
-      },
-      "Ansi 8 Color": {
-        "Blue Component": "0.3254902",
-        "Green Component": "0.3411765",
-        "Red Component": "0.3333333"
-      },
-      "Ansi 9 Color": {
-        "Blue Component": "0.1607843",
-        "Green Component": "0.1607843",
-        "Red Component": "0.9372549"
-      },
-      "BM Growl": true,
-      "Background Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Background Image Location": "",
-      "Badge Color": {
-        "Alpha Component": 0.5,
-        "Blue Component": 0,
-        "Color Space": "sRGB",
-        "Green Component": 0.1491314172744751,
-        "Red Component": 1
-      },
-      "Blinking Cursor": false,
-      "Blur": false,
-      "Bold Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Bound Hosts": [
-        "/User/joaquin/projects/gitlab.uk.inexa.io/*",
-        "~/projects/gitlab.uk.inexa.io/*"
-      ],
-      "Character Encoding": 4,
-      "Close Sessions On End": true,
-      "Columns": 80,
-      "Command": "",
-      "Cursor Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Cursor Guide Color": {
-        "Alpha Component": 0.25,
-        "Blue Component": 1,
-        "Color Space": "sRGB",
-        "Green Component": 0.9268307089805603,
-        "Red Component": 0.70213186740875244
-      },
-      "Cursor Text Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Custom Command": "No",
-      "Custom Directory": "Yes",
-      "Default Bookmark": "No",
-      "Description": "Default",
-      "Disable Window Resizing": true,
-      "Dynamic Profile Filename": "/Users/joaquin/Library/Application Support/iTerm2/DynamicProfiles/profiles.json",
-      "Flashing Bell": false,
-      "Foreground Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Guid": "6015834B-CE28-4685-8F73-72C36A182A9C",
-      "Has Hotkey": false,
-      "Horizontal Spacing": 1,
-      "Idle Code": 0,
-      "Initial Text": "",
-      "Jobs to Ignore": [
-        "rlogin",
-        "ssh",
-        "slogin",
-        "telnet"
-      ],
-      "Keyboard Map": {
-        "0x2d-0x40000": {
-          "Action": 11,
-          "Text": "0x1f"
-        },
-        "0x32-0x40000": {
-          "Action": 11,
-          "Text": "0x00"
-        },
-        "0x33-0x40000": {
-          "Action": 11,
-          "Text": "0x1b"
-        },
-        "0x34-0x40000": {
-          "Action": 11,
-          "Text": "0x1c"
-        },
-        "0x35-0x40000": {
-          "Action": 11,
-          "Text": "0x1d"
-        },
-        "0x36-0x40000": {
-          "Action": 11,
-          "Text": "0x1e"
-        },
-        "0x37-0x40000": {
-          "Action": 11,
-          "Text": "0x1f"
-        },
-        "0x38-0x40000": {
-          "Action": 11,
-          "Text": "0x7f"
-        },
-        "0xf700-0x220000": {
-          "Action": 10,
-          "Text": "[1;2A"
-        },
-        "0xf700-0x240000": {
-          "Action": 10,
-          "Text": "[1;5A"
-        },
-        "0xf700-0x260000": {
-          "Action": 10,
-          "Text": "[1;6A"
-        },
-        "0xf700-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x41"
-        },
-        "0xf701-0x220000": {
-          "Action": 10,
-          "Text": "[1;2B"
-        },
-        "0xf701-0x240000": {
-          "Action": 10,
-          "Text": "[1;5B"
-        },
-        "0xf701-0x260000": {
-          "Action": 10,
-          "Text": "[1;6B"
-        },
-        "0xf701-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x42"
-        },
-        "0xf702-0x220000": {
-          "Action": 10,
-          "Text": "[1;2D"
-        },
-        "0xf702-0x240000": {
-          "Action": 10,
-          "Text": "[1;5D"
-        },
-        "0xf702-0x260000": {
-          "Action": 10,
-          "Text": "[1;6D"
-        },
-        "0xf702-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x44"
-        },
-        "0xf703-0x220000": {
-          "Action": 10,
-          "Text": "[1;2C"
-        },
-        "0xf703-0x240000": {
-          "Action": 10,
-          "Text": "[1;5C"
-        },
-        "0xf703-0x260000": {
-          "Action": 10,
-          "Text": "[1;6C"
-        },
-        "0xf703-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x43"
-        },
-        "0xf704-0x20000": {
-          "Action": 10,
-          "Text": "[1;2P"
-        },
-        "0xf705-0x20000": {
-          "Action": 10,
-          "Text": "[1;2Q"
-        },
-        "0xf706-0x20000": {
-          "Action": 10,
-          "Text": "[1;2R"
-        },
-        "0xf707-0x20000": {
-          "Action": 10,
-          "Text": "[1;2S"
-        },
-        "0xf708-0x20000": {
-          "Action": 10,
-          "Text": "[15;2~"
-        },
-        "0xf709-0x20000": {
-          "Action": 10,
-          "Text": "[17;2~"
-        },
-        "0xf70a-0x20000": {
-          "Action": 10,
-          "Text": "[18;2~"
-        },
-        "0xf70b-0x20000": {
-          "Action": 10,
-          "Text": "[19;2~"
-        },
-        "0xf70c-0x20000": {
-          "Action": 10,
-          "Text": "[20;2~"
-        },
-        "0xf70d-0x20000": {
-          "Action": 10,
-          "Text": "[21;2~"
-        },
-        "0xf70e-0x20000": {
-          "Action": 10,
-          "Text": "[23;2~"
-        },
-        "0xf70f-0x20000": {
-          "Action": 10,
-          "Text": "[24;2~"
-        },
-        "0xf729-0x20000": {
-          "Action": 10,
-          "Text": "[1;2H"
-        },
-        "0xf729-0x40000": {
-          "Action": 10,
-          "Text": "[1;5H"
-        },
-        "0xf72b-0x20000": {
-          "Action": 10,
-          "Text": "[1;2F"
-        },
-        "0xf72b-0x40000": {
-          "Action": 10,
-          "Text": "[1;5F"
-        }
-      },
-      "Link Color": {
-        "Alpha Component": 1,
-        "Blue Component": 0.73423302173614502,
-        "Color Space": "sRGB",
-        "Green Component": 0.35916060209274292,
-        "Red Component": 0
-      },
-      "Mouse Reporting": true,
-      "Name": "Joaquin Briceno",
-      "Non Ascii Font": "Monaco 12",
-      "Non-ASCII Anti Aliased": true,
-      "Normal Font": "mononokiNerdFontCM-Regular 12",
-      "Option Key Sends": 0,
-      "Prompt Before Closing 2": false,
-      "Right Option Key Sends": 0,
-      "Rows": 25,
-      "Screen": -1,
-      "Scrollback Lines": 0,
-      "Selected Text Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Selection Color": {
-        "Blue Component": "1",
-        "Green Component": "0.8353",
-        "Red Component": "0.7098"
-      },
-      "Send Code When Idle": false,
-      "Shortcut": "",
-      "Silence Bell": false,
-      "Sync Title": false,
-      "Tags": [
-        "Dynamic",
-        "insitu",
-        "gitlab.uk.inexa.io",
-        "machine-learning"
-      ],
-      "Terminal Type": "xterm-256color",
-      "Transparency": 0,
-      "Unicode Normalization": 3,
-      "Unlimited Scrollback": true,
-      "Use Bold Font": true,
-      "Use Bright Bold": true,
-      "Use Italic Font": true,
-      "Use Non-ASCII Font": false,
-      "Vertical Spacing": 1,
-      "Visual Bell": true,
-      "Window Type": 0,
-      "Working Directory": "/Users/joaquin/projects/gitlab.uk.inexa.io"
-    },
-    {
-      "ASCII Anti Aliased": true,
-      "Ambiguous Double Width": false,
-      "Ansi 0 Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Ansi 1 Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0.8"
-      },
-      "Ansi 10 Color": {
-        "Blue Component": "0.2039216",
-        "Green Component": "0.8862745",
-        "Red Component": "0.5411764999999999"
-      },
-      "Ansi 11 Color": {
-        "Blue Component": "0.3098039",
-        "Green Component": "0.9137255",
-        "Red Component": "0.9882353"
-      },
-      "Ansi 12 Color": {
-        "Blue Component": "0.8117647",
-        "Green Component": "0.6235294",
-        "Red Component": "0.4470588"
-      },
-      "Ansi 13 Color": {
-        "Blue Component": "0.6588235",
-        "Green Component": "0.4980392",
-        "Red Component": "0.6784314"
-      },
-      "Ansi 14 Color": {
-        "Blue Component": "0.8862745",
-        "Green Component": "0.8862745",
-        "Red Component": "0.2039216"
-      },
-      "Ansi 15 Color": {
-        "Blue Component": "0.9254902",
-        "Green Component": "0.9333333",
-        "Red Component": "0.9333333"
-      },
-      "Ansi 2 Color": {
-        "Blue Component": "0.02352941",
-        "Green Component": "0.6039215999999999",
-        "Red Component": "0.3058824"
-      },
-      "Ansi 3 Color": {
-        "Blue Component": "0",
-        "Green Component": "0.627451",
-        "Red Component": "0.7686275"
-      },
-      "Ansi 4 Color": {
-        "Blue Component": "0.6431373",
-        "Green Component": "0.3960784",
-        "Red Component": "0.2039216"
-      },
-      "Ansi 5 Color": {
-        "Blue Component": "0.4823529",
-        "Green Component": "0.3137255",
-        "Red Component": "0.4588235"
-      },
-      "Ansi 6 Color": {
-        "Blue Component": "0.6039215999999999",
-        "Green Component": "0.5960785",
-        "Red Component": "0.02352941"
-      },
-      "Ansi 7 Color": {
-        "Blue Component": "0.8117647",
-        "Green Component": "0.8431373",
-        "Red Component": "0.827451"
-      },
-      "Ansi 8 Color": {
-        "Blue Component": "0.3254902",
-        "Green Component": "0.3411765",
-        "Red Component": "0.3333333"
-      },
-      "Ansi 9 Color": {
-        "Blue Component": "0.1607843",
-        "Green Component": "0.1607843",
-        "Red Component": "0.9372549"
-      },
-      "BM Growl": true,
-      "Background Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Background Image Location": "",
-      "Badge Color": {
-        "Alpha Component": 0.5,
-        "Blue Component": 0,
-        "Color Space": "sRGB",
-        "Green Component": 0.1491314172744751,
-        "Red Component": 1
-      },
-      "Blinking Cursor": false,
-      "Blur": false,
-      "Bold Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Bound Hosts": [
-        "/User/joaquin/projects/bitbucket.org/cattlebruisers/*",
-        "~/projects/bitbucket.org/cattlebruisers/*"
-      ],
-      "Character Encoding": 4,
-      "Close Sessions On End": true,
-      "Columns": 80,
-      "Command": "",
-      "Cursor Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Cursor Guide Color": {
-        "Alpha Component": 0.25,
-        "Blue Component": 1,
-        "Color Space": "sRGB",
-        "Green Component": 0.9268307089805603,
-        "Red Component": 0.70213186740875244
-      },
-      "Cursor Text Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Custom Command": "No",
-      "Custom Directory": "Yes",
-      "Default Bookmark": "No",
-      "Description": "Default",
-      "Disable Window Resizing": true,
-      "Dynamic Profile Filename": "/Users/joaquin/Library/Application Support/iTerm2/DynamicProfiles/profiles.json",
-      "Flashing Bell": false,
-      "Foreground Color": {
-        "Blue Component": "1",
-        "Green Component": "1",
-        "Red Component": "1"
-      },
-      "Guid": "22888D1E-5D00-4D40-BC2A-A7328B2492DD",
-      "Has Hotkey": false,
-      "Horizontal Spacing": 1,
-      "Idle Code": 0,
-      "Initial Text": "",
-      "Jobs to Ignore": [
-        "rlogin",
-        "ssh",
-        "slogin",
-        "telnet"
-      ],
-      "Keyboard Map": {
-        "0x2d-0x40000": {
-          "Action": 11,
-          "Text": "0x1f"
-        },
-        "0x32-0x40000": {
-          "Action": 11,
-          "Text": "0x00"
-        },
-        "0x33-0x40000": {
-          "Action": 11,
-          "Text": "0x1b"
-        },
-        "0x34-0x40000": {
-          "Action": 11,
-          "Text": "0x1c"
-        },
-        "0x35-0x40000": {
-          "Action": 11,
-          "Text": "0x1d"
-        },
-        "0x36-0x40000": {
-          "Action": 11,
-          "Text": "0x1e"
-        },
-        "0x37-0x40000": {
-          "Action": 11,
-          "Text": "0x1f"
-        },
-        "0x38-0x40000": {
-          "Action": 11,
-          "Text": "0x7f"
-        },
-        "0xf700-0x220000": {
-          "Action": 10,
-          "Text": "[1;2A"
-        },
-        "0xf700-0x240000": {
-          "Action": 10,
-          "Text": "[1;5A"
-        },
-        "0xf700-0x260000": {
-          "Action": 10,
-          "Text": "[1;6A"
-        },
-        "0xf700-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x41"
-        },
-        "0xf701-0x220000": {
-          "Action": 10,
-          "Text": "[1;2B"
-        },
-        "0xf701-0x240000": {
-          "Action": 10,
-          "Text": "[1;5B"
-        },
-        "0xf701-0x260000": {
-          "Action": 10,
-          "Text": "[1;6B"
-        },
-        "0xf701-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x42"
-        },
-        "0xf702-0x220000": {
-          "Action": 10,
-          "Text": "[1;2D"
-        },
-        "0xf702-0x240000": {
-          "Action": 10,
-          "Text": "[1;5D"
-        },
-        "0xf702-0x260000": {
-          "Action": 10,
-          "Text": "[1;6D"
-        },
-        "0xf702-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x44"
-        },
-        "0xf703-0x220000": {
-          "Action": 10,
-          "Text": "[1;2C"
-        },
-        "0xf703-0x240000": {
-          "Action": 10,
-          "Text": "[1;5C"
-        },
-        "0xf703-0x260000": {
-          "Action": 10,
-          "Text": "[1;6C"
-        },
-        "0xf703-0x280000": {
-          "Action": 11,
-          "Text": "0x1b 0x1b 0x5b 0x43"
-        },
-        "0xf704-0x20000": {
-          "Action": 10,
-          "Text": "[1;2P"
-        },
-        "0xf705-0x20000": {
-          "Action": 10,
-          "Text": "[1;2Q"
-        },
-        "0xf706-0x20000": {
-          "Action": 10,
-          "Text": "[1;2R"
-        },
-        "0xf707-0x20000": {
-          "Action": 10,
-          "Text": "[1;2S"
-        },
-        "0xf708-0x20000": {
-          "Action": 10,
-          "Text": "[15;2~"
-        },
-        "0xf709-0x20000": {
-          "Action": 10,
-          "Text": "[17;2~"
-        },
-        "0xf70a-0x20000": {
-          "Action": 10,
-          "Text": "[18;2~"
-        },
-        "0xf70b-0x20000": {
-          "Action": 10,
-          "Text": "[19;2~"
-        },
-        "0xf70c-0x20000": {
-          "Action": 10,
-          "Text": "[20;2~"
-        },
-        "0xf70d-0x20000": {
-          "Action": 10,
-          "Text": "[21;2~"
-        },
-        "0xf70e-0x20000": {
-          "Action": 10,
-          "Text": "[23;2~"
-        },
-        "0xf70f-0x20000": {
-          "Action": 10,
-          "Text": "[24;2~"
-        },
-        "0xf729-0x20000": {
-          "Action": 10,
-          "Text": "[1;2H"
-        },
-        "0xf729-0x40000": {
-          "Action": 10,
-          "Text": "[1;5H"
-        },
-        "0xf72b-0x20000": {
-          "Action": 10,
-          "Text": "[1;2F"
-        },
-        "0xf72b-0x40000": {
-          "Action": 10,
-          "Text": "[1;5F"
-        }
-      },
-      "Link Color": {
-        "Alpha Component": 1,
-        "Blue Component": 0.73423302173614502,
-        "Color Space": "sRGB",
-        "Green Component": 0.35916060209274292,
-        "Red Component": 0
-      },
-      "Mouse Reporting": true,
-      "Name": "Joaquin Briceno",
-      "Non Ascii Font": "Monaco 12",
-      "Non-ASCII Anti Aliased": true,
-      "Normal Font": "mononokiNerdFontCM-Regular 12",
-      "Option Key Sends": 0,
-      "Prompt Before Closing 2": false,
-      "Right Option Key Sends": 0,
-      "Rows": 25,
-      "Screen": -1,
-      "Scrollback Lines": 0,
-      "Selected Text Color": {
-        "Blue Component": "0",
-        "Green Component": "0",
-        "Red Component": "0"
-      },
-      "Selection Color": {
-        "Blue Component": "1",
-        "Green Component": "0.8353",
-        "Red Component": "0.7098"
-      },
-      "Send Code When Idle": false,
-      "Shortcut": "",
-      "Silence Bell": false,
-      "Sync Title": false,
-      "Tags": [
-        "insitu",
-        "bitbucket.org",
-        "cattlebruisers",
-        "Dynamic"
-      ],
-      "Terminal Type": "xterm-256color",
-      "Transparency": 0,
-      "Unicode Normalization": 3,
-      "Unlimited Scrollback": true,
-      "Use Bold Font": true,
-      "Use Bright Bold": true,
-      "Use Italic Font": true,
-      "Use Non-ASCII Font": false,
-      "Vertical Spacing": 1,
-      "Visual Bell": true,
-      "Window Type": 0,
-      "Working Directory": "/Users/joaquin/projects/gitlab.uk.inexa.io"
     }
   ]
 }

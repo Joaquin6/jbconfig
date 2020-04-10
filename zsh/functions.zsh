@@ -181,7 +181,14 @@ antigen-reload () {
 }
 #   nyg: shortcut to globally install pkgs with npm AND yarn
 #   ------------------------------------------------------------
+ng () { npm install --global "$1" ; }
 nyg () { npm install --global "$1" && yarn global add "$1" ; }
+ngAll () {
+  while IFS='' read -r line || [[ -n "$line" ]]; do
+      echo "\tInstalling Globally:\t$line"
+      ng $line
+  done < ~/.nvm/default-packages
+}
 nygAll () {
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 	    echo "\tInstalling Globally:\t$line"
@@ -226,7 +233,6 @@ permitme() {
 	sudo chmod u+w $PERMITTING_DIR;
 	sudo chmod go-w $PERMITTING_DIR;
 }
-users_by_group() { getent group "$1" | awk -F: '{print $4}' ; }
 
 # I download a bunch of github repos. I put them in $HOME/projects/github.com/github_user/project_name. This makes that a bit easier.
 ghget () {
@@ -551,6 +557,16 @@ trash()
         echo "\n\t\tSuccessfully Trashed $1"
     fi
     echo
+}
+
+set-default-user()
+{
+  local USER_NAME=${1:-$USER}
+
+  export USER="$USER_NAME"
+  export DEFAULT_USER="$USER_NAME"
+
+  antigen-reload
 }
 
 set-aws-profile()

@@ -293,8 +293,10 @@ check-install() {
 
 if command_exists python; then
 	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
 elif command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
+	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
 else
 	echo "Python has not been installed!"
 	check-install python "Python"
@@ -307,6 +309,9 @@ if command_exists brew; then
   	else
     	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
   	fi
+    [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
+    [[ -s /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh || \
+      [[ -s /usr/share/autojump/autojump.sh ]] && . /usr/share/autojump/autojump.sh
 else
 	check-install brew "HomeBrew"
 fi
@@ -320,39 +325,40 @@ handle-add-path $HOME/.cabal/bin
 handle-add-path $HOME/.ghcup/bin
 handle-add-path $HOME/.dotnet/tools
 handle-add-path $HOME/npm/bin
-# handle-add-path $MONO_PREFIX/bin
+handle-add-path $MONO_PREFIX/bin
 # handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-# handle-add-path $USER_LOCAL_OPT/binutils/bin
-# handle-add-path $USER_LOCAL_OPT/diffutils/bin
-# handle-add-path $USER_LOCAL_OPT/gettext/bin
-# handle-add-path $USER_LOCAL_OPT/llvm/bin
-# handle-add-path $USER_LOCAL_OPT/apr/bin
-# handle-add-path $USER_LOCAL_OPT/m4/bin
-# handle-add-path $USER_LOCAL_OPT/file-formula/bin
-# handle-add-path $USER_LOCAL_OPT/apr-util/bin
-# handle-add-path $USER_LOCAL_OPT/portable-readline/bin
-# handle-add-path $USER_LOCAL_OPT/icu4c/bin
-# handle-add-path $USER_LOCAL_OPT/icu4c/sbin
+handle-add-path $USER_LOCAL_OPT/binutils/bin
+handle-add-path $USER_LOCAL_OPT/sphinx-doc/bin
+handle-add-path $USER_LOCAL_OPT/diffutils/bin
+handle-add-path $USER_LOCAL_OPT/gettext/bin
+handle-add-path $USER_LOCAL_OPT/llvm/bin
+handle-add-path $USER_LOCAL_OPT/apr/bin
+handle-add-path $USER_LOCAL_OPT/m4/bin
+handle-add-path $USER_LOCAL_OPT/file-formula/bin
+handle-add-path $USER_LOCAL_OPT/apr-util/bin
+handle-add-path $USER_LOCAL_OPT/portable-readline/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/bin
+handle-add-path $USER_LOCAL_OPT/icu4c/sbin
 handle-add-path $USER_LOCAL_OPT/libpq/bin
-# handle-add-path $USER_LOCAL_OPT/sqlite/bin
-# handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-# handle-add-path $USER_LOCAL_OPT/libarchive/bin
-# handle-add-path $USER_LOCAL_OPT/openssl/bin
-# handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
-# handle-add-path $USER_LOCAL_OPT/openldap/bin
-# handle-add-path $USER_LOCAL_OPT/openldap/sbin
-# handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
-# handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-# handle-add-path $USER_LOCAL_GO/bin
-# handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-# handle-add-path $GOPATH/bin
+handle-add-path $USER_LOCAL_OPT/sqlite/bin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $USER_LOCAL_OPT/libarchive/bin
+handle-add-path $USER_LOCAL_OPT/openssl/bin
+handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
+handle-add-path $USER_LOCAL_OPT/openldap/bin
+handle-add-path $USER_LOCAL_OPT/openldap/sbin
+handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
+handle-add-path $USER_LOCAL_OPT/go/libexec/bin
+handle-add-path $USER_LOCAL_GO/bin
+handle-add-path $PERL_LOCAL_LIB_ROOT/bin
+handle-add-path $GOPATH/bin
 handle-add-path $USER_LOCAL/bin
 handle-add-path $USER_LOCAL/sbin
 handle-add-path $USER_LOCAL_SHARE/dotnet
@@ -388,12 +394,12 @@ handle-add-pkgconfigpath libarchive
 handle-add-pkgconfigpath openssl
 
 [[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-# [ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper.sh
+[ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper.sh
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
 [[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
   [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
 # [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
-# [[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
 [[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
 
 if command_exists rbenv; then
@@ -427,24 +433,10 @@ else
 	jb-zsh-debug "Command 'compctl' is not installed!"
 fi
 
-# source $JB_ZSH_BASE/zsh/plugins/dotnet-install.zsh
 source $JB_ZSH_BASE/zsh/alias/index.zsh
 source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
 
-if [[ $OSTYPE == darwin* ]]; then
-	handle-add-path "/Applications/Visual Studio.app/Contents/MacOS"
-	handle-add-path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-	handle-add-path "/Library/Frameworks/Mono.framework/Versions/Current/bin"
-	handle-add-path "/Applications/Adobe Acrobat Reader DC.app/Contents/MacOS"
-	handle-add-path "/Applications/Adobe Extension Manager CC/ExtensionManager.app/Contents/MacOS"
-
-	# zsh parameter completion for the dotnet CLI
-	_dotnet_zsh_complete()
-	{
-		local completions=("$(dotnet complete "$words")")
-		reply=( "${(ps:\n:)completions}" )
-	}
-
-	compctl -K _dotnet_zsh_complete dotnet
-fi
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship

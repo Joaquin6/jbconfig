@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := help
+environment = "inlined"
 DIR=$(PWD)
 LANG=en_US.UTF-8
 LANGUAGE=en_US.UTF-8
@@ -121,9 +123,12 @@ ANTIGENCMD=$(shell which antigen)
 list:
 	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
 
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 default: list
 
-show-env:
+show-env: ## echo the environment variable value
 	@echo $(ENV_VARS)
 
 show-envs:
@@ -138,7 +143,8 @@ show-user-env:
 rmrf:
 	[ -s $(SRC) ] && rm -rf $(SRC)
 
-symlinks:
+symlinks: ## create system link from jbconfig files to home directory
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.profile ~/.profile
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogin ~/.zlogin
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogout ~/.zlogout
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zprofile ~/.zprofile
@@ -285,7 +291,7 @@ iterm2-shell-integration:
 	@curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
 	source ~/.iterm2_shell_integration.zsh
 
-iterm2-profiles:
+iterm2-profiles: ## Link jbconfig item2 profiles.json file to iterm2 DynamicProfiles directory 
 	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
 	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
 	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json

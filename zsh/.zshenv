@@ -9,6 +9,7 @@ export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
+export DEFAULT_USER=$JB_ZSH_AUTHOR
 
 export OPT_PATH=/opt
 export USER_BIN=/usr/bin
@@ -127,8 +128,3 @@ export COMPLETION_WAITING_DOTS="true"
 export ITERM2_SQUELCH_MARK=1
 
 [[ -s $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
-
-# Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "$HOME/.zprofile" ]]; then
-  source "$HOME/.zprofile"
-fi
