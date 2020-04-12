@@ -559,6 +559,17 @@ trash()
     echo
 }
 
+# npm config set @bit:registry https://node.bit.dev
+# npm config set @a4u:registry https://registry.npmjs.org/
+set-npm-registry()
+{
+  local DEFAULT_REGISTRY="https://registry.npmjs.org/"
+  local REGISTRY="$1"
+  local URL="${2:-$DEFAULT_REGISTRY}"
+
+  npm config set "$REGISTRY" "$URL"
+}
+
 set-default-user()
 {
   local USER_NAME=${1:-$USER}

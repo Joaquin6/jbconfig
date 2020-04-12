@@ -72,6 +72,9 @@ alias vscextd='code --disable-extensions'
 alias vscextu='code --uninstall-extension'
 
 
+alias grunt='grunt --stack'
+
+
 # weather from my current location
 alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|us|brooklyn-ny|11215' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'"
 
