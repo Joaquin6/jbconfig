@@ -13,6 +13,24 @@
 
 The Zsh resource file, `~/.zshrc`, is a script that is run whenever you start Zsh.
 
+### [Syncing Settings](https://packagecontrol.io/docs/syncing)
+
+#### From Mac to Windows
+
+```sh
+cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
+mkdir -p ~/Dropbox/Sublime
+ln -s ~/Dropbox/Sublime/User
+ln -s ~/Dropbox/Sublime/sublime
+```
+
+```bash
+cd "$env:appdata\Sublime Text 3\Packages\"
+rmdir -recurse User
+cmd /c mklink /D User $env:userprofile\Dropbox\Sublime\User
+cmd /c mklink /D sublime $env:userprofile\Dropbox\Sublime\sublime
+```
+
 ## References
 
 * <https://github.com/Homebrew/homebrew-bundle>

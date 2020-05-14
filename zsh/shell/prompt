@@ -1,0 +1,32 @@
+BASEPATH=~/src/github.com/milkbikis/powerline-shell
+if [ -f $BASEPATH/powerline-shell.py ]; then
+    function powerline_precmd() {
+        export PS1="$($BASEPATH/powerline-shell.py $? --shell zsh 2> /dev/null)"
+    }
+
+    function install_powerline_precmd() {
+        for s in "${precmd_functions[@]}"; do
+            if [ "$s" = "powerline_precmd" ]; then
+                return
+            fi
+        done
+        precmd_functions+=(powerline_precmd)
+    }
+
+    install_powerline_precmd
+else
+    echo "You should install powerline-shell from https://github.com/milkbikis/powerline-shell/"
+fi
+
+# Support for bash
+PROMPT_COMMAND='prompt'
+
+# Mirrored support for zsh. See: https://superuser.com/questions/735660/whats-the-zsh-equivalent-of-bashs-prompt-command/735969#735969
+precmd() { eval "$PROMPT_COMMAND"; }
+
+function prompt() {
+    if [ "$PWD" != "$MYOLDPWD" ]; then
+        MYOLDPWD="$PWD"
+        test -e .venv && workon $(cat .venv)
+    fi
+}

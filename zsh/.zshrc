@@ -291,12 +291,17 @@ check-install() {
 	}
 }
 
-if command_exists python; then
+if command_exists python3; then
+	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
+	if [[ $PYTHON_VERSION == 3.6.8 ]]; then
+		export PYTHON_VERSION=3.6
+	fi
+	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
+	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python3
+elif command_exists python; then
 	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
 	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
-elif command_exists python3; then
-	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
-	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
+	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python
 else
 	echo "Python has not been installed!"
 	check-install python "Python"
@@ -436,7 +441,3 @@ fi
 source $JB_ZSH_BASE/zsh/alias/index.zsh
 source $JB_ZSH_BASE/zsh/functions.zsh
 source $JB_ZSH_BASE/zsh/.zshrc-antigen
-
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship

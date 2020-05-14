@@ -1,0 +1,581 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mon",
+				"mongo_dump"
+			],
+			[
+				"ex",
+				"Exit"
+			],
+			[
+				"ar",
+				"archive"
+			],
+			[
+				"apps",
+				"folder_apps\twarning"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"A",
+				"ADOTDIR"
+			],
+			[
+				"e",
+				"else"
+			],
+			[
+				"iterm",
+				"iterm2-shell-integration"
+			],
+			[
+				"Make",
+				"Makefile"
+			],
+			[
+				"P",
+				"PREFIX"
+			],
+			[
+				"insta",
+				"install-antigen"
+			],
+			[
+				"US",
+				"USER_LOCAL_OPT"
+			],
+			[
+				"Ch",
+				"CSharp"
+			],
+			[
+				"Pas",
+				"PreferredAuthentications"
+			],
+			[
+				"hex",
+				"hexRegex"
+			],
+			[
+				"ipv",
+				"ipv6Offset"
+			],
+			[
+				"ipv6",
+				"ipv6Offset"
+			],
+			[
+				"IPV4",
+				"ipv4"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"test",
+				"testIPv6"
+			],
+			[
+				"to",
+				"toBeTruthy"
+			],
+			[
+				"cons",
+				"console.log\tconsole.log"
+			],
+			[
+				"is",
+				"isV6Format"
+			],
+			[
+				"comm",
+				"command_exists"
+			],
+			[
+				"f",
+				"fpath"
+			],
+			[
+				"S",
+				"SYSTEM"
+			],
+			[
+				"VAR",
+				"VARS"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"json",
+				"Pretty JSON: Minify (compress) JSON"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"markdo",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"git re",
+				"GitGutter: Revert Change to Commit"
+			],
+			[
+				"gui",
+				"Generate single UUID v4"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"LOWE",
+				"Convert Case: Lower Case"
+			],
+			[
+				"guid",
+				"Generate single UUID v4"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"html",
+				"HTMLPrettify"
+			],
+			[
+				"uui",
+				"Generate UUID v4"
+			],
+			[
+				"elasticsearch serve",
+				"Elasticsearch: Settings Show Active Server"
+			],
+			[
+				"elasticsearch ",
+				"Elasticsearch: Cat Indices"
+			],
+			[
+				"el",
+				"Elasticsearch: Settings Show Active Server"
+			],
+			[
+				"elas",
+				"Elasticsearch: Ping"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"svg",
+				"SVGO: Prettify SVG"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"js",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"j",
+				"Pretty JSON: Format and Sort JSON"
+			],
+			[
+				"jso",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
+			[
+				"prettyfy",
+				"HTMLPrettify: Set Prettify Preferences"
+			],
+			[
+				"css",
+				"Run CSScomb"
+			],
+			[
+				"gitignore",
+				"Git: Update Project Ignored Files"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"mark",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"ascii",
+				"Set Syntax: ASCIIPresentation"
+			],
+			[
+				"markdown",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"ma",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"UP",
+				"Convert Case: Upper Case"
+			],
+			[
+				"c",
+				"Convert Case: Upper Case"
+			],
+			[
+				"rever",
+				"Reverse characters in selected section"
+			],
+			[
+				"prett",
+				"Pretty JSON: Format and Sort JSON"
+			],
+			[
+				"pret",
+				"Pretty JSON: Format and Sort JSON"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 346.0,
+		"history":
+		[
+			"clear()",
+			"clear"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/joaquin/jbconfig"
+	],
+	"file_history":
+	[
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/joaquin/jbconfig/README.md",
+		"/Users/joaquin/jbconfig/zsh/.antigenrc",
+		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/.zaliases",
+		"/Users/joaquin/jbconfig/zsh/shell/variables",
+		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
+		"/Users/joaquin/.ssh/config",
+		"/Users/joaquin/.gitconfig",
+		"/Users/joaquin/projects/codecommit/vibrant/cms/.git/config",
+		"/Users/joaquin/Dropbox/Notes/MSAM Kickoff.note",
+		"/Users/joaquin/.virtualenvs/msam/pyvenv.cfg",
+		"/Users/joaquin/.virtualenvs/aws-media-services-application-mapper-OXRu-aT7/pyvenv.cfg",
+		"/Users/joaquin/projects/github.com/Joaquin6/vis/examples/network/exampleUtil.js",
+		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/BuildVars.wxi",
+		"/Users/joaquin/.virtualenvs/msam/bin/activate",
+		"/Users/joaquin/.virtualenvs/postactivate",
+		"/Users/joaquin/.virtualenvs/get_env_details",
+		"/Users/joaquin/.virtualenvs/msam/.Python",
+		"/Users/joaquin/projects/github.com/Joaquin6/vis/docs/index.html",
+		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/setup.wxs",
+		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/msifactui.wxs",
+		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/English-US.wxl",
+		"/Users/joaquin/Dropbox/Notes/Nomad CEP Extension.note",
+		"/Users/joaquin/.config/configstore/nomad-search-panel.json",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/Source/src/WixSharp.Samples/Wix# Samples/Bootstrapper/WixBootstrapper/setup.cs",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/luciadfusioninstaller/LuciadFusion.Bootstrapper/Bundle_en-us.wxl",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/luciadfusioninstaller/LuciadFusion.Bootstrapper/Bundle.wxs",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/Source/src/WixSharp.Samples/Wix# Samples/Bootstrapper/WixBootstrapper/readme.txt",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/LuciadFusionInstaller/content/ReadMe.txt",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/README.md",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/README.md",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/LuciadFusionInstaller/LuciadFusionInstaller.wixproj",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/11. Wix Advanced Setup With Modern UI/readme.md",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/WiXBootstrapperLayoutExample/README.md",
+		"/Users/joaquin/.bashrc",
+		"/Users/joaquin/.bash_profile",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/8. Wix Advanced Setup With Simple Bootstrap Project/readme.md",
+		"/Users/joaquin/projects/github.com/adobe/spectrum-css/node_modules/@adobe/spectrum-css-workflow-icons/dist/sites/spectrum-css/spectrum-core.css",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Skype8Setup/readme.TXT",
+		"/Users/joaquin/Downloads/Skype8Setup/Build.cmd",
+		"/Volumes/[C] Windows 10.hidden/Program Files (x86)/Windows Kits/10/bin/10.0.18362.0/x64/wilangid.vbs",
+		"/Users/joaquin/.ssh/bitbucket_id_rsa.pub",
+		"/Users/joaquin/.ssh/bitbucket_id_rsa",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/listings/ListingsPropertyView.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/templates/home/HomeTemplate.html",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/ModalView.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/helpers/utility.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/listings/ListingsMapView.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/models/AgentModel.js",
+		"/Users/joaquin/.Trash/login.js",
+		"/Library/Application Support/Adobe/CEP/extensions/com.nomad-cms.nomad-search.adobe-cep/index.html",
+		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
+		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/card/metadata/card.yml",
+		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/table/metadata/table.yml",
+		"/Users/joaquin/projects/github.com/adobe/spectrum-css/components/actionbar/metadata/actionbar.yml",
+		"/Users/joaquin/projects/github.com/adobe/spectrum-css/components/icon/index.css",
+		"/Users/joaquin/Dropbox/Notes/Elasticsearch2Repository.cs - BU.note",
+		"/Users/joaquin/jbconfig/zsh/shell/aliases",
+		"/Users/joaquin/jbconfig/zsh/shell/functions",
+		"/Users/joaquin/jbconfig/zsh/shell/host_specific",
+		"/Users/joaquin/jbconfig/zsh/shell/completions",
+		"/Users/joaquin/jbconfig/zsh/shell/prompt",
+		"/Users/joaquin/jbconfig/zsh/.zshrc2",
+		"/Users/joaquin/jbconfig/zsh/functions.zsh",
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/AppData/Local/Microsoft/VisualStudio/16.0_21905b78/Settings/Exported-2020-04-15.vssettings",
+		"/Users/joaquin/jbconfig/zsh/.bashrc",
+		"/Users/joaquin/jbconfig/zsh/.zprofile",
+		"/Users/joaquin/jbconfig/zsh/alias/index.zsh",
+		"/Users/joaquin/projects/github.com/milkbikis/powerline-shell/README.md",
+		"/Users/joaquin/Downloads/less-551/README",
+		"/Users/joaquin/less-551/INSTALL",
+		"/Users/joaquin/less-551/Makefile",
+		"/Users/joaquin/less-551/Makefile.in",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/Startup.cs",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/Program.cs",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/nlog.config",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.Console/appsettings.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/appsettings.json",
+		"/Users/joaquin/.microsoft/usersecrets/0379935c-2528-47f9-93cd-e6dd5ace0cbd/secrets.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/production-demo3-elasticsearch.json",
+		"/Users/joaquin/projects/codecommit/vibrant/cms/docker-compose.yml",
+		"/Users/joaquin/.docker/daemon.json",
+		"/Users/joaquin/projects/codecommit/vibrant/cms/Source/stylecop.json",
+		"/Users/joaquin/projects/codecommit/vibrant/cms/.gitattributes",
+		"/Users/joaquin/Dropbox/Notes/elasticsearch.note",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/AppSettings.cs",
+		"/Users/joaquin/.microsoft/usersecrets/BC4F7AF9-D160-40D3-ABE9-9C27B04E7CBC/secrets.json",
+		"/Users/joaquin/.microsoft/usersecrets/36cbf41d-28b4-482e-9142-ccd958be3b9e/secrets.json",
+		"/Users/joaquin/.microsoft/usersecrets/57598c80-4716-41bf-8648-bd6915eeae33/secrets.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/local-cms-elasticsearch.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/local-cms-elasticsearch.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongoclonedb.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/common.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongodump.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongorestore.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo_dump.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo_restore.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo-shell-connect.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/personalize/get-recommendations.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/personalize/import-data.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/remove-pkg.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/run.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/add-pkg.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/build.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/get-version.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/hard-restore.sh",
+		"/Users/joaquin/projects/codecommit/vibrant/cms/Source/Vibrant.Cms.Admin/Properties/launchSettings.json",
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/package.json",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/shellenv/readme.md",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/demo2-Identity.appUsers.json",
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/linking.js",
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/index.js",
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/dom-parser.js",
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/create-vue-instance.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/Gruntfile.js",
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/src/index.html",
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/bundle/cep-config.js",
+		"/Volumes/joaquin/.ssh/environment-",
+		"/Volumes/joaquin/.ssh/config",
+		"/Volumes/joaquin/.gitconfig",
+		"/Volumes/joaquin/.vscode/argv.json",
+		"/Volumes/joaquin/.vscode/settings.json",
+		"/Users/joaquin/Dropbox/Notes/Visual Studio 2019.note",
+		"/Users/joaquin/projects/examples/sample-cep-grunt/package.json",
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/src/js/app.js"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 142.0,
+		"where_history":
+		[
+			"/Users/joaquin/jbconfig/zsh"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"python3",
+			"PYTHON_VERSION"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 44.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.elasticsearch":
+	{
+		"height": 198.0
+	},
+	"output.exec":
+	{
+		"height": 116.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 203.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.nodejs":
+	{
+		"height": 538.0
+	},
+	"pinned_build_system": "",
+	"project": "jbconfig.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 380.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

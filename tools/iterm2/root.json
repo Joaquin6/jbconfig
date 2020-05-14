@@ -2,7 +2,7 @@
   "Right Option Key Sends" : 0,
   "Tags" : [
     "Dynamic",
-    "Home"
+    "Root"
   ],
   "Ansi 12 Color" : {
     "Red Component" : 0.66666668653488159,
@@ -36,7 +36,7 @@
     "Green Component" : 1
   },
   "Rows" : 25,
-  "Default Bookmark" : "Yes",
+  "Default Bookmark" : "No",
   "Ansi 4 Color" : {
     "Red Component" : 0.58431375026702881,
     "Color Space" : "sRGB",
@@ -83,7 +83,7 @@
     "Green Component" : 0.97254902124404907
   },
   "Bound Hosts" : [
-
+    "root@"
   ],
   "Working Directory" : "\/Users\/joaquin",
   "Blinking Cursor" : true,
@@ -339,7 +339,7 @@
     "Green Component" : 1
   },
   "ASCII Ligatures" : true,
-  "Name" : "joaquin",
+  "Name" : "root",
   "Cursor Text Color" : {
     "Red Component" : 0.99999600648880005,
     "Color Space" : "sRGB",
@@ -356,7 +356,7 @@
     "Green Component" : 0.43921568989753723
   },
   "Transparency" : 0,
-  "Guid" : "57909625-C0A3-4072-8D22-713EEE80A96D",
+  "Guid" : "489CAE69-30CD-46F0-A93E-5E6333BCBE4D",
   "Custom Directory" : "No",
   "Ansi 0 Color" : {
     "Red Component" : 0.27058824896812439,

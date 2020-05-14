@@ -1,8 +1,11 @@
 export ZSH=$HOME/.oh-my-zsh
 export ZSHA_BASE=$HOME/.antigen
+export ZSH_THEMES_DIR=$ZSH/themes
 
 # export ZSH_THEME="spaceship"
-export ZSH_THEME="powerlevel9k/powerlevel9k"
+# export ZSH_THEME="powerlevel9k/powerlevel9k"
+export ZSH_THEME="dracula-pro"
+export ZSH_THEME_FILE=$ZSH_THEMES_DIR/$ZSH_THEME.zsh-theme
 export ZSH_CUSTOM=$ZSH/custom
 export ANTIGEN_BUNDLES=$ADOTDIR/bundles
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="Alias tip: "
@@ -16,20 +19,20 @@ export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
 export POWERLEVEL9K_INSTALLATION_PATH=$ZSH_CUSTOM/themes/spaceship-prompt
 export POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S \uE868  %d.%m.%y}"
 
-if [[ -f $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme ]]; then
-	source $POWERLEVEL9K_INSTALLATION_PATH/spaceship.zsh-theme
+if [[ -f $ZSH_THEME_FILE ]]; then
+    source $ZSH_THEME_FILE
 fi
 
 if [[ -d $ADOTDIR ]]; then
-	if [[ -f $ADOTDIR/antigen.zsh ]]; then
-		source $ADOTDIR/antigen.zsh
-	else
-		source $ADOTDIR/src/antigen.zsh
-	fi
+    if [[ -f $ADOTDIR/antigen.zsh ]]; then
+        source $ADOTDIR/antigen.zsh
+    else
+        source $ADOTDIR/src/antigen.zsh
+    fi
 elif [[ -f $USER_LOCAL_SHARE/antigen.zsh ]]; then
-	source $USER_LOCAL_SHARE/antigen.zsh
+    source $USER_LOCAL_SHARE/antigen.zsh
 else
-	jb-zsh-debug "'antigen' source not found!"
+    jb-zsh-debug "'antigen' source not found!"
 fi
 
 # If there is cache available
@@ -45,11 +48,10 @@ fi
 export COMPLETION_WAITING_DOTS="true"
 
 if command_exists antigen; then
-	antigen init $JB_ZSH_BASE/zsh/.antigenrc
+    antigen init $JB_ZSH_BASE/zsh/.antigenrc
 else
-	jb-zsh-debug "Command 'antigen' is not installed!"
+    jb-zsh-debug "Command 'antigen' is not installed!"
 fi
-
 
 source $JB_ZSH_BASE/zsh/.zaliases
 source $JB_ZSH_BASE/zsh/functions.zsh
@@ -57,7 +59,7 @@ source $JB_ZSH_BASE/zsh/functions.zsh
 # place this after nvm initialization!
 autoload -U add-zsh-hook
 
-add-zsh-hook chpwd load-user-specifics 
+add-zsh-hook chpwd load-user-specifics
 add-zsh-hook chpwd load-nvmrc
 
 # load-nvmrc
@@ -70,28 +72,28 @@ typeset -gA ZSH_HIGHLIGHT_STYLES
 
 # Spaceship Prompt Options -  https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
 export SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  package       # Package version
-  node          # Node.js section
-  ruby          # Ruby section
-  golang        # Go section
-  php           # PHP section
-  docker        # Docker section
-  aws           # Amazon Web Services section
-  venv          # virtualenv section
-  pyenv         # Pyenv section
-  exec_time     # Execution time
-  line_sep      # Line break
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
+    user      # Username section
+    dir       # Current directory section
+    host      # Hostname section
+    git       # Git section (git_branch + git_status)
+    package   # Package version
+    node      # Node.js section
+    ruby      # Ruby section
+    golang    # Go section
+    php       # PHP section
+    docker    # Docker section
+    aws       # Amazon Web Services section
+    venv      # virtualenv section
+    pyenv     # Pyenv section
+    exec_time # Execution time
+    line_sep  # Line break
+    jobs      # Background jobs indicator
+    exit_code # Exit code section
+    char      # Prompt character
 )
 export SPACESHIP_RPROMPT_ORDER=(
-	time          # Time stampts section
-	battery       # Battery level and status
+    time    # Time stampts section
+    battery # Battery level and status
 )
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_TIME_12HR=true

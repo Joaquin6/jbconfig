@@ -2,7 +2,7 @@
   "Right Option Key Sends" : 0,
   "Tags" : [
     "Dynamic",
-    "Home"
+    "Projects"
   ],
   "Ansi 12 Color" : {
     "Red Component" : 0.66666668653488159,
@@ -12,7 +12,7 @@
     "Green Component" : 0.60000002384185791
   },
   "Has Hotkey" : false,
-  "Use Non-ASCII Font" : true,
+  "Use Non-ASCII Font" : false,
   "Bold Color" : {
     "Red Component" : 0.47450980544090271,
     "Color Space" : "sRGB",
@@ -36,7 +36,7 @@
     "Green Component" : 1
   },
   "Rows" : 25,
-  "Default Bookmark" : "Yes",
+  "Default Bookmark" : "No",
   "Ansi 4 Color" : {
     "Red Component" : 0.58431375026702881,
     "Color Space" : "sRGB",
@@ -83,10 +83,15 @@
     "Green Component" : 0.97254902124404907
   },
   "Bound Hosts" : [
-
+    "\/User\/joaquin\/*",
+    "!\/User\/joaquin\/projects\/gitlab.uk.inexa.io",
+    "!\/User\/joaquin\/projects\/bitbucket.org\/cattlebruisers",
+    "~\/*",
+    "!~\/projects\/gitlab.uk.inexa.io",
+    "!~\/projects\/bitbucket.org\/cattlebruisers"
   ],
-  "Working Directory" : "\/Users\/joaquin",
-  "Blinking Cursor" : true,
+  "Working Directory" : "\/Users\/joaquin\/projects",
+  "Blinking Cursor" : false,
   "Disable Window Resizing" : true,
   "Sync Title" : false,
   "Prompt Before Closing 2" : false,
@@ -116,7 +121,7 @@
   "Title Components" : 3,
   "Custom Command" : "No",
   "ASCII Anti Aliased" : true,
-  "Non Ascii Font" : "FiraCode-Regular 11",
+  "Non Ascii Font" : "Monaco 12",
   "Vertical Spacing" : 1,
   "Use Bold Font" : true,
   "Option Key Sends" : 0,
@@ -142,7 +147,6 @@
     "Alpha Component" : 1,
     "Green Component" : 1
   },
-  "Non-ASCII Ligatures" : true,
   "Use Italic Font" : true,
   "Unlimited Scrollback" : true,
   "Keyboard Map" : {
@@ -243,8 +247,8 @@
       "Text" : "[1;2D"
     },
     "0xf703-0x280000" : {
-      "Action" : 10,
-      "Text" : "f"
+      "Action" : 11,
+      "Text" : "0x1b 0x1b 0x5b 0x43"
     },
     "0xf700-0x240000" : {
       "Action" : 10,
@@ -270,17 +274,13 @@
       "Action" : 10,
       "Text" : "[1;5C"
     },
-    "0x7f-0x80000" : {
-      "Action" : 11,
-      "Text" : "0x17"
-    },
     "0xf701-0x260000" : {
       "Action" : 10,
       "Text" : "[1;6B"
     },
     "0xf702-0x280000" : {
-      "Action" : 10,
-      "Text" : "b"
+      "Action" : 11,
+      "Text" : "0x1b 0x1b 0x5b 0x44"
     },
     "0xf72b-0x20000" : {
       "Action" : 10,
@@ -339,7 +339,7 @@
     "Green Component" : 1
   },
   "ASCII Ligatures" : true,
-  "Name" : "joaquin",
+  "Name" : "projects",
   "Cursor Text Color" : {
     "Red Component" : 0.99999600648880005,
     "Color Space" : "sRGB",
@@ -356,8 +356,8 @@
     "Green Component" : 0.43921568989753723
   },
   "Transparency" : 0,
-  "Guid" : "57909625-C0A3-4072-8D22-713EEE80A96D",
-  "Custom Directory" : "No",
+  "Guid" : "77D1542E-2D74-4627-8D7B-0BD34EF045B5",
+  "Custom Directory" : "Yes",
   "Ansi 0 Color" : {
     "Red Component" : 0.27058824896812439,
     "Color Space" : "sRGB",

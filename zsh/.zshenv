@@ -63,23 +63,24 @@ export XDG_DATA_HOME=$HOME/.local/share
 export JAVA_HOME=$USER_LIBEXEC/java_home
 export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
-export PKG_CONFIG_PATH="/Library/Frameworks/Mono.framework/Versions/Current/lib/pkgconfig/"
-export ACLOCAL_FLAGS="-I /Library/Frameworks/Mono.framework/Versions/Current/share/aclocal"
-export DYLD_FALLBACK_LIBRARY_PATH="/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib"
 export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
 export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include
 export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
 export TERM="xterm-256color"
+export OOO_FORCE_DESKTOP=gnome
 export ARCHFLAGS="-arch x86_64"
 export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib)
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
-export OOO_FORCE_DESKTOP=gnome
+
+if type brew &> /dev/null; then
+    export CFLAGS=-I$(brew --prefix)/include
+fi
 
 if [ -d $LINUXBREW_PATH ]; then
-  export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
-  export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
-  export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
+    export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
+    export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
+    export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
 fi
 
 export SSH_PATH=$HOME/.ssh
@@ -91,8 +92,8 @@ export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 export AWS_CONFIG_FILE=$HOME/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
 export AWS_DEFAULT_PROFILE=$JB_ZSH_AUTHOR
-if type aws &>/dev/null; then
-	export POLICYARN=$(aws iam list-policies --query 'Policies[?PolicyName==`PowerUserAccess`].{ARN:Arn}' --output text)
+if type aws &> /dev/null; then
+    export POLICYARN=$(aws iam list-policies --query 'Policies[?PolicyName==`PowerUserAccess`].{ARN:Arn}' --output text)
 fi
 
 export HISTSIZE=10000
@@ -115,12 +116,12 @@ export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
 
 if [ -d $HOME/.oh-my-zsh ]; then
-  export ZSH=$HOME/.oh-my-zsh
+    export ZSH=$HOME/.oh-my-zsh
 fi
 
 if [ -d $HOME/.antigen ]; then
-  export ADOTDIR=$HOME/.antigen
-  export ZSHA_BASE=$ADOTDIR
+    export ADOTDIR=$HOME/.antigen
+    export ZSHA_BASE=$ADOTDIR
 fi
 
 export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec

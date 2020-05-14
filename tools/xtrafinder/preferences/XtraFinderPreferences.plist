@@ -19,6 +19,8 @@
 	<true/>
 	<key>XtraFinder_XFBackAndSelectPlugin</key>
 	<true/>
+	<key>XtraFinder_XFBackspaceToGoBackPlugin</key>
+	<false/>
 	<key>XtraFinder_XFBrowserViewColorPlugin</key>
 	<true/>
 	<key>XtraFinder_XFBrowserViewColorPlugin_SecondaryTextColor</key>
@@ -59,7 +61,7 @@
 	<key>XtraFinder_XFDockProgressPlugin</key>
 	<true/>
 	<key>XtraFinder_XFEnterToOpenPlugin</key>
-	<false/>
+	<true/>
 	<key>XtraFinder_XFFitColumnWidthPlugin</key>
 	<true/>
 	<key>XtraFinder_XFFitColumnWidthPlugin_Name</key>
@@ -87,7 +89,18 @@
 	<key>XtraFinder_XFOpenInNewWindowPlugin</key>
 	<true/>
 	<key>XtraFinder_XFRenameActionPlugin</key>
-	<false/>
+	<true/>
+	<key>XtraFinder_XFRenameActionPlugin_Shortcut</key>
+	<dict>
+		<key>characters</key>
+		<string></string>
+		<key>charactersIgnoringModifiers</key>
+		<string></string>
+		<key>keyCode</key>
+		<integer>36</integer>
+		<key>modifierFlags</key>
+		<integer>0</integer>
+	</dict>
 	<key>XtraFinder_XFShowAllFilesActionPlugin</key>
 	<true/>
 	<key>XtraFinder_XFTabPlugin</key>

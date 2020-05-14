@@ -1,19 +1,5 @@
-#
-# Global fixes
-#
-
-# For sudo-ing aliases
-# https://wiki.archlinux.org/index.php/Sudo#Passing_aliases
-alias sudo='sudo '
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
 alias zshversion='echo ${ZSH_PATCHLEVEL}'
-alias zshconfig="$EDITOR $JB_ZSH_BASE/zsh/.zshrc"
+alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias ohmyzshconfig="$EDITOR ~/.oh-my-zsh"
 
@@ -29,11 +15,23 @@ else
     colorflag="-G" # OS X `ls`
 fi
 
-############################################ colorls ###############################################
-# -------------------------------
-# COLORLS DOCUMENTATION
-# -------------------------------
-# https://github.com/athityakumar/colorls
+# ls, the common ones I use a lot shortened for rapid fire usage
+alias l='ls -lFh --color=always --group-directories-first'
+alias la='ls -lAFh ${colorflag}'
+alias lr='ls -tRFh'
+alias lt='ls -ltFh'
+alias ll='ls -l'
+alias ldot='ls -ld .*'
+alias lS='ls -1FSsh'
+alias lart='ls -1Fcart'
+alias lrt='ls -1Fcrt'
+alias lh='ls -a | egrep "^\."'
+alias llgf='ls -GFlAhp'
+alias lla='ls -la'
+alias lsg='ls -GFh'
+alias lrtg='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+alias filecount='ls -aRF | wc -l'
+alias sl=ls
 alias lsc='colorls'
 alias lc='colorls -lA --sd'
 
@@ -47,17 +45,16 @@ alias .5='cd ../../../../../'    # Go back 5 directory levels
 alias .6='cd ../../../../../../' # Go back 6 directory levels
 cd() {
     builtin cd "$@"
-    ls -la
+    ls -l
 } # Always list directory contents upon 'cd'
 
-alias edit='code'                   # edit:     Opens any file in vscode
-alias c='clear'                     # c:            Clear terminal display
-alias path='echo -e ${PATH//:/\\n}' # path:         Echo all executable Paths
-alias show_options='shopt'          # Show_options: display bash options settings
-alias fix_stty='stty sane'          # fix_stty:     Restore terminal settings when screwed up
+alias edit='code'                    # edit:     Opens any file in vscode
+alias c='clear'                      # c:            Clear terminal display
+alias path='echo -e ${PATH//:/\\n}'  # path:         Echo all executable Paths
+alias show_options='shopt'           # Show_options: display bash options settings
+alias fix_stty='stty sane'           # fix_stty:     Restore terminal settings when screwed up
+mkcd() { mkdir -p "$@" && cd "$@"; } # mkcd:          Makes new Dir and jumps inside
 alias UN='echo $USER'
-
-############################################ vscode ################################################
 
 alias vsc='code .'
 alias vscl='code --log'
@@ -73,27 +70,6 @@ alias vscext='code --extensions-dir'
 alias vscexti='code --install-extension'
 alias vscextd='code --disable-extensions'
 alias vscextu='code --uninstall-extension'
-
-alias grunt='grunt --stack'
-
-# weather from my current location
-alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|us|brooklyn-ny|11215' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'"
-
-alias restartdock="killall -KILL Dock"
-# opens up the IOS Simulator without launching xcode
-alias iossimulator="(cd /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/ && open -a iPhone\ Simulator.app)"
-
-# Displays the flash traces in the terminal (when running in the flash player debugger)
-alias flog="tail -f ~/Library/Preferences/Macromedia/Flash\\ Player/Logs/flashlog.txt"
-# Or maybe you prefer flashlog in a gui
-alias trace='/Applications/Utilities/Console.app/Contents/MacOS/Console ~/Library/Preferences/Macromedia/Flash\ Player/Logs/flashlog.txt &'
-
-# Calculates the gzip compression of a file
-function gzipsize() {
-    echo $(($(gzip -c $1 | wc -c) / 1024))"KB"
-}
-
-alias bfg='java -jar /usr/local/bin/bfg-1.13.0.jar'
 
 #   ---------------------------
 #   4. NETWORKING
@@ -112,10 +88,6 @@ alias showBlocked='sudo ipfw list'                # showBlocked:  All ipfw rules
 alias docker-clean-unused='docker system prune --all --force --volumes'
 alias docker-clean-all='docker stop $(docker container ls -a -q) && docker system prune -a -f --volumes'
 alias docker-clean-containers='docker container stop $(docker container ls -a -q) && docker container rm $(docker container ls -a -q)'
-
-drm() { docker rm $(docker ps -a | grep $1 | awk '{print $1}'); }
-# docker rm $(docker ps -a | grep "46 hours ago")
-drmt() { docker rm $(docker ps -a | grep "$1"); }
 
 ######################################### docker-compose ###########################################
 # Docker-compose related zsh aliases
@@ -141,40 +113,38 @@ alias dcrestart='docker-compose restart'
 #   ---------------------------------------
 
 #   cleanupDS:  Recursively delete .DS_Store files
-#   cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
+# 	cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
 #   -------------------------------------------------------------------
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 #   finderShowHidden:   Show hidden files in Finder
 #   finderHideHidden:   Hide hidden files in Finder
-#   enableWorkspaceAutoswitch:    Add workspace auto-switching
-#   disableWorkspaceAutoswitch:     Remove workspace auto-switching
+#   enableWorkspaceAutoswitch:   	Add workspace auto-switching
+#   disableWorkspaceAutoswitch:   	Remove workspace auto-switching
 #   -------------------------------------------------------------------
 alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
 alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
 alias enableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh YES'
 alias disableWorkspaceAutoswitch='defaults write com.apple.dock workspaces-auto-swoosh NO'
 
-# GIT
-function gitexport() {
-    mkdir -p "$1"
-    git archive master | tar -x -C "$1"
-}
+alias tmux='TERM=xterm-256color \tmux'
 
-# Command line head / tail shortcuts
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g L="| less"
-alias -g M="| most"
-alias -g LL="2>&1 | less"
-alias -g CA="2>&1 | cat -A"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
-alias -g P="2>&1| pygmentize -l pytb"
+# Helpers
+alias grep='grep --color=auto' # Always highlight grep search term
+alias ping='ping -c 5'         # Pings with 5 packets, not unlimited
+alias df='df -h'               # Disk free, in gigabytes, not bytes
+alias du='du -h -c'            # Calculate total disk usage for a folder
+alias sgi='sudo gem install'   # Install ruby stuff
+alias be='bundle exec'         # shortcut for ruby environment activation
+alias dc='docker-compose'      # invoke docker-compose, which takes too long to type.
+alias clj='clj-env-dir'        # Clojure helper
+alias clr='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."'
+alias tt='tt++ $HOME/.ttconf'
+alias svim="sudo vim"      # Run vim as super user
+alias emc="emacsclient -n" # no blocking terminal waiting for edit
 
-alias nuget="mono /usr/local/bin/nuget.exe"
-
-# Make zsh know about hosts already accessed by SSH
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+# HG ALIASES
+alias hgst='hg status'
+alias hgd='hg diff | $GIT_EDITOR -'
+alias hgo='hg outgoing'
