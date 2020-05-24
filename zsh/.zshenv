@@ -5,7 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export JB_ZSH_DEBUG=1
+export JB_ZSH_DEBUG=2
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
@@ -18,6 +18,7 @@ export USER_SHARE=/usr/share
 export USER_LIBEXEC=/usr/libexec
 export JB_ZSH_BASE=$HOME/jbconfig
 export HOME_LIB_PATH=$HOME/Library
+export LIB_PATH=/Library
 export SYS_LIB_PATH=/System/Library
 export LINUXBREW_PATH=/home/linuxbrew/.linuxbrew
 
@@ -28,6 +29,7 @@ export USER_LOCAL_LIB=$USER_LOCAL/lib
 export USER_LOCAL_OPT=$USER_LOCAL/opt
 export USER_LOCAL_MAN=$USER_LOCAL/man
 export USER_LOCAL_SHARE=$USER_LOCAL/share
+export FRWKS_PATH=$LIB_PATH/Frameworks
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
 export USER_LOCAL_FRWKS=$USER_LOCAL/Frameworks
 
@@ -62,6 +64,7 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export XDG_DATA_HOME=$HOME/.local/share
 export JAVA_HOME=$USER_LIBEXEC/java_home
 export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
+export PYTHONPATH=$FRWKS_PATH/Python.framework/Versions/Current/bin
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
 export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include

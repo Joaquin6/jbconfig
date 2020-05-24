@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"el",
+				"elif\telif …"
+			],
+			[
 				"mon",
 				"mongo_dump"
 			],
@@ -18,10 +22,6 @@
 			[
 				"apps",
 				"folder_apps\twarning"
-			],
-			[
-				"el",
-				"else"
 			],
 			[
 				"A",
@@ -116,52 +116,38 @@
 	"buffers":
 	[
 		{
+			"file": "/Users/joaquin/jbconfig/Makefile.in",
+			"settings":
+			{
+				"buffer_size": 17226,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".zaliases",
+			"settings":
+			{
+				"buffer_size": 7900,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".zshenv",
+			"settings":
+			{
+				"buffer_size": 5222,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": ".zshrc",
 			"settings":
 			{
-				"buffer_size": 16697,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zshrc-antigen",
-			"settings":
-			{
-				"buffer_size": 3260,
+				"buffer_size": 17075,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "paths.zsh",
-			"settings":
-			{
-				"buffer_size": 1511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zlogin",
-			"settings":
-			{
-				"buffer_size": 315,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zlogout",
-			"settings":
-			{
-				"buffer_size": 453,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".profile",
-			"settings":
-			{
-				"buffer_size": 854,
 				"line_ending": "Unix"
 			}
 		}
@@ -177,6 +163,26 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"rtf",
+				"Set Syntax: Robot Framework syntax highlighting."
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"sublimel",
+				"SublimeLinter: Show Line Errors"
+			],
 			[
 				"json",
 				"Pretty JSON: Minify (compress) JSON"
@@ -202,20 +208,12 @@
 				"Convert Case: Lower Case"
 			],
 			[
-				"upp",
-				"Convert Case: Upper Case"
-			],
-			[
 				"LOWE",
 				"Convert Case: Lower Case"
 			],
 			[
 				"guid",
 				"Generate single UUID v4"
-			],
-			[
-				"inst",
-				"Package Control: Install Package"
 			],
 			[
 				"html",
@@ -240,10 +238,6 @@
 			[
 				"elas",
 				"Elasticsearch: Ping"
-			],
-			[
-				"ins",
-				"Package Control: Install Package"
 			],
 			[
 				"svg",
@@ -344,16 +338,28 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/joaquin/jbconfig"
 	],
 	"file_history":
 	[
-		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/Users/joaquin/jbconfig/README.md",
-		"/Users/joaquin/jbconfig/zsh/.antigenrc",
-		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
-		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
+		"/Users/joaquin/jbconfig/Makefile.in",
+		"/Users/joaquin/jbconfig/scripts/pathChecker.sh",
 		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/jbconfig/Makefile",
+		"/Users/joaquin/jbconfig/configure",
+		"/Users/joaquin/jbconfig/docs/SYMBOLICLINKER.md",
+		"/Users/joaquin/jbconfig/README.md",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/RobotFrameworkAssistant/database/scan_index.log",
+		"/Users/joaquin/jbconfig/zsh/.zprofile",
+		"/Users/joaquin/jbconfig/zsh/.bashrc",
+		"/Users/joaquin/jbconfig/.gitignore",
+		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
+		"/Users/joaquin/jbconfig/zsh/.zlogin",
+		"/Users/joaquin/jbconfig/zsh/.zlogout",
+		"/Users/joaquin/jbconfig/zsh/.profile",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
+		"/Users/joaquin/jbconfig/zsh/.antigenrc",
 		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/jbconfig/zsh/shell/variables",
 		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
@@ -402,7 +408,6 @@
 		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/models/AgentModel.js",
 		"/Users/joaquin/.Trash/login.js",
 		"/Library/Application Support/Adobe/CEP/extensions/com.nomad-cms.nomad-search.adobe-cep/index.html",
-		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
 		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/card/metadata/card.yml",
 		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/table/metadata/table.yml",
 		"/Users/joaquin/projects/github.com/adobe/spectrum-css/components/actionbar/metadata/actionbar.yml",
@@ -416,8 +421,6 @@
 		"/Users/joaquin/jbconfig/zsh/.zshrc2",
 		"/Users/joaquin/jbconfig/zsh/functions.zsh",
 		"/Volumes/[C] Windows 10.hidden/Users/joaquin/AppData/Local/Microsoft/VisualStudio/16.0_21905b78/Settings/Exported-2020-04-15.vssettings",
-		"/Users/joaquin/jbconfig/zsh/.bashrc",
-		"/Users/joaquin/jbconfig/zsh/.zprofile",
 		"/Users/joaquin/jbconfig/zsh/alias/index.zsh",
 		"/Users/joaquin/projects/github.com/milkbikis/powerline-shell/README.md",
 		"/Users/joaquin/Downloads/less-551/README",
@@ -465,21 +468,11 @@
 		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/index.js",
 		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/dom-parser.js",
 		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/create-vue-instance.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/Gruntfile.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/src/index.html",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/bundle/cep-config.js",
-		"/Volumes/joaquin/.ssh/environment-",
-		"/Volumes/joaquin/.ssh/config",
-		"/Volumes/joaquin/.gitconfig",
-		"/Volumes/joaquin/.vscode/argv.json",
-		"/Volumes/joaquin/.vscode/settings.json",
-		"/Users/joaquin/Dropbox/Notes/Visual Studio 2019.note",
-		"/Users/joaquin/projects/examples/sample-cep-grunt/package.json",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/src/js/app.js"
+		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/Gruntfile.js"
 	],
 	"find":
 	{
-		"height": 24.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -491,9 +484,31 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			" ?",
+			"&&",
+			"LIB_FRAMEWORKS_PATH",
+			"LIB_PATH",
+			"PYTHONPATH",
+			"/usr/local",
+			"Homebrew",
+			"pyth",
+			"PYTHON",
+			"python",
+			"PYTHON_VERSION",
+			"pathElem",
+			"incoming_path",
+			"ANTIGENCMD",
+			"sphinx-doc",
+			"\\'94",
+			"\\'93",
+			"\\'92",
+			"BANNER_TEXT",
+			"HEADER_TEXT",
+			"OOO_FORCE_DESKTOP",
+			"GREP_COLOR",
 			"python3",
 			"PYTHON_VERSION"
 		],
@@ -513,186 +528,126 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": ".zshrc",
+					"file": "/Users/joaquin/jbconfig/Makefile.in",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16697,
+						"buffer_size": 17226,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								7805,
+								7805
 							]
 						],
 						"settings":
 						{
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2051.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": ".zshrc-antigen",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3260,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 679.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "paths.zsh",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1511,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1.0,
+						"translation.y": 1531.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": ".zlogin",
+					"buffer": 1,
+					"file": ".zaliases",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 315,
+						"buffer_size": 7900,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								315,
-								315
+								7693,
+								7693
 							]
 						],
 						"settings":
 						{
-							"SL.22.region_keys":
-							[
-							],
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": ".zlogout",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 453,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 209.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": ".profile",
+					"buffer": 2,
+					"file": ".zshenv",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 854,
+						"buffer_size": 5222,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2214,
+								2214
 							]
 						],
 						"settings":
 						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 119.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": ".zshrc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17075,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11482,
+								11482
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
 							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2479.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

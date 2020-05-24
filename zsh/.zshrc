@@ -65,14 +65,27 @@ jb-zsh-debug() {
     echo ${indent}${line} >&2
   done
 }
+path-checker() {
+	local path2chk="$1"
+	if [ -d "$path2chk" ]; then
+		jb-zsh-debug "[PATH DEBUG]: 	Checking permissions on path $path2chk" 2
+		jb-zsh-debug "$path2chk" | sed 's/\//\n/g' \
+		| while read pathElem ; do
+		    testPath="${testPath+${testPath}/}${pathElem}"
+		    ls -ld "$testPath"
+		done
+	else
+		jb-zsh-debug "[PATH DEBUG]: 	no directory access to $path2chk"
+	fi
+}
 handle-add-path() {
 	local incoming_path="$1"
 	# Check if $incoming_path exists.
 	if [ -d "$incoming_path" ]; then
-		jb-zsh-debug "[PATH DEBUG]: 	Adding $incoming_path to PATH" 2
 		# Control will enter here if $incoming_path exists.
 		# My check to make sure the new node path is added to the PATH variable
 		if [[ "$PATH" != *"$incoming_path"* ]]; then
+			jb-zsh-debug "[PATH DEBUG]: 	Adding $incoming_path to PATH" 2
 			# Check if $PATH is set
 			if [ -z ${PATH+x} ]; then
 				# Control will enter here if $PATH is not set.

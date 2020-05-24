@@ -13,6 +13,8 @@
 
 The Zsh resource file, `~/.zshrc`, is a script that is run whenever you start Zsh.
 
+### [SymbolicLinker](./docs/SYMBOLICLINKER.md)
+
 ### [Syncing Settings](https://packagecontrol.io/docs/syncing)
 
 #### From Mac to Windows
