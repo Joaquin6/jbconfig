@@ -5,43 +5,15 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# set PATH so it includes user's private bin directories
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
 # Change shell for current user to zsh
 if [ -n "$ZSH_VERSION" ]; then
     # include .zshrc if it exists
     if [ -f "$HOME/.zshrc" ]; then
     . "$HOME/.zshrc"
     fi
-fi
-
-# set PATH so it includes user's private bin directories
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
-#
-# Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-else
-  if [[ "$OSTYPE" == linux-gnu ]]; then
-  	export BROWSER='xdg-open'
-  fi
-fi
-
-# Ensure editor is set
-export EDITOR=vim
-export VISUAL=vim
-export PAGER=less
-
-#
-# Language
-#
-
-if [[ -z "$LANG" ]]; then
-  # Ensure languages are set
-  export LANG=en_US.UTF-8
-  export LANGUAGE=en_US.UTF-8
-  export LC_ALL=en_US.UTF-8
 fi
 
 # Paths
@@ -84,10 +56,6 @@ if [ -d $LINUXBREW_PATH ]; then
     $fpath
   )
 fi
-
-export OOO_FORCE_DESKTOP=gnome
-
-export GREP_COLOR='1;31'
 
 # Less
 # Set the default Less options.

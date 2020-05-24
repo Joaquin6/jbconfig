@@ -67,6 +67,11 @@ export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
 export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include
 export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
 
+# Ensure editor is set
+export EDITOR=vim
+export VISUAL=vim
+export PAGER=less
+
 export TERM="xterm-256color"
 export OOO_FORCE_DESKTOP=gnome
 export ARCHFLAGS="-arch x86_64"
@@ -81,6 +86,21 @@ if [ -d $LINUXBREW_PATH ]; then
     export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
     export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
     export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
+fi
+
+if [[ -z "$LANG" ]]; then
+  # Ensure languages are set
+  export LANG=en_US.UTF-8
+  export LANGUAGE=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+fi
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+else
+  if [[ "$OSTYPE" == linux-gnu ]]; then
+  	export BROWSER='xdg-open'
+  fi
 fi
 
 export SSH_PATH=$HOME/.ssh
@@ -114,6 +134,7 @@ export PURPLE='\[\033[1;35m\]'
 export CYAN='\[\033[1;36m\]'
 export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
+export GREP_COLOR='1;31'
 
 if [ -d $HOME/.oh-my-zsh ]; then
     export ZSH=$HOME/.oh-my-zsh
