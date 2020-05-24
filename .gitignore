@@ -29,3 +29,5 @@ npm-shrinkwrap.json
 package-lock.json
 yarn.lock
 Makefile
+
+!Makefile.in

@@ -21,6 +21,10 @@ SYSTEM 			= $(shell uname -s)
 USER 			= $(shell whoami)
 LDFLAGS 		= $(libgl) -lpng -lz -lm
 
+# macOS System Paths
+VOLUMES_PATH 		= /Volumes
+APPLICATIONS_PATH	= /Applications
+
 COM_COLOR   = \033[0;34m
 OBJ_COLOR   = \033[0;36m
 OK_COLOR    = \033[0;32m
@@ -43,19 +47,21 @@ BANNER        =${BANNER_SEP}\n\# ${BANNER_TEXT}\n${BANNER_SEP}\n
 HEADER_TEXT   =\# Jbconfig: A simple plugin manager for zsh\n\
 \# Author: Joaquin Briceno\n\
 
-PROJECT   			?= $(CURDIR)
-NVM_DIR 			= ~/.nvm
-RBENV_ROOT 			:= ~/.rbenv
-ADOTDIR 			= ~/.antigen
-ZSH 				= ~/.oh-my-zsh
-VIMRC_RUNTIME 		= ~/.vim_runtime
-FONT_PATH 			= ~/.local/share/fonts
-PROJECTS_PATH 		= ~/projects
-POWERLEVEL9K_PATH 	= ~/powerlevel9k
-USER_LOCAL 			= $(PREFIX)
-USER_LOCAL_SHARE 	= $(USER_LOCAL)/share
-JBCONFIG_ZSH_PATH 	= $(DIR)/zsh
-JBCONFIG_LOG_FILE   ?= ${DIR}/jbconfig.log
+PROJECT   				?= $(CURDIR)
+NVM_DIR 				= ~/.nvm
+RBENV_ROOT 				:= ~/.rbenv
+ADOTDIR 				= ~/.antigen
+ZSH 					= ~/.oh-my-zsh
+VIMRC_RUNTIME 			= ~/.vim_runtime
+FONT_PATH 				= ~/.local/share/fonts
+PROJECTS_PATH 			= ~/projects
+POWERLEVEL9K_PATH 		= ~/powerlevel9k
+USER_LOCAL 				= $(PREFIX)
+USER_LOCAL_SHARE 		= $(USER_LOCAL)/share
+JBCONFIG_ZSH_PATH 		= $(DIR)/zsh
+JBCONFIG_LOG_FILE   	?= ${DIR}/jbconfig.log
+JBCONFIG_WD_MY_BOOK 	?= $(VOLUMES_PATH)/WD\ MY\ BOOK
+JBCONFIG_DOCKER_APP 	?= $(JBCONFIG_WD_MY_BOOK)$(APPLICATIONS_PATH)/Docker.app
 
 GOPATH 						=$(PROJECTS_PATH)/go
 GITHUBPATH 					=$(PROJECTS_PATH)/github.com
@@ -154,6 +160,11 @@ symlinks: ## create system link from jbconfig files to home directory
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshrc ~/.zshrc
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.antigenrc ~/.antigenrc
 
+ifeq (${SYSTEM}, Darwin)
+symlink-docker-app: ## create Docker.app system link from WD MY BOOK Volume to Application directory
+	if [ ! -d $(JBCONFIG_DOCKER_APP) ]; then ln -s $(JBCONFIG_DOCKER_APP) $(APPLICATIONS_PATH)/Docker.app ; fi
+endif
+
 prepare-project-directories: $(PROJECT_SUBPATHS)
 	@mkdir -p $(PROJECT_SUBPATHS)
 
@@ -218,8 +229,8 @@ antigen:
 
 antigen-hard:
 	@echo '	Hard Installing Antigen...'
-	@$(MAKE) rmrf SRC=$(ADOTDIR) 
-	@$(MAKE) rmrf SRC=$(ANTIGEN_USER_PATH) 
+	@$(MAKE) rmrf SRC=$(ADOTDIR)
+	@$(MAKE) rmrf SRC=$(ANTIGEN_USER_PATH)
 	@$(MAKE) antigen
 
 fix-homebrew-paths: $(HOMEBREW_PATHS)
@@ -342,6 +353,7 @@ ifeq (${SYSTEM}, Darwin)
 install: prepare-project-directories iterm2 iterm2-profiles iterm2-shell-integration brew antigen \
 	maximum-awesome ohmyzsh powerline powerlevel9k spaceship-prompt zsh-url-highlighter \
 	zsh-autosuggestions deps nvm symlinks
+symlink-applications: symlink-docker-app
 endif
 
 yarn:
