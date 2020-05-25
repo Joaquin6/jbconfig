@@ -22,12 +22,23 @@ USER 			= $(shell whoami)
 LDFLAGS 		= $(libgl) -lpng -lz -lm
 
 # macOS System Paths
+USERS_PATH 			= /Users
 VOLUMES_PATH 		= /Volumes
 LIB_PATH 			= /Library
 APPLICATIONS_PATH	= /Applications
 
+USER_PATH 					= $(USERS_PATH)/$(USER)
+USER_CACHES_PATH 			= $(USER_PATH)/Library/Caches
+USER_CONTAINERS_PATH		= $(USER_PATH)/Library/Containers
+USER_DOCKER_CONTAINER_PATH	= $(USER_CONTAINERS_PATH)/com.docker.docker
+
 LIB_FRAMEWORKS_PATH ?= $(LIB_PATH)/Frameworks
 WD_MY_BOOK_PATH		= $(VOLUMES_PATH)/WD\ MY\ BOOK
+WMB_IS_MOUNTED 		= false
+
+ACC_PATH = $(APPLICATIONS_PATH)/Adobe\ Creative\ Cloud
+AEM_PATH = $(APPLICATIONS_PATH)/Adobe\ Extension\ Manager\ CC
+AADC_PATH = $(APPLICATIONS_PATH)/Adobe\ Acrobat\ DC
 
 # macOS Python Paths
 PYTHONFRAMEWORK 	?= $(LIB_FRAMEWORKS_PATH)/Python.framework
@@ -67,21 +78,38 @@ FONT_PATH 				= ~/.local/share/fonts
 PROJECTS_PATH 			= ~/projects
 POWERLEVEL9K_PATH 		= ~/powerlevel9k
 USER_LOCAL 				= $(PREFIX)
+USER_LOCAL_LIB 			?= $(USER_LOCAL)/lib
+USER_LOCAL_TMP 			?= $(USER_LOCAL)/tmp
 USER_LOCAL_OPT 			?= $(USER_LOCAL)/opt
+USER_LOCAL_VAR 			?= $(USER_LOCAL)/var
 USER_LOCAL_SHARE 		?= $(USER_LOCAL)/share
+USER_LOCAL_INCLUDE 		?= $(USER_LOCAL)/include
+USER_LOCAL_MICROSOFT 	?= $(USER_LOCAL)/microsoft
 
 # JBCONFIG Specific Variables
-JBCONFIG_ZSH_PATH 		= $(DIR)/zsh
-JBCONFIG_SCRIPTS_PATH 	= $(DIR)/scripts
-JBCONFIG_LOG_FILENAME   = $(LOG_FILENAME)
-JBCONFIG_PROJECTS_PATH 	= $(PROJECTS_PATH)
-JBCONFIG_WD_MY_BOOK 	= $(WD_MY_BOOK_PATH)
-JBCONFIG_SHARE_PATH 	= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/share
-JBCONFIG_CELLAR_PATH 	= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Cellar
-JBCONFIG_CASKROOM_PATH 	= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Caskroom
-JBCONFIG_HOMEBREW_PATH 	= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Homebrew
-JBCONFIG_LOG_FILE   	= ${DIR}/$(JBCONFIG_LOG_FILENAME)
-JBCONFIG_DOCKER_APP 	= $(WD_MY_BOOK_PATH)$(APPLICATIONS_PATH)/Docker.app
+JBCONFIG_ZSH_PATH 				= $(DIR)/zsh
+JBCONFIG_SCRIPTS_PATH 			= $(DIR)/scripts
+JBCONFIG_LOG_FILENAME   		= $(LOG_FILENAME)
+JBCONFIG_PROJECTS_PATH 			= $(PROJECTS_PATH)
+JBCONFIG_WD_MY_BOOK 			= $(WD_MY_BOOK_PATH)
+JBCONFIG_LOG_FILE   			= ${DIR}/$(JBCONFIG_LOG_FILENAME)
+JBCONFIG_CELLAR_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Cellar
+JBCONFIG_CASKROOM_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Caskroom
+JBCONFIG_HOMEBREW_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(PREFIX)/Homebrew
+JBCONFIG_LIB_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_LIB)
+JBCONFIG_TMP_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_TMP)
+JBCONFIG_VAR_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_VAR)
+JBCONFIG_SHARE_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_SHARE)
+JBCONFIG_INCLUDE_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_INCLUDE)
+JBCONFIG_MICROSOFT_PATH 		= $(JBCONFIG_WD_MY_BOOK)$(USER_LOCAL_MICROSOFT)
+JBCONFIG_DOCKER_APP 			= $(WD_MY_BOOK_PATH)$(APPLICATIONS_PATH)/Docker.app
+JBCONFIG_KAIZEN_APP 			= $(WD_MY_BOOK_PATH)$(APPLICATIONS_PATH)/kaizen/kaizen.sh
+JBCONFIG_ACC_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(ACC_PATH)
+JBCONFIG_AEM_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(AEM_PATH)
+JBCONFIG_AADC_PATH 				= $(JBCONFIG_WD_MY_BOOK)$(AADC_PATH)
+JBCONFIG_CACHES_PATH 			= $(JBCONFIG_WD_MY_BOOK)$(USER_CACHES_PATH)
+JBCONFIG_CONTAINERS_PATH		= $(JBCONFIG_WD_MY_BOOK)$(USER_CONTAINERS_PATH)
+JBCONFIG_DOCKER_CONTAINER_PATH	= $(JBCONFIG_WD_MY_BOOK)$(USER_DOCKER_CONTAINER_PATH)
 
 GOPATH 						=$(PROJECTS_PATH)/go
 GITHUBPATH 					=$(PROJECTS_PATH)/github.com
@@ -142,10 +170,30 @@ define isede
 	mv "$(2).1" "$(2)"
 endef
 
+AWSCMD=$(shell which aws)
+AWSCOMPLETERCMD=$(shell which aws_completer)
 ANTIGENCMD=$(shell which antigen)
 SHELLCHECKCMD=$(shell which shellcheck)
 PYTHONCMD=$(shell which python)
 PYTHON3CMD=$(shell which python3)
+
+# $(call process-includes, input-file, output-file)
+#   Remove tabs, expand macros, and process include directives.
+define process-includes
+  expand $1 |                                                   \
+  $(M4) --prefix-builtins --include=text $(m4-macros) - |       \
+  $(process-pgm) > $2
+endef
+
+# $(call file-exists, file-name) - Return non-null if a file exists.
+file-exists = $(wildcard $1)
+
+# $(call maybe-mkdir, directory-name-opt)
+#   Create a directory if it doesn't exist.
+#   If directory-name-opt is omitted use $@ for the directory-name.
+maybe-mkdir = $(if $(call file-exists,          \
+		$(if $1,$1,$(dir $@))),,   \
+	$(MKDIR) -p $(if $1,$1,$(dir $@)))
 
 # Lists all targets defined in this makefile.
 .PHONY: list
@@ -183,12 +231,56 @@ symlinks: ## create system link from jbconfig files to home directory
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshrc ~/.zshrc
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.antigenrc ~/.antigenrc
 
+# System Links for Mac OS
 ifeq (${SYSTEM}, Darwin)
+symlink-usr-local-lib: ## create lib system link from WD MY BOOK Volume to usr/local/lib directory
+	if [ -d /usr/local/lib ]; then sudo mv /usr/local/lib $(JBCONFIG_LIB_PATH); fi
+	if [ -d $(JBCONFIG_LIB_PATH) ]; then ln -s $(JBCONFIG_LIB_PATH) /usr/local/lib ; fi
+symlink-usr-local-tmp: ## create tmp system link from WD MY BOOK Volume to usr/local/tmp directory
+	if [ -d /usr/local/tmp ]; then sudo mv /usr/local/tmp $(JBCONFIG_TMP_PATH); fi
+	if [ -d $(JBCONFIG_TMP_PATH) ]; then ln -s $(JBCONFIG_TMP_PATH) /usr/local/tmp ; fi
+symlink-usr-local-var: ## create var system link from WD MY BOOK Volume to usr/local/var directory
+	if [ -d /usr/local/var ]; then sudo mv /usr/local/var $(JBCONFIG_VAR_PATH); fi
+	if [ -d $(JBCONFIG_VAR_PATH) ]; then ln -s $(JBCONFIG_VAR_PATH) /usr/local/var ; fi
 symlink-usr-local-share: ## create share system link from WD MY BOOK Volume to usr/local/share directory
 	if [ -d /usr/local/share ]; then sudo mv /usr/local/share $(JBCONFIG_SHARE_PATH); fi
 	if [ -d $(JBCONFIG_SHARE_PATH) ]; then ln -s $(JBCONFIG_SHARE_PATH) /usr/local/share ; fi
+symlink-usr-local-include: ## create include system link from WD MY BOOK Volume to usr/local/include directory
+	if [ -d /usr/local/include ]; then sudo mv /usr/local/include $(JBCONFIG_INCLUDE_PATH); fi
+	if [ -d $(JBCONFIG_INCLUDE_PATH) ]; then ln -s $(JBCONFIG_INCLUDE_PATH) /usr/local/include ; fi
+symlink-usr-local-microsoft: ## create Microsoft system link from WD MY BOOK Volume to usr/local/microsoft directory
+	if [ -d /usr/local/microsoft ]; then sudo mv /usr/local/microsoft $(JBCONFIG_MICROSOFT_PATH); fi
+	if [ -d $(JBCONFIG_MICROSOFT_PATH) ]; then ln -s $(JBCONFIG_MICROSOFT_PATH) /usr/local/microsoft ; fi
+symlink-usr-local: symlink-usr-local-lib symlink-usr-local-tmp symlink-usr-local-share \
+	symlink-usr-local-include symlink-usr-local-microsoft
+endif
+
+# Users Links for Mac OS
+ifeq (${SYSTEM}, Darwin)
+symlink-user-caches: ## create caches system link from WD MY BOOK Volume to User/[username]/Library/Caches directory
+	$(call maybe-mkdir $(JBCONFIG_CACHES_PATH))
+	if [ -d $(USER_CACHES_PATH) ]; then sudo mv $(USER_CACHES_PATH) $(JBCONFIG_CACHES_PATH); fi
+	if [ -d $(JBCONFIG_CACHES_PATH) ]; then ln -s $(JBCONFIG_CACHES_PATH) $(USER_CACHES_PATH) ; fi
+symlink-user-containers: ## create Containers system link from WD MY BOOK Volume to User/[username]/Library/Containers directory
+	$(call maybe-mkdir $(JBCONFIG_CONTAINERS_PATH))
+	if [ -d $(USER_CONTAINERS_PATH) ]; then sudo mv $(USER_CONTAINERS_PATH) $(JBCONFIG_CONTAINERS_PATH); fi
+	if [ -d $(JBCONFIG_CONTAINERS_PATH) ]; then ln -s $(JBCONFIG_CONTAINERS_PATH) $(USER_CONTAINERS_PATH) ; fi
+symlink-user-docker-container: ## create Containers/com.docker.docker system link from WD MY BOOK Volume to User/[username]/Library/Containers/com.docker.docker directory
+	$(call maybe-mkdir $(JBCONFIG_CONTAINERS_PATH))
+	if [ -d $(USER_DOCKER_CONTAINER_PATH) ]; then sudo mv $(USER_DOCKER_CONTAINER_PATH) $(JBCONFIG_DOCKER_CONTAINER_PATH); fi
+	if [ -d $(JBCONFIG_DOCKER_CONTAINER_PATH) ]; then ln -s $(JBCONFIG_DOCKER_CONTAINER_PATH) $(USER_DOCKER_CONTAINER_PATH) ; fi
+endif
+
+# Applications System Links for Mac OS
+ifeq (${SYSTEM}, Darwin)
 symlink-docker-app: ## create Docker.app system link from WD MY BOOK Volume to Application directory
 	if [ -d $(JBCONFIG_DOCKER_APP) ]; then ln -s $(JBCONFIG_DOCKER_APP) $(APPLICATIONS_PATH)/Docker.app; fi
+symlink-kaizen-app: ## create kaizen system link from WD MY BOOK Volume to Application directory
+	if [ -d $(JBCONFIG_KAIZEN_APP) ]; then ln -s $(JBCONFIG_KAIZEN_APP) $(APPLICATIONS_PATH)/kaizen; fi
+endif
+
+# Homebrew System Links for Mac OS
+ifeq (${SYSTEM}, Darwin)
 symlink-homebrew-cellar: ## create Cellar system link from WD MY BOOK Volume to usr/local/Cellar directory
 	if [ -d /usr/local/Cellar ]; then sudo mv /usr/local/Cellar $(JBCONFIG_CELLAR_PATH); fi
 	if [ -d $(JBCONFIG_CELLAR_PATH) ]; then ln -s $(JBCONFIG_CELLAR_PATH) /usr/local/Cellar; fi
@@ -198,10 +290,17 @@ symlink-homebrew-caskroom: ## create Caskroom system link from WD MY BOOK Volume
 symlink-homebrew-path: ## create Homebrew system link from WD MY BOOK Volume to usr/local/Homebrew directory
 	if [ -d /usr/local/Homebrew ]; then sudo mv /usr/local/Homebrew $(JBCONFIG_HOMEBREW_PATH); fi
 	if [ -d $(JBCONFIG_HOMEBREW_PATH) ]; then ln -s $(JBCONFIG_HOMEBREW_PATH) /usr/local/Homebrew ; fi
-symlink-python-path: ## create python system link from current python to python file
-	if [ ! -f $(PYTHONPATH)/python ]; then ln -s $(PYTHONCMD) $(PYTHONPATH)/python; fi
-symlink-python3-path: ## create python system link from current python3 to python file
-	if [ ! -f $(PYTHONPATH)/python ]; then ln -s $(PYTHON3CMD) $(PYTHONPATH)/python; fi
+endif
+
+# Adobe Suite System Links for Mac OS
+ifeq (${SYSTEM}, Darwin)
+symlink-acc-path: ## create ACC system link from WD MY BOOK ACC to Applications/Adobe Creative Cloud
+	if [ -d $(JBCONFIG_ACC_PATH) ]; then ln -s $(JBCONFIG_ACC_PATH) $(ACC_PATH); fi
+symlink-aem-path: ## create AEM system link from WD MY BOOK ACC to Applications/Adobe Extension Manager CC
+	if [ -d $(JBCONFIG_AEM_PATH) ]; then ln -s $(JBCONFIG_AEM_PATH) $(AEM_PATH); fi
+symlink-aadc-path: ## create AADC system link from WD MY BOOK ACC to Applications/Adobe Acrobat DC
+	if [ -d $(JBCONFIG_AADC_PATH) ]; then ln -s $(JBCONFIG_AADC_PATH) $(AADC_PATH); fi
+symlink-adobe: symlink-acc-path symlink-aem-path symlink-aadc-path
 endif
 
 prepare-project-directories: $(PROJECT_SUBPATHS)
@@ -249,6 +348,18 @@ install-kubectl-plugins:
 	@echo '	Installing KubeCtl Plugins...'
 	chmod +x ./tools/kubectl/plugins/kubectl-*
 	mv ./tools/kubectl/plugins/kubectl-* /usr/local/bin
+
+awscli:
+	@echo '	Installing AWS CLI...'
+	@curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+	@sudo installer -pkg AWSCLIV2.pkg -target /
+
+remove-awscli:
+	@echo '	Removing AWS CLI...'
+	ls -l $(AWSCMD)
+	sudo rm -rf $(AWSCMD)
+	sudo rm -rf $(AWSCOMPLETERCMD)
+	sudo rm -rf /usr/local/aws-cli
 
 nvm:
 	@echo '	Installing NVM...'
@@ -346,10 +457,12 @@ iterm2-profiles: ## update item2 profiles
 	if [ -f $(ITERM_DYNAMIC_PROFILES)/profiles.json ]; then rm -rf $(ITERM_DYNAMIC_PROFILES)/profiles.json; fi
 	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
 
+ifeq (${SYSTEM}, Darwin)
 iterm2:
 	@echo 'Running iTerm2 Setup...'
 	@$(MAKE) iterm2-shell-integration
 	@$(MAKE) iterm2-profiles
+endif
 
 deps:
 	pip3 install cram=='0.6.*'

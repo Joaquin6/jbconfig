@@ -308,6 +308,8 @@ if command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
 	if [[ $PYTHON_VERSION == 3.6.8 ]]; then
 		export PYTHON_VERSION=3.6
+	elif [[ $PYTHON_VERSION == 3.8.2 ]]; then
+		export PYTHON_VERSION=3.8
 	fi
 	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
 	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python3
@@ -337,14 +339,9 @@ fi
 handle-add-path $HOME/bin
 handle-add-path $USER_BIN
 handle-add-path $USER_LOCAL_BIN
-handle-add-path $HOME/.cask/bin
-handle-add-path $HOME/.jenv/bin
 handle-add-path $HOME/.cabal/bin
 handle-add-path $HOME/.ghcup/bin
 handle-add-path $HOME/.dotnet/tools
-handle-add-path $HOME/npm/bin
-handle-add-path $MONO_PREFIX/bin
-# handle-add-path $OPT_PATH/yarn-v$YARN_VERSION/bin
 handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
 handle-add-path $USER_LOCAL_OPT/binutils/bin
 handle-add-path $USER_LOCAL_OPT/sphinx-doc/bin
@@ -354,8 +351,6 @@ handle-add-path $USER_LOCAL_OPT/llvm/bin
 handle-add-path $USER_LOCAL_OPT/apr/bin
 handle-add-path $USER_LOCAL_OPT/m4/bin
 handle-add-path $USER_LOCAL_OPT/file-formula/bin
-handle-add-path $USER_LOCAL_OPT/apr-util/bin
-handle-add-path $USER_LOCAL_OPT/portable-readline/bin
 handle-add-path $USER_LOCAL_OPT/icu4c/bin
 handle-add-path $USER_LOCAL_OPT/icu4c/sbin
 handle-add-path $USER_LOCAL_OPT/libpq/bin
@@ -363,9 +358,6 @@ handle-add-path $USER_LOCAL_OPT/sqlite/bin
 handle-add-path $USER_LOCAL_OPT/go/libexec/bin
 handle-add-path $USER_LOCAL_OPT/libarchive/bin
 handle-add-path $USER_LOCAL_OPT/openssl/bin
-handle-add-path $USER_LOCAL_OPT/curl-openssl/bin
-handle-add-path $USER_LOCAL_OPT/openldap/bin
-handle-add-path $USER_LOCAL_OPT/openldap/sbin
 handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
 handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin

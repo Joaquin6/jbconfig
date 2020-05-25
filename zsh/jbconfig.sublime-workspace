@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"ma",
+				"maybe-mkdir"
+			],
+			[
+				"if",
+				"ifeq"
+			],
+			[
+				"AWS",
+				"AWSCMD"
+			],
+			[
 				"el",
 				"elif\telif …"
 			],
@@ -115,42 +127,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/joaquin/jbconfig/Makefile.in",
-			"settings":
-			{
-				"buffer_size": 17226,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zaliases",
-			"settings":
-			{
-				"buffer_size": 7900,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zshenv",
-			"settings":
-			{
-				"buffer_size": 5222,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zshrc",
-			"settings":
-			{
-				"buffer_size": 17075,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -163,6 +139,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"u",
+				"Convert Case: Upper Case"
+			],
 			[
 				"upp",
 				"Convert Case: Upper Case"
@@ -341,11 +321,12 @@
 	],
 	"file_history":
 	[
-		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
 		"/Users/joaquin/jbconfig/Makefile.in",
-		"/Users/joaquin/jbconfig/scripts/pathChecker.sh",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
 		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
+		"/Users/joaquin/jbconfig/zsh/.zaliases",
+		"/Users/joaquin/jbconfig/scripts/pathChecker.sh",
 		"/Users/joaquin/jbconfig/Makefile",
 		"/Users/joaquin/jbconfig/configure",
 		"/Users/joaquin/jbconfig/docs/SYMBOLICLINKER.md",
@@ -360,7 +341,6 @@
 		"/Users/joaquin/jbconfig/zsh/.profile",
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
 		"/Users/joaquin/jbconfig/zsh/.antigenrc",
-		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/jbconfig/zsh/shell/variables",
 		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
 		"/Users/joaquin/.ssh/config",
@@ -487,6 +467,37 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"JBCONFIG_CONTAINERS_PATH",
+			"= $",
+			"USER_CONTAINERS_PATH",
+			"USER_CACHES_PATH",
+			"JBCONFIG_CACHES_PATH",
+			"USER_CACHES_PATH",
+			"JBCONFIG_var_PATH",
+			"TMP",
+			"tmp",
+			"aws",
+			"JBCONFIG_DOCKER_APP",
+			"symlink-usr-local-",
+			"symlink-homebrew",
+			"JBCONFIG_microsoft_PATH",
+			"INCLUDE",
+			"include",
+			"/usr",
+			"lib",
+			"JBCONFIG_tmp_PATH",
+			"LIB",
+			"lib",
+			"JBCONFIG_include_PATH",
+			"SHARE",
+			"share",
+			"USER_LOCAL_INCLUDE",
+			"SHARE",
+			"share",
+			"AEM_PATH",
+			"ADOBE_CREATIVE_CLOUD_PATH",
+			"PYTHONPATH",
+			"FRWKS_PATH",
 			" ?",
 			"&&",
 			"LIB_FRAMEWORKS_PATH",
@@ -528,128 +539,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/joaquin/jbconfig/Makefile.in",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17226,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7805,
-								7805
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Makefile/Makefile.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1531.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": ".zaliases",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7900,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7693,
-								7693
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 209.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": ".zshenv",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5222,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2214,
-								2214
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 119.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": ".zshrc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17075,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11482,
-								11482
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2479.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],

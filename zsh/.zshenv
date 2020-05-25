@@ -9,6 +9,7 @@ export JB_ZSH_DEBUG=2
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
+export JBCONFIG_WD_MY_BOOK=WD\ MY\ BOOK
 export DEFAULT_USER=$JB_ZSH_AUTHOR
 
 export OPT_PATH=/opt
@@ -19,8 +20,10 @@ export USER_LIBEXEC=/usr/libexec
 export JB_ZSH_BASE=$HOME/jbconfig
 export HOME_LIB_PATH=$HOME/Library
 export LIB_PATH=/Library
+export VOLUMES_PATH=/Volumes
 export SYS_LIB_PATH=/System/Library
 export LINUXBREW_PATH=/home/linuxbrew/.linuxbrew
+export JBCONFIG_WMB_PATH=$VOLUMES_PATH/$JBCONFIG_WD_MY_BOOK
 
 export USER_LOCAL_GO=$USER_LOCAL/go
 export USER_LOCAL_BIN=$USER_LOCAL/bin
@@ -28,6 +31,7 @@ export USER_LOCAL_ETC=$USER_LOCAL/etc
 export USER_LOCAL_LIB=$USER_LOCAL/lib
 export USER_LOCAL_OPT=$USER_LOCAL/opt
 export USER_LOCAL_MAN=$USER_LOCAL/man
+export USER_LOCAL_TMP=$USER_LOCAL/tmp
 export USER_LOCAL_SHARE=$USER_LOCAL/share
 export FRWKS_PATH=$LIB_PATH/Frameworks
 export SYS_FRWKS_PATH=$SYS_LIB_PATH/Frameworks
@@ -82,7 +86,17 @@ export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchiv
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
 
 if type brew &> /dev/null; then
-    export CFLAGS=-I$(brew --prefix)/include
+    export BREWPREFIX=$(brew --prefix)
+    export CFLAGS=-I$BREWPREFIX/include
+    #  Warning: Your Cellar and TEMP directories are on different volumes.
+    # macOS won't move relative symlinks across volumes unless the target file already
+    # exists. Brews known to be affected by this are Git and Narwhal.
+
+    # You should set the "HOMEBREW_TEMP" environment variable to a suitable
+    # directory on the same volume as your Cellar.
+    if [ -d $JBCONFIG_WMB_PATH ]; then
+      export HOMEBREW_TEMP=$JBCONFIG_WMB_PATH$USER_LOCAL_TMP
+    fi
 fi
 
 if [ -d $LINUXBREW_PATH ]; then
