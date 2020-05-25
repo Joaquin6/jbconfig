@@ -255,30 +255,6 @@ symlink-usr-local: symlink-usr-local-lib symlink-usr-local-tmp symlink-usr-local
 	symlink-usr-local-include symlink-usr-local-microsoft
 endif
 
-# Users Links for Mac OS
-ifeq (${SYSTEM}, Darwin)
-symlink-user-caches: ## create caches system link from WD MY BOOK Volume to User/[username]/Library/Caches directory
-	$(call maybe-mkdir $(JBCONFIG_CACHES_PATH))
-	if [ -d $(USER_CACHES_PATH) ]; then sudo mv $(USER_CACHES_PATH) $(JBCONFIG_CACHES_PATH); fi
-	if [ -d $(JBCONFIG_CACHES_PATH) ]; then ln -s $(JBCONFIG_CACHES_PATH) $(USER_CACHES_PATH) ; fi
-symlink-user-containers: ## create Containers system link from WD MY BOOK Volume to User/[username]/Library/Containers directory
-	$(call maybe-mkdir $(JBCONFIG_CONTAINERS_PATH))
-	if [ -d $(USER_CONTAINERS_PATH) ]; then sudo mv $(USER_CONTAINERS_PATH) $(JBCONFIG_CONTAINERS_PATH); fi
-	if [ -d $(JBCONFIG_CONTAINERS_PATH) ]; then ln -s $(JBCONFIG_CONTAINERS_PATH) $(USER_CONTAINERS_PATH) ; fi
-symlink-user-docker-container: ## create Containers/com.docker.docker system link from WD MY BOOK Volume to User/[username]/Library/Containers/com.docker.docker directory
-	$(call maybe-mkdir $(JBCONFIG_CONTAINERS_PATH))
-	if [ -d $(USER_DOCKER_CONTAINER_PATH) ]; then sudo mv $(USER_DOCKER_CONTAINER_PATH) $(JBCONFIG_DOCKER_CONTAINER_PATH); fi
-	if [ -d $(JBCONFIG_DOCKER_CONTAINER_PATH) ]; then ln -s $(JBCONFIG_DOCKER_CONTAINER_PATH) $(USER_DOCKER_CONTAINER_PATH) ; fi
-endif
-
-# Applications System Links for Mac OS
-ifeq (${SYSTEM}, Darwin)
-symlink-docker-app: ## create Docker.app system link from WD MY BOOK Volume to Application directory
-	if [ -d $(JBCONFIG_DOCKER_APP) ]; then ln -s $(JBCONFIG_DOCKER_APP) $(APPLICATIONS_PATH)/Docker.app; fi
-symlink-kaizen-app: ## create kaizen system link from WD MY BOOK Volume to Application directory
-	if [ -d $(JBCONFIG_KAIZEN_APP) ]; then ln -s $(JBCONFIG_KAIZEN_APP) $(APPLICATIONS_PATH)/kaizen; fi
-endif
-
 # Homebrew System Links for Mac OS
 ifeq (${SYSTEM}, Darwin)
 symlink-homebrew-cellar: ## create Cellar system link from WD MY BOOK Volume to usr/local/Cellar directory
