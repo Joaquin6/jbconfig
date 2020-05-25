@@ -43,16 +43,16 @@
 	<true/>
 	<key>XtraFinder_XFCopyToActionPlugin_RecentFolders</key>
 	<array>
-		<string>file:///Users/joaquin/projects/github.com/Joaquin6/elastic-net-example/</string>
-		<string>file:///Volumes/joaquin/projects/codecommit/vibrant/cms/Source/</string>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/assets/icons/</string>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/jsx/libraries/</string>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/jsx/</string>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/</string>
+		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/assets/</string>
+		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/js/lib/</string>
+		<string>file:///Users/joaquin/projects/installers/</string>
+		<string>file:///Users/joaquin/Dropbox/Sublime/Packages/User/</string>
+		<string>file:///Users/joaquin/Dropbox/Sublime/Packages/</string>
+		<string>file:///Volumes/WD%20MY%20BOOK/Music/</string>
+		<string>file:///Volumes/WD%20MY%20BOOK/projects/github.com/awslabs/</string>
+		<string>file:///Volumes/WD%20MY%20BOOK/usr/local/</string>
+		<string>file:///Volumes/WD%20MY%20BOOK/usr/local/Cellar/</string>
 		<string>file:///Volumes/WD%20MY%20BOOK/</string>
-		<string>file:///Users/joaquin/Dropbox/</string>
-		<string>file:///Users/joaquin/projects/tmp/local-samba/content/joaquin/</string>
-		<string>file:///Users/joaquin/projects/github.com/awslabs/aws-media-services-application-mapper/</string>
 	</array>
 	<key>XtraFinder_XFCutAndPastePlugin</key>
 	<true/>
@@ -105,6 +105,8 @@
 	<true/>
 	<key>XtraFinder_XFTabPlugin</key>
 	<true/>
+	<key>XtraFinder_XFTabPlugin_Browsers</key>
+	<array/>
 	<key>XtraFinder_XFTabPlugin_FillAvailableSpace</key>
 	<true/>
 	<key>XtraFinder_XFTabPlugin_HotBrowser_Slide</key>

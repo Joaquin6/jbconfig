@@ -5,7 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export JB_ZSH_DEBUG=2
+export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
