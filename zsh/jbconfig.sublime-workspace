@@ -318,13 +318,19 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/joaquin/jbconfig"
 	],
 	"file_history":
 	[
 		"/Users/joaquin/jbconfig/Makefile.in",
-		"/Users/joaquin/jbconfig/zsh/.zshenv",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
 		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
+		"/Users/joaquin/jbconfig/zsh/.antigenrc",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
+		"/Users/joaquin/projects/github.com/Joaquin6/oh-my-zsh/themes/dracula-pro.zsh-theme",
+		"/Users/joaquin/projects/github.com/Joaquin6/spaceship-prompt/spaceship.zsh",
+		"/Users/joaquin/projects/github.com/Joaquin6/spaceship-prompt/spaceship.zsh-theme",
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
 		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/jbconfig/scripts/pathChecker.sh",
 		"/Users/joaquin/jbconfig/Makefile",
@@ -335,12 +341,10 @@
 		"/Users/joaquin/jbconfig/zsh/.zprofile",
 		"/Users/joaquin/jbconfig/zsh/.bashrc",
 		"/Users/joaquin/jbconfig/.gitignore",
-		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
 		"/Users/joaquin/jbconfig/zsh/.zlogin",
 		"/Users/joaquin/jbconfig/zsh/.zlogout",
 		"/Users/joaquin/jbconfig/zsh/.profile",
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/Users/joaquin/jbconfig/zsh/.antigenrc",
 		"/Users/joaquin/jbconfig/zsh/shell/variables",
 		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
 		"/Users/joaquin/.ssh/config",
@@ -445,10 +449,7 @@
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/shellenv/readme.md",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/demo2-Identity.appUsers.json",
 		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/linking.js",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/index.js",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/dom-parser.js",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/create-vue-instance.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/Gruntfile.js"
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/index.js"
 	],
 	"find":
 	{
@@ -467,6 +468,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"wd",
+			"ZSH_THEMES_DIR",
 			"JBCONFIG_CONTAINERS_PATH",
 			"= $",
 			"USER_CONTAINERS_PATH",

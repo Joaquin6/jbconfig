@@ -308,8 +308,6 @@ if command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
 	if [[ $PYTHON_VERSION == 3.6.8 ]]; then
 		export PYTHON_VERSION=3.6
-	elif [[ $PYTHON_VERSION == 3.8.2 ]]; then
-		export PYTHON_VERSION=3.8
 	fi
 	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
 	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python3
