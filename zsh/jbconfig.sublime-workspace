@@ -322,10 +322,11 @@
 	],
 	"file_history":
 	[
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/projects/github.com/Joaquin6/keycloak",
 		"/Users/joaquin/jbconfig/Makefile.in",
 		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
 		"/Users/joaquin/jbconfig/zsh/.antigenrc",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
 		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
 		"/Users/joaquin/projects/github.com/Joaquin6/oh-my-zsh/themes/dracula-pro.zsh-theme",
 		"/Users/joaquin/projects/github.com/Joaquin6/spaceship-prompt/spaceship.zsh",
@@ -448,8 +449,7 @@
 		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/package.json",
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/shellenv/readme.md",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/demo2-Identity.appUsers.json",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/linking.js",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/content/index.js"
+		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/linking.js"
 	],
 	"find":
 	{
