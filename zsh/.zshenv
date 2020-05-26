@@ -5,7 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export JB_ZSH_DEBUG=1
+export JB_ZSH_DEBUG=2
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
@@ -23,7 +23,6 @@ export LIB_PATH=/Library
 export VOLUMES_PATH=/Volumes
 export SYS_LIB_PATH=/System/Library
 export LINUXBREW_PATH=/home/linuxbrew/.linuxbrew
-export JBCONFIG_WMB_PATH=$VOLUMES_PATH/$JBCONFIG_WD_MY_BOOK
 
 export USER_LOCAL_GO=$USER_LOCAL/go
 export USER_LOCAL_BIN=$USER_LOCAL/bin
@@ -88,15 +87,6 @@ export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchi
 if type brew &> /dev/null; then
     export BREWPREFIX=$(brew --prefix)
     export CFLAGS=-I$BREWPREFIX/include
-    #  Warning: Your Cellar and TEMP directories are on different volumes.
-    # macOS won't move relative symlinks across volumes unless the target file already
-    # exists. Brews known to be affected by this are Git and Narwhal.
-
-    # You should set the "HOMEBREW_TEMP" environment variable to a suitable
-    # directory on the same volume as your Cellar.
-    if [ -d $JBCONFIG_WMB_PATH ]; then
-      export HOMEBREW_TEMP=$JBCONFIG_WMB_PATH$USER_LOCAL_TMP
-    fi
 fi
 
 if [ -d $LINUXBREW_PATH ]; then

@@ -320,19 +320,19 @@ else
 	check-install python "Python"
 fi
 
-if command_exists brew; then
-	export HOMEBREW_PREFIX=$(brew --prefix)
-  	if [[ $OSTYPE == darwin* ]]; then
-	  	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
-  	else
-    	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
-  	fi
-    [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
-    [[ -s /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh || \
-      [[ -s /usr/share/autojump/autojump.sh ]] && . /usr/share/autojump/autojump.sh
-else
-	check-install brew "HomeBrew"
-fi
+# if command_exists brew; then
+# 	export HOMEBREW_PREFIX=$(brew --prefix)
+#   	if [[ $OSTYPE == darwin* ]]; then
+# 	  	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
+#   	else
+#     	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
+#   	fi
+#     [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
+#     [[ -s /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh || \
+#       [[ -s /usr/share/autojump/autojump.sh ]] && . /usr/share/autojump/autojump.sh
+# else
+# 	check-install brew "HomeBrew"
+# fi
 
 handle-add-path $HOME/bin
 handle-add-path $USER_BIN
