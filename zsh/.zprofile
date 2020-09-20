@@ -12,7 +12,7 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 if [ -n "$ZSH_VERSION" ]; then
     # include .zshrc if it exists
     if [ -f "$HOME/.zshrc" ]; then
-    . "$HOME/.zshrc"
+      . "$HOME/.zshrc"
     fi
 fi
 
@@ -29,8 +29,9 @@ path=(
   $path
 )
 fpath=(
+  $HOME/zsh-defer
 	$HOME/.config/completions
-  $HOME/functions.zsh
+  $HOME/.zfunctions
 	$USER_LOCAL_ETC/bash_completion.d
 	$USER_LOCAL_SHARE/zsh-completions
 	$USER_LOCAL_SHARE/zsh/site-functions
@@ -94,5 +95,5 @@ precmd() {
 
 # Setting PATH for Python 3.6
 # The original version is saved in .zprofile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 export PATH

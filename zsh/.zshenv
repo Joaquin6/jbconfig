@@ -5,11 +5,10 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export JB_ZSH_DEBUG=2
+export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
-export JBCONFIG_WD_MY_BOOK=WD\ MY\ BOOK
 export DEFAULT_USER=$JB_ZSH_AUTHOR
 
 export OPT_PATH=/opt
@@ -48,11 +47,9 @@ export PROJECTS_PATH=$HOME/projects
 export GITHUBPATH=$PROJECTS_PATH/github.com
 export GIT_USERNAME=Joaquin6
 export GIT_USER_PATH=$GITHUBPATH/$GIT_USERNAME
-export ANTIGEN_USER_PATH=$GIT_USER_PATH/antigen
 
 export SHELL=/bin/zsh
 export RBENV_SHELL=$SHELL
-export NVM_DIR=$HOME/.nvm
 export MANPATH=$USER_LOCAL_MAN
 export RBENV_ROOT=$HOME/.rbenv
 export SDKMAN_DIR=$HOME/.sdkman
@@ -67,11 +64,16 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export XDG_DATA_HOME=$HOME/.local/share
 export JAVA_HOME=$USER_LIBEXEC/java_home
 export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
-export PYTHONPATH=$FRWKS_PATH/Python.framework/Versions/Current/bin
+export PYTHON_VERSIONS_PATH=$FRWKS_PATH/Python.framework/Versions
+export PYTHONPATH=$PYTHON_VERSIONS_PATH/Current/bin
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
 export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include
 export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
+
+# NVM Env vars
+export NVM_LAZY_LOAD=true
+export NVM_DIR=$HOME/.nvm
 
 # Ensure editor is set
 export EDITOR=vim
@@ -123,12 +125,19 @@ if type aws &> /dev/null; then
     export POLICYARN=$(aws iam list-policies --query 'Policies[?PolicyName==`PowerUserAccess`].{ARN:Arn}' --output text)
 fi
 
-export HISTSIZE=10000
 export SAVEHIST=10000
+export HISTSIZE=$(( $SAVEHIST * 1.10 ))
 export HISTCONTROL=erasedups
 export HISTFILE=$HOME/.histfile
 export BOOKMARKS_FILE=$HOME/.bookmarks
 export HISTIGNORE='&:ls:ll:la:l.:pwd:exit:clear:clr:[bf]g'
+export HISTORY_IGNORE="(ls|[bf]g|exit|reset|clear|cd|cd ..|cd..)"
+
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
 
 export RED='\[\033[0;31m\]'
 export PINK='\[\033[1;31m\]'
@@ -143,17 +152,16 @@ export BROWN='\[\033[0;33m\]'
 export COLOR_NONE='\[\033[0m\]'
 export GREP_COLOR='1;31'
 
-if [ -d $HOME/.oh-my-zsh ]; then
-    export ZSH=$HOME/.oh-my-zsh
-fi
+export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
+export COMPLETION_WAITING_DOTS="true"
+export ITERM2_SQUELCH_MARK=1
+
+[[ -z $DEFAULT_MACHINE ]] && export DEFAULT_MACHINE="default"
+[[ -d $HOME/.oh-my-zsh ]] && export ZSH=$HOME/.oh-my-zsh
 
 if [ -d $HOME/.antigen ]; then
     export ADOTDIR=$HOME/.antigen
     export ZSHA_BASE=$ADOTDIR
 fi
 
-export GROOVY_HOME=$USER_LOCAL_OPT/groovy/libexec
-export COMPLETION_WAITING_DOTS="true"
-export ITERM2_SQUELCH_MARK=1
-
-[[ -s $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
+[[ -s $HOME/.ghcup/env ]] && . $HOME/.ghcup/env

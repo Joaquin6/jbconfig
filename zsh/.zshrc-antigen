@@ -24,6 +24,7 @@ if [[ -f $ZSH_THEME_FILE ]]; then
 fi
 
 if [[ -d $ADOTDIR ]]; then
+    export ANTIGEN_LOG=$ADOTDIR/antigen.log
     if [[ -f $ADOTDIR/antigen.zsh ]]; then
         source $ADOTDIR/antigen.zsh
     else
@@ -54,7 +55,7 @@ else
 fi
 
 source $JB_ZSH_BASE/zsh/.zaliases
-source $JB_ZSH_BASE/zsh/functions.zsh
+source $JB_ZSH_BASE/zsh/.zfunctions
 
 # place this after nvm initialization!
 autoload -U add-zsh-hook
@@ -105,3 +106,4 @@ ZSH_HIGHLIGHT_STYLES[url-good]='fg=blue,bold'
 ZSH_HIGHLIGHT_STYLES[url-bad]='fg=magenta,bold'
 # Customise autosuggestion color
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=green,bold'
+# ZSH_AUTOSUGGEST_STRATEGY=(history completion)

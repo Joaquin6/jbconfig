@@ -3,7 +3,7 @@ export ZSHA_BASE=$HOME/.antigen
 export ZSH_THEMES_DIR=$ZSH/themes
 
 # export ZSH_THEME="spaceship"
-# export ZSH_THEME="powerlevel9k/powerlevel9k"
+# export ZSH_THEME="romkatv/powerlevel10k"
 export ZSH_THEME="dracula-pro"
 export ZSH_THEME_FILE=$ZSH_THEMES_DIR/$ZSH_THEME.zsh-theme
 
@@ -21,8 +21,7 @@ antigen bundle jsontools
 antigen bundle profiles
 antigen bundle git
 antigen bundle git-extras
-antigen bundle npx
-antigen bundle nvm
+# antigen bundle npx
 antigen bundle npm
 antigen bundle golang
 antigen bundle yarn
@@ -49,18 +48,21 @@ if [[ $OSTYPE == darwin* ]]; then
     antigen bundle colorize
 fi
 
+# NVM bundle
+antigen bundle lukechilds/zsh-nvm
+antigen bundle Sparragus/zsh-auto-nvm-use
+
 # Syntax highlighting bundle.
-antigen bundle Joaquin6/zsh-url-highlighter
-antigen bundle Joaquin6/zsh-history-substring-search # https://github.com/zsh-users/zsh-history-substring-search
-antigen bundle Joaquin6/zsh-autosuggestions          # https://github.com/zsh-users/zsh-autosuggestions
-antigen bundle Joaquin6/zsh-completions
+antigen bundle ascii-soup/zsh-url-highlighter
+antigen bundle zsh-users/zsh-autosuggestions          # https://github.com/zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
 antigen bundle Joaquin6/alias-tips   # https://github.com/Joaquin6/alias-tips
 antigen bundle Joaquin6/zshmarks     # https://github.com/Joaquin6/zshmarks
 antigen bundle Joaquin6/git-aliases  # https://github.com/Joaquin6/git-aliases
 antigen bundle Joaquin6/autoenv      # https://github.com/Joaquin6/autoenv
-antigen bundle Joaquin6/powerlevel9k # https://github.com/Joaquin6/powerlevel9k
+antigen bundle Joaquin6/powerlevel10k # https://github.com/Joaquin6/powerlevel0k
 antigen bundle Joaquin6/spaceship-prompt
-antigen bundle Joaquin6/zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting
 antigen bundle gretzky/auto-color-ls            # https://github.com/gretzky/auto-color-ls
 
 # Suuply the theme

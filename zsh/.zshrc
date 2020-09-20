@@ -53,7 +53,8 @@ jb-zsh-debug() {
   # Build $indent prefix.
   local indent=
   if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
-    for i in {1..${_jb_zsh_debug_indent}}; do
+	for ((i=0; i<_jb_zsh_debug_indent; i++))
+	do
       indent="  $indent"
     done
   fi
@@ -171,13 +172,13 @@ handle-add-pkgconfigpath() {
 		fi
 	fi
 }
-command_exists () {
+command_exists() {
   type "$1" &> /dev/null;
 }
 reset-npm-prefix() {
   # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
 
-  local node_version=`nvm version`
+  local node_version=$(nvm version)
 
   npm config delete prefix
   npm config set prefix $NVM_DIR/versions/node/$node_version
@@ -304,113 +305,82 @@ check-install() {
 	}
 }
 
-if command_exists python3; then
-	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
-	if [[ $PYTHON_VERSION == 3.6.8 ]]; then
-		export PYTHON_VERSION=3.6
-	fi
-	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
-	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python3
-elif command_exists python; then
-	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
-	handle-add-path /Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin
-	export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/$PYTHON_VERSION/bin/python
-else
-	echo "Python has not been installed!"
-	check-install python "Python"
-fi
-
-# if command_exists brew; then
-# 	export HOMEBREW_PREFIX=$(brew --prefix)
-#   	if [[ $OSTYPE == darwin* ]]; then
-# 	  	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include"
-#   	else
-#     	export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix openssl)/include"
-#   	fi
-#     [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
-#     [[ -s /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh || \
-#       [[ -s /usr/share/autojump/autojump.sh ]] && . /usr/share/autojump/autojump.sh
-# else
-# 	check-install brew "HomeBrew"
-# fi
-
-handle-add-path $HOME/bin
-handle-add-path $USER_BIN
-handle-add-path $USER_LOCAL_BIN
-handle-add-path $HOME/.cabal/bin
-handle-add-path $HOME/.ghcup/bin
-handle-add-path $HOME/.dotnet/tools
-handle-add-path $USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-handle-add-path $USER_LOCAL_OPT/binutils/bin
-handle-add-path $USER_LOCAL_OPT/sphinx-doc/bin
-handle-add-path $USER_LOCAL_OPT/diffutils/bin
-handle-add-path $USER_LOCAL_OPT/gettext/bin
-handle-add-path $USER_LOCAL_OPT/llvm/bin
-handle-add-path $USER_LOCAL_OPT/apr/bin
-handle-add-path $USER_LOCAL_OPT/m4/bin
-handle-add-path $USER_LOCAL_OPT/file-formula/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/bin
-handle-add-path $USER_LOCAL_OPT/icu4c/sbin
-handle-add-path $USER_LOCAL_OPT/libpq/bin
-handle-add-path $USER_LOCAL_OPT/sqlite/bin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_OPT/libarchive/bin
-handle-add-path $USER_LOCAL_OPT/openssl/bin
-handle-add-path $USER_LOCAL_OPT/gnu-sed/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/coreutils/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-indent/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/gnu-which/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/grep/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/findutils/libexec/gnubin
-handle-add-path $USER_LOCAL_OPT/go/libexec/bin
-handle-add-path $USER_LOCAL_GO/bin
-handle-add-path $PERL_LOCAL_LIB_ROOT/bin
-handle-add-path $GOPATH/bin
-handle-add-path $USER_LOCAL/bin
-handle-add-path $USER_LOCAL/sbin
-handle-add-path $USER_LOCAL_SHARE/dotnet
-handle-add-path $USER_LOCAL_SHARE/dotnet/sdk/NuGetFallbackFolder
-handle-add-path $USER_LOCAL_SHARE/postgresql
-handle-add-path $HOME/.nuget/packages
-handle-add-path $USER_LOCAL_OPT/python/libexec/bin
+JB_ZSH_PATHS=(
+	$ADOTDIR
+	$HOME/bin
+	$USER_BIN
+	$USER_LOCAL_BIN
+	$HOME/.cabal/bin
+	$HOME/.ghcup/bin
+	$USER_LOCAL/Homebrew/bin
+	$USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
+	$USER_LOCAL_OPT/binutils/bin
+	$USER_LOCAL_OPT/sphinx-doc/bin
+	$USER_LOCAL_OPT/diffutils/bin
+	$USER_LOCAL_OPT/gettext/bin
+	$USER_LOCAL_OPT/llvm/bin
+	$USER_LOCAL_OPT/apr/bin
+	$USER_LOCAL_OPT/m4/bin
+	$USER_LOCAL_OPT/file-formula/bin
+	$USER_LOCAL_OPT/icu4c/bin
+	$USER_LOCAL_OPT/icu4c/sbin
+	$USER_LOCAL_OPT/libpq/bin
+	$USER_LOCAL_OPT/sqlite/bin
+	$USER_LOCAL_OPT/go/libexec/bin
+	$USER_LOCAL_OPT/libarchive/bin
+	$USER_LOCAL_OPT/openssl/bin
+	$USER_LOCAL_OPT/gnu-sed/libexec/gnubin
+	$USER_LOCAL_OPT/gnu-tar/libexec/gnubin
+	$USER_LOCAL_OPT/coreutils/libexec/gnubin
+	$USER_LOCAL_OPT/gnu-indent/libexec/gnubin
+	$USER_LOCAL_OPT/gnu-which/libexec/gnubin
+	$USER_LOCAL_OPT/grep/libexec/gnubin
+	$USER_LOCAL_OPT/findutils/libexec/gnubin
+	$USER_LOCAL_OPT/go/libexec/bin
+	$USER_LOCAL_GO/bin
+	$PERL_LOCAL_LIB_ROOT/bin
+	$GOPATH/bin
+	$USER_LOCAL/bin
+	$USER_LOCAL/sbin
+	$USER_LOCAL_OPT/python/libexec/bin
+)
 
 if [[ $OSTYPE == linux* ]]; then
-	handle-add-path $HOME/linuxbrew/.linuxbrew/bin
-	handle-add-path $HOME/linuxbrew/.linuxbrew/Homebrew/bin
+	JB_ZSH_PATHS=(
+		$HOME/linuxbrew/.linuxbrew/bin
+		$HOME/linuxbrew/.linuxbrew/Homebrew/bin
+		$JB_ZSH_PATHS
+	)
 fi
 
-handle-add-path $ADOTDIR
-handle-add-path $ANTIGEN_USER_PATH
+JB_ZSH_MANPATHS=(
+	$USER_LOCAL/share/man
+	$USER_LOCAL_OPT/gnu-tar/libexec/gnuman
+	$USER_LOCAL_OPT/gnu-sed/libexec/gnuman
+	$USER_LOCAL_OPT/coreutils/libexec/gnuman
+)
 
-handle-add-manpath $USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-handle-add-manpath $USER_LOCAL_OPT/coreutils/libexec/gnuman
+JB_ZSH_PKGCONFIGPATHS=(libffi icu4c libpq sqlite libarchive openssl)
 
-# handle-add-path /usr/lib/x86_64-linux-gnu
+for jbzshpath in $JB_ZSH_PATHS
+do
+    handle-add-path $jbzshpath
+done
 
-handle-add-infopath $USER_SHARE/info
-handle-add-infopath $USER_LOCAL/share/info
+for jbzshpath in $JB_ZSH_MANPATHS
+do
+    handle-add-manpath $jbzshpath
+    handle-add-infopath $jbzshpath
+done
 
-handle-add-manpath $USER_LOCAL/share/man
+for jbzshpath in $JB_ZSH_PKGCONFIGPATHS
+do
+    handle-add-pkgconfigpath $jbzshpath
+done
 
-handle-add-pkgconfigpath libffi
-handle-add-pkgconfigpath icu4c
-handle-add-pkgconfigpath libpq
-handle-add-pkgconfigpath sqlite
-handle-add-pkgconfigpath libarchive
-handle-add-pkgconfigpath openssl
-
-[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-[ -f $USER_LOCAL_BIN/virtualenvwrapper.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper.sh
-[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
-[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
-  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
-# [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
-[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
-[[ -s $HOME/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2_shell_integration.zsh
-
-if command_exists rbenv; then
+if ! command_exists yarn; then jb-zsh-debug "Command 'yarn' is not installed!"; fi
+if ! command_exists compctl; then jb-zsh-debug "Command 'compctl' is not installed!"; fi
+if ! command_exists rbenv; then
 	if [ -d $HOME/.rbenv ]; then
 		handle-add-path $HOME/.rbenv/bin
 		handle-add-path $HOME/.rbenv/libexec
@@ -420,27 +390,35 @@ if command_exists rbenv; then
 		handle-add-path $LINUXBREW_PATH/bin/rbenv
 		handle-add-path $LINUXBREW_PATH/rbenv/shims
 	fi
-	eval "$(rbenv init -)"
 fi
 
-if command_exists hub; then
-	eval "$(hub alias -s)"
-fi
+[[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
+# [ -f $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh
+[[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
+[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
+  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+# [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
+[[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
+[[ -s $HOME/.iterm2/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2/.iterm2_shell_integration.zsh
 
-if command_exists jenv; then
-	eval "$(jenv init -)"
-fi
-
-if command_exists compctl; then
-	if command_exists yarn; then
-		handle-add-path $(yarn global bin)
-	else
-		jb-zsh-debug "Yarn is not Installed!"
-	fi
+if command_exists hub; then eval "$(hub alias -s)"; fi
+if command_exists jenv; then eval "$(jenv init -)"; fi
+if command_exists direnv; then eval "$(direnv hook zsh)"; fi
+if command_exists rbenv; then eval "$(rbenv init -)"; fi
+if command_exists python3; then
+	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
+	[[ $PYTHON_VERSION == 3.6.8 ]] && export PYTHON_VERSION=3.6
+	handle-add-path $PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin
+	export VIRTUALENVWRAPPER_PYTHON=$PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin/python3
+elif command_exists python; then
+	export PYTHON_VERSION=$(python -c 'import platform; print(platform.python_version())')
+	handle-add-path $PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin
+	export VIRTUALENVWRAPPER_PYTHON=$PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin/python
 else
-	jb-zsh-debug "Command 'compctl' is not installed!"
+	echo "Python has not been installed!"
+	check-install python "Python"
 fi
 
 source $JB_ZSH_BASE/zsh/alias/index.zsh
-source $JB_ZSH_BASE/zsh/functions.zsh
+source $JB_ZSH_BASE/zsh/.zfunctions
 source $JB_ZSH_BASE/zsh/.zshrc-antigen

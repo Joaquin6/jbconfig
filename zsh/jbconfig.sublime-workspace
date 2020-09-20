@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"zsh",
+				"zsh-users"
+			],
+			[
+				"java",
+				"JAVA_HOME"
+			],
+			[
+				"JA",
+				"JAVA_HOME_8"
+			],
+			[
+				"JAVA",
+				"JAVA_HOME"
+			],
+			[
 				"ma",
 				"maybe-mkdir"
 			],
@@ -127,6 +143,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "alias/index.zsh",
+			"settings":
+			{
+				"buffer_size": 6772,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -139,6 +163,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"json",
+				"Pretty JSON: Format and Sort JSON"
+			],
 			[
 				"u",
 				"Convert Case: Upper Case"
@@ -162,10 +190,6 @@
 			[
 				"sublimel",
 				"SublimeLinter: Show Line Errors"
-			],
-			[
-				"json",
-				"Pretty JSON: Minify (compress) JSON"
 			],
 			[
 				"insta",
@@ -322,32 +346,64 @@
 	],
 	"file_history":
 	[
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
-		"/Users/joaquin/projects/github.com/Joaquin6/keycloak",
-		"/Users/joaquin/jbconfig/Makefile.in",
-		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
-		"/Users/joaquin/jbconfig/zsh/.antigenrc",
 		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
+		"/Users/joaquin/projects/github.com/Joaquin6/antigen/Makefile",
+		"/Users/joaquin/jbconfig/Makefile.in",
+		"/Users/joaquin/jbconfig/zsh/.zprofile",
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/INSTALL.md",
+		"/Users/joaquin/projects/github.com/Joaquin6/antigen/src/lib/use-oh-my-zsh.zsh",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/ncurses-6.2/INSTALL",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/zsh-4.3.11/config.log",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/install_test_zsh.sh",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/zsh-autosuggestions.zsh",
+		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/Makefile",
+		"/Users/joaquin/jbconfig/zsh/themes/mgdm.zsh-theme",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/.antigenrc",
+		"/Users/joaquin/jbconfig/zsh/.zaliases",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/webconsole.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/validation.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/caconfig.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/models-jacksonexporter.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/app/starter.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/oak/oak_base.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/.sling-module.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/target/rat.txt",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/target/slingfeature-tmp/feature-starter.json",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/pom.xml",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/target/.plxarc",
+		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/base.json",
+		"/Users/joaquin/tmp/org.apache.sling.starter-11/README.md",
+		"/Users/joaquin/tmp/acs-aem-tools-content-1.0.2/jcr_root/.content.xml",
+		"/Users/joaquin/tmp/acs-aem-tools-content-1.0.2/jcr_root/apps/acs-tools/install/acs-aem-tools-bundle-1.0.2.jar",
+		"/Users/joaquin/Dropbox/Notes/Priv Creds.note",
+		"/Users/joaquin/Dropbox/Notes/AWS - ACLOUDGURU - Notes.note",
+		"/Users/joaquin/Dropbox/Notes/example.note",
+		"/Users/joaquin/jbconfig/zsh/alias/index.zsh",
+		"/Users/joaquin/Dropbox/Notes/priv.note",
+		"/Users/joaquin/jbconfig/zsh/.bashrc",
+		"/Users/joaquin/jbconfig/zsh/shell/variables",
+		"/Users/joaquin/Dropbox/Notes/NGDS.note",
+		"/Users/joaquin/jbconfig/Makefile",
+		"/Users/joaquin/jbconfig/scripts/ssh/ssh-add-all.sh",
+		"/Users/joaquin/Dropbox/Notes/VNM Updates.note",
+		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
+		"/Users/joaquin/jbconfig/.shellcheckrc",
+		"/Users/joaquin/projects/github.com/Joaquin6/keycloak",
 		"/Users/joaquin/projects/github.com/Joaquin6/oh-my-zsh/themes/dracula-pro.zsh-theme",
 		"/Users/joaquin/projects/github.com/Joaquin6/spaceship-prompt/spaceship.zsh",
 		"/Users/joaquin/projects/github.com/Joaquin6/spaceship-prompt/spaceship.zsh-theme",
-		"/Users/joaquin/jbconfig/zsh/.zshenv",
-		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/jbconfig/scripts/pathChecker.sh",
-		"/Users/joaquin/jbconfig/Makefile",
 		"/Users/joaquin/jbconfig/configure",
 		"/Users/joaquin/jbconfig/docs/SYMBOLICLINKER.md",
 		"/Users/joaquin/jbconfig/README.md",
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/RobotFrameworkAssistant/database/scan_index.log",
-		"/Users/joaquin/jbconfig/zsh/.zprofile",
-		"/Users/joaquin/jbconfig/zsh/.bashrc",
 		"/Users/joaquin/jbconfig/.gitignore",
 		"/Users/joaquin/jbconfig/zsh/.zlogin",
 		"/Users/joaquin/jbconfig/zsh/.zlogout",
 		"/Users/joaquin/jbconfig/zsh/.profile",
 		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/Users/joaquin/jbconfig/zsh/shell/variables",
-		"/Users/joaquin/Dropbox/Notes/MSAM Outputs.note",
 		"/Users/joaquin/.ssh/config",
 		"/Users/joaquin/.gitconfig",
 		"/Users/joaquin/projects/codecommit/vibrant/cms/.git/config",
@@ -406,7 +462,6 @@
 		"/Users/joaquin/jbconfig/zsh/.zshrc2",
 		"/Users/joaquin/jbconfig/zsh/functions.zsh",
 		"/Volumes/[C] Windows 10.hidden/Users/joaquin/AppData/Local/Microsoft/VisualStudio/16.0_21905b78/Settings/Exported-2020-04-15.vssettings",
-		"/Users/joaquin/jbconfig/zsh/alias/index.zsh",
 		"/Users/joaquin/projects/github.com/milkbikis/powerline-shell/README.md",
 		"/Users/joaquin/Downloads/less-551/README",
 		"/Users/joaquin/less-551/INSTALL",
@@ -418,42 +473,11 @@
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.Console/appsettings.json",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/appsettings.json",
 		"/Users/joaquin/.microsoft/usersecrets/0379935c-2528-47f9-93cd-e6dd5ace0cbd/secrets.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/production-demo3-elasticsearch.json",
-		"/Users/joaquin/projects/codecommit/vibrant/cms/docker-compose.yml",
-		"/Users/joaquin/.docker/daemon.json",
-		"/Users/joaquin/projects/codecommit/vibrant/cms/Source/stylecop.json",
-		"/Users/joaquin/projects/codecommit/vibrant/cms/.gitattributes",
-		"/Users/joaquin/Dropbox/Notes/elasticsearch.note",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/AppSettings.cs",
-		"/Users/joaquin/.microsoft/usersecrets/BC4F7AF9-D160-40D3-ABE9-9C27B04E7CBC/secrets.json",
-		"/Users/joaquin/.microsoft/usersecrets/36cbf41d-28b4-482e-9142-ccd958be3b9e/secrets.json",
-		"/Users/joaquin/.microsoft/usersecrets/57598c80-4716-41bf-8648-bd6915eeae33/secrets.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/local-cms-elasticsearch.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/local-cms-elasticsearch.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongoclonedb.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/common.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongodump.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongorestore.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo_dump.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo_restore.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/mongo-shell-connect.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/personalize/get-recommendations.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/personalize/import-data.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/remove-pkg.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/run.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/add-pkg.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/build.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/get-version.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/scripts/hard-restore.sh",
-		"/Users/joaquin/projects/codecommit/vibrant/cms/Source/Vibrant.Cms.Admin/Properties/launchSettings.json",
-		"/Users/joaquin/projects/github.com/Joaquin6/grunt-cep-vue-panel-boilerplate/package.json",
-		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/shellenv/readme.md",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/demo2-Identity.appUsers.json",
-		"/Volumes/joaquin/projects/github.com/PersonaNetwork/browser-extension/src/utils/linking.js"
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/production-demo3-elasticsearch.json"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -468,6 +492,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"LOG",
+			"TERM=",
+			"TERM",
+			"curses-devel",
+			"ANTIGEN_USER_PATH",
+			"GIT_FLAGS",
+			"GITSSH",
+			"zsh-defer source",
+			"source ",
+			"GREP_",
+			"USER_LOCAL_MAN",
+			"USER_LOCAL",
+			"XDG_",
+			"ZDOTDIR",
+			"CLASSPATH",
+			"JAVA_HOME",
+			"shell which",
+			"BREWCMD",
+			"which ",
+			"AWSCMD)\n",
+			"AWSCOMPLETERCMD",
+			"PYTHON3CMD",
+			"PYTHONCMD",
+			"SHELLCHECKCMD",
+			"AWSCMD",
+			"npm",
+			"ssh",
+			"brew",
+			"JBCONFIG_WMB_PATH",
 			"wd",
 			"ZSH_THEMES_DIR",
 			"JBCONFIG_CONTAINERS_PATH",
@@ -542,8 +595,39 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "alias/index.zsh",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6772,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1016,
+								1017
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -628,12 +712,16 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"/Volumes/[C] Windows 10/Users/joaquin/source/repos/LuciadFusionInstaller/LuciadFusionInstaller.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
@@ -652,7 +740,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 380.0,
+	"side_bar_width": 307.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
