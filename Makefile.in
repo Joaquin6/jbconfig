@@ -77,6 +77,7 @@ VIMRC_RUNTIME 			= ~/.vim_runtime
 FONT_PATH 				= ~/.local/share/fonts
 PROJECTS_PATH 			= ~/projects
 POWERLEVEL9K_PATH 		= ~/powerlevel9k
+POWERLEVEL10K_PATH 		= ~/powerlevel10k
 USER_LOCAL 				= $(PREFIX)
 USER_LOCAL_LIB 			?= $(USER_LOCAL)/lib
 USER_LOCAL_TMP 			?= $(USER_LOCAL)/tmp
@@ -119,9 +120,9 @@ BITBUCKETPATH 				=$(PROJECTS_PATH)/bitbucket.org
 GIT_USER_PATH 				=$(GITHUBPATH)/$(GIT_USERNAME)
 DIRENV_USER_PATH 			=$(GIT_USER_PATH)/direnv
 OMZ_USER_PATH 				=$(GIT_USER_PATH)/oh-my-zsh
-ANTIGEN_USER_PATH 			=$(GIT_USER_PATH)/antigen
 POWERLINE_USER_PATH 		=$(GIT_USER_PATH)/powerline
 POWERLEVEL9K_USER_PATH 		=$(GIT_USER_PATH)/powerlevel9k
+POWERLEVEL10K_USER_PATH 	=$(GIT_USER_PATH)/powerlevel10k
 VIMRC_USER_PATH 			=$(GIT_USER_PATH)/vimrc
 MAXIMUM_AWESOME_USER_PATH 	=$(GIT_USER_PATH)/maximum-awesome
 
@@ -170,12 +171,13 @@ define isede
 	mv "$(2).1" "$(2)"
 endef
 
-AWSCMD=$(shell which aws)
-AWSCOMPLETERCMD=$(shell which aws_completer)
-ANTIGENCMD=$(shell which antigen)
-SHELLCHECKCMD=$(shell which shellcheck)
-PYTHONCMD=$(shell which python)
-PYTHON3CMD=$(shell which python3)
+AWSCMD 				= $(shell which aws)
+AWSCOMPLETERCMD		= $(shell which aws_completer)
+ANTIGENCMD			= $(shell which antigen)
+SHELLCHECKCMD		= $(shell which shellcheck)
+PYTHONCMD 			= $(shell which python)
+PYTHON3CMD 			= $(shell which python3)
+NVM 				:= $(shell test -f "$(HOME)/.nvm/nvm.sh"; echo $$?)
 
 # $(call process-includes, input-file, output-file)
 #   Remove tabs, expand macros, and process include directives.
@@ -184,16 +186,6 @@ define process-includes
   $(M4) --prefix-builtins --include=text $(m4-macros) - |       \
   $(process-pgm) > $2
 endef
-
-# $(call file-exists, file-name) - Return non-null if a file exists.
-file-exists = $(wildcard $1)
-
-# $(call maybe-mkdir, directory-name-opt)
-#   Create a directory if it doesn't exist.
-#   If directory-name-opt is omitted use $@ for the directory-name.
-maybe-mkdir = $(if $(call file-exists,          \
-		$(if $1,$1,$(dir $@))),,   \
-	$(MKDIR) -p $(if $1,$1,$(dir $@)))
 
 # Lists all targets defined in this makefile.
 .PHONY: list
@@ -225,8 +217,8 @@ symlinks: ## create system link from jbconfig files to home directory
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogin ~/.zlogin
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zlogout ~/.zlogout
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zprofile ~/.zprofile
-	@ln -sf $(JBCONFIG_ZSH_PATH)/alias/index.zsh ~/.zaliases
-	@ln -sf $(JBCONFIG_ZSH_PATH)/functions.zsh ~/.zfunctions
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zaliases ~/.zaliases
+	@ln -sf $(JBCONFIG_ZSH_PATH)/.zfunctions ~/.zfunctions
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshenv ~/.zshenv
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.zshrc ~/.zshrc
 	@ln -sf $(JBCONFIG_ZSH_PATH)/.antigenrc ~/.antigenrc
@@ -286,21 +278,6 @@ clone:
 	mkdir -p $(GIT_USER_PATH);
 	if [ ! -d $(GIT_USER_PATH)/$(REPOSITORY) ]; then git clone --single-branch --branch $(BRANCH) $(GITSSH)/$(REPOSITORY).git $(GIT_USER_PATH)/$(REPOSITORY) $(GIT_FLAGS); fi
 
-clone-nvm:
-	@$(MAKE) clone REPOSITORY=nvm BRANCH=master
-	if [ ! -d $(NVM_DIR) ]; then ln -sf $(GIT_USER_PATH)/nvm $(NVM_DIR); fi
-	cd $(NVM_DIR); git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags  --max-count=1)`
-
-clone-zsh-url-highlighter:
-	@$(MAKE) clone REPOSITORY=zsh-url-highlighter BRANCH=master
-	@mkdir -p $(ZSH)/custom/plugins
-	@ln -sf $(GIT_USER_PATH)/zsh-url-highlighter $(ZSH)/custom/plugins/zsh-url-highlighter
-
-clone-zsh-autosuggestions:
-	@$(MAKE) clone REPOSITORY=zsh-autosuggestions BRANCH=master
-	@mkdir -p $(ZSH)/custom/plugins
-	@ln -sf $(GIT_USER_PATH)/zsh-autosuggestions $(ZSH)/custom/plugins/zsh-autosuggestions
-
 mongo:
 	@curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz
 	@curl -LO https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-3.4.9.tgz.sig
@@ -337,86 +314,110 @@ remove-awscli:
 	sudo rm -rf $(AWSCOMPLETERCMD)
 	sudo rm -rf /usr/local/aws-cli
 
-nvm:
+nvm: ## if NVM is not installed, clone NVM to ~/.nvm
+ifneq ($(NVM),0)
 	@echo '	Installing NVM...'
-	@$(MAKE) clone-nvm
-	chmod +x $(NVM_DIR)/nvm.sh
-	source $(NVM_DIR)/nvm.sh
+	chmod +x $(DIR)/scripts/install/*.sh
+	exec $(DIR)/scripts/install/nvm.sh
+	@echo '	Successfully Installed NVM!'
+else
+	@echo ' NVM is already installed'
+endif
 
-ohmyzsh:
-	@echo '	Installing Oh-My-Zsh...'
-	@$(MAKE) clone REPOSITORY=oh-my-zsh BRANCH=master
-	@ln -sf $(GIT_USER_PATH)/oh-my-zsh $(ZSH)
+ohmyzsh: ## clone antigen to ~/.oh-ny-zsh
+	if [ ! -d $(ZSH) ]; then git clone https://github.com/ohmyzsh/ohmyzsh.git $(ZSH); fi
 
-antigen:
-	@echo '	Installing Antigen...'
-	@$(MAKE) clone REPOSITORY=antigen BRANCH=develop
-	@ln -fs $(ANTIGEN_USER_PATH) $(ADOTDIR)
+zsh-dracula-theme: ## setup dracula pro theme for zsh
+	if [ ! -f $(ZSH)/themes/dracula-pro.zsh-theme ]; then cp $(DIR)/zsh/themes/dracula-pro.zsh-theme $(ZSH)/themes/dracula-pro.zsh-theme; fi
+
+antigen: ## clone antigen to ~/.antigen
+	if [ ! -d $(ADOTDIR) ]; then git clone https://github.com/zsh-users/antigen.git $(ADOTDIR); fi
 
 antigen-hard:
 	@echo '	Hard Installing Antigen...'
 	@$(MAKE) rmrf SRC=$(ADOTDIR)
-	@$(MAKE) rmrf SRC=$(ANTIGEN_USER_PATH)
 	@$(MAKE) antigen
 
 fix-homebrew-paths: $(HOMEBREW_PATHS)
 	mkdir -p $(HOMEBREW_PATHS)
 	chown -R $(shell whoami) $(HOMEBREW_PATHS)
 
-update-antigen:
+update-antigen: ## Update antigen version to latest
 	@echo '	Updating Antigen...'
 	cd -P $(ADOTDIR) && git checkout . && git pull origin develop && make build && make install;
 	cd $(DIR)
 	make refresh
 
-powerline:
-	@echo '	Installing Powerline...'
-	@$(MAKE) clone REPOSITORY=fonts BRANCH=master GIT_FLAGS=--depth=1
-	cd $(GIT_USER_PATH)/fonts; ./install.sh
+.PHONY: antigen-check
+antigen-check: antigen zsh-dracula-theme zshmarks antigen-url-highlighter antigen-autosuggestions zsh-defer
 
-powerlevel9k:
+zshmarks: ## Clone zshmarks
+	@echo '	Installing Zshmarks...'
+	@mkdir -p $(ZSH)/custom/plugins
+	if [ ! -d $(ZSH)/custom/plugins/zshmarks ]; then git clone https://github.com/jocelynmallon/zshmarks.git $(ZSH)/custom/plugins/zshmarks; fi
+
+powerline: ## Clone Powerline
+	@echo '	Installing Powerline...'
+	chmod +x $(DIR)/scripts/install/*.sh
+	exec $(DIR)/scripts/install/powerline.sh
+
+powerlevel9k: ## Clone Powerlevel9k
 	@echo '	Installing Powerlevel9k...'
-	@$(MAKE) clone REPOSITORY=powerlevel9k BRANCH=master
-	cd $(GIT_USER_PATH)/powerlevel9k; git checkout . && git pull origin master
-	@ln -sf $(GIT_USER_PATH)/powerlevel9k $(POWERLEVEL9K_PATH)
+	chmod +x $(DIR)/scripts/install/*.sh
+	exec $(DIR)/scripts/install/powerlevel9k.sh
+
+powerlevel10k: ## Clone Powerlevel10k
+	@echo '	Installing Powerlevel10k...'
+	chmod +x $(DIR)/scripts/install/*.sh
+	exec $(DIR)/scripts/install/powerlevel10k.sh
 
 maximum-awesome:
 	@echo '	Installing Maximum Awesome...'
 	@$(MAKE) clone REPOSITORY=maximum-awesome BRANCH=master
 	cd $(GIT_USER_PATH)/maximum-awesome; git checkout . && git pull origin master && rake
 
-spaceship-prompt:
-	@echo '	Installing Spaceship Prompt...'
-	@$(MAKE) clone REPOSITORY=spaceship-prompt BRANCH=master
-	@ln -sf $(GIT_USER_PATH)/spaceship-prompt $(ZSH)/custom/themes/spaceship-prompt
-	@ln -sf $(GIT_USER_PATH)/spaceship-prompt/spaceship.zsh-theme $(ZSH)/custom/themes/spaceship.zsh-theme
+spaceship-prompt: ## Clone Spaceship Prompt for Oh-My-Zsh
+	if [ ! -d $(ZSH)/custom/themes/spaceship-prompt ]; then git clone https://github.com/denysdovhan/spaceship-prompt.git $(ZSH)/custom/themes/spaceship-prompt --depth=1; fi
 
-install-vimrc:
+vimrc: ## Clone amix/vimrc
 	@echo '	Installing Vimrc...'
-	@$(MAKE) clone REPOSITORY=vimrc BRANCH=master GIT_FLAGS=--depth=1
-	cd $(GIT_USER_PATH)/vimrc; git checkout . && git pull origin master
-	@ln -sf $(GIT_USER_PATH)/vimrc $(VIMRC_RUNTIME)
+	if [ ! -d $(VIMRC_RUNTIME) ]; then git clone https://github.com/amix/vimrc.git $(VIMRC_RUNTIME); fi
+	cd $(VIMRC_RUNTIME); git checkout . && git pull origin master
 	chmod +x $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 	@exec $(VIMRC_RUNTIME)/install_awesome_vimrc.sh
 
-zsh-url-highlighter:
-	@echo '	Installing ZSH URL Highlighter...'
-	@$(MAKE) clone-zsh-url-highlighter
-	@mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
-	@rm -rf $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
-	@ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+antigen-history-substring-search: ## setup history-substring-search for antigen
+	@echo '	Installing Antigen History Substring Search...'
+	@mkdir -p $(ZSH)/custom/plugins
+	if [ ! -d $(ZSH)/custom/plugins/zsh-history-substring-search ]; then git clone https://github.com/zsh-users/zsh-history-substring-search $(ZSH)/custom/plugins/zsh-history-substring-search; fi
 
-zsh-autosuggestions:
-	@echo '	Installing ZSH Autosuggestions...'
-	@$(MAKE) clone-zsh-autosuggestions
-	@mkdir -p $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters
-	@ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(ANTIGEN_USER_PATH)/bundles/$(GIT_USERNAME)/zsh-syntax-highlighting/highlighters/url
+antigen-syntax-highlighting: ## setup syntax-highlighting for antigen
+	@echo '	Installing Antigen Syntax Highlighting...'
+	@mkdir -p $(ZSH)/custom/plugins
+	if [ ! -d $(ZSH)/custom/plugins/zsh-syntax-highlighting ]; then git clone https://github.com/zsh-users/zsh-syntax-highlighting $(ZSH)/custom/plugins/zsh-syntax-highlighting; fi
 
-rbenv:
+antigen-url-highlighter: ## setup url-highlighter for antigen
+	@echo '	Installing Antigen URL Highlighter...'
+	@mkdir -p $(ZSH)/custom/plugins
+	@mkdir -p $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	if [ ! -d $(ZSH)/custom/plugins/zsh-url-highlighter ]; then git clone https://github.com/ascii-soup/zsh-url-highlighter.git $(ZSH)/custom/plugins/zsh-url-highlighter; fi
+	@rm -rf $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+	@ln -sf $(ZSH)/custom/plugins/zsh-url-highlighter/url $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+
+antigen-autosuggestions: ## setup autosuggestions for antigen
+	@echo '	Installing Antigen Autosuggestions...'
+	@mkdir -p $(ZSH)/custom/plugins
+	if [ ! -d $(ZSH)/custom/plugins/zsh-autosuggestions ]; then git clone https://github.com/zsh-users/zsh-autosuggestions.git $(ZSH)/custom/plugins/zsh-autosuggestions; fi
+	@mkdir -p $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters
+	@ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
+
+zsh-defer:
+	if [ ! -d ~/zsh-defer ]; then git clone https://github.com/romkatv/zsh-defer.git ~/zsh-defer; fi
+
+rbenv: ## install rbenv
 	@echo '	Installing RBENV...'
-	if [ ! -d $(RBENV_ROOT) ]; then git clone https://github.com/rbenv/rbenv.git $(RBENV_ROOT); fi
-	pushd $(RBENV_ROOT); chmod +x src/configure; src/configure && make -C src; popd
-	pushd $(RBENV_ROOT); ln -sf bin/rbenv init; popd
+	chmod +x $(DIR)/scripts/install/*.sh
+	exec $(DIR)/scripts/install/rbenv.sh
 
 rbenv-hard:
 	@echo '	Hard Installing RBENV...'
@@ -424,9 +425,13 @@ rbenv-hard:
 	@$(MAKE) rbenv
 
 iterm2-shell-integration: ## install item2 shell integration
-	@curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2_shell_integration.bash
-	@curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2_shell_integration.zsh
-	source ~/.iterm2_shell_integration.zsh
+	if [ ! -f ~/.iterm2/.iterm2_shell_integration.bash ]; then \
+	curl -L https://iterm2.com/shell_integration/bash -o ~/.iterm2/.iterm2_shell_integration.bash; \
+	fi
+	if [ ! -f ~/.iterm2/.iterm2_shell_integration.zsh ]; then \
+	curl -L https://iterm2.com/shell_integration/zsh -o ~/.iterm2/.iterm2_shell_integration.zsh; \
+	fi
+	source ~/.iterm2/.iterm2_shell_integration.zsh
 
 iterm2-profiles: ## update item2 profiles
 	if [ ! -d $(ITERM_DYNAMIC_PROFILES) ]; then mkdir -p $(ITERM_DYNAMIC_PROFILES); fi
@@ -434,7 +439,7 @@ iterm2-profiles: ## update item2 profiles
 	@ln -sf $(DIR)/tools/iterm2/profiles.json $(ITERM_DYNAMIC_PROFILES)/profiles.json
 
 ifeq (${SYSTEM}, Darwin)
-iterm2:
+iterm2: ## setup iterm2
 	@echo 'Running iTerm2 Setup...'
 	@$(MAKE) iterm2-shell-integration
 	@$(MAKE) iterm2-profiles
@@ -443,16 +448,13 @@ endif
 deps:
 	pip3 install cram=='0.6.*'
 
-brew:
+brew: ## install homebrew
 ifeq (${SYSTEM}, Linux)
 	apt-get install build-essential curl file git
 endif
 	if [ ! -d $(HOMEBREW_HOME_PATH) ]; then git clone https://github.com/Homebrew/brew $(HOMEBREW_HOME_PATH); fi
 	mkdir -p $(HOMEBREW_BIN_PATH)
-	@ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)/brew
-	$(shell which brew) shellenv
-	@$(MAKE) reload
-	cd $(DIR)
+	@ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)/brew;(shell which brew) shellenv; cd $(DIR); make reload
 	$(BREW) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile
 
 brew-check:
@@ -463,29 +465,29 @@ brew-clean:
 
 .PHONY: update
 ifeq (${SYSTEM}, Linux)
-update: prepare-project-directories antigen ohmyzsh powerline powerlevel9k spaceship-prompt \
-	zsh-url-highlighter zsh-autosuggestions symlinks
+update: prepare-project-directories antigen ohmyzsh powerline powerlevel10k zsh-dracula-theme \
+	antigen-url-highlighter antigen-autosuggestions zsh-defer symlinks
 endif
 ifeq (${SYSTEM}, Darwin)
 update: prepare-project-directories iterm2 iterm2-profiles iterm2-shell-integration brew antigen \
-	maximum-awesome ohmyzsh powerline powerlevel9k spaceship-prompt zsh-url-highlighter \
-	zsh-autosuggestions symlinks
+	maximum-awesome ohmyzsh powerline powerlevel10k zsh-dracula-theme antigen-url-highlighter \
+	antigen-autosuggestions zsh-defer symlinks
 endif
 
 .PHONY: install
 ifeq (${SYSTEM}, Linux)
-install: prepare-project-directories antigen ohmyzsh powerline powerlevel9k spaceship-prompt \
-	zsh-url-highlighter zsh-autosuggestions deps symlinks
+install: prepare-project-directories antigen ohmyzsh powerline powerlevel10k zsh-dracula-theme \
+	antigen-url-highlighter antigen-autosuggestions deps zsh-defer symlinks
 endif
 ifeq (${SYSTEM}, Darwin)
 install: prepare-project-directories iterm2 iterm2-profiles iterm2-shell-integration brew antigen \
-	maximum-awesome ohmyzsh powerline powerlevel9k spaceship-prompt zsh-url-highlighter \
-	zsh-autosuggestions deps nvm symlinks
+	maximum-awesome ohmyzsh powerline powerlevel10k zsh-dracula-theme antigen-url-highlighter \
+	antigen-autosuggestions deps nvm zsh-defer symlinks
 symlink-applications: symlink-docker-app
 symlink-homebrew-wd-my-book: symlink-homebrew-cellar symlink-homebrew-caskroom symlink-homebrew-path
 endif
 
-yarn:
+yarn: ## install yarn
 	mkdir -p /opt \
 		&& cd /opt \
 		&& wget https://yarnpkg.com/latest.tar.gz
@@ -494,19 +496,19 @@ yarn:
 		&& gpg --verify latest.tar.gz.asc
 	tar zvxf latest.tar.gz
 
-refresh:
-	source $(ANTIGEN_USER_PATH)/bin/antigen.zsh
+refresh: ## update, cleanup and reset antigen
+	source $(ADOTDIR)/bin/antigen.zsh
 	antigen selfupdate \
 		&& antigen update \
 		&& antigen cleanup \
 		&& antigen reset;
 	make reload
 
-ssh-keys:
+ssh-keys: ## add all shh-keys
 	chmod +x $(DIR)/scripts/ssh/*.sh
 	exec $(DIR)/scripts/ssh/ssh-add-all.sh
 
-redis:
+redis: ## setup redis
 	@echo
 	@echo '	Making Redis...'
 	@echo
@@ -523,32 +525,30 @@ redis:
 	@echo '	For help: https://auth0.com/blog/introduction-to-redis-install-cli-commands-and-data-types/'
 	@echo
 
-haskell:
+haskell: ## install haskell
 	curl https://get-ghcup.haskell.org -sSf | sh
 
-reload:
+reload: ## reload the shell
 	exec $(SHELL) -l
 
-check-scripts:
+check-scripts: ## run syntax and lint review on shell script
 	exec shellcheck $(JBCONFIG_SCRIPTS_PATH)/*.sh
 
-permitme-dir:
+permitme-dir: ## add user to permissions for directories
 	sudo chown -hR $(USER) $(PERMITTING)
 	sudo chmod u+w $(PERMITTING)
 	sudo chmod go-w $(PERMITTING)
 
-permitme-file:
+permitme-file: ## add user to permissions for file
 	sudo chown -hR $(USER) $(PERMITTING)
 	sudo chmod 110 $(PERMITTING)
 	sudo chmod ug+x $(PERMITTING)
 
-permitme-antigen:
-	@${MAKE} permitme-dir PERMITTING=$(ANTIGEN_USER_PATH)
-	@${MAKE} permitme-file PERMITTING=$(ANTIGEN_USER_PATH)/bin/antigen.zsh
+permitme-antigen: ## add user to permissions for antigen
 	@${MAKE} permitme-dir PERMITTING=$(ADOTDIR)
 	@${MAKE} permitme-file PERMITTING=$(ADOTDIR)/bin/antigen.zsh
 
-change-default-shell:
+change-default-shell: ## change the default shell
 	@echo
 	@echo '	Changing Default Shell to...\n\t'
 	@echo $(SHELL)
