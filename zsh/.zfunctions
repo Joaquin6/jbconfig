@@ -2,10 +2,6 @@
 ############################################ FUNCTIONS #############################################
 ####################################################################################################
 
-# Set JB_ZSH_BASE if it isn't already defined
-[[ -z $JB_ZSH_BASE ]] && export JB_ZSH_BASE=~/jbconfig
-[[ -z $DEFAULT_MACHINE ]] && export DEFAULT_MACHINE="default"
-
 
 ############################################# private ##############################################
 # Set debug level. If enabled (> 0) it will print information to stderr.
@@ -174,11 +170,14 @@ ii () {
 	echo -e "\n${RED}Current network location :$NC " ; scselect
 	echo -e "\n${RED}Public facing IP Address :$NC " ; myip
 }
+
 reload () { exec $SHELL -l ; }
+
 antigen-reload () {
 	emulate -L zsh
 	eval antigen reset && reload
 }
+
 #   nyg: shortcut to globally install pkgs with npm AND yarn
 #   ------------------------------------------------------------
 ng () { npm install --global "$1" ; }
@@ -348,28 +347,28 @@ encodeBase64 () {
 #       E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
 #       Without the 'sudo' it will only find processes of the current user
 #   -----------------------------------------------------
-function find-pid () { lsof -t -c "$@" ; }
+find-pid () { lsof -t -c "$@" ; }
 #   listening-on-port: List processes listening on the provided port
 #   ------------------------------------------------------------
-function listening-on-port() { lsof -i "tcp:$1" ; }
+listening-on-port() { lsof -i "tcp:$1" ; }
 
 # Remove workspace auto-switching by running the following command
-function workspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool YES ; }
-function noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool NO ; }
+workspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool YES ; }
+noWorkspaceAutoswitch() { defaults write com.apple.dock workspaces-auto-swoosh -bool NO ; }
 
 #   ---------------------------
 #   -- PERMISSIONS
 #   ---------------------------
-function show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
+show_all_users() { cut -d ":" -f 1 /etc/passwd ; }
 
 # Open the node api for your current version to the optional section.
 # TODO: Make the section part easier to use.
-function node-docs() {
+node-docs() {
   local section=${1:-all}
   open_command "https://nodejs.org/docs/$(node --version)/api/$section.html"
 }
 
-function my-ip() {
+my-ip() {
  	ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
 	ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
 	ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
