@@ -1,6 +1,8 @@
+aemsync
 gyp
 node-gyp
 node-pre-gyp
 npx
 shellcheck
 vsce
+react-components-cli

@@ -1,0 +1,9 @@
+{
+  "browserWindow": {
+    "center": true,
+    "show": true
+  },
+  "devToolsExtensions": [
+    "~/.config/devtools/themes/zerodarkmatrix/theme-extension"
+  ]
+}

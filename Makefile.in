@@ -70,6 +70,7 @@ HEADER_TEXT   =\# JBConfig: A simple plugin manager for zsh\n\
 PROJECT   				?= $(CURDIR)
 NVM_DIR 				= ~/.nvm
 RBENV_ROOT 				:= ~/.rbenv
+CONFIG_ROOT 			= ~/.config
 ADOTDIR 				= ~/.antigen
 LOG_FILENAME   			= jbconfig.log
 ZSH 					= ~/.oh-my-zsh
@@ -89,6 +90,7 @@ USER_LOCAL_MICROSOFT 	?= $(USER_LOCAL)/microsoft
 
 # JBCONFIG Specific Variables
 JBCONFIG_ZSH_PATH 				= $(DIR)/zsh
+JBCONFIG_TOOLS_PATH 			= $(DIR)/tools
 JBCONFIG_SCRIPTS_PATH 			= $(DIR)/scripts
 JBCONFIG_LOG_FILENAME   		= $(LOG_FILENAME)
 JBCONFIG_PROJECTS_PATH 			= $(PROJECTS_PATH)
@@ -177,6 +179,7 @@ ANTIGENCMD			= $(shell which antigen)
 SHELLCHECKCMD		= $(shell which shellcheck)
 PYTHONCMD 			= $(shell which python)
 PYTHON3CMD 			= $(shell which python3)
+COLORLSCMD 			= $(shell which colorls)
 NVM 				:= $(shell test -f "$(HOME)/.nvm/nvm.sh"; echo $$?)
 
 # $(call process-includes, input-file, output-file)
@@ -411,8 +414,26 @@ antigen-autosuggestions: ## setup autosuggestions for antigen
 	@mkdir -p $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters
 	@ln -sf $(ZSH)/custom/plugins/zsh-autosuggestions/url $(ADOTDIR)/bundles/zsh-users/zsh-syntax-highlighting/highlighters/url
 
-zsh-defer:
-	if [ ! -d ~/zsh-defer ]; then git clone https://github.com/romkatv/zsh-defer.git ~/zsh-defer; fi
+chrome-devtools-zero-base-themes: # adds dark theme for devtools (aka the chrome debugger)
+	@echo '	Installing Chrome DevTools Theme - Zero Base Themes...'
+	@mkdir -p $(CONFIG_ROOT)/devtools/themes
+	if [ ! -d $(CONFIG_ROOT)/devtools/themes/zerodarkmatrix ]; then git clone https://github.com/mauricecruz/zero-base-themes.git $(CONFIG_ROOT)/devtools/themes/zerodarkmatrix; fi
+	cd $(CONFIG_ROOT)/devtools/themes/zerodarkmatrix; npm i -g grunt-cli && npm install && grunt && cd $(DIR)
+	if [ -f ~/.devtoolrc ]; then ln -s $(JBCONFIG_TOOLS_PATH)/chrome/.devtoolrc ~/.devtoolrc ; fi
+
+colorls-dark-theme: ## adds dark theme for colorls (https://draculatheme.com/colorls)
+	@echo '	Installing dark colorls theme...'
+	@mkdir -p $(CONFIG_ROOT)/colorls
+	if [ -f $(CONFIG_ROOT)/colorls/dark_colors.yaml ]; then mv $(CONFIG_ROOT)/colorls/dark_colors.yaml $(CONFIG_ROOT)/colorls/dark_colors.yaml.backup ; fi
+	@cp $(JBCONFIG_TOOLS_PATH)/colorls/dark_colors.yaml $(CONFIG_ROOT)/colorls/dark_colors.yaml
+	@$(COLORLSCMD) --dark
+
+colorls-default-dark-theme: ## adds dark theme for colorls (https://github.com/athityakumar/colorls#recommended-configurations)
+	@echo '	Installing default dark colorls theme...'
+	@mkdir -p $(CONFIG_ROOT)/colorls
+	if [ -f $(CONFIG_ROOT)/colorls/dark_colors.yaml ]; then mv $(CONFIG_ROOT)/colorls/default_dark_colors.yaml $(CONFIG_ROOT)/colorls/dark_colors.yaml.backup ; fi
+	@cp $(JBCONFIG_TOOLS_PATH)/colorls/default_dark_colors.yaml $(CONFIG_ROOT)/colorls/dark_colors.yaml
+	@$(COLORLSCMD) --dark
 
 rbenv: ## install rbenv
 	@echo '	Installing RBENV...'

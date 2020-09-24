@@ -34,6 +34,7 @@ fi
 # -------------------------------
 # https://github.com/athityakumar/colorls
 alias lsc='colorls'
+alias lsc='colorls --dark'
 alias lc='colorls -lA --sd'
 print-color-map() {
 	for i in {0..255}; do
@@ -81,7 +82,11 @@ alias vscextu='code --uninstall-extension'
 alias grunt='grunt --stack'
 
 # weather from my current location
-alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|us|brooklyn-ny|11215' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p'"
+weather()
+{
+    local ZIPCODE=${1:-66221}
+    curl -s "http://rss.accuweather.com/rss/liveweather_rss.asp?locCode=en|us|${ZIPCODE}" | sed -n "/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p"
+}
 
 alias restartdock="killall -KILL Dock"
 # opens up the IOS Simulator without launching xcode

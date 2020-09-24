@@ -143,14 +143,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "alias/index.zsh",
-			"settings":
-			{
-				"buffer_size": 6772,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -342,10 +334,10 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/joaquin/jbconfig"
 	],
 	"file_history":
 	[
+		"/Users/joaquin/jbconfig/tools/nvm/default-packages",
 		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
 		"/Users/joaquin/projects/github.com/Joaquin6/antigen/Makefile",
 		"/Users/joaquin/jbconfig/Makefile.in",
@@ -472,8 +464,7 @@
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/nlog.config",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.Console/appsettings.json",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/appsettings.json",
-		"/Users/joaquin/.microsoft/usersecrets/0379935c-2528-47f9-93cd-e6dd5ace0cbd/secrets.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/persist/dump/elasticsearch/production-demo3-elasticsearch.json"
+		"/Users/joaquin/.microsoft/usersecrets/0379935c-2528-47f9-93cd-e6dd5ace0cbd/secrets.json"
 	],
 	"find":
 	{
@@ -595,39 +586,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "alias/index.zsh",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 6772,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1016,
-								1017
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
