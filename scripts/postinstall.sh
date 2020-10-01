@@ -17,6 +17,4 @@ apt-get install -y git htop vim curl build-essential filezilla node guake zsh
 
 
 
-# Configure Git
-git config --global user.name "Joaquin Briceno"
-git config --global user.email joaquinbriceno1@gmail.com
+source ./git/configure.sh

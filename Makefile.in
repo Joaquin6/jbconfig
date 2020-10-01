@@ -304,6 +304,10 @@ depot-tools:
 	export PATH=$(DEPOT_TOOLS):$(PATH);
 	@$(MAKE) show-path
 
+git-config:
+	chmod +x $(DIR)/scripts/git/configure.sh
+	@exec $(DIR)/scripts/git/configure.sh
+
 direnv:
 	@echo '	Installing DirENV...'
 	@$(MAKE) clone REPOSITORY=direnv BRANCH=master
