@@ -2,7 +2,34 @@
 	"folders":
 	[
 		{
+			"path": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psinexaviewinstaller"
+		},
+		{
+			"path": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller"
+		},
+		{
+			"path": "/Users/joaquin/projects/codecommit/vibrant/nomad-api"
+		},
+		{
 			"path": "/Users/joaquin/jbconfig"
+		},
+		{
+			"path": "/Users/joaquin/projects/codecommit/vibrant/nomad-portal"
+		},
+		{
+			"path": "/Users/joaquin/projects/github.com/Joaquin6/poshfiles"
+		},
+		{
+			"path": "/Users/joaquin/projects/github.com/Joaquin6/ModuleBuilder"
+		},
+		{
+			"path": "/Users/joaquin/projects/github.com/PowerShell/PowerShellStandard"
+		},
+		{
+			"path": "/Users/joaquin/projects/github.com/andreasgottardi/powershell"
+		},
+		{
+			"path": "/Users/joaquin/projects/github.com/PowerShell/PowerShell"
 		}
 	]
 }

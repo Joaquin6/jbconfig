@@ -312,6 +312,7 @@ JB_ZSH_PATHS=(
 	$USER_LOCAL_BIN
 	$HOME/.cabal/bin
 	$HOME/.ghcup/bin
+	$HOME/depot_tools
 	$USER_LOCAL/Homebrew/bin
 	$USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
 	$USER_LOCAL_OPT/binutils/bin
@@ -407,7 +408,7 @@ if command_exists direnv; then eval "$(direnv hook zsh)"; fi
 if command_exists rbenv; then eval "$(rbenv init -)"; fi
 if command_exists python3; then
 	export PYTHON_VERSION=$(python3 -c 'import platform; print(platform.python_version())')
-	[[ $PYTHON_VERSION == 3.6.8 ]] && export PYTHON_VERSION=3.6
+	[[ $PYTHON_VERSION == 3.6.8 ]] && export PYTHON_VERSION=3
 	handle-add-path $PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin
 	export VIRTUALENVWRAPPER_PYTHON=$PYTHON_VERSIONS_PATH/$PYTHON_VERSION/bin/python3
 elif command_exists python; then

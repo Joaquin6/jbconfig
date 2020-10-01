@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"oldPass",
+				"oldPassword"
+			],
+			[
+				"errorRes",
+				"errorResponse"
+			],
+			[
 				"zsh",
 				"zsh-users"
 			],
@@ -143,6 +151,24 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller/PSLuciadFusionInstaller.ps1",
+			"settings":
+			{
+				"buffer_size": 8182,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/joaquin/Dropbox/Notes/AdvanceSearch.note",
+			"settings":
+			{
+				"buffer_size": 303,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -155,6 +181,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"in",
+				"Package Control: Install Package"
+			],
 			[
 				"json",
 				"Pretty JSON: Format and Sort JSON"
@@ -268,10 +298,6 @@
 				"Git: Update Project Ignored Files"
 			],
 			[
-				"in",
-				"Package Control: Install Package"
-			],
-			[
 				"mark",
 				"MarkdownLivePreview: Open Preview"
 			],
@@ -334,15 +360,57 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller"
 	],
 	"file_history":
 	[
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/projects/github.com/andreasgottardi/powershell/tools/Win10InitSettings/Win10InitSettings.ps1",
 		"/Users/joaquin/jbconfig/tools/nvm/default-packages",
+		"/Users/joaquin/jbconfig/zsh/.zfunctions",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/redux/modules/api-handler/index.js",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/.antigenrc",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-api/build/development.config.js",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-shared-js/package.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-shared-js/src/index.js",
+		"/Users/joaquin/Dropbox/Notes/Redux App Component.note",
+		"/Users/joaquin/Dropbox/Notes/Redux Sidebar Compnent.note",
+		"/Users/joaquin/Dropbox/Notes/Redux API.note",
+		"/Users/joaquin/Dropbox/Notes/Redux Account Reducer.note",
+		"/Users/joaquin/Dropbox/Notes/Redux Login Reducer.note",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/App.jsx",
+		"/Users/joaquin/projects/codecommit/vibrant/auth_example.html",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/redux/api/index.js",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/redux/reducers/index.js",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/assets/config/application.config.json",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/redux/reducers/login.js",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/pages/Home/Home.jsx",
+		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/pages/Content/Content.jsx",
+		"/Users/joaquin/Dropbox/Notes/Microsoft.PowerShell_profile.ps1.note",
+		"/Users/joaquin/Dropbox/Notes/Microsoft.VSCode_profile.ps1.note",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/js-for-joaquin/nomad-account.js",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/js-for-joaquin/nomad-shared.js",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/state-after-close-success-modal.json",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/state-before-close-success-modal.json",
+		"/Users/joaquin/jbconfig/Makefile.in",
+		"/Users/joaquin/jbconfig/zsh/.zaliases",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/Dracula PRO — Zeno Rocha/icons/INSTALL.md",
+		"/Users/joaquin/jbconfig/tools/colorls/default_dark_colors,yaml",
+		"/Users/joaquin/jbconfig/tools/vscode/snippets/powershell-snippets.json",
+		"/Users/joaquin/jbconfig/tools/chrome/themes/Zero-Dark-Matrix.css",
+		"/Users/joaquin/jbconfig/tools/chrome/themes/IR_Dark_Monokai.css",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Markdown.sublime-settings",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Markdown (Standard).sublime-settings",
+		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/MultiMarkdown.sublime-settings",
+		"/Users/joaquin/.config/devtools/themes/zerodarkmatrix/themes/s10wen-monokai.less",
+		"/Users/joaquin/.config/devtools/themes/zerodarkmatrix/themes/zero-dark-matrix.less",
+		"/Users/joaquin/jbconfig/tools/chrome/README.md",
+		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/Dracula PRO — Zeno Rocha/themes/google-chrome/INSTALL.md",
+		"/Users/joaquin/jbconfig/tools/chrome/.devtoolrc",
 		"/Users/joaquin/jbconfig/zsh/.zshrc-antigen",
 		"/Users/joaquin/projects/github.com/Joaquin6/antigen/Makefile",
-		"/Users/joaquin/jbconfig/Makefile.in",
 		"/Users/joaquin/jbconfig/zsh/.zprofile",
-		"/Users/joaquin/jbconfig/zsh/.zshenv",
 		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/INSTALL.md",
 		"/Users/joaquin/projects/github.com/Joaquin6/antigen/src/lib/use-oh-my-zsh.zsh",
 		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/ncurses-6.2/INSTALL",
@@ -351,9 +419,6 @@
 		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/zsh-autosuggestions.zsh",
 		"/Users/joaquin/projects/github.com/Joaquin6/zsh-autosuggestions/Makefile",
 		"/Users/joaquin/jbconfig/zsh/themes/mgdm.zsh-theme",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
-		"/Users/joaquin/jbconfig/zsh/.antigenrc",
-		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/webconsole.json",
 		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/validation.json",
 		"/Users/joaquin/projects/github.com/apache/sling-org-apache-sling-starter/src/main/features/caconfig.json",
@@ -426,45 +491,7 @@
 		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/WiXBootstrapperLayoutExample/README.md",
 		"/Users/joaquin/.bashrc",
 		"/Users/joaquin/.bash_profile",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/8. Wix Advanced Setup With Simple Bootstrap Project/readme.md",
-		"/Users/joaquin/projects/github.com/adobe/spectrum-css/node_modules/@adobe/spectrum-css-workflow-icons/dist/sites/spectrum-css/spectrum-core.css",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Skype8Setup/readme.TXT",
-		"/Users/joaquin/Downloads/Skype8Setup/Build.cmd",
-		"/Volumes/[C] Windows 10.hidden/Program Files (x86)/Windows Kits/10/bin/10.0.18362.0/x64/wilangid.vbs",
-		"/Users/joaquin/.ssh/bitbucket_id_rsa.pub",
-		"/Users/joaquin/.ssh/bitbucket_id_rsa",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/listings/ListingsPropertyView.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/templates/home/HomeTemplate.html",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/ModalView.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/helpers/utility.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/views/listings/ListingsMapView.js",
-		"/Users/joaquin/projects/github.com/Joaquin6/truzip-app/client/js/models/AgentModel.js",
-		"/Users/joaquin/.Trash/login.js",
-		"/Library/Application Support/Adobe/CEP/extensions/com.nomad-cms.nomad-search.adobe-cep/index.html",
-		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/card/metadata/card.yml",
-		"/Users/joaquin/projects/github.com/adobe/spectrum-css/bundles/spectrum-css-compat/node_modules/@spectrum-css/table/metadata/table.yml",
-		"/Users/joaquin/projects/github.com/adobe/spectrum-css/components/actionbar/metadata/actionbar.yml",
-		"/Users/joaquin/projects/github.com/adobe/spectrum-css/components/icon/index.css",
-		"/Users/joaquin/Dropbox/Notes/Elasticsearch2Repository.cs - BU.note",
-		"/Users/joaquin/jbconfig/zsh/shell/aliases",
-		"/Users/joaquin/jbconfig/zsh/shell/functions",
-		"/Users/joaquin/jbconfig/zsh/shell/host_specific",
-		"/Users/joaquin/jbconfig/zsh/shell/completions",
-		"/Users/joaquin/jbconfig/zsh/shell/prompt",
-		"/Users/joaquin/jbconfig/zsh/.zshrc2",
-		"/Users/joaquin/jbconfig/zsh/functions.zsh",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/AppData/Local/Microsoft/VisualStudio/16.0_21905b78/Settings/Exported-2020-04-15.vssettings",
-		"/Users/joaquin/projects/github.com/milkbikis/powerline-shell/README.md",
-		"/Users/joaquin/Downloads/less-551/README",
-		"/Users/joaquin/less-551/INSTALL",
-		"/Users/joaquin/less-551/Makefile",
-		"/Users/joaquin/less-551/Makefile.in",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/Startup.cs",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/Program.cs",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/nlog.config",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.Console/appsettings.json",
-		"/Users/joaquin/projects/codecommit/vibrant/nomad-custom/NomadTester/NomadTester.API/appsettings.json",
-		"/Users/joaquin/.microsoft/usersecrets/0379935c-2528-47f9-93cd-e6dd5ace0cbd/secrets.json"
+		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/8. Wix Advanced Setup With Simple Bootstrap Project/readme.md"
 	],
 	"find":
 	{
@@ -475,6 +502,8 @@
 		"height": 142.0,
 		"where_history":
 		[
+			"/Users/joaquin/jbconfig/zsh",
+			"/Users/joaquin/.config/devtools/themes/zerodarkmatrix",
 			"/Users/joaquin/jbconfig/zsh"
 		]
 	},
@@ -483,6 +512,75 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"  ",
+			"npm",
+			"data.",
+			"data",
+			"reqOptions.data = JSON",
+			", mockSuccess, mockError)",
+			"data",
+			"makeSecurityRequest",
+			"if (reqOptions.method === 'post') {",
+			"makeMockAccountRequest",
+			"makeMockRequest",
+			"makeMockForgotPasswordRequest",
+			"makeMockSecurityRequest",
+			"makeMockAccountRequest",
+			"makeMockRequest(reqOptions",
+			"makeMockRequest",
+			"makeMockAccountRequest",
+			"makeMockSecurityRequest",
+			"reqOptions.success",
+			"res",
+			"options",
+			"window.Cookies",
+			"signupFormResponse",
+			"makeMockRequest",
+			" onchange=\"authFormValidation",
+			"fillInAuthForm",
+			"': ",
+			"\"",
+			"': '",
+			" && !options.",
+			"if (mockSuccess &&",
+			"fillInAuthForm",
+			"signup",
+			"signupForm",
+			"options",
+			"newP",
+			"changePasswordFormResponse",
+			"...res, ",
+			"errorResponse",
+			"{ responseText:",
+			"\"",
+			"AuthenticationResult.AccessToken",
+			"listOfStreamsResponse",
+			"signinForm",
+			".jenv",
+			"'",
+			": ",
+			"\\\"",
+			":",
+			"\\\"",
+			"dark_colors.yaml",
+			"cls=",
+			"~/.config/colorls",
+			"color",
+			"js-obj-value",
+			"glyph-hover",
+			"style-readonly",
+			"filter-verbose",
+			"global-link",
+			"history-line-divider",
+			"nav-item-background",
+			"toolbar-sub",
+			"cm-breakpoint-color",
+			"toolbar-main",
+			"JBCONFIG_SCRIPTS_PATH",
+			"JBCONFIG",
+			"jbconfig",
+			"home",
+			".config",
 			"LOG",
 			"TERM=",
 			"TERM",
@@ -541,34 +639,7 @@
 			"USER_LOCAL_INCLUDE",
 			"SHARE",
 			"share",
-			"AEM_PATH",
-			"ADOBE_CREATIVE_CLOUD_PATH",
-			"PYTHONPATH",
-			"FRWKS_PATH",
-			" ?",
-			"&&",
-			"LIB_FRAMEWORKS_PATH",
-			"LIB_PATH",
-			"PYTHONPATH",
-			"/usr/local",
-			"Homebrew",
-			"pyth",
-			"PYTHON",
-			"python",
-			"PYTHON_VERSION",
-			"pathElem",
-			"incoming_path",
-			"ANTIGENCMD",
-			"sphinx-doc",
-			"\\'94",
-			"\\'93",
-			"\\'92",
-			"BANNER_TEXT",
-			"HEADER_TEXT",
-			"OOO_FORCE_DESKTOP",
-			"GREP_COLOR",
-			"python3",
-			"PYTHON_VERSION"
+			"AEM_PATH"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -576,6 +647,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"",
+			""
 		],
 		"reverse": false,
 		"show_context": true,
@@ -586,8 +659,70 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller/PSLuciadFusionInstaller.ps1",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 8182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								680,
+								697
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PowerShell/Support/PowershellSyntax.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 36.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/joaquin/Dropbox/Notes/AdvanceSearch.note",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								303,
+								303
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/PlainNotes/Color Schemes/Sticky-Gray.tmTheme",
+							"git_gutter_is_enabled": false,
+							"is_note": true,
+							"syntax": "Packages/PlainNotes/Note.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -658,7 +793,7 @@
 	"project": "jbconfig.sublime-project",
 	"replace":
 	{
-		"height": 44.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -700,7 +835,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 307.0,
+	"side_bar_width": 509.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

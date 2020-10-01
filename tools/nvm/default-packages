@@ -6,3 +6,5 @@ npx
 shellcheck
 vsce
 react-components-cli
+resume-cli
+standard-version

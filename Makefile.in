@@ -74,6 +74,7 @@ CONFIG_ROOT 			= ~/.config
 ADOTDIR 				= ~/.antigen
 LOG_FILENAME   			= jbconfig.log
 ZSH 					= ~/.oh-my-zsh
+DEPOT_TOOLS 			= ~/depot_tools
 VIMRC_RUNTIME 			= ~/.vim_runtime
 FONT_PATH 				= ~/.local/share/fonts
 PROJECTS_PATH 			= ~/projects
@@ -212,6 +213,9 @@ show-system-env:
 show-user-env:
 	@$(MAKE) show-env ENV_VARS=$(USER)
 
+show-path: ## echo PATH environment variables
+	@echo $(PATH)
+
 rmrf:
 	[ -s $(SRC) ] && rm -rf $(SRC)
 
@@ -294,6 +298,11 @@ ifeq (${SYSTEM}, Linux)
 	apt-get install emacs
 endif
 	curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python3
+
+depot-tools:
+	if [ ! -d $(DEPOT_TOOLS) ]; then git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $(DEPOT_TOOLS); fi
+	export PATH=$(DEPOT_TOOLS):$(PATH);
+	@$(MAKE) show-path
 
 direnv:
 	@echo '	Installing DirENV...'

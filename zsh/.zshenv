@@ -62,7 +62,13 @@ export XDG_CONFIG_HOME=$HOME/.config
 export WORKON_HOME=$HOME/.virtualenvs
 export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export XDG_DATA_HOME=$HOME/.local/share
-export JAVA_HOME=$USER_LIBEXEC/java_home
+
+if [[ -f $USER_LIBEXEC/java_home ]]; then
+  export JAVA_HOME=$USER_LIBEXEC/java_home
+elif [[ -f $HOME/.jenv/shims/java ]]; then
+  export JAVA_HOME=$HOME/.jenv/shims/java
+fi
+
 export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
 export PYTHON_VERSIONS_PATH=$FRWKS_PATH/Python.framework/Versions
 export PYTHONPATH=$PYTHON_VERSIONS_PATH/Current/bin
@@ -162,6 +168,10 @@ export ITERM2_SQUELCH_MARK=1
 if [ -d $HOME/.antigen ]; then
     export ADOTDIR=$HOME/.antigen
     export ZSHA_BASE=$ADOTDIR
+fi
+
+if [ -d $HOME/.dotnet ]; then
+    export PATH="$HOME/.dotnet:$PATH"
 fi
 
 [[ -s $HOME/.ghcup/env ]] && . $HOME/.ghcup/env

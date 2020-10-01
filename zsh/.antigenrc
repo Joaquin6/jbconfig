@@ -38,6 +38,8 @@ antigen bundle rvm
 antigen bundle docker
 antigen bundle docker-compose
 antigen bundle docker-machine
+antigen bundle pip
+antigen bundle python
 antigen bundle virtualenv
 antigen bundle virtualenvwrapper
 
