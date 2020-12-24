@@ -64,9 +64,9 @@ export XDG_DATA_DIRS=$USER_LOCAL_SHARE
 export XDG_DATA_HOME=$HOME/.local/share
 
 if [[ -f $USER_LIBEXEC/java_home ]]; then
-  export JAVA_HOME=$USER_LIBEXEC/java_home
-elif [[ -f $HOME/.jenv/shims/java ]]; then
-  export JAVA_HOME=$HOME/.jenv/shims/java
+    export JAVA_HOME=$USER_LIBEXEC/java_home
+    elif [[ -f $HOME/.jenv/shims/java ]]; then
+    export JAVA_HOME=$HOME/.jenv/shims/java
 fi
 
 export HOMEBREW_CELLAR=$USER_LOCAL/Cellar
@@ -89,37 +89,37 @@ export PAGER=less
 export TERM="xterm-256color"
 export OOO_FORCE_DESKTOP=gnome
 export ARCHFLAGS="-arch x86_64"
-export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib)
-export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
+export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/include)
 
 if type brew &>/dev/null; then
-  export BREWPREFIX=$(brew --prefix)
-  export CFLAGS=-I$BREWPREFIX/include
-  export FPATH=$BREWPREFIX/share/zsh/site-functions:$FPATH
-
-  autoload -Uz compinit
-  compinit
+    export BREWPREFIX=$(brew --prefix)
+    export CFLAGS=-I$BREWPREFIX/include
+    export FPATH=$BREWPREFIX/share/zsh/site-functions:$FPATH
+    
+    autoload -Uz compinit
+    compinit
 fi
 
 if [ -d $LINUXBREW_PATH ]; then
-    export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
-    export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
+    export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
+    export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
     export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
 fi
 
 if [[ -z "$LANG" ]]; then
-  # Ensure languages are set
-  export LANG=en_US.UTF-8
-  export LANGUAGE=en_US.UTF-8
-  export LC_ALL=en_US.UTF-8
+    # Ensure languages are set
+    export LANG=en_US.UTF-8
+    export LANGUAGE=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
 fi
 
 if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+    export BROWSER='open'
 else
-  if [[ "$OSTYPE" == linux-gnu ]]; then
-  	export BROWSER='xdg-open'
-  fi
+    if [[ "$OSTYPE" == linux-gnu ]]; then
+        export BROWSER='xdg-open'
+    fi
 fi
 
 export SSH_PATH=$HOME/.ssh

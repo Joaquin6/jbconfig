@@ -355,6 +355,8 @@ if [[ $OSTYPE == linux* ]]; then # linux
 elif [[ $OSTYPE == darwin* ]]; then # macos
 	JB_ZSH_PATHS=(
 		"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+		/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages
+		/usr/local/lib/ruby/gems/2.7.0/bin
 		$JB_ZSH_PATHS
 	)
 fi

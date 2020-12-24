@@ -11,9 +11,13 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "mas-cli/tap"
+tap "homebrew/portable-ruby"
 tap "powershell/tap"
 tap "romkatv/powerlevel10k"
+tap "mas-cli/tap"
+tap "molovo/revolver"
+tap "phrase/brewed"
+tap "railwaycat/emacsmacport"
 
 cask "osxfuse"
 
@@ -46,7 +50,7 @@ brew "openssl@1.1"
 # Library for command-line editing
 brew "readline"
 # Interpreted, interactive, object-oriented programming language
-brew "python"
+brew "python@3.9", link: false
 # Core application library for C
 brew "glib"
 brew "gcc"
@@ -66,18 +70,14 @@ brew "awk"
 brew "aws-iam-authenticator"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
-# Programmable completion for Bash 3.2
-brew "bash-completion"
-# Programmable completion for Bash 4.1+
-brew "bash-completion@2"
+# Programmable completion for Bash 4.2+
+brew "bash-completion@2", link: false
 # GNU binary tools for native development
 brew "binutils"
 # C/C++ and Java libraries for Unicode and globalization
 brew "icu4c"
 # Collection of portable C++ source libraries
 brew "boost"
-# C++ library for C++/Python2 interoperability
-brew "boost-python"
 # Fish completion for brew-cask
 brew "brew-cask-completion"
 # Command-line interface for Cabal and Hackage
@@ -108,14 +108,10 @@ brew "cppcheck"
 brew "ctags"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Go dependency management tool
-brew "dep"
 # File comparison utilities
 brew "diffutils"
 # Load/unload environment variables based on $PWD
 brew "direnv"
-# Docgen command line tool to generate API HTML/Markdown documentation from Postman collection.
-brew "docgen"
 # Apply a diff file to an original
 brew "gpatch"
 # Debian package management system
@@ -132,7 +128,7 @@ brew "libtiff"
 brew "snappy"
 brew "highlight"
 # Classic UNIX line editor
-brew "ed"
+brew "ed", link: true
 # Next-gen compiler infrastructure
 brew "llvm"
 # Emacs plugin using libclang to complete C/C++ code
@@ -149,8 +145,6 @@ brew "pango"
 brew "fontforge"
 # Infamous electronic fortune-cookie generator
 brew "fortune"
-# GNU awk utility
-brew "gawk"
 # Toolkit for image loading and pixel buffer manipulation
 brew "gdk-pixbuf"
 # Distributed revision control system
@@ -173,8 +167,6 @@ brew "gnu-sed"
 brew "gnu-which"
 # Assuan IPC Library
 brew "libassuan"
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
 # Pragmatic language for the JVM
 brew "gosu"
 # GNU PIC Utilities
@@ -234,8 +226,6 @@ brew "libyaml"
 brew "m4"
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
-# GUI for vim, made for macOS
-brew "macvim"
 # Utility for directing compilation
 brew "make"
 # System to create Windows installers
@@ -248,6 +238,8 @@ brew "mitmproxy"
 brew "moarvm"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
+# Mac App Store command-line interface
+brew "mas"
 # NCurses Disk Usage
 brew "ncdu"
 # Fast, highly customisable system info script
@@ -258,8 +250,6 @@ brew "neovim"
 brew "newman"
 # HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
 brew "nginx"
-# Read-write NTFS driver for FUSE
-brew "ntfs-3g"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # Manage compile and link flags for libraries
@@ -294,12 +284,6 @@ brew "shairport"
 brew "shellcheck"
 # Autoformat shell script source code
 brew "shfmt"
-# Command-line interface for Spotify on a Mac
-brew "shpotify"
-# File system client based on SSH File Transfer Protocol
-brew "sshfs"
-# Bring your .bashrc, .vimrc, etc. with you when you SSH
-brew "sshrc"
 # Code-search similar to ack
 brew "the_silver_searcher"
 # Terminal multiplexer
@@ -316,8 +300,6 @@ brew "ttfautohint"
 brew "twine-pypi"
 # Vi 'workalike' with many additional features
 brew "vim"
-# Manage and work with VSTS/TFS resources from the command-line
-brew "vsts-cli"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Display word differences between text files
@@ -342,6 +324,8 @@ brew "zsh-syntax-highlighting"
 brew "zshdb"
 # AWS SAM CLI 🐿 is a tool for local development and testing of Serverless applications
 brew "aws/tap/aws-sam-cli"
+# SSL/TLS cryptography library
+brew "homebrew/portable-ruby/portable-openssl"
 # A Zsh Theme
 brew "romkatv/powerlevel10k/powerlevel10k"
 
@@ -366,6 +350,8 @@ cask "oracle-jdk-javadoc"
 cask "powershell"
 cask "pycharm"
 cask "suspicious-package"
+# Adobe extensions installer
+cask "zxpinstaller"
 
 mas "BetterSnapTool", id: 417375580
 mas "HP Smart", id: 1474276998

@@ -159,6 +159,42 @@
 	},
 	"buffers":
 	[
+		{
+			"file": ".zshenv",
+			"settings":
+			{
+				"buffer_size": 5920,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".zshrc",
+			"settings":
+			{
+				"buffer_size": 15454,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
+			"settings":
+			{
+				"buffer_size": 10449,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/joaquin/jbconfig/tools/brew/Brewfile",
+			"settings":
+			{
+				"buffer_size": 9947,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -510,6 +546,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"openss",
+			"mas",
+			"bash",
+			"has",
+			"ghc",
+			"mas-cli/tap/mas",
+			"mas",
 			"ffmpeg",
 			"tap",
 			"ffmpeg",
@@ -630,14 +673,7 @@
 			"\\\"",
 			"dark_colors.yaml",
 			"cls=",
-			"~/.config/colorls",
-			"color",
-			"js-obj-value",
-			"glyph-hover",
-			"style-readonly",
-			"filter-verbose",
-			"global-link",
-			"history-line-divider"
+			"~/.config/colorls"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -657,13 +693,177 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": ".zshenv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5920,
+						"regions":
+						{
+							"better_bookmarks":
+							{
+								"flags": 144,
+								"icon": "Packages/Theme - Default/common/bookmark.png",
+								"regions":
+								[
+								],
+								"scope": "string"
+							}
+						},
+						"selection":
+						[
+							[
+								2957,
+								2957
+							],
+							[
+								3155,
+								3155
+							],
+							[
+								3584,
+								3584
+							],
+							[
+								3781,
+								3781
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 482.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": ".zshrc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15454,
+						"regions":
+						{
+							"better_bookmarks":
+							{
+								"flags": 144,
+								"icon": "Packages/Theme - Default/common/bookmark.png",
+								"regions":
+								[
+								],
+								"scope": "string"
+							}
+						},
+						"selection":
+						[
+							[
+								12654,
+								12753
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1041.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10449,
+						"regions":
+						{
+							"better_bookmarks":
+							{
+								"flags": 144,
+								"icon": "Packages/Theme - Default/common/bookmark.png",
+								"regions":
+								[
+								],
+								"scope": "string"
+							}
+						},
+						"selection":
+						[
+							[
+								1122,
+								1122
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 3,
+					"file": "/Users/joaquin/jbconfig/tools/brew/Brewfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9947,
+						"regions":
+						{
+							"better_bookmarks":
+							{
+								"flags": 144,
+								"icon": "Packages/Theme - Default/common/bookmark.png",
+								"regions":
+								[
+								],
+								"scope": "string"
+							}
+						},
+						"selection":
+						[
+							[
+								1624,
+								1624
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 4.0,
+						"translation.y": 868.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -695,7 +895,7 @@
 		"cols":
 		[
 			0.0,
-			0.744185352393,
+			0.488504978709,
 			1.0
 		],
 		"rows":
@@ -783,7 +983,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 509.0,
+	"side_bar_width": 299.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
