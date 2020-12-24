@@ -265,6 +265,8 @@ symlink-homebrew-caskroom: ## create Caskroom system link from WD MY BOOK Volume
 symlink-homebrew-path: ## create Homebrew system link from WD MY BOOK Volume to usr/local/Homebrew directory
 	if [ -d /usr/local/Homebrew ]; then sudo mv /usr/local/Homebrew $(JBCONFIG_HOMEBREW_PATH); fi
 	if [ -d $(JBCONFIG_HOMEBREW_PATH) ]; then ln -s $(JBCONFIG_HOMEBREW_PATH) /usr/local/Homebrew ; fi
+symlink-brewfile: ## create Brewfile system link from tools to home (~) directory
+	@ln -sf $(JBCONFIG_TOOLS_PATH)/brew/Darwin/Brewfile ~/.Brewfile
 endif
 
 # Adobe Suite System Links for Mac OS
@@ -486,7 +488,7 @@ brew: ## install homebrew
 ifeq (${SYSTEM}, Linux)
 	apt-get install build-essential curl file git
 endif
-	if [ ! -d $(HOMEBREW_HOME_PATH) ]; then git clone https://github.com/Homebrew/brew $(HOMEBREW_HOME_PATH); fi
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	mkdir -p $(HOMEBREW_BIN_PATH)
 	@ln -sf $(HOMEBREW_HOME_PATH)/bin/brew $(HOMEBREW_BIN_PATH)/brew;(shell which brew) shellenv; cd $(DIR); make reload
 	$(BREW) bundle install --file=./tools/brew/$(SYSTEM)/Brewfile

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"B",
+				"Brewfile"
+			],
+			[
+				"high",
+				"highlighting"
+			],
+			[
+				"e",
+				"elif\telif …"
+			],
+			[
 				"oldPass",
 				"oldPassword"
 			],
@@ -62,10 +74,6 @@
 			[
 				"A",
 				"ADOTDIR"
-			],
-			[
-				"e",
-				"else"
 			],
 			[
 				"iterm",
@@ -151,24 +159,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller/PSLuciadFusionInstaller.ps1",
-			"settings":
-			{
-				"buffer_size": 8182,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/joaquin/Dropbox/Notes/AdvanceSearch.note",
-			"settings":
-			{
-				"buffer_size": 303,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -181,6 +171,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"diff",
+				"Diffy Compare"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
 			[
 				"in",
 				"Package Control: Install Package"
@@ -200,10 +198,6 @@
 			[
 				"rtf",
 				"Set Syntax: Robot Framework syntax highlighting."
-			],
-			[
-				"ins",
-				"Package Control: Install Package"
 			],
 			[
 				"inst",
@@ -360,16 +354,38 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller"
+		"/Users/joaquin/jbconfig",
+		"/Users/joaquin/jbconfig/tools",
+		"/Users/joaquin/jbconfig/tools/brew",
+		"/Users/joaquin/jbconfig/tools/brew/Darwin",
+		"/Users/joaquin/jbconfig/zsh"
 	],
 	"file_history":
 	[
+		"/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
+		"/Volumes/Doxygen/README.rtf",
+		"/usr/local/Homebrew/docs/Xcode.md",
+		"/Users/joaquin/jbconfig/Makefile.in",
+		"/Users/joaquin/jbconfig/tools/Brewfile",
+		"/Users/joaquin/jbconfig/tools/brew/Brewfile",
 		"/Users/joaquin/jbconfig/zsh/.zshenv",
-		"/Users/joaquin/projects/github.com/andreasgottardi/powershell/tools/Win10InitSettings/Win10InitSettings.ps1",
+		"/usr/local/Homebrew/docs/Tips-N'-Tricks.md",
+		"/usr/local/Homebrew/docs/Shell-Completion.md",
+		"/usr/local/Homebrew/docs/Updating-Software-in-Homebrew.md",
+		"/usr/local/Homebrew/docs/README.md",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/private/var/folders/b0/227v0l6936s46kv6_98st4s00000gn/T/PPRO_com.nomad-cms.nomad-search.adobe-cep.panel.log",
+		"/Users/joaquin/jbconfig/tools/xtrafinder/preferences/XtraFinderPreferences.plist",
+		"/Volumes/cmdline64/README",
+		"/Users/joaquin/Dropbox/Notes/Nomad CMS Panel Pipeline.note",
 		"/Users/joaquin/jbconfig/tools/nvm/default-packages",
+		"/Users/joaquin/jbconfig/scripts/helpers.sh",
+		"/Users/joaquin/jbconfig/scripts/git/configure.sh",
+		"/Users/joaquin/jbconfig/scripts/postinstall.sh",
+		"/Users/joaquin/Dropbox/Notes/AdvanceSearch.note",
+		"/Users/joaquin/projects/github.com/andreasgottardi/powershell/tools/Win10InitSettings/Win10InitSettings.ps1",
 		"/Users/joaquin/jbconfig/zsh/.zfunctions",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/redux/modules/api-handler/index.js",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
 		"/Users/joaquin/jbconfig/zsh/.antigenrc",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-api/build/development.config.js",
 		"/Users/joaquin/projects/codecommit/vibrant/nomad-shared-js/package.json",
@@ -393,7 +409,6 @@
 		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/js-for-joaquin/nomad-shared.js",
 		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/state-after-close-success-modal.json",
 		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/state-before-close-success-modal.json",
-		"/Users/joaquin/jbconfig/Makefile.in",
 		"/Users/joaquin/jbconfig/zsh/.zaliases",
 		"/Users/joaquin/Dropbox/My Mac (joaquinsvnmmbp.lan)/Downloads/Dracula PRO — Zeno Rocha/icons/INSTALL.md",
 		"/Users/joaquin/jbconfig/tools/colorls/default_dark_colors,yaml",
@@ -474,28 +489,11 @@
 		"/Users/joaquin/.virtualenvs/get_env_details",
 		"/Users/joaquin/.virtualenvs/msam/.Python",
 		"/Users/joaquin/projects/github.com/Joaquin6/vis/docs/index.html",
-		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/setup.wxs",
-		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/msifactui.wxs",
-		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/English-US.wxl",
-		"/Users/joaquin/Dropbox/Notes/Nomad CEP Extension.note",
-		"/Users/joaquin/.config/configstore/nomad-search-panel.json",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/Source/src/WixSharp.Samples/Wix# Samples/Bootstrapper/WixBootstrapper/setup.cs",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/luciadfusioninstaller/LuciadFusion.Bootstrapper/Bundle_en-us.wxl",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/luciadfusioninstaller/LuciadFusion.Bootstrapper/Bundle.wxs",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/Source/src/WixSharp.Samples/Wix# Samples/Bootstrapper/WixBootstrapper/readme.txt",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/LuciadFusionInstaller/content/ReadMe.txt",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/README.md",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/wixsharp/README.md",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/LuciadFusionInstaller2/LuciadFusionInstaller/LuciadFusionInstaller.wixproj",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/11. Wix Advanced Setup With Modern UI/readme.md",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/WiXBootstrapperLayoutExample/README.md",
-		"/Users/joaquin/.bashrc",
-		"/Users/joaquin/.bash_profile",
-		"/Volumes/[C] Windows 10.hidden/Users/joaquin/source/repos/Wix-Setup-Samples/8. Wix Advanced Setup With Simple Bootstrap Project/readme.md"
+		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/setup.wxs"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -512,6 +510,74 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ffmpeg",
+			"tap",
+			"ffmpeg",
+			"quick",
+			"doxygen",
+			"awscli",
+			"ghc",
+			"powerlevel",
+			"highlight",
+			"java",
+			"gcc",
+			"binutils",
+			"emacs-mac",
+			"plistedit-pro",
+			"movist-pro",
+			"java",
+			"openssl",
+			"macport",
+			"emacsmacport",
+			"gsettings-desktop-schemas",
+			"weaveworks",
+			"powerlevel9k",
+			"hub",
+			"aws/tap/aws-sam-",
+			"mas-cli/tap/mas",
+			"1215244636",
+			"webpquicklook",
+			"virtualbox",
+			"oracle",
+			"pycharm",
+			"qlprettypatch",
+			"quicklook",
+			"powershell",
+			"exmancmd",
+			"emacs-mac",
+			"doxygen",
+			"homebrew/cask-fonts",
+			"aws",
+			"java",
+			"javarepl",
+			"wget",
+			"'",
+			"java",
+			"jenkins",
+			"wget",
+			"jenkins",
+			"java",
+			"ffmpeg",
+			"brew",
+			"HOMEBREW_HOME_PATH",
+			"env",
+			"ENV",
+			"env",
+			"ENV",
+			"env",
+			"ENV",
+			"env",
+			"ENV",
+			"env",
+			"ENV",
+			"env",
+			"system",
+			"SYSTEM",
+			"System",
+			"system",
+			"SYSTEM",
+			"$(ZSH)",
+			"ZSH",
 			"  ",
 			"npm",
 			"data.",
@@ -571,75 +637,7 @@
 			"style-readonly",
 			"filter-verbose",
 			"global-link",
-			"history-line-divider",
-			"nav-item-background",
-			"toolbar-sub",
-			"cm-breakpoint-color",
-			"toolbar-main",
-			"JBCONFIG_SCRIPTS_PATH",
-			"JBCONFIG",
-			"jbconfig",
-			"home",
-			".config",
-			"LOG",
-			"TERM=",
-			"TERM",
-			"curses-devel",
-			"ANTIGEN_USER_PATH",
-			"GIT_FLAGS",
-			"GITSSH",
-			"zsh-defer source",
-			"source ",
-			"GREP_",
-			"USER_LOCAL_MAN",
-			"USER_LOCAL",
-			"XDG_",
-			"ZDOTDIR",
-			"CLASSPATH",
-			"JAVA_HOME",
-			"shell which",
-			"BREWCMD",
-			"which ",
-			"AWSCMD)\n",
-			"AWSCOMPLETERCMD",
-			"PYTHON3CMD",
-			"PYTHONCMD",
-			"SHELLCHECKCMD",
-			"AWSCMD",
-			"npm",
-			"ssh",
-			"brew",
-			"JBCONFIG_WMB_PATH",
-			"wd",
-			"ZSH_THEMES_DIR",
-			"JBCONFIG_CONTAINERS_PATH",
-			"= $",
-			"USER_CONTAINERS_PATH",
-			"USER_CACHES_PATH",
-			"JBCONFIG_CACHES_PATH",
-			"USER_CACHES_PATH",
-			"JBCONFIG_var_PATH",
-			"TMP",
-			"tmp",
-			"aws",
-			"JBCONFIG_DOCKER_APP",
-			"symlink-usr-local-",
-			"symlink-homebrew",
-			"JBCONFIG_microsoft_PATH",
-			"INCLUDE",
-			"include",
-			"/usr",
-			"lib",
-			"JBCONFIG_tmp_PATH",
-			"LIB",
-			"lib",
-			"JBCONFIG_include_PATH",
-			"SHARE",
-			"share",
-			"USER_LOCAL_INCLUDE",
-			"SHARE",
-			"share",
-			"AEM_PATH"
+			"history-line-divider"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -659,76 +657,19 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/joaquin/projects/bitbucket.org/cattlebruisers/psluciadfusioninstaller/PSLuciadFusionInstaller.ps1",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 8182,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								680,
-								697
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PowerShell/Support/PowershellSyntax.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 36.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/joaquin/Dropbox/Notes/AdvanceSearch.note",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 303,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								303,
-								303
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/PlainNotes/Color Schemes/Sticky-Gray.tmTheme",
-							"git_gutter_is_enabled": false,
-							"is_note": true,
-							"syntax": "Packages/PlainNotes/Note.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 24.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -743,11 +684,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.744185352393,
 			1.0
 		],
 		"rows":
@@ -813,7 +761,7 @@
 		[
 			[
 				"",
-				"/Volumes/[C] Windows 10/Users/joaquin/source/repos/LuciadFusionInstaller/LuciadFusionInstaller.sublime-project"
+				"~/projects/github.com/CEP-Samples.sublime-project"
 			]
 		],
 		"width": 380.0

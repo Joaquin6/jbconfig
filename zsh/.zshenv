@@ -92,9 +92,13 @@ export ARCHFLAGS="-arch x86_64"
 export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/lib)
 export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,libpq,libffi,openssl,curl-openssl,openldap,readline,portable-readline,coreutils}/include)
 
-if type brew &> /dev/null; then
-    export BREWPREFIX=$(brew --prefix)
-    export CFLAGS=-I$BREWPREFIX/include
+if type brew &>/dev/null; then
+  export BREWPREFIX=$(brew --prefix)
+  export CFLAGS=-I$BREWPREFIX/include
+  export FPATH=$BREWPREFIX/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
 fi
 
 if [ -d $LINUXBREW_PATH ]; then

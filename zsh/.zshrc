@@ -346,10 +346,15 @@ JB_ZSH_PATHS=(
 	$USER_LOCAL_OPT/python/libexec/bin
 )
 
-if [[ $OSTYPE == linux* ]]; then
+if [[ $OSTYPE == linux* ]]; then # linux
 	JB_ZSH_PATHS=(
 		$HOME/linuxbrew/.linuxbrew/bin
 		$HOME/linuxbrew/.linuxbrew/Homebrew/bin
+		$JB_ZSH_PATHS
+	)
+elif [[ $OSTYPE == darwin* ]]; then # macos
+	JB_ZSH_PATHS=(
+		"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 		$JB_ZSH_PATHS
 	)
 fi

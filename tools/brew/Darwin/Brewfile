@@ -2,27 +2,33 @@
 # ====================================================
 
 cask_args appdir: "/Applications"
-tap "caskroom/fonts"
+
+tap "aws/tap"
+tap "danielbayley/adobe"
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "telemachus/brew", "https://telemachus@bitbucket.org/telemachus/brew.git", pin: true
-tap "caskroom/fonts"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "molovo/revolver"
-tap "phrase/brewed"
-tap "railwaycat/emacsmacport"
-tap "sambadevi/powerlevel9k"
-tap "zunit-zsh/zunit"
-tap "weaveworks/tap"
-tap "aws/tap"
-tap "mongodb/brew"
-tap "elastic/tap"
-cask "java" unless system "/usr/libexec/java_home --failfast"
+tap "mas-cli/tap"
+tap "powershell/tap"
+tap "romkatv/powerlevel10k"
+
 cask "osxfuse"
-cask "movist-pro"
+
+cask "java"
+brew "javarepl"
+brew "wget"
+
+# Search tool like grep, but optimized for programmers
+brew "ack"
+# C/C++ resolver library and DNS resolver utilities
+brew "adns"
+# Official Amazon AWS command-line interface
+brew "awscli"
+brew "aws-sam-cli"
+
 # Search tool like grep, but optimized for programmers
 brew "ack"
 # C/C++ resolver library and DNS resolver utilities
@@ -31,77 +37,110 @@ brew "adns"
 brew "apm-bash-completion"
 # Apache Portable Runtime library
 brew "apr"
-# Official Amazon AWS command-line interface
-brew "awscli"
-brew "aws-sam-cli"
-brew "binutils"
-brew "diffutils"
-brew "findutils"
-# SSL/TLS cryptography library
-brew "openssl"
-brew "cocoapods"
 # GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
-# Perl compatible regular expressions library
-brew "pcre"
+# Portable Foreign Function Interface library
+brew "libffi"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# Library for command-line editing
+brew "readline"
+# Interpreted, interactive, object-oriented programming language
+brew "python"
 # Core application library for C
 brew "glib"
+brew "gcc"
+# Automatic configure script builder
+brew "autoconf"
 # Per-project, per-directory shell environments
 brew "autoenv"
 # Shell extension to jump to frequently used directories
 brew "autojump"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
 # Automatically restart SSH sessions and tunnels
 brew "autossh"
 # Text processing scripting language
 brew "awk"
-brew "gawk"
-# GNU database manager
-brew "gdbm"
-# Library for command-line editing
-brew "readline"
-# Command-line interface for SQLite
-brew "sqlite"
-# General-purpose data compression with high compression ratio
-brew "xz"
-# Interpreted, interactive, object-oriented programming language
-brew "python"
+# Use AWS IAM credentials to authenticate to Kubernetes
+brew "aws-iam-authenticator"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Programmable completion for Bash 3.2
+brew "bash-completion"
+# Programmable completion for Bash 4.1+
+brew "bash-completion@2"
+# GNU binary tools for native development
+brew "binutils"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c"
+# Collection of portable C++ source libraries
+brew "boost"
+# C++ library for C++/Python2 interoperability
+brew "boost-python"
+# Fish completion for brew-cask
+brew "brew-cask-completion"
+# Command-line interface for Cabal and Hackage
+brew "cabal-install"
 # XML-based font configuration API for X Windows
 brew "fontconfig"
 # Vector graphics library with cross-device output support
 brew "cairo"
-# GNU multiple precision arithmetic library
-brew "gmp"
-# C string library for manipulating Unicode strings
-brew "libunistring"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# GNU Emacs text editor
+brew "emacs"
 # Emacs dependency management
 brew "cask"
 # Cross-platform make
 brew "cmake"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
 # Provides SOCKS and HTTPS proxy support to SSH
 brew "connect"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Static analysis of C and C++ code
+brew "cppcheck"
 # Reimplementation of ctags(1)
 brew "ctags"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Go dependency management tool
 brew "dep"
+# File comparison utilities
+brew "diffutils"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Docgen command line tool to generate API HTML/Markdown documentation from Postman collection.
+brew "docgen"
+# Apply a diff file to an original
+brew "gpatch"
 # Debian package management system
 brew "dpkg"
-brew "ed"
-# Codegen for Echoprint
-brew "echoprint-codegen"
-# Emacs plugin using libclang to complete C/C++ code
-brew "emacs-clang-complete-async"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c"
+# Library and utilities for processing GIFs
+brew "giflib"
 # OpenType text shaping engine
 brew "harfbuzz"
+# Image manipulation library
+brew "jpeg"
+# TIFF library and utilities
+brew "libtiff"
+# Compression/decompression library aiming for high speed
+brew "snappy"
+brew "highlight"
+# Classic UNIX line editor
+brew "ed"
+# Next-gen compiler infrastructure
+brew "llvm"
+# Emacs plugin using libclang to complete C/C++ code
+brew "emacs-clang-complete-async"
+# Utility to determine file types
+brew "file-formula"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
 # Generic library support script
 brew "libtool"
 # Framework for layout and rendering of i18n text
@@ -110,104 +149,121 @@ brew "pango"
 brew "fontforge"
 # Infamous electronic fortune-cookie generator
 brew "fortune"
-# Monitor a directory for changes and run a shell command
-brew "fswatch"
+# GNU awk utility
+brew "gawk"
+# Toolkit for image loading and pixel buffer manipulation
+brew "gdk-pixbuf"
 # Distributed revision control system
-brew "git", link: false
+brew "git"
 # Stores Git credentials for Visual Studio Team Services
 brew "git-credential-manager"
 # Enable transparent encryption/decryption of files in a git repo
 brew "git-crypt"
 # AVH edition of git-flow
 brew "git-flow-avh"
+# Prevents you from committing sensitive information to a git repo
+brew "git-secrets"
 # Proxy for serving git repositories over SSH
 brew "git-ssh"
-brew "git-secrets"
+# C code prettifier
+brew "gnu-indent"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
-brew "gnu-indent"
+# GNU implementation of which utility
 brew "gnu-which"
-brew "gnutls"
-brew "grep"
-brew "gzip"
-brew "screen"
-brew "watch"
-brew "wdiff"
-brew "emacs"
-brew "gpatch"
-brew "file-formula"
 # Assuan IPC Library
 brew "libassuan"
 # GNU Pretty Good Privacy (PGP) package
-brew "gnupg", link: false
+brew "gnupg"
+# Pragmatic language for the JVM
+brew "gosu"
 # GNU PIC Utilities
 brew "gputils"
-# Smarter Dockerfile linter to validate best practices
-brew "hadolint"
-# Haskell source code suggestions
-brew "hlint"
+# GNU grep, egrep and fgrep
+brew "grep"
+# GSettings schemas for desktop components
+brew "gsettings-desktop-schemas"
+# Toolkit for creating graphical user interfaces
+brew "gtk+3"
+# Popular GNU data compression program
+brew "gzip"
+brew "libmpc"
+# Program providing model for GNU coding standards and practices
+brew "hello"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.8"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
 # Add GitHub support to git on the command-line
 brew "hub"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
+# String tool
+brew "intltool"
+# Manage your Java environment
+brew "jenv"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-brew "jenv"
 # Port-knock server
 brew "knock"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
 # Bash completion for Launchctl
 brew "launchctl-completion"
+# Graphical front-end for GCC's coverage testing tool (gcov)
+brew "lcov"
+# Pager program similar to more
 brew "less"
 # Input filter for the pager less
 brew "lesspipe"
 # Multi-format archive and compression library
 brew "libarchive"
-# Asynchronous event library
-brew "libevent"
-# International domain name library (IDNA2008, Punycode and TR46)
-brew "libidn2"
+# EXIF parsing library
+brew "libexif"
+# 2D game development library
+brew "libgosu"
 # Library for Apple Binary- and XML-Property Lists
 brew "libplist"
+# Postgres C API library
+brew "libpq"
 # C implementation of a Sass compiler
 brew "libsass"
 # C library SSHv1/SSHv2 client and server protocols
 brew "libssh"
 # YAML Parser
 brew "libyaml"
+# Macro processing language
+brew "m4"
+# Powerful, clean, object-oriented scripting language
+brew "ruby"
+# GUI for vim, made for macOS
+brew "macvim"
 # Utility for directing compilation
 brew "make"
-brew "m4"
-brew "nano"
-# Mac App Store command-line interface
-brew "mas"
-# Java-based project management
-brew "maven"
+# System to create Windows installers
+brew "makensis"
 # Scalable distributed version control system
 brew "mercurial"
 # Intercept, modify, replay, save HTTP/S traffic
 brew "mitmproxy"
-# High-performance, schema-free, document-oriented database
-brew "mongodb"
-# Cross platform, open source .NET development framework
-brew "mono"
-# A simple and efficient MsgPack binary serialization library
-brew "msgpuck"
-# https://mac.softpedia.com/get/Utilities/ncdu.shtml
+# Virtual machine for NQP and Rakudo Perl 6
+brew "moarvm"
+# Free (GNU) replacement for the Pico text editor
+brew "nano"
+# NCurses Disk Usage
 brew "ncdu"
 # Fast, highly customisable system info script
 brew "neofetch"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Command-line collection runner for Postman
+brew "newman"
 # HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
 brew "nginx"
 # Read-write NTFS driver for FUSE
 brew "ntfs-3g"
-# Swiss-army knife of markup format conversion
-brew "pandoc"
 # Pinentry for GPG on Mac
 brew "pinentry-mac"
 # Manage compile and link flags for libraries
 brew "pkg-config"
-# Object-relational database system
-brew "postgresql"
 # pgrep, pkill, and pfind for OpenBSD and Darwin (macOS)
 brew "proctools"
 # Progress: Coreutils Progress Viewer
@@ -220,6 +276,8 @@ brew "pv"
 brew "pyenv"
 # Install various Ruby versions and implementations
 brew "ruby-build"
+# Ruby version manager
+brew "rbenv"
 # Implementation of the AT&T Plan 9 shell
 brew "rc"
 # Reattach process (e.g., tmux) to background
@@ -228,8 +286,8 @@ brew "reattach-to-user-namespace"
 brew "ripgrep"
 # Utility that provides fast incremental file transfer
 brew "rsync"
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
+# Terminal multiplexer with VT100/ANSI terminal emulation
+brew "screen"
 # Airtunes emulator
 brew "shairport"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -238,6 +296,8 @@ brew "shellcheck"
 brew "shfmt"
 # Command-line interface for Spotify on a Mac
 brew "shpotify"
+# File system client based on SSH File Transfer Protocol
+brew "sshfs"
 # Bring your .bashrc, .vimrc, etc. with you when you SSH
 brew "sshrc"
 # Code-search similar to ack
@@ -252,62 +312,66 @@ brew "tree"
 brew "ttf2eot"
 # Auto-hinter for TrueType fonts
 brew "ttfautohint"
+# Utilities for interacting with PyPI
+brew "twine-pypi"
 # Vi 'workalike' with many additional features
-brew "vim", link: false
+brew "vim"
+# Manage and work with VSTS/TFS resources from the command-line
 brew "vsts-cli"
-brew "weaveworks/tap/eksctl"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Display word differences between text files
+brew "wdiff"
+# Internet file retriever
 brew "wget"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
+# JavaScript package manager
+brew "yarn"
 # GTK+ dialog boxes for the command-line
 brew "zenity"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Additional completion definitions for zsh
+brew "zsh-completions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
 # Debugger for zsh
 brew "zshdb"
-brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-history-substring-search"
-brew "zsh-syntax-highlighting"
+# AWS SAM CLI 🐿 is a tool for local development and testing of Serverless applications
+brew "aws/tap/aws-sam-cli"
+# A Zsh Theme
+brew "romkatv/powerlevel10k/powerlevel10k"
 
-# Fonts
-# A badass zsh theme with more power than a normal earthling
-brew "sambadevi/powerlevel9k/powerlevel9k"
-brew "omnisharp/omnisharp-roslyn/omnisharp"
-brew "omnisharp/omnisharp-roslyn/omnisharp-mono"
-# cask "font-fira-code"
-cask "homebrew/cask-fonts/font-fira-code"
-cask "homebrew/cask-fonts/font-hack-nerd-font"
-cask "homebrew/cask-fonts/font-inconsolata"
-cask "homebrew/cask-fonts/font-powerline-symbols"
-cask "homebrew/cask-fonts/font-source-code-pro"
-
-# Tool for automated testing of webapps across many browsers
+cask "adoptopenjdk8"
 cask "chromedriver"
-cask "alfred"
-cask "docker-toolbox"
-cask "google-drive-file-stream"
-cask "google-hangouts"
+cask "emacs-mac"
+cask "exmancmd"
+cask "gpg-suite"
+cask "gulp"
 cask "macvim"
-cask "qlcolorcode"
-cask "qlmarkdown"
-cask "qlprettypatch"
-cask "qlstephen"
-cask "quicklook-csv"
-cask "quicklook-json"
-cask "suspicious-package"
-cask "virtualbox"
-cask "webpquicklook"
-cask "railwaycat/emacsmacport/emacs-mac"
-cask "homebrew/cask-versions/adoptopenjdk8"
 
-# Pragmatic language for the JVM
-brew "gosu"
-brew "libgosu"
+# cask "font-fira-code"
+cask "font-fira-code"
+cask "font-hack-nerd-font"
+cask "font-inconsolata"
+cask "font-powerline-symbols"
+cask "font-source-code-pro"
+
+cask "movist-pro"
+cask "plistedit-pro"
+cask "oracle-jdk-javadoc"
+cask "powershell"
+cask "pycharm"
+cask "suspicious-package"
 
 mas "BetterSnapTool", id: 417375580
+mas "HP Smart", id: 1474276998
+mas "Keka", id: 470158793
 mas "Simplenote", id: 692867256
 mas "Slack", id: 803453959
 mas "Spark", id: 1176895641
 mas "Xcode", id: 497799835
-mas "YiHomeMac International", id: 1215244636
+mas "YI Home", id: 1215244636

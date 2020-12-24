@@ -12,6 +12,7 @@
 	<array>
 		<string>file:///Users/joaquin/projects/codecommit/teamgs/nomad-custom/</string>
 		<string>file:///Volumes/joaquin/projects/codecommit/vibrant/cms-old/Source/Vibrant.Framework/</string>
+		<string>file:///Users/joaquin/projects/codecommit/vibrant/</string>
 	</array>
 	<key>XtraFinder_XFAttributesMenuPlugin</key>
 	<false/>
@@ -43,16 +44,16 @@
 	<true/>
 	<key>XtraFinder_XFCopyToActionPlugin_RecentFolders</key>
 	<array>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/assets/</string>
-		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad/source/adobe-cep/com.nomad-cms.nomad-search.adobe-cep.panel/js/lib/</string>
-		<string>file:///Users/joaquin/projects/installers/</string>
-		<string>file:///Users/joaquin/Dropbox/Sublime/Packages/User/</string>
-		<string>file:///Users/joaquin/Dropbox/Sublime/Packages/</string>
-		<string>file:///Volumes/WD%20MY%20BOOK/Music/</string>
-		<string>file:///Volumes/WD%20MY%20BOOK/projects/github.com/awslabs/</string>
-		<string>file:///Volumes/WD%20MY%20BOOK/usr/local/</string>
-		<string>file:///Volumes/WD%20MY%20BOOK/usr/local/Cellar/</string>
-		<string>file:///Volumes/WD%20MY%20BOOK/</string>
+		<string>file:///Users/joaquin/jbconfig/tools/</string>
+		<string>file:///Users/joaquin/projects/</string>
+		<string>file:///Users/joaquin/projects/github.com/Joaquin6/</string>
+		<string>file:///Volumes/WD%20MY%20BOOK/projects/github.com/Joaquin6/</string>
+		<string>file:///Users/joaquin/projects/codecommit/vibrant/nomad-portal/src/assets/icons/</string>
+		<string>file:///Users/joaquin/OneDrive/</string>
+		<string>file:///Users/joaquin/projects/adobe/scripting-plug-in/</string>
+		<string>file:///Users/joaquin/projects/adobe/photoshop-scripting-plug-in/</string>
+		<string>file:///Library/Application%20Support/Adobe/Plug-Ins/CC/File%20Formats/</string>
+		<string>file:///Users/joaquin/Library/Mobile%20Documents/com~apple~CloudDocs/</string>
 	</array>
 	<key>XtraFinder_XFCutAndPastePlugin</key>
 	<true/>
@@ -105,8 +106,6 @@
 	<true/>
 	<key>XtraFinder_XFTabPlugin</key>
 	<true/>
-	<key>XtraFinder_XFTabPlugin_Browsers</key>
-	<array/>
 	<key>XtraFinder_XFTabPlugin_FillAvailableSpace</key>
 	<true/>
 	<key>XtraFinder_XFTabPlugin_HotBrowser_Slide</key>
