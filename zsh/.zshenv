@@ -5,8 +5,14 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export CLICOLOR=1
+# controls the console output
 export JB_ZSH_DEBUG=1
+# 1 to exclude from PATH env var - 0 to include into PATH env var
+export JB_ZSH_DEBUG_EXCLUDE_PATHS=0
+export JB_ZSH_DEBUG_EXCLUDE_MANPATHS=1
+export JB_ZSH_DEBUG_EXCLUDE_PKGCONFIGPATHS=0
+
+export CLICOLOR=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
 export JB_ZSH_AUTHOR=joaquin
@@ -70,7 +76,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 
 if [[ -f $USER_LIBEXEC/java_home ]]; then
     export JAVA_HOME=$USER_LIBEXEC/java_home
-    elif [[ -f $HOME/.jenv/shims/java ]]; then
+elif [[ -f $HOME/.jenv/shims/java ]]; then
     export JAVA_HOME=$HOME/.jenv/shims/java
 fi
 
@@ -101,7 +107,7 @@ if type brew &>/dev/null; then
     export BREWPREFIX=$(brew --prefix)
     export CFLAGS=-I$BREWPREFIX/include
     export FPATH=$BREWPREFIX/share/zsh/site-functions:$FPATH
-    
+
     autoload -Uz compinit
     compinit
 fi
@@ -136,12 +142,12 @@ export SSH_KNOWN_HOSTS=$SSH_PATH/known_hosts
 export AWS_CONFIG_FILE=$HOME/.aws/config
 export AWS_SHARED_CREDENTIALS_FILE=$HOME/.aws/credentials
 export AWS_DEFAULT_PROFILE=$JB_ZSH_AUTHOR
-if type aws &> /dev/null; then
+if type aws &>/dev/null; then
     export POLICYARN=$(aws iam list-policies --query 'Policies[?PolicyName==`PowerUserAccess`].{ARN:Arn}' --output text)
 fi
 
 export SAVEHIST=10000
-export HISTSIZE=$(( $SAVEHIST * 1.10 ))
+export HISTSIZE=$(($SAVEHIST * 1.10))
 export HISTCONTROL=erasedups
 export HISTFILE=$HOME/.histfile
 export BOOKMARKS_FILE=$HOME/.bookmarks

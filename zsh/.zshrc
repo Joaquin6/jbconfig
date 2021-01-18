@@ -29,7 +29,6 @@
 #	-------------------------------
 #	http://zsh.sourceforge.net/Guide/zshguide.html
 
-
 ############################################# private ##############################################
 # Set debug level. If enabled (> 0) it will print information to stderr.
 # 	0: no debug messages (Default)
@@ -40,41 +39,40 @@
 # 		sets xtrace option (set -x) while sourcing env files
 
 jb-zsh-debug() {
-  local level=${2:-1}
-  if (( JB_ZSH_DEBUG < level )); then
-    return
-  fi
-  local msg="$1"  # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
-  # Load zsh color support.
-  if [[ -z $color ]]; then
-    autoload colors
-    colors
-  fi
-  # Build $indent prefix.
-  local indent=
-  if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
-	for ((i=0; i<_jb_zsh_debug_indent; i++))
-	do
-      indent="  $indent"
-    done
-  fi
+	local level=${2:-1}
+	if ((JB_ZSH_DEBUG < level)); then
+		return
+	fi
+	local msg="$1" # Might trigger a bug in Zsh 5.0.5 with shwordsplit.
+	# Load zsh color support.
+	if [[ -z $color ]]; then
+		autoload colors
+		colors
+	fi
+	# Build $indent prefix.
+	local indent=
+	if [[ $_jb_zsh_debug_indent -gt 0 ]]; then
+		for ((i = 0; i < _jb_zsh_debug_indent; i++)); do
+			indent="  $indent"
+		done
+	fi
 
-  # Split $msg by \n (not newline).
-  local lines=(${(ps:\\n:)msg})
-  for line in "$lines"; do
-    echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
-    echo ${indent}${line} >&2
-  done
+	# Split $msg by \n (not newline).
+	local lines=($(ps:\\n:)msg)
+	for line in "$lines"; do
+		echo -n "${fg_bold[blue]}[jb-zsh-config]${fg_no_bold[default]}	" >&2
+		echo ${indent}${line} >&2
+	done
 }
 path-checker() {
 	local path2chk="$1"
 	if [ -d "$path2chk" ]; then
 		jb-zsh-debug "[PATH DEBUG]: 	Checking permissions on path $path2chk" 2
-		jb-zsh-debug "$path2chk" | sed 's/\//\n/g' \
-		| while read pathElem ; do
-		    testPath="${testPath+${testPath}/}${pathElem}"
-		    ls -ld "$testPath"
-		done
+		jb-zsh-debug "$path2chk" | sed 's/\//\n/g' |
+			while read pathElem; do
+				testPath="${testPath+${testPath}/}${pathElem}"
+				ls -ld "$testPath"
+			done
 	else
 		jb-zsh-debug "[PATH DEBUG]: 	no directory access to $path2chk"
 	fi
@@ -167,58 +165,58 @@ handle-add-pkgconfigpath() {
 		# Check if we have $JB_ZSH_DEBUG set to true
 		jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	$incoming_path doesn't exist." 2
 		# Check if brew is a command. If so, suggest installing with brew
-		if which brew &> /dev/null; then
+		if which brew &>/dev/null; then
 			jb-zsh-debug "[PKG_CONFIG_PATH DEBUG]: 	Suggestion => \"brew install $1\"" 2
 		fi
 	fi
 }
 command_exists() {
-  type "$1" &> /dev/null;
+	type "$1" &>/dev/null
 }
 reset-npm-prefix() {
-  # https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
+	# https://stackoverflow.com/questions/34718528/nvm-is-not-compatible-with-the-npm-config-prefix-option
 
-  local node_version=$(nvm version)
+	local node_version=$(nvm version)
 
-  npm config delete prefix
-  npm config set prefix $NVM_DIR/versions/node/$node_version
+	npm config delete prefix
+	npm config set prefix $NVM_DIR/versions/node/$node_version
 }
 load-user-specifics() {
 	local incoming_user=$USER
 	local machine_hostname="$(hostname -f)"
 
-  if [ -d $PWD/.git ]; then
-  	# Handle git configs
-  	if [[ $PWD == *"cattlebruisers"* ]]; then
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
+	if [ -d $PWD/.git ]; then
+		# Handle git configs
+		if [[ $PWD == *"cattlebruisers"* ]]; then
+			jb-zsh-debug "[USER DEBUG]: 	Setting \"CattleBruisers\" git configs"
 
-  		git config --local --unset user.name
-  		git config --local user.name "Joaquin Briceno"
-  		git config --local --unset user.email
-  		git config --local user.email joaquin.briceno@insitu.com
-  	elif [[ $PWD == *"machine-learning"* ]]; then
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Machine Learning\" git configs"
+			git config --local --unset user.name
+			git config --local user.name "Joaquin Briceno"
+			git config --local --unset user.email
+			git config --local user.email joaquin.briceno@insitu.com
+		elif [[ $PWD == *"machine-learning"* ]]; then
+			jb-zsh-debug "[USER DEBUG]: 	Setting \"Machine Learning\" git configs"
 
-  		git config --local --unset user.name
-  		git config --local user.name "Joaquin Briceno"
-  		git config --local --unset user.email
-  		git config --local user.email joaquin.briceno@insitu.com
-  	else
-  		jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
+			git config --local --unset user.name
+			git config --local user.name "Joaquin Briceno"
+			git config --local --unset user.email
+			git config --local user.email joaquin.briceno@insitu.com
+		else
+			jb-zsh-debug "[USER DEBUG]: 	Setting \"Joaquin6\" git configs"
 
-  		git config --local --unset user.name
-  		git config --global user.name joaquin6
-  		git config --local user.name joaquin6
-  		git config --local --unset user.email
-  		git config --global user.email joaquinbriceno1@gmail.com
-  		git config --local user.email joaquinbriceno1@gmail.com
-  	fi
-  fi
+			git config --local --unset user.name
+			git config --global user.name joaquin6
+			git config --local user.name joaquin6
+			git config --local --unset user.email
+			git config --global user.email joaquinbriceno1@gmail.com
+			git config --local user.email joaquinbriceno1@gmail.com
+		fi
+	fi
 }
 load-nvmrc() {
-	if which nvm &> /dev/null; then
+	if which nvm &>/dev/null; then
 		local node_version="$(nvm version)"
-    	local nvmrc_path="$(nvm_find_nvmrc)"
+		local nvmrc_path="$(nvm_find_nvmrc)"
 
 		if [ -n "$nvmrc_path" ]; then
 			local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
@@ -237,8 +235,8 @@ load-nvmrc() {
 
 		handle-add-path $NVM_DIR/versions/node/$node_version/bin
 	else
-    	jb-zsh-debug "[LOAD NVMRC DEBUG]: 	Can not find nvm command."
-  	fi
+		jb-zsh-debug "[LOAD NVMRC DEBUG]: 	Can not find nvm command."
+	fi
 }
 load-syntax-highlighting() {
 	local plugins=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
@@ -270,11 +268,11 @@ load-url-highlighter() {
 		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$highlighter_repo was cloned successfully" 2
 	fi
 
-  if [ ! -L $syntax_highlighting/highlighters/url ]; then
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
-	  ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
-	  jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
-  fi
+	if [ ! -L $syntax_highlighting/highlighters/url ]; then
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	linking $plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url" 2
+		ln -s $plugins/zsh-url-highlighter/url $syntax_highlighting/highlighters
+		jb-zsh-debug "[LOAD URL HIGHLIGHTER DEBUG]: 	$plugins/zsh-url-highlighter/url to $syntax_highlighting/highlighters/url linked successfully" 2
+	fi
 }
 load-mgdm-theme() {
 	local themes=$JB_ZSH_BASE/zsh/themes
@@ -294,97 +292,113 @@ load-mgdm-theme() {
 	fi
 }
 check-install() {
-	pid=$1;
-	name=$2;
+	pid=$1
+	name=$2
 
 	type -P $pid &>/dev/null && echo "- $name is already installed" || {
-	        read -p "Do you want to install $name? [y/n]: " install
-	        if [ $install == "y" ]; then
+		read -p "Do you want to install $name? [y/n]: " install
+		if [ $install == "y" ]; then
 			toinstall=("${toinstall[@]}" "$pid")
-	        fi
+		fi
 	}
 }
-
-JB_ZSH_PATHS=(
-	$ADOTDIR
-	$HOME/bin
-	$USER_BIN
-	$USER_LOCAL_BIN
-	$HOME/.cabal/bin
-	$HOME/.ghcup/bin
-	$HOME/depot_tools
-	$USER_LOCAL/Homebrew/bin
-	$USER_LOCAL_FRWKS/Python.framework/Versions/Current/bin
-	$USER_LOCAL_OPT/binutils/bin
-	$USER_LOCAL_OPT/sphinx-doc/bin
-	$USER_LOCAL_OPT/diffutils/bin
-	$USER_LOCAL_OPT/gettext/bin
-	$USER_LOCAL_OPT/llvm/bin
-	$USER_LOCAL_OPT/apr/bin
-	$USER_LOCAL_OPT/m4/bin
-	$USER_LOCAL_OPT/file-formula/bin
-	$USER_LOCAL_OPT/icu4c/bin
-	$USER_LOCAL_OPT/icu4c/sbin
-	$USER_LOCAL_OPT/libpq/bin
-	$USER_LOCAL_OPT/sqlite/bin
-	$USER_LOCAL_OPT/go/libexec/bin
-	$USER_LOCAL_OPT/libarchive/bin
-	$USER_LOCAL_OPT/openssl/bin
-	$USER_LOCAL_OPT/gnu-sed/libexec/gnubin
-	$USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-	# $USER_LOCAL_OPT/coreutils/libexec/gnubin
-	$USER_LOCAL_OPT/gnu-indent/libexec/gnubin
-	$USER_LOCAL_OPT/gnu-which/libexec/gnubin
-	$USER_LOCAL_OPT/grep/libexec/gnubin
-	# $USER_LOCAL_OPT/findutils/libexec/gnubin
-	$USER_LOCAL_OPT/go/libexec/bin
-	$USER_LOCAL_GO/bin
-	$PERL_LOCAL_LIB_ROOT/bin
-	$GOPATH/bin
-	$USER_LOCAL/bin
-	$USER_LOCAL/sbin
-	$USER_LOCAL_OPT/python/libexec/bin
-)
-
-if [[ $OSTYPE == linux* ]]; then # linux
+handle-add-mandinfo-paths() {
+	local incoming_path="$1"
+	handle-add-manpath $incoming_path
+	handle-add-infopath $incoming_path
+}
+handle-add-all-paths() {
+	local level=${1:-0}
+	if ((JB_ZSH_DEBUG_EXCLUDE_PATHS > level)); then
+		return
+	fi
+	jb-zsh-debug "[PATH DEBUG]: 	Adding PATHS" 2
 	JB_ZSH_PATHS=(
-		$HOME/linuxbrew/.linuxbrew/bin
-		$HOME/linuxbrew/.linuxbrew/Homebrew/bin
-		$JB_ZSH_PATHS
+		"${ADOTDIR}"
+		"${HOME}/bin"
+		"${USER_BIN}"
+		"${USER_LOCAL_BIN}"
+		"${HOME}/.cabal/bin"
+		"${HOME}/.ghcup/bin"
+		"${HOME}/depot_tools"
+		"${USER_LOCAL}/Homebrew/bin"
+		"${USER_LOCAL_FRWKS}/Python.framework/Versions/Current/bin"
+		"${USER_LOCAL_OPT}/binutils/bin"
+		"${USER_LOCAL_OPT}/sphinx-doc/bin"
+		"${USER_LOCAL_OPT}/diffutils/bin"
+		"${USER_LOCAL_OPT}/gettext/bin"
+		"${USER_LOCAL_OPT}/llvm/bin"
+		"${USER_LOCAL_OPT}/apr/bin"
+		"${USER_LOCAL_OPT}/m4/bin"
+		"${USER_LOCAL_OPT}/file-formula/bin"
+		"${USER_LOCAL_OPT}/icu4c/bin"
+		"${USER_LOCAL_OPT}/icu4c/sbin"
+		"${USER_LOCAL_OPT}/libpq/bin"
+		"${USER_LOCAL_OPT}/sqlite/bin"
+		"${USER_LOCAL_OPT}/go/libexec/bin"
+		"${USER_LOCAL_OPT}/libarchive/bin"
+		"${USER_LOCAL_OPT}/openssl/bin"
+		"${USER_LOCAL_OPT}/gnu-sed/libexec/gnubin"
+		"${USER_LOCAL_OPT}/gnu-tar/libexec/gnubin"
+		# "${USER_LOCAL_OPT}/coreutils/libexec/gnubin"
+		"${USER_LOCAL_OPT}/gnu-indent/libexec/gnubin"
+		"${USER_LOCAL_OPT}/gnu-which/libexec/gnubin"
+		"${USER_LOCAL_OPT}/grep/libexec/gnubin"
+		# "${USER_LOCAL_OPT}/findutils/libexec/gnubin"
+		"${USER_LOCAL_OPT}/go/libexec/bin"
+		"${USER_LOCAL_GO}/bin"
+		"${PERL_LOCAL_LIB_ROOT}/bin"
+		"${GOPATH}/bin"
+		"${USER_LOCAL}/bin"
+		"${USER_LOCAL}/sbin"
+		"${USER_LOCAL_OPT}/python/libexec/bin"
 	)
-elif [[ $OSTYPE == darwin* ]]; then # macos
-	JB_ZSH_PATHS=(
-		"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-		/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages
-		/usr/local/lib/ruby/gems/2.7.0/bin
-		$JB_ZSH_PATHS
+
+	if [[ $OSTYPE == linux* ]]; then # linux
+		JB_ZSH_PATHS=(
+			"${HOME}/linuxbrew/.linuxbrew/bin"
+			"${HOME}/linuxbrew/.linuxbrew/Homebrew/bin"
+			"${JB_ZSH_PATHS}"
+		)
+	elif [[ $OSTYPE == darwin* ]]; then # macos
+		JB_ZSH_PATHS=(
+			"/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+			"/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages"
+			"/usr/local/lib/ruby/gems/2.7.0/bin"
+			"${JB_ZSH_PATHS}"
+		)
+	fi
+
+	for jbzshpath in $JB_ZSH_PATHS; do handle-add-path $jbzshpath; done
+}
+handle-add-all-manpaths() {
+	local level=${1:-0}
+	if ((JB_ZSH_DEBUG_EXCLUDE_MANPATHS > level)); then
+		return
+	fi
+	jb-zsh-debug "[PATH DEBUG]: 	Adding MANPATHS" 2
+	JB_ZSH_MANPATHS=(
+		"${USER_LOCAL}/share/man"
+		"${USER_LOCAL_OPT}/gnu-tar/libexec/gnuman"
+		"${USER_LOCAL_OPT}/gnu-sed/libexec/gnuman"
+		# "${USER_LOCAL_OPT}/coreutils/libexec/gnuman"
 	)
-fi
 
-JB_ZSH_MANPATHS=(
-	$USER_LOCAL/share/man
-	$USER_LOCAL_OPT/gnu-tar/libexec/gnuman
-	$USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-	# $USER_LOCAL_OPT/coreutils/libexec/gnuman
-)
+	for jbzshpath in $JB_ZSH_MANPATHS; do handle-add-mandinfo-paths $jbzshpath; done
+}
+handle-add-all-pkgconfigpaths() {
+	local level=${1:-0}
+	if ((JB_ZSH_DEBUG_EXCLUDE_PKGCONFIGPATHS > level)); then
+		return
+	fi
+	jb-zsh-debug "[PATH DEBUG]: 	Adding PKGCONFIGPATHS" 2
+	JB_ZSH_PKGCONFIGPATHS=(libffi icu4c libpq sqlite libarchive openssl)
+	for jbzshpath in $JB_ZSH_PKGCONFIGPATHS; do handle-add-pkgconfigpath $jbzshpath; done
+}
 
-JB_ZSH_PKGCONFIGPATHS=(libffi icu4c libpq sqlite libarchive openssl)
-
-for jbzshpath in $JB_ZSH_PATHS
-do
-    handle-add-path $jbzshpath
-done
-
-for jbzshpath in $JB_ZSH_MANPATHS
-do
-    handle-add-manpath $jbzshpath
-    handle-add-infopath $jbzshpath
-done
-
-for jbzshpath in $JB_ZSH_PKGCONFIGPATHS
-do
-    handle-add-pkgconfigpath $jbzshpath
-done
+handle-add-all-paths
+handle-add-all-manpaths
+handle-add-all-pkgconfigpaths
 
 if ! command_exists yarn; then jb-zsh-debug "Command 'yarn' is not installed!"; fi
 if ! command_exists compctl; then jb-zsh-debug "Command 'compctl' is not installed!"; fi
@@ -401,10 +415,10 @@ if ! command_exists rbenv; then
 fi
 
 [[ -s $NVM_DIR/nvm.sh ]] && . $NVM_DIR/nvm.sh
-# [ -f $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh
+[ -f $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh ] && source $USER_LOCAL_BIN/virtualenvwrapper_lazy.sh
 [[ -s $USER_LOCAL/etc/profile.d/autojump.sh ]] && . $USER_LOCAL/etc/profile.d/autojump.sh
-[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh || \
-  [[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
+[[ -s $USER_SHARE/autojump/autojump.zsh ]] && . $USER_SHARE/autojump/autojump.zsh ||
+	[[ -s $USER_SHARE/autojump/autojump.sh ]] && . $USER_SHARE/autojump/autojump.sh
 # [[ -f $USER_LOCAL_BIN/aws_zsh_completer.sh ]] && . $USER_LOCAL_BIN/aws_zsh_completer.sh
 [[ -f $USER_LOCAL_ETC/bash_completion.d ]] && . $USER_LOCAL_ETC/bash_completion.d
 [[ -s $HOME/.iterm2/.iterm2_shell_integration.zsh ]] && . $HOME/.iterm2/.iterm2_shell_integration.zsh
