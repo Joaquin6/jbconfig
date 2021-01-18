@@ -160,38 +160,10 @@
 	"buffers":
 	[
 		{
-			"file": ".zshenv",
+			"file": "/Users/joaquin/.config/configstore/nomad-media-explorer-panel.json",
 			"settings":
 			{
-				"buffer_size": 5920,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".zshrc",
-			"settings":
-			{
-				"buffer_size": 15454,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
-			"settings":
-			{
-				"buffer_size": 10449,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/joaquin/jbconfig/tools/brew/Brewfile",
-			"settings":
-			{
-				"buffer_size": 9947,
-				"encoding": "UTF-8",
+				"buffer_size": 763,
 				"line_ending": "Unix"
 			}
 		}
@@ -208,12 +180,12 @@
 		"selected_items":
 		[
 			[
-				"diff",
-				"Diffy Compare"
-			],
-			[
 				"ins",
 				"Package Control: Install Package"
+			],
+			[
+				"diff",
+				"Diffy Compare"
 			],
 			[
 				"in",
@@ -390,26 +362,38 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/joaquin/jbconfig",
-		"/Users/joaquin/jbconfig/tools",
-		"/Users/joaquin/jbconfig/tools/brew",
-		"/Users/joaquin/jbconfig/tools/brew/Darwin",
-		"/Users/joaquin/jbconfig/zsh"
+		"/Users/joaquin/jbconfig"
 	],
 	"file_history":
 	[
+		"/Users/joaquin/jbconfig/zsh/.zshenv",
+		"/Users/joaquin/jbconfig/Makefile.in",
+		"/Users/joaquin/jbconfig/zsh/.zshrc",
+		"/Users/joaquin/jbconfig/zsh/shell/variables",
+		"/Users/joaquin/.antigen/README.mkd",
+		"/Users/joaquin/.antigen/bin/antigen.zsh",
+		"/Users/joaquin/.antigen/src/antigen.zsh",
+		"/Users/joaquin/.antigen/src/boot.zsh",
+		"/Users/joaquin/.antigen/src/lib/env-setup.zsh",
+		"/Users/joaquin/.antigen/antigen.zsh",
+		"/Users/joaquin/.antigen/src/_antigen",
+		"/Users/joaquin/.antigen/antigen.log",
+		"/Users/joaquin/.antigen/debug.log",
+		"/Users/joaquin/.antigenrc",
+		"/Users/joaquin/.oh-my-zsh/README.md",
+		"/Users/joaquin/.oh-my-zsh/cache/dotenv-allowed.list",
+		"/Users/joaquin/.oh-my-zsh/cache/grep-alias",
+		"/Users/joaquin/.oh-my-zsh/cache/dotenv-disallowed.list",
+		"/Users/joaquin/jbconfig/zsh/.zshrc2",
 		"/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
+		"/Users/joaquin/jbconfig/tools/brew/Brewfile",
 		"/Volumes/Doxygen/README.rtf",
 		"/usr/local/Homebrew/docs/Xcode.md",
-		"/Users/joaquin/jbconfig/Makefile.in",
 		"/Users/joaquin/jbconfig/tools/Brewfile",
-		"/Users/joaquin/jbconfig/tools/brew/Brewfile",
-		"/Users/joaquin/jbconfig/zsh/.zshenv",
 		"/usr/local/Homebrew/docs/Tips-N'-Tricks.md",
 		"/usr/local/Homebrew/docs/Shell-Completion.md",
 		"/usr/local/Homebrew/docs/Updating-Software-in-Homebrew.md",
 		"/usr/local/Homebrew/docs/README.md",
-		"/Users/joaquin/jbconfig/zsh/.zshrc",
 		"/private/var/folders/b0/227v0l6936s46kv6_98st4s00000gn/T/PPRO_com.nomad-cms.nomad-search.adobe-cep.panel.log",
 		"/Users/joaquin/jbconfig/tools/xtrafinder/preferences/XtraFinderPreferences.plist",
 		"/Volumes/cmdline64/README",
@@ -491,7 +475,6 @@
 		"/Users/joaquin/jbconfig/zsh/alias/index.zsh",
 		"/Users/joaquin/Dropbox/Notes/priv.note",
 		"/Users/joaquin/jbconfig/zsh/.bashrc",
-		"/Users/joaquin/jbconfig/zsh/shell/variables",
 		"/Users/joaquin/Dropbox/Notes/NGDS.note",
 		"/Users/joaquin/jbconfig/Makefile",
 		"/Users/joaquin/jbconfig/scripts/ssh/ssh-add-all.sh",
@@ -510,22 +493,7 @@
 		"/Users/joaquin/jbconfig/.gitignore",
 		"/Users/joaquin/jbconfig/zsh/.zlogin",
 		"/Users/joaquin/jbconfig/zsh/.zlogout",
-		"/Users/joaquin/jbconfig/zsh/.profile",
-		"/Users/joaquin/Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings",
-		"/Users/joaquin/.ssh/config",
-		"/Users/joaquin/.gitconfig",
-		"/Users/joaquin/projects/codecommit/vibrant/cms/.git/config",
-		"/Users/joaquin/Dropbox/Notes/MSAM Kickoff.note",
-		"/Users/joaquin/.virtualenvs/msam/pyvenv.cfg",
-		"/Users/joaquin/.virtualenvs/aws-media-services-application-mapper-OXRu-aT7/pyvenv.cfg",
-		"/Users/joaquin/projects/github.com/Joaquin6/vis/examples/network/exampleUtil.js",
-		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/BuildVars.wxi",
-		"/Users/joaquin/.virtualenvs/msam/bin/activate",
-		"/Users/joaquin/.virtualenvs/postactivate",
-		"/Users/joaquin/.virtualenvs/get_env_details",
-		"/Users/joaquin/.virtualenvs/msam/.Python",
-		"/Users/joaquin/projects/github.com/Joaquin6/vis/docs/index.html",
-		"/Users/joaquin/Documents/MSI Factory/Output/My Product Sample/Build Files/setup.wxs"
+		"/Users/joaquin/jbconfig/zsh/.profile"
 	],
 	"find":
 	{
@@ -537,6 +505,8 @@
 		"where_history":
 		[
 			"/Users/joaquin/jbconfig/zsh",
+			"/Users/joaquin/.antigen",
+			"/Users/joaquin/jbconfig/zsh",
 			"/Users/joaquin/.config/devtools/themes/zerodarkmatrix",
 			"/Users/joaquin/jbconfig/zsh"
 		]
@@ -546,6 +516,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"findutils",
+			"PKG_CONFIG_PATH",
+			"/usr/local",
+			"DEBUG",
+			"CLICOLOR",
+			"coreutils",
 			"openss",
 			"mas",
 			"bash",
@@ -667,13 +643,7 @@
 			"signinForm",
 			".jenv",
 			"'",
-			": ",
-			"\\\"",
-			":",
-			"\\\"",
-			"dark_colors.yaml",
-			"cls=",
-			"~/.config/colorls"
+			": "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -693,16 +663,16 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": ".zshenv",
+					"file": "/Users/joaquin/.config/configstore/nomad-media-explorer-panel.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5920,
+						"buffer_size": 763,
 						"regions":
 						{
 							"better_bookmarks":
@@ -718,150 +688,20 @@
 						"selection":
 						[
 							[
-								2957,
-								2957
-							],
-							[
-								3155,
-								3155
-							],
-							[
-								3584,
-								3584
-							],
-							[
-								3781,
-								3781
+								471,
+								510
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 482.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": ".zshrc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15454,
-						"regions":
-						{
-							"better_bookmarks":
-							{
-								"flags": 144,
-								"icon": "Packages/Theme - Default/common/bookmark.png",
-								"regions":
-								[
-								],
-								"scope": "string"
-							}
-						},
-						"selection":
-						[
-							[
-								12654,
-								12753
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1041.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/joaquin/jbconfig/tools/brew/Darwin/Brewfile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10449,
-						"regions":
-						{
-							"better_bookmarks":
-							{
-								"flags": 144,
-								"icon": "Packages/Theme - Default/common/bookmark.png",
-								"regions":
-								[
-								],
-								"scope": "string"
-							}
-						},
-						"selection":
-						[
-							[
-								1122,
-								1122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "/Users/joaquin/jbconfig/tools/brew/Brewfile",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9947,
-						"regions":
-						{
-							"better_bookmarks":
-							{
-								"flags": 144,
-								"icon": "Packages/Theme - Default/common/bookmark.png",
-								"regions":
-								[
-								],
-								"scope": "string"
-							}
-						},
-						"selection":
-						[
-							[
-								1624,
-								1624
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
-						},
-						"translation.x": 4.0,
-						"translation.y": 868.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -884,18 +724,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.488504978709,
 			1.0
 		],
 		"rows":
@@ -961,7 +794,7 @@
 		[
 			[
 				"",
-				"~/projects/github.com/CEP-Samples.sublime-project"
+				"~/projects/codecommit/vibrant/Nomad Portal.sublime-project"
 			]
 		],
 		"width": 380.0

@@ -47,7 +47,7 @@ antigen bundle virtualenvwrapper
 if [[ $OSTYPE == darwin* ]]; then
     antigen bundle iterm2
     antigen bundle osx
-    antigen bundle colorize
+    antigen bundle colorize 
 fi
 
 # NVM bundle

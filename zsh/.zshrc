@@ -332,11 +332,11 @@ JB_ZSH_PATHS=(
 	$USER_LOCAL_OPT/openssl/bin
 	$USER_LOCAL_OPT/gnu-sed/libexec/gnubin
 	$USER_LOCAL_OPT/gnu-tar/libexec/gnubin
-	$USER_LOCAL_OPT/coreutils/libexec/gnubin
+	# $USER_LOCAL_OPT/coreutils/libexec/gnubin
 	$USER_LOCAL_OPT/gnu-indent/libexec/gnubin
 	$USER_LOCAL_OPT/gnu-which/libexec/gnubin
 	$USER_LOCAL_OPT/grep/libexec/gnubin
-	$USER_LOCAL_OPT/findutils/libexec/gnubin
+	# $USER_LOCAL_OPT/findutils/libexec/gnubin
 	$USER_LOCAL_OPT/go/libexec/bin
 	$USER_LOCAL_GO/bin
 	$PERL_LOCAL_LIB_ROOT/bin
@@ -365,7 +365,7 @@ JB_ZSH_MANPATHS=(
 	$USER_LOCAL/share/man
 	$USER_LOCAL_OPT/gnu-tar/libexec/gnuman
 	$USER_LOCAL_OPT/gnu-sed/libexec/gnuman
-	$USER_LOCAL_OPT/coreutils/libexec/gnuman
+	# $USER_LOCAL_OPT/coreutils/libexec/gnuman
 )
 
 JB_ZSH_PKGCONFIGPATHS=(libffi icu4c libpq sqlite libarchive openssl)

@@ -5,6 +5,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+export CLICOLOR=1
 export JB_ZSH_DEBUG=1
 export AUTOENV_DEBUG=0
 export YARN_VERSION=1.16.0
@@ -48,6 +49,10 @@ export GITHUBPATH=$PROJECTS_PATH/github.com
 export GIT_USERNAME=Joaquin6
 export GIT_USER_PATH=$GITHUBPATH/$GIT_USERNAME
 
+export GUILE_LOAD_PATH=$USER_LOCAL_SHARE/guile/site/3.0
+export GUILE_LOAD_COMPILED_PATH=$USER_LOCAL_LIB/guile/3.0/site-ccache
+export GUILE_SYSTEM_EXTENSIONS_PATH=$USER_LOCAL_LIB/guile/3.0/extensions
+
 export SHELL=/bin/zsh
 export RBENV_SHELL=$SHELL
 export MANPATH=$USER_LOCAL_MAN
@@ -75,7 +80,7 @@ export PYTHONPATH=$PYTHON_VERSIONS_PATH/Current/bin
 export GCLOUD_SDK_PATH=$USER_LOCAL_SHARE/google-cloud-sdk
 export LD_LIBRARY_PATH=$MONO_PREFIX/lib:$LD_LIBRARY_PATH
 export C_INCLUDE_PATH=$MONO_PREFIX/include:$GNOME_PREFIX/include
-export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=$MONO_PREFIX/lib/pkgconfig:$GNOME_PREFIX/lib/pkgconfig:$USER_LOCAL_OPT/libffi/lib/pkgconfig:$PKG_CONFIG_PATH
 
 # NVM Env vars
 export NVM_LAZY_LOAD=true
@@ -89,8 +94,8 @@ export PAGER=less
 export TERM="xterm-256color"
 export OOO_FORCE_DESKTOP=gnome
 export ARCHFLAGS="-arch x86_64"
-export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/lib)
-export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/include)
+export LDFLAGS=(-L$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline}/lib)
+export CPPFLAGS=(-I$USER_LOCAL_OPT/{m4,binutils,diffutils,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline}/include)
 
 if type brew &>/dev/null; then
     export BREWPREFIX=$(brew --prefix)
@@ -102,8 +107,8 @@ if type brew &>/dev/null; then
 fi
 
 if [ -d $LINUXBREW_PATH ]; then
-    export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/lib $LDFLAGS)
-    export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline,coreutils}/include $CPPFLAGS)
+    export LDFLAGS=(-L$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline}/lib $LDFLAGS)
+    export CPPFLAGS=(-I$LINUXBREW_LOCAL_OPT/{m4,gettext,icu4c,libarchive,krb5,libpq,libffi,openssl,openssl@1.1,curl-openssl,portable-openssl,openldap,readline,portable-readline}/include $CPPFLAGS)
     export XDG_DATA_DIRS=$LINUXBREW_PATH/share:$XDG_DATA_DIRS
 fi
 

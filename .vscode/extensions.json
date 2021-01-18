@@ -9,6 +9,8 @@
     "beauallison.brew-services",
     "technosophos.vscode-make",
     "bmuskalla.vscode-tldr",
-    "rogalmic.zsh-debug"
+    "rogalmic.bash-debug",
+    "rogalmic.zsh-debug",
+    "lizebang.bash-extension-pack"
   ]
 }
